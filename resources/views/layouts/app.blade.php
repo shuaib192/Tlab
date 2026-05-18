@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'TLab') — Africa's Gamified STEM Platform for Kids</title>
     <meta name="description" content="@yield('description', 'TLab by Edfrica — a safe, gamified STEM learning ecosystem for African children aged 3–15.')">
-    <link rel="icon" href="/Tlab/public/images/tlab-favicon.png">
+    <link rel="icon" href="/images/tlab-favicon.png">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -200,7 +200,7 @@
 {{-- ═══ PAGE TRANSITION LOADER ════════════════════════════ --}}
 <div id="page-loader" aria-hidden="true">
     <div class="loader-logo-wrap">
-        <img src="/Tlab/public/images/tlab-logo-white.png" alt="TLab" class="h-14 w-auto">
+        <img src="/images/tlab-logo-white.png" alt="TLab" class="h-14 w-auto">
     </div>
     <div class="loader-ring"></div>
 </div>

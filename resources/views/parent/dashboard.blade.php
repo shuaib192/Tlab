@@ -9,7 +9,7 @@
         <div class="flex items-center justify-between h-18 py-4">
             {{-- Logo --}}
             <a href="{{ route('home') }}" class="flex-shrink-0" data-no-transition>
-                <img src="/Tlab/public/images/tlab-logo-color.png" alt="TLab" class="h-9 w-auto">
+                <img src="/images/tlab-logo-color.png" alt="TLab" class="h-9 w-auto">
             </a>
 
             {{-- Center label --}}

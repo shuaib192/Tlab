@@ -8,7 +8,7 @@
 {{-- Hero Section with premium background image of kids collaborating on robotics --}}
 <section class="relative min-h-[70vh] flex items-end pt-32 pb-24 overflow-hidden bg-ink">
     <div class="absolute inset-0 z-0 bg-gradient-to-br from-slate-900 to-ink">
-        <img src="/Tlab/public/images/about-hero.png"
+        <img src="/images/about-hero.png"
              alt="African children learning in classroom" class="w-full h-full object-cover opacity-90 transition-opacity duration-300"
              onload="this.classList.remove('opacity-0')" onerror="this.style.display='none'">
         <div class="absolute inset-0" style="background:linear-gradient(to top,#0F172A 25%,rgba(15,23,42,0.7) 65%,rgba(15,23,42,0.2) 100%)"></div>
@@ -79,13 +79,13 @@
 {{-- Premium split image banner showing kids programing robotics --}}
 <section class="grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden min-h-[45vh]">
     <div class="relative h-64 md:h-auto bg-gradient-to-br from-green-950 to-emerald-800">
-        <img src="/Tlab/public/images/about-split1.png"
+        <img src="/images/about-split1.png"
              alt="Children coding in STEM lab" class="w-full h-full object-cover opacity-90 transition-opacity duration-300"
              onload="this.classList.remove('opacity-0')" onerror="this.style.display='none'">
         <div class="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
     </div>
     <div class="relative h-64 md:h-auto bg-gradient-to-br from-blue-950 to-indigo-900">
-        <img src="/Tlab/public/images/about-split2.png"
+        <img src="/images/about-split2.png"
              alt="Child programing on laptop" class="w-full h-full object-cover opacity-90 transition-opacity duration-300"
              onload="this.classList.remove('opacity-0')" onerror="this.style.display='none'">
         <div class="absolute inset-0 bg-accent/10 mix-blend-multiply"></div>

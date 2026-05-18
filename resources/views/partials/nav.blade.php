@@ -7,7 +7,7 @@
                 {{-- Logo with subtle futuristic hover glow --}}
                 <a href="{{ route('home') }}" class="group relative flex items-center" data-no-transition>
                     <div class="absolute -inset-1.5 bg-gradient-to-r from-primary to-accent rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
-                    <img src="/Tlab/public/images/tlab-logo-white.png" alt="TLab" class="relative h-9 w-auto">
+                    <img src="/images/tlab-logo-white.png" alt="TLab" class="relative h-9 w-auto">
                 </a>
 
                 {{-- Interactive Nav Links --}}

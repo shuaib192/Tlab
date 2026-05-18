@@ -17,7 +17,7 @@
 
             {{-- Logo --}}
             <div class="flex justify-center mb-8">
-                <img src="/Tlab/public/images/tlab-logo-color.png" alt="TLab" class="h-10 w-auto">
+                <img src="/images/tlab-logo-color.png" alt="TLab" class="h-10 w-auto">
             </div>
 
             {{-- Icon --}}

@@ -8,7 +8,7 @@
 {{-- Hero with background image --}}
 <section class="relative min-h-[55vh] flex items-end pt-20 overflow-hidden bg-ink">
     <div class="absolute inset-0 z-0 bg-gradient-to-br from-slate-900 to-indigo-950">
-        <img src="/Tlab/public/images/membership-hero.png"
+        <img src="/images/membership-hero.png"
              alt="African children studying" class="w-full h-full object-cover opacity-90 transition-opacity duration-300"
              onload="this.classList.remove('opacity-0')" onerror="this.style.display='none'">
         <div class="absolute inset-0" style="background:linear-gradient(to top,#0F172A 35%,rgba(15,23,42,0.6) 70%,rgba(15,23,42,0.2) 100%)"></div>

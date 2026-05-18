@@ -9,7 +9,7 @@
 {{-- HERO --}}
 <section class="relative min-h-[92vh] flex items-center pt-24 overflow-hidden bg-ink">
     <div class="absolute inset-0 z-0">
-        <img src="/Tlab/public/images/hero-bg.png"
+        <img src="/images/hero-bg.png"
              alt="African children learning robotics" class="w-full h-full object-cover opacity-25"
              onload="this.classList.remove('opacity-0')" onerror="this.style.display='none'">
         <div class="absolute inset-0" style="background:linear-gradient(100deg,#0F172A 45%,rgba(15,23,42,0.6) 75%,transparent 100%)"></div>
@@ -129,10 +129,10 @@
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
             @foreach([
-                ['STEM Club',    'linear-gradient(135deg,rgba(5,46,22,0.95),rgba(20,83,45,0.95),rgba(22,163,74,0.9))', '#4ade80', 'Ages 7–15', 'Most Popular', 'Python, Robotics, Scratch & Science. Kids build real things.', ['Python','Robotics','Scratch','Science Lab'], 'stem-club', '/Tlab/public/images/club-stem.png'],
-                ['Brain Club',   'linear-gradient(135deg,rgba(30,27,75,0.95),rgba(29,78,216,0.95),rgba(59,130,246,0.9))', '#93c5fd', 'Ages 5–15', '', 'Math Olympiad, logic puzzles & strategy that sharpens young minds.', ['Math Olympiad','Logic','Chess','IQ Training'], 'brain-club', '/Tlab/public/images/club-brain.png'],
-                ['Art & Craft',  'linear-gradient(135deg,rgba(67,20,7,0.95),rgba(194,75,28,0.95),rgba(249,115,22,0.9))', '#fdba74', 'Ages 3–12', 'Great for Beginners', 'Digital design, Lego storytelling, animation & creative expression.', ['Canva','Animation','Illustration','Storytelling'], 'art-craft', '/Tlab/public/images/club-art.png'],
-                ['Leadership',   'linear-gradient(135deg,rgba(46,16,101,0.95),rgba(109,40,217,0.95),rgba(168,85,247,0.9))', '#d8b4fe', 'Ages 8–15', '', 'Debate, entrepreneurship & public speaking for tomorrow\'s leaders.', ['Debate','Public Speaking','Entrepreneurship','Confidence'], 'leadership', '/Tlab/public/images/club-leadership.png'],
+                ['STEM Club',    'linear-gradient(135deg,rgba(5,46,22,0.95),rgba(20,83,45,0.95),rgba(22,163,74,0.9))', '#4ade80', 'Ages 7–15', 'Most Popular', 'Python, Robotics, Scratch & Science. Kids build real things.', ['Python','Robotics','Scratch','Science Lab'], 'stem-club', '/images/club-stem.png'],
+                ['Brain Club',   'linear-gradient(135deg,rgba(30,27,75,0.95),rgba(29,78,216,0.95),rgba(59,130,246,0.9))', '#93c5fd', 'Ages 5–15', '', 'Math Olympiad, logic puzzles & strategy that sharpens young minds.', ['Math Olympiad','Logic','Chess','IQ Training'], 'brain-club', '/images/club-brain.png'],
+                ['Art & Craft',  'linear-gradient(135deg,rgba(67,20,7,0.95),rgba(194,75,28,0.95),rgba(249,115,22,0.9))', '#fdba74', 'Ages 3–12', 'Great for Beginners', 'Digital design, Lego storytelling, animation & creative expression.', ['Canva','Animation','Illustration','Storytelling'], 'art-craft', '/images/club-art.png'],
+                ['Leadership',   'linear-gradient(135deg,rgba(46,16,101,0.95),rgba(109,40,217,0.95),rgba(168,85,247,0.9))', '#d8b4fe', 'Ages 8–15', '', 'Debate, entrepreneurship & public speaking for tomorrow\'s leaders.', ['Debate','Public Speaking','Entrepreneurship','Confidence'], 'leadership', '/images/club-leadership.png'],
             ] as [$name,$grad,$glow,$ages,$badge,$desc,$tags,$slug,$img])
             <div class="relative overflow-hidden group cursor-pointer reveal min-h-[380px] shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)]" 
                  style="border-top-left-radius: 4rem; border-bottom-right-radius: 4rem; border-top-right-radius: 0.5rem; border-bottom-left-radius: 0.5rem;">

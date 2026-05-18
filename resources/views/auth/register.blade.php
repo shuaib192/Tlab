@@ -18,7 +18,7 @@
         <div class="absolute w-[400px] h-[400px] rounded-full blur-3xl opacity-20 -top-20 -left-20" style="background:#4ade80"></div>
         <div class="absolute w-80 h-80 rounded-full blur-3xl opacity-15 bottom-20 right-10" style="background:#a855f7"></div>
         <div class="relative z-10">
-            <img src="/Tlab/public/images/tlab-logo-white.png" alt="TLab" class="h-10 w-auto">
+            <img src="/images/tlab-logo-white.png" alt="TLab" class="h-10 w-auto">
         </div>
         <div class="relative z-10">
             <h2 class="font-black text-5xl text-white leading-[1.1] mb-8">
@@ -52,7 +52,7 @@
     <div class="flex-1 flex items-center justify-center p-6 sm:p-12 bg-white overflow-y-auto">
         <div class="w-full max-w-md py-8">
             <div class="lg:hidden mb-8">
-                <img src="/Tlab/public/images/tlab-logo-color.png" alt="TLab" class="h-9 w-auto">
+                <img src="/images/tlab-logo-color.png" alt="TLab" class="h-9 w-auto">
             </div>
             <h1 class="font-black text-3xl sm:text-4xl text-ink mb-1.5">Create your account</h1>
             <p class="text-muted font-semibold text-sm mb-8">Join as a parent and manage your child's learning.</p>
@@ -63,7 +63,7 @@
 
             {{-- Edfrica SSO --}}
             <a href="{{ route('auth.edfrica') }}" class="btn-edfrica mb-6">
-                <img src="/Tlab/public/images/edfrica-logo.png" alt="Edfrica" class="h-6 w-6 rounded object-contain flex-shrink-0">
+                <img src="/images/edfrica-logo.png" alt="Edfrica" class="h-6 w-6 rounded object-contain flex-shrink-0">
                 <span class="flex-1 text-center">Sign up with Edfrica</span>
                 <svg class="w-4 h-4 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </a>

@@ -2,7 +2,7 @@
 <footer class="bg-ink text-white pt-16 pb-8 px-4 sm:px-6 border-t border-white/10">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
         <div class="md:col-span-2">
-            <img src="/Tlab/public/images/tlab-logo-white.png" alt="TLab" class="h-10 w-auto mb-5">
+            <img src="/images/tlab-logo-white.png" alt="TLab" class="h-10 w-auto mb-5">
             <p class="text-white/50 font-semibold text-sm leading-relaxed max-w-sm mb-6">Africa's premier gamified STEM ecosystem. Safe, immersive, parent-controlled learning for children aged 3–15.</p>
         </div>
         <div>
