@@ -28,7 +28,7 @@ class EdfricaOAuthController extends Controller
             'client_id'     => env('EDFRICA_CLIENT_ID'),
             'redirect_uri'  => route('auth.edfrica.callback'),
             'response_type' => 'code',
-            'scope'         => 'openid profile email',
+            'scope'         => '',
             'state'         => $state,
         ]);
 
