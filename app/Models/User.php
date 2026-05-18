@@ -41,7 +41,7 @@ class User extends Authenticatable
 
     public function isParent()
     {
-        return in_array($this->role, ['parent', 'entrepreneur', 'aider']) || empty($this->role);
+        return in_array($this->role, ['parent', 'entrepreneur', 'aider', 'admin', 'super_admin']) || empty($this->role);
     }
 
     public function isTeacher()
