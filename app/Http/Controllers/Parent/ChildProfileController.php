@@ -1,0 +1,100 @@
+<?php
+
+namespace App\Http\Controllers\Parent;
+
+use App\Http\Controllers\Controller;
+use App\Models\ChildProfile;
+use Illuminate\Http\Request;
+
+class ChildProfileController extends Controller
+{
+    public function index()
+    {
+        $children = auth()->user()->children()->latest()->get();
+        return view('parent.children.index', compact('children'));
+    }
+
+    public function create()
+    {
+        return view('parent.children.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name'        => 'required|string|max:100',
+            'dob'         => 'required|date|before:today',
+            'gender'      => 'required|in:male,female,prefer_not_to_say',
+            'interests'   => 'nullable|array',
+            'skill_level' => 'nullable|in:beginner,intermediate,advanced',
+            'pin'         => 'nullable|digits:4',
+        ]);
+
+        $child = auth()->user()->children()->create([
+            'name'        => $request->name,
+            'dob'         => $request->dob,
+            'gender'      => $request->gender,
+            'interests'   => $request->interests ?? [],
+            'skill_level' => $request->skill_level ?? 'beginner',
+            'pin'         => $request->pin,
+        ]);
+
+        return redirect()->route('parent.dashboard')
+            ->with('success', "🎉 {$child->name}'s profile has been created! Ready to explore TLab clubs.");
+    }
+
+    public function show(ChildProfile $child)
+    {
+        $this->authorizeChild($child);
+        $xpLogs     = $child->xpLogs()->latest()->take(10)->get();
+        $enrollments = $child->enrollments()->with('course.club')->get();
+        return view('parent.children.show', compact('child', 'xpLogs', 'enrollments'));
+    }
+
+    public function edit(ChildProfile $child)
+    {
+        $this->authorizeChild($child);
+        return view('parent.children.edit', compact('child'));
+    }
+
+    public function update(Request $request, ChildProfile $child)
+    {
+        $this->authorizeChild($child);
+        $request->validate([
+            'name'        => 'required|string|max:100',
+            'dob'         => 'required|date|before:today',
+            'gender'      => 'required|in:male,female,prefer_not_to_say',
+            'interests'   => 'nullable|array',
+            'skill_level' => 'nullable|in:beginner,intermediate,advanced',
+            'pin'         => 'nullable|digits:4',
+        ]);
+
+        $child->update($request->only('name','dob','gender','interests','skill_level','pin'));
+
+        return redirect()->route('parent.children.show', $child)
+            ->with('success', "Profile updated successfully.");
+    }
+
+    public function destroy(ChildProfile $child)
+    {
+        $this->authorizeChild($child);
+        $name = $child->name;
+        $child->delete();
+        return redirect()->route('parent.dashboard')
+            ->with('success', "{$name}'s profile has been removed.");
+    }
+
+    public function switchChild(ChildProfile $child)
+    {
+        $this->authorizeChild($child);
+        session(['active_child_id' => $child->id]);
+        return redirect()->route('child.dashboard');
+    }
+
+    protected function authorizeChild(ChildProfile $child)
+    {
+        if ($child->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+    }
+}
