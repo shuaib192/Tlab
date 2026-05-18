@@ -41,6 +41,12 @@ class EdfricaOAuthController extends Controller
     public function callback(Request $request)
     {
         // CSRF state check
+        \Illuminate\Support\Facades\Log::info('OAuth Callback Hit', [
+            'request_state' => $request->state,
+            'session_state' => session('oauth_state'),
+            'session_id'    => session()->getId()
+        ]);
+
         if ($request->state !== session('oauth_state')) {
             return redirect()->route('login')->with('error', 'Invalid OAuth state. Please try again.');
         }
