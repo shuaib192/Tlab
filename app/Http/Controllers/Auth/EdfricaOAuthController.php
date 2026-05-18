@@ -42,6 +42,8 @@ class EdfricaOAuthController extends Controller
     {
         // CSRF state check
         \Illuminate\Support\Facades\Log::info('OAuth Callback Hit', [
+            'full_url'      => $request->fullUrl(),
+            'query_params'  => $request->query(),
             'request_state' => $request->state,
             'session_state' => session('oauth_state'),
             'session_id'    => session()->getId()
