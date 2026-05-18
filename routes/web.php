@@ -30,8 +30,8 @@ Route::get('/auth/edfrica/callback', [\App\Http\Controllers\Auth\EdfricaOAuthCon
 Route::middleware('guest')->group(function () {
     Route::get('/login',          [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login',         [LoginController::class, 'login']);
-    Route::get('/register',       [RegisterController::class, 'showRegisterForm'])->name('register');
-    Route::post('/register',      [RegisterController::class, 'register']);
+    Route::get('/signup',       [RegisterController::class, 'showRegisterForm'])->name('register');
+    Route::post('/signup',      [RegisterController::class, 'register']);
     Route::get('/forgot-password',[PasswordController::class, 'showForgotForm'])->name('password.request');
     Route::post('/forgot-password',[PasswordController::class, 'sendResetCode'])->name('password.email');
     Route::get('/reset-password', [PasswordController::class, 'showResetForm'])->name('password.reset');
