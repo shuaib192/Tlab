@@ -97,3 +97,4 @@ class EdfricaOAuthController extends Controller
         return redirect()->intended(route('parent.dashboard'));
     }
 }
+

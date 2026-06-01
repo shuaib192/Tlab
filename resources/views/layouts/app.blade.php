@@ -186,8 +186,12 @@
         #mobile-nav.open { max-height:600px; }
 
         /* ─── Scroll Reveal ──────────────────────────────── */
-        .reveal { opacity:0; transform:translateY(20px); }
-        .reveal.in { opacity:1; transform:none; transition:opacity .22s ease, transform .22s ease; }
+        .reveal { opacity: 0; transform: translateY(12px); will-change: transform, opacity; }
+        .reveal.in { 
+            opacity: 1; 
+            transform: translateY(0); 
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
 
         /* ─── Section Utilities ──────────────────────────── */
         .section-tag { font-size:0.78rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; }
@@ -238,15 +242,15 @@ if (hamburger && mobileNav) {
 
 // ─── Scroll Reveal ────────────────────────────────────────
 const observer = new IntersectionObserver((entries) => {
-    entries.forEach((en, i) => {
+    entries.forEach((en) => {
         if (en.isIntersecting) {
-            setTimeout(() => en.target.classList.add('in'), (parseInt(en.target.dataset.delay) || 0));
+            const delay = parseInt(en.target.getAttribute('data-delay')) || 0;
+            setTimeout(() => en.target.classList.add('in'), delay);
             observer.unobserve(en.target);
         }
     });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach((el, i) => {
-    el.dataset.delay = i * 70;
+}, { threshold: 0.05 });
+document.querySelectorAll('.reveal').forEach((el) => {
     observer.observe(el);
 });
 </script>
