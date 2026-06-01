@@ -49,7 +49,7 @@
             position:fixed; inset:0; z-index:9999;
             display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px;
             background:linear-gradient(135deg,#0F172A 0%,#1a2744 50%,#0F172A 100%);
-            transition:opacity .45s ease, visibility .45s ease;
+            transition:opacity .2s ease, visibility .2s ease;
         }
         #page-loader.out { opacity:0; visibility:hidden; }
         .loader-ring {
@@ -211,8 +211,11 @@
 
 <script>
 // ─── Hide loader on page ready ───────────────────────────
-window.addEventListener('load', () => {
-    setTimeout(() => document.getElementById('page-loader').classList.add('out'), 600);
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        const loader = document.getElementById('page-loader');
+        if (loader) loader.classList.add('out');
+    }, 100);
 });
 
 // ─── Show loader on every internal navigation ─────────────
@@ -222,9 +225,8 @@ document.addEventListener('click', (e) => {
     const href = a.getAttribute('href');
     if (!href || href.startsWith('#') || href.startsWith('javascript') || a.target === '_blank' || a.dataset.noTransition !== undefined) return;
     if (e.ctrlKey || e.metaKey || e.shiftKey) return; // allow open-in-new-tab
-    e.preventDefault();
-    document.getElementById('page-loader').classList.remove('out');
-    setTimeout(() => { window.location.href = href; }, 420);
+    const loader = document.getElementById('page-loader');
+    if (loader) loader.classList.remove('out');
 });
 
 // ─── Mobile nav toggle ────────────────────────────────────
