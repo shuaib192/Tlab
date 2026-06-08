@@ -26,11 +26,16 @@ echo ">>> Clearing caches..."
 php artisan config:clear
 php artisan view:clear
 php artisan cache:clear
+php artisan route:clear
 
 echo ">>> Fixing storage link..."
 if [ -L public/storage ]; then
     rm public/storage
 fi
 php artisan storage:link
+
+echo ">>> Optimizing for production..."
+php artisan optimize
+php artisan event:cache
 
 echo ">>> Server setup complete!"

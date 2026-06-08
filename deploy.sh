@@ -5,7 +5,7 @@ USER="dadeggbt"
 HOST="199.188.201.180"
 PORT="21098"
 KEY="/Users/bigdaddy/.ssh/namecheap_migration_key"
-TARGET="~/edfrica.org"
+TARGET="~/tlab.edfrica.org"
 
 echo ">>> Syncing CODE files to Namecheap..."
 rsync -avz -e "ssh -o StrictHostKeyChecking=no -i $KEY -p $PORT" \
