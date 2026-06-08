@@ -12,9 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('edfrica_id')->unique()->nullable()->after('id');
-            $table->string('role')->default('parent')->after('email'); // parent, teacher, school_admin, super_admin
-            $table->string('avatar')->nullable();
+            if (!Schema::hasColumn('users', 'edfrica_id')) {
+                $table->unsignedBigInteger('edfrica_id')->unique()->nullable()->after('id');
+            }
+            if (!Schema::hasColumn('users', 'role')) {
+                $table->string('role')->default('parent')->after('email');
+            }
+            if (!Schema::hasColumn('users', 'avatar')) {
+                $table->string('avatar')->nullable();
+            }
         });
     }
 
