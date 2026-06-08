@@ -2,7 +2,13 @@
 @section('title', 'Create Your Account')
 
 @section('content')
+@push('styles')
+<link rel="stylesheet" href="/css/register.css">
+@endpush
 
+@push('scripts')
+<script src="/js/register.js"></script>
+@endpush
 {{-- Back Home --}}
 <a href="{{ route('home') }}"
    class="fixed top-5 left-5 z-50 flex items-center gap-2 text-xs font-black tracking-wider uppercase px-4 py-2 rounded-full"
@@ -11,10 +17,11 @@
     Home
 </a>
 
+
+
 <div class="min-h-screen flex">
     {{-- Left Panel --}}
-    <div class="hidden lg:flex flex-col justify-between w-[45%] relative overflow-hidden p-14"
-         style="background:linear-gradient(145deg,#052e16 0%,#14532d 55%,#166534 100%)">
+    <div class="hidden lg:flex flex-col justify-between w-[45%] relative overflow-hidden p-14 left-panel">
         <div class="absolute w-[400px] h-[400px] rounded-full blur-3xl opacity-20 -top-20 -left-20" style="background:#4ade80"></div>
         <div class="absolute w-80 h-80 rounded-full blur-3xl opacity-15 bottom-20 right-10" style="background:#a855f7"></div>
         <div class="relative z-10">
@@ -50,7 +57,7 @@
 
     {{-- Right: Form --}}
     <div class="flex-1 flex items-center justify-center p-6 sm:p-12 bg-white overflow-y-auto">
-        <div class="w-full max-w-md py-8">
+        <div class="w-full max-w-md py-8 register-container form-fade">
             <div class="lg:hidden mb-8">
                 <img src="/images/tlab-logo-color.png" alt="TLab" class="h-9 w-auto">
             </div>
