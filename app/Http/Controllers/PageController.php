@@ -103,7 +103,7 @@ class PageController extends Controller
 
     public function membership()
     {
-        return view('pages.membership');
+        return view('pricing');
     }
 
     public function contact()
