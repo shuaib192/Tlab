@@ -55,7 +55,7 @@
                             </div>
                             <div>
                                 <div class="text-muted text-[0.62rem] font-black uppercase tracking-wider">Phone Lines</div>
-                                <div class="font-semibold text-xs text-ink mt-0.5 leading-relaxed">+234 (0) 803 123 4567<br>+234 (0) 805 987 6543</div>
+                                <div class="font-semibold text-xs text-ink mt-0.5 leading-relaxed">0808 485 2235</div>
                             </div>
                         </div>
 
@@ -67,7 +67,7 @@
                             </div>
                             <div>
                                 <div class="text-muted text-[0.62rem] font-black uppercase tracking-wider">Email Support</div>
-                                <div class="font-semibold text-xs text-ink mt-0.5 leading-relaxed">admissions@tlab.ng<br>support@edfrica.org</div>
+                                <div class="font-semibold text-xs text-ink mt-0.5 leading-relaxed">admission@tlab.edfrica.org<br>contact@tlab.edfrica.org</div>
                             </div>
                         </div>
 
@@ -79,7 +79,7 @@
                             </div>
                             <div>
                                 <div class="text-muted text-[0.62rem] font-black uppercase tracking-wider">WhatsApp</div>
-                                <a href="https://wa.me/2348031234567" target="_blank" class="font-semibold text-xs text-primary hover:underline mt-0.5 leading-relaxed block">Chat with Admissions</a>
+                                <a href="https://wa.me/2348084852235" target="_blank" class="font-semibold text-xs text-primary hover:underline mt-0.5 leading-relaxed block">Chat with Admissions</a>
                             </div>
                         </div>
 
