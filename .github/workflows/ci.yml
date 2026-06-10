@@ -73,7 +73,7 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT || '22' }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
           DEPLOY_PATH: ${{ secrets.STAGING_PATH }}
         run: |
@@ -81,9 +81,9 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           rsync -avz --delete --exclude='.env' --exclude='.git' --exclude='node_modules' --exclude='storage' \
-            -e "ssh -p $DEPLOY_PORT -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            -e "ssh -p ${DEPLOY_PORT} -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
             ./ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/
-          ssh -p $DEPLOY_PORT -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+          ssh -p ${DEPLOY_PORT} -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
             $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && php artisan migrate --force && php artisan optimize:clear && touch public/index.php"
 
   deploy-production:
@@ -96,7 +96,7 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT || '22' }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
           DEPLOY_PATH: ${{ secrets.PROD_PATH }}
         run: |
@@ -104,7 +104,7 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           rsync -avz --delete --exclude='.env' --exclude='.git' --exclude='node_modules' --exclude='storage' \
-            -e "ssh -p $DEPLOY_PORT -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            -e "ssh -p ${DEPLOY_PORT} -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
             ./ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/
-          ssh -p $DEPLOY_PORT -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+          ssh -p ${DEPLOY_PORT} -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
             $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && php artisan migrate --force && php artisan optimize:clear && touch public/index.php"

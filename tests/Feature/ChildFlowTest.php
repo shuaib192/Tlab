@@ -6,6 +6,7 @@ use App\Models\ChildProfile;
 use App\Models\Course;
 use App\Models\Enrollment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 
 class ChildFlowTest extends TestCase
 {
@@ -16,7 +17,7 @@ class ChildFlowTest extends TestCase
         $user = User::factory()->create(['role' => 'parent']);
         $child = ChildProfile::factory()->create([
             'user_id' => $user->id,
-            'pin' => '1234',
+            'pin' => Hash::make('1234'),
             'pin_enabled' => true,
         ]);
 

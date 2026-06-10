@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class ChildProfile extends Model
 {
@@ -92,7 +93,17 @@ class ChildProfile extends Model
 
     public function verifyPin(string $pin): bool
     {
-        return $this->pin_enabled && $this->pin === $pin;
+        if (!$this->pin_enabled || !$this->pin) {
+            return false;
+        }
+        if (Hash::check($pin, $this->pin)) {
+            return true;
+        }
+        if ($this->pin === $pin) {
+            $this->update(['pin' => Hash::make($pin)]);
+            return true;
+        }
+        return false;
     }
 
     public function awardXp(int $amount, string $activity)

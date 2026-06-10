@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Parent;
 use App\Http\Controllers\Controller;
 use App\Models\ChildProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ChildProfileController extends Controller
 {
@@ -39,7 +40,7 @@ class ChildProfileController extends Controller
             'gender'      => $request->gender,
             'interests'   => $request->interests ?? [],
             'skill_level' => $request->skill_level ?? 'beginner',
-            'pin'         => $request->pin,
+            'pin'         => $request->pin ? Hash::make($request->pin) : null,
             'pin_enabled' => $request->boolean('pin_enabled'),
         ]);
 
@@ -75,7 +76,11 @@ class ChildProfileController extends Controller
             'pin_enabled' => 'nullable|boolean',
         ]);
 
-        $child->update($request->only('name','username','dob','gender','interests','skill_level','pin'));
+        $data = $request->only('name','username','dob','gender','interests','skill_level');
+        if ($request->filled('pin')) {
+            $data['pin'] = Hash::make($request->pin);
+        }
+        $child->update($data);
         $child->update(['pin_enabled' => $request->boolean('pin_enabled')]);
 
         return redirect()->route('parent.children.show', $child)
