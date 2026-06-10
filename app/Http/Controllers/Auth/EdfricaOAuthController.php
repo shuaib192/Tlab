@@ -13,7 +13,7 @@ class EdfricaOAuthController extends Controller
 {
     private function authUrl(): string
     {
-        return rtrim(config('services.edfrica.auth_url', env('EDFRICA_AUTH_URL')), '/');
+        return rtrim(config('services.edfrica.url', 'https://auth.edfrica.org'), '/');
     }
 
     /**
