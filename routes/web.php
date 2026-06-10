@@ -52,6 +52,12 @@ Route::middleware(['auth', 'parent'])->prefix('parent')->name('parent.')->group(
     Route::put('/children/{child}',   [ChildProfileController::class, 'update'])->name('children.update');
     Route::delete('/children/{child}',[ChildProfileController::class, 'destroy'])->name('children.destroy');
     Route::get('/switch/{child}',     [ChildProfileController::class, 'switchChild'])->name('children.switch');
+
+    // Course Catalog & Enrollment
+    Route::get('/courses',           [\App\Http\Controllers\Parent\CourseController::class, 'index'])->name('courses.index');
+    Route::get('/courses/{club}',    [\App\Http\Controllers\Parent\CourseController::class, 'show'])->name('courses.show');
+    Route::get('/courses/{course}/enroll', [\App\Http\Controllers\Parent\CourseController::class, 'enrollForm'])->name('courses.enroll');
+    Route::post('/courses/{course}/enroll', [\App\Http\Controllers\Parent\CourseController::class, 'enroll'])->name('courses.enroll.submit');
 });
 
 // --- Child Dashboard (accessed via parent switch OR child PIN login) ---
@@ -61,6 +67,24 @@ Route::prefix('child')->name('child.')->group(function () {
     Route::post('/logout',   [\App\Http\Controllers\Child\AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [ChildDashboardController::class, 'index'])->name('dashboard')
         ->middleware('child');
+
+    Route::get('/course/{enrollment}',  [\App\Http\Controllers\Child\LearningController::class, 'course'])->name('course');
+    Route::get('/lesson/{lesson}',      [\App\Http\Controllers\Child\LearningController::class, 'lesson'])->name('lesson');
+    Route::get('/assessment/{assessment}', [\App\Http\Controllers\Child\LearningController::class, 'assessment'])->name('assessment');
+    Route::post('/assessment/{assessment}', [\App\Http\Controllers\Child\LearningController::class, 'submitAssessment'])->name('assessment.submit');
+});
+
+// --- Teacher Portal ---
+Route::middleware(['auth', 'teacher'])->prefix('teacher')->name('teacher.')->group(function () {
+    Route::get('/dashboard',              [\App\Http\Controllers\Teacher\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/courses/{course}',       [\App\Http\Controllers\Teacher\DashboardController::class, 'course'])->name('course');
+    Route::get('/cohorts/{cohort}',       [\App\Http\Controllers\Teacher\DashboardController::class, 'cohort'])->name('cohort');
+    Route::get('/sessions/{session}',     [\App\Http\Controllers\Teacher\DashboardController::class, 'session'])->name('session');
+    Route::post('/sessions/{session}/attendance', [\App\Http\Controllers\Teacher\DashboardController::class, 'markAttendance'])->name('session.attendance');
+    Route::get('/courses/{course}/assignments', [\App\Http\Controllers\Teacher\DashboardController::class, 'assignments'])->name('assignments');
+    Route::get('/assignments/{assignment}/grade', [\App\Http\Controllers\Teacher\DashboardController::class, 'grade'])->name('grade');
+    Route::post('/submissions/{submission}/grade', [\App\Http\Controllers\Teacher\DashboardController::class, 'submitGrade'])->name('grade.submit');
+    Route::post('/children/{child}/award-xp', [\App\Http\Controllers\Teacher\DashboardController::class, 'awardXp'])->name('award-xp');
 });
 
 // --- Admin Panel ---

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Child;
 
 use App\Http\Controllers\Controller;
+use App\Models\AssessmentAttempt;
 use App\Models\ChildProfile;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,7 @@ class DashboardController extends Controller
 
         $child = ChildProfile::with([
             'enrollments.course.club',
+            'enrollments.course.modules.lessons.assessment',
             'xpLogs' => fn($q) => $q->latest()->take(5),
         ])->findOrFail($childId);
 
@@ -31,6 +33,11 @@ class DashboardController extends Controller
 
         $isChildAuth = session('child_authenticated', false);
 
-        return view('child.dashboard', compact('child', 'leaderboard', 'isChildAuth'));
+        $completedAssessmentIds = AssessmentAttempt::where('child_profile_id', $child->id)
+            ->where('status', 'passed')
+            ->pluck('assessment_id')
+            ->toArray();
+
+        return view('child.dashboard', compact('child', 'leaderboard', 'isChildAuth', 'completedAssessmentIds'));
     }
 }
