@@ -54,16 +54,13 @@ Route::middleware(['auth', 'parent'])->prefix('parent')->name('parent.')->group(
     Route::get('/switch/{child}',     [ChildProfileController::class, 'switchChild'])->name('children.switch');
 });
 
-// --- Child Dashboard (accessed via parent session after switch) ---
-Route::middleware(['auth', 'parent'])->prefix('child')->name('child.')->group(function () {
-    Route::get('/dashboard', [ChildDashboardController::class, 'index'])->name('dashboard');
-});
-
-// --- Child PIN Login (standalone child access) ---
+// --- Child Dashboard (accessed via parent switch OR child PIN login) ---
 Route::prefix('child')->name('child.')->group(function () {
-    Route::get('/login',  [\App\Http\Controllers\Child\AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [\App\Http\Controllers\Child\AuthController::class, 'login'])->name('login.submit');
-    Route::post('/logout', [\App\Http\Controllers\Child\AuthController::class, 'logout'])->name('logout');
+    Route::get('/login',     [\App\Http\Controllers\Child\AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login',    [\App\Http\Controllers\Child\AuthController::class, 'login'])->name('login.submit');
+    Route::post('/logout',   [\App\Http\Controllers\Child\AuthController::class, 'logout'])->name('logout');
+    Route::get('/dashboard', [ChildDashboardController::class, 'index'])->name('dashboard')
+        ->middleware('child');
 });
 
 // --- Admin Panel ---

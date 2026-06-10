@@ -44,17 +44,6 @@
         <form method="POST" action="{{ route('parent.children.store') }}" class="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8 space-y-7">
             @csrf
 
-            {{-- Step indicator --}}
-            <div class="flex items-center justify-between mb-2">
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-primary"></span>
-                    <span class="w-2 h-2 rounded-full bg-gray-200"></span>
-                    <span class="w-2 h-2 rounded-full bg-gray-200"></span>
-                    <span class="w-2 h-2 rounded-full bg-gray-200"></span>
-                </div>
-                <span class="text-xs font-bold text-muted">Step 1 of 4</span>
-            </div>
-
             {{-- Section: Basic Info --}}
             <div>
                 <div class="flex items-center gap-3 mb-5">

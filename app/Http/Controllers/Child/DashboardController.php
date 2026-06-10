@@ -20,8 +20,8 @@ class DashboardController extends Controller
             'xpLogs' => fn($q) => $q->latest()->take(5),
         ])->findOrFail($childId);
 
-        // Security: if parent-authenticated, verify ownership
-        if (!session('child_authenticated') && $child->user_id !== auth()->id()) {
+        // Security: if parent-authenticated, verify ownership (admins bypass)
+        if (!session('child_authenticated') && $child->user_id !== auth()->id() && !in_array(auth()->user()?->role, ['admin', 'super_admin'])) {
             abort(403);
         }
 
