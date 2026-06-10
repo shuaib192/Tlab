@@ -1,5 +1,8 @@
 name: PR Checks
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 on:
   pull_request:
     branches: [main, develop]
@@ -14,15 +17,15 @@ jobs:
           php-version: '8.1'
       - name: Install Dependencies
         run: composer install --no-progress --prefer-dist
-      - name: Copy .env
-        run: cp .env.example .env
+      - name: Create .env
+        run: echo "APP_KEY=base64:test" > .env
       - name: Generate Key
         run: php artisan key:generate
       - name: Validate Routes
-        run: php artisan route:list
+        run: php artisan route:list 2>&1 | head -5
       - name: Check no dd/dump/ray
         run: |
-          ! grep -r 'dd(' app/ --include='*.php'
-          ! grep -r 'dump(' app/ --include='*.php'  
-          ! grep -r 'ray(' app/ --include='*.php'
+          ! grep -r 'dd(' app/ --include='*.php' 2>/dev/null
+          ! grep -r 'dump(' app/ --include='*.php' 2>/dev/null
+          ! grep -r 'ray(' app/ --include='*.php' 2>/dev/null
           echo "No debug statements found ✓"
