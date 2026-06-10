@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Child;
 use App\Http\Controllers\Controller;
 use App\Models\Assessment;
 use App\Models\AssessmentAttempt;
+use App\Models\Assignment;
+use App\Models\AssignmentSubmission;
 use App\Models\Enrollment;
 use App\Models\Lesson;
 use App\Models\ChildProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LearningController extends Controller
 {
@@ -175,7 +178,7 @@ class LearningController extends Controller
             ->latest()
             ->first();
 
-        return view('child.assessment', compact('assessment', 'lesson', 'course', 'child', 'existingAttempt'));
+        return view('child.assessment', compact('assessment', 'lesson', 'course', 'child', 'existingAttempt', 'enrollment'));
     }
 
     public function submitAssessment(Assessment $assessment, Request $request)
@@ -205,14 +208,15 @@ class LearningController extends Controller
 
         $assessment->load('questions');
 
-        $answers = $request->input('answers', []);
+        $answersJson = $request->input('answers_json', '[]');
+        $answers = json_decode($answersJson, true) ?? [];
         $score = 0;
         $total = 0;
         $results = [];
 
-        foreach ($assessment->questions as $question) {
+        foreach ($assessment->questions as $index => $question) {
             $total += $question->points ?? 1;
-            $userAnswer = $answers[$question->id] ?? '';
+            $userAnswer = $answers[$index] ?? '';
             $isCorrect = false;
 
             if ($question->type === 'multiple_choice') {
@@ -255,5 +259,88 @@ class LearningController extends Controller
                 'status' => $status,
                 'passing_score' => $assessment->passing_score,
             ]);
+    }
+
+    public function createProject(Assignment $assignment)
+    {
+        $childId = session('active_child_id');
+        if (!$childId) {
+            return redirect()->route('child.login')->with('info', 'Please log in to continue.');
+        }
+
+        $assignment->load('lesson.module.course');
+
+        $enrollment = Enrollment::where('child_profile_id', $childId)
+            ->where('course_id', $assignment->lesson->module->course->id)
+            ->first();
+
+        $user = auth()->user();
+        if (!$enrollment && (!$user || !in_array($user->role ?? '', ['admin', 'super_admin']))) {
+            abort(403);
+        }
+
+        $child = $this->getChild();
+
+        return view('child.project.create', compact('assignment', 'child'));
+    }
+
+    public function submitProject(Assignment $assignment, Request $request)
+    {
+        $childId = session('active_child_id');
+        if (!$childId) {
+            return redirect()->route('child.login')->with('info', 'Please log in to continue.');
+        }
+
+        $assignment->load('lesson.module.course');
+        $course = $assignment->lesson->module->course;
+
+        $enrollment = Enrollment::where('child_profile_id', $childId)
+            ->where('course_id', $course->id)
+            ->first();
+
+        $user = auth()->user();
+        if (!$enrollment && (!$user || !in_array($user->role ?? '', ['admin', 'super_admin']))) {
+            abort(403);
+        }
+
+        $child = $this->getChild();
+
+        $data = $request->validate([
+            'submission_text' => 'nullable|string|max:50000',
+            'file' => 'nullable|file|mimes:jpg,jpeg,png,gif,pdf,doc,docx,zip,mp4,mp3|max:10240',
+        ]);
+
+        $fileUrl = null;
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $path = $file->store('submissions/' . $childId, 'public');
+            $fileUrl = Storage::url($path);
+
+            // Create moderated upload for safety review
+            \App\Models\ModeratedUpload::create([
+                'child_profile_id' => $child->id,
+                'file_url' => $fileUrl,
+                'file_name' => $file->getClientOriginalName(),
+                'file_type' => $file->getMimeType(),
+                'file_size' => $file->getSize(),
+                'status' => 'pending',
+            ]);
+        }
+
+        AssignmentSubmission::updateOrCreate(
+            [
+                'assignment_id' => $assignment->id,
+                'child_profile_id' => $child->id,
+            ],
+            [
+                'submission_text' => $data['submission_text'] ?? null,
+                'file_url' => $fileUrl,
+                'status' => 'submitted',
+                'submitted_at' => now(),
+            ]
+        );
+
+        return redirect()->route('child.course', $enrollment ?? 0)
+            ->with('success', 'Project submitted successfully!');
     }
 }

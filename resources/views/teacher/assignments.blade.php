@@ -13,7 +13,10 @@
                 <h1 class="text-2xl font-bold">Assignments</h1>
                 <p class="text-sm text-cream/60 mt-1">{{ $assignments->count() }} total assignments</p>
             </div>
-            <a href="{{ route('teacher.course', $course) }}" class="btn-secondary btn-sm no-underline">Back to Course</a>
+            <div class="flex gap-2">
+                <a href="{{ route('teacher.assignments.create', $course) }}" class="btn-primary btn-sm no-underline">Create Assignment</a>
+                <a href="{{ route('teacher.course', $course) }}" class="btn-secondary btn-sm no-underline">Back to Course</a>
+            </div>
         </div>
     </div>
 

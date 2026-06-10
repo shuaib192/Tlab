@@ -70,6 +70,81 @@
         @endforeach
     </div>
 
+    {{-- ── STREAKS OVERVIEW ── --}}
+    @if($children->isNotEmpty())
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        @foreach($children as $child)
+        @php $s = $streaks->get($child->id); @endphp
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-lg transition-all">
+            <div class="flex items-center gap-3 mb-3">
+                <span class="text-2xl">{{ $s && $s->current_streak >= 5 ? '🔥' : ($s && $s->current_streak >= 3 ? '⭐' : '🌱') }}</span>
+                <div>
+                    <div class="font-black text-lg text-ink">{{ $s ? $s->current_streak : 0 }} day streak</div>
+                    <div class="text-xs text-muted font-semibold">{{ $child->name }}</div>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="flex-1 h-2 rounded-full bg-gray-100 overflow-hidden">
+                    <div class="h-full rounded-full bg-gradient-to-r from-amber-400 to-orange-500"
+                         style="width:{{ $s ? min(($s->current_streak / 30) * 100, 100) : 0 }}%"></div>
+                </div>
+                <span class="text-xs font-bold text-muted">Best: {{ $s ? $s->longest_streak : 0 }}</span>
+            </div>
+        </div>
+        @endforeach
+    </div>
+
+    {{-- ── PROGRESS ANALYTICS ── --}}
+    @if($children->isNotEmpty())
+    <div class="mb-10">
+        <div class="flex items-center justify-between mb-5">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-accent/10 to-violet/10 flex items-center justify-center">
+                    <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                </div>
+                <h2 class="font-black text-lg text-ink">Progress Analytics</h2>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            @foreach($children as $child)
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <div class="font-black text-base text-ink">{{ $child->name }}</div>
+                        <div class="text-xs text-muted font-semibold">Last 7 days XP</div>
+                    </div>
+                    @php $cc = $courseCompletions[$child->id] ?? ['total' => 0, 'completed' => 0, 'rate' => 0]; @endphp
+                    <div class="text-right">
+                        <div class="font-black text-sm text-mint">{{ $cc['rate'] }}%</div>
+                        <div class="text-[10px] text-muted font-bold uppercase">Complete</div>
+                    </div>
+                </div>
+                @if($xpTrend[$child->id] ?? false)
+                <canvas id="xp-chart-{{ $child->id }}" height="100"></canvas>
+                @else
+                <div class="h-24 flex items-center justify-center text-sm text-muted/50 font-semibold">No XP data yet this week</div>
+                @endif
+                <div class="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-gray-100">
+                    <div class="text-center">
+                        <div class="font-black text-sm text-ink">{{ $cc['completed'] }}/{{ $cc['total'] }}</div>
+                        <div class="text-[10px] text-muted font-bold uppercase">Courses</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="font-black text-sm text-gold">{{ $attendanceRate ?? 0 }}%</div>
+                        <div class="text-[10px] text-muted font-bold uppercase">Attendance</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="font-black text-sm text-accent">{{ $child->xp }}</div>
+                        <div class="text-[10px] text-muted font-bold uppercase">Total XP</div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+    @endif
+    @endif
+
     {{-- ── NO CHILDREN STATE ── --}}
     @if($children->isEmpty())
     <div class="relative overflow-hidden bg-white rounded-3xl border border-gray-100 shadow-sm p-12 sm:p-20 text-center">
@@ -310,4 +385,44 @@
     .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
     [x-cloak] { display: none !important; }
 </style>
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    @foreach($children as $child)
+    @if($xpTrend[$child->id] ?? false)
+    (function() {
+        const ctx = document.getElementById('xp-chart-{{ $child->id }}');
+        if (!ctx) return;
+        const data = @json($xpTrend[$child->id]);
+        const labels = Object.keys(data);
+        const values = Object.values(data);
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels.map(d => new Date(d).toLocaleDateString('en-US', { weekday: 'short' })),
+                datasets: [{
+                    label: 'XP Earned',
+                    data: values,
+                    backgroundColor: 'rgba(22,163,74,0.2)',
+                    borderColor: '#16A34A',
+                    borderWidth: 2,
+                    borderRadius: 4,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { ticks: { font: { size: 10 } } },
+                    y: { beginAtZero: true, ticks: { font: { size: 10 } } }
+                }
+            }
+        });
+    })();
+    @endif
+    @endforeach
+});
+</script>
+@endpush
 @endsection

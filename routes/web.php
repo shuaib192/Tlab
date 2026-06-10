@@ -58,6 +58,11 @@ Route::middleware(['auth', 'parent'])->prefix('parent')->name('parent.')->group(
     Route::get('/courses/{club}',    [\App\Http\Controllers\Parent\CourseController::class, 'show'])->name('courses.show');
     Route::get('/courses/{course}/enroll', [\App\Http\Controllers\Parent\CourseController::class, 'enrollForm'])->name('courses.enroll');
     Route::post('/courses/{course}/enroll', [\App\Http\Controllers\Parent\CourseController::class, 'enroll'])->name('courses.enroll.submit');
+
+    // Approval routes
+    Route::post('/enrollments/{enrollment}/approve', [\App\Http\Controllers\Parent\ApprovalController::class, 'approveEnrollment'])->name('enrollments.approve');
+    Route::post('/uploads/{upload}/approve', [\App\Http\Controllers\Parent\ApprovalController::class, 'approveUpload'])->name('uploads.approve');
+    Route::post('/uploads/{upload}/reject', [\App\Http\Controllers\Parent\ApprovalController::class, 'rejectUpload'])->name('uploads.reject');
 });
 
 // --- Child Dashboard (accessed via parent switch OR child PIN login) ---
@@ -72,6 +77,8 @@ Route::prefix('child')->name('child.')->group(function () {
     Route::get('/lesson/{lesson}',      [\App\Http\Controllers\Child\LearningController::class, 'lesson'])->name('lesson');
     Route::get('/assessment/{assessment}', [\App\Http\Controllers\Child\LearningController::class, 'assessment'])->name('assessment');
     Route::post('/assessment/{assessment}', [\App\Http\Controllers\Child\LearningController::class, 'submitAssessment'])->name('assessment.submit');
+    Route::get('/{enrollment}/project/{assignment}', [\App\Http\Controllers\Child\LearningController::class, 'project'])->name('project');
+    Route::post('/{enrollment}/project/{assignment}', [\App\Http\Controllers\Child\LearningController::class, 'submitProject'])->name('project.submit');
 });
 
 // --- Teacher Portal ---
@@ -82,9 +89,13 @@ Route::middleware(['auth', 'teacher'])->prefix('teacher')->name('teacher.')->gro
     Route::get('/sessions/{session}',     [\App\Http\Controllers\Teacher\DashboardController::class, 'session'])->name('session');
     Route::post('/sessions/{session}/attendance', [\App\Http\Controllers\Teacher\DashboardController::class, 'markAttendance'])->name('session.attendance');
     Route::get('/courses/{course}/assignments', [\App\Http\Controllers\Teacher\DashboardController::class, 'assignments'])->name('assignments');
+    Route::get('/courses/{course}/assignments/create', [\App\Http\Controllers\Teacher\DashboardController::class, 'createAssignment'])->name('assignments.create');
+    Route::post('/courses/{course}/assignments', [\App\Http\Controllers\Teacher\DashboardController::class, 'storeAssignment'])->name('assignments.store');
     Route::get('/assignments/{assignment}/grade', [\App\Http\Controllers\Teacher\DashboardController::class, 'grade'])->name('grade');
     Route::post('/submissions/{submission}/grade', [\App\Http\Controllers\Teacher\DashboardController::class, 'submitGrade'])->name('grade.submit');
     Route::post('/children/{child}/award-xp', [\App\Http\Controllers\Teacher\DashboardController::class, 'awardXp'])->name('award-xp');
+    Route::get('/communications', [\App\Http\Controllers\Teacher\DashboardController::class, 'communications'])->name('communications');
+    Route::post('/communications/send', [\App\Http\Controllers\Teacher\DashboardController::class, 'sendCommunication'])->name('communications.send');
 });
 
 // --- Admin Panel ---
@@ -136,6 +147,39 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Payments
     Route::get('payments',             [\App\Http\Controllers\Admin\PaymentController::class, 'index'])->name('payments.index');
     Route::get('payments/{payment}',   [\App\Http\Controllers\Admin\PaymentController::class, 'show'])->name('payments.show');
+
+    // Safety & Compliance
+    Route::prefix('safety')->name('safety.')->group(function () {
+        Route::get('/safe-links', [\App\Http\Controllers\Admin\SafetyController::class, 'safeLinks'])->name('safe-links');
+        Route::post('/safe-links', [\App\Http\Controllers\Admin\SafetyController::class, 'storeSafeLink'])->name('safe-links.store');
+        Route::delete('/safe-links/{safeLink}', [\App\Http\Controllers\Admin\SafetyController::class, 'destroySafeLink'])->name('safe-links.destroy');
+        Route::get('/uploads', [\App\Http\Controllers\Admin\SafetyController::class, 'uploads'])->name('uploads');
+        Route::post('/uploads/{upload}/approve', [\App\Http\Controllers\Admin\SafetyController::class, 'approveUpload'])->name('uploads.approve');
+        Route::post('/uploads/{upload}/reject', [\App\Http\Controllers\Admin\SafetyController::class, 'rejectUpload'])->name('uploads.reject');
+        Route::get('/communications', [\App\Http\Controllers\Admin\SafetyController::class, 'communications'])->name('communications');
+    });
+
+    // Compliance
+    Route::get('/compliance', [\App\Http\Controllers\Admin\ComplianceController::class, 'index'])->name('compliance.index');
+
+    // Feature Flags
+    Route::get('/feature-flags', [\App\Http\Controllers\Admin\FeatureFlagController::class, 'index'])->name('feature-flags.index');
+    Route::post('/feature-flags', [\App\Http\Controllers\Admin\FeatureFlagController::class, 'store'])->name('feature-flags.store');
+    Route::post('/feature-flags/{flag}/toggle', [\App\Http\Controllers\Admin\FeatureFlagController::class, 'toggle'])->name('feature-flags.toggle');
+    Route::put('/feature-flags/{flag}', [\App\Http\Controllers\Admin\FeatureFlagController::class, 'update'])->name('feature-flags.update');
+
+    // Invoices
+    Route::get('/invoices', [\App\Http\Controllers\Admin\InvoiceController::class, 'index'])->name('invoices.index');
+    Route::get('/invoices/create', [\App\Http\Controllers\Admin\InvoiceController::class, 'create'])->name('invoices.create');
+    Route::post('/invoices', [\App\Http\Controllers\Admin\InvoiceController::class, 'store'])->name('invoices.store');
+    Route::get('/invoices/{invoice}/download', [\App\Http\Controllers\Admin\InvoiceController::class, 'downloadPdf'])->name('invoices.download');
+
+    // Schools
+    Route::get('/schools', [\App\Http\Controllers\Admin\SchoolController::class, 'index'])->name('schools.index');
+    Route::get('/schools/create', [\App\Http\Controllers\Admin\SchoolController::class, 'create'])->name('schools.create');
+    Route::post('/schools', [\App\Http\Controllers\Admin\SchoolController::class, 'store'])->name('schools.store');
+    Route::get('/schools/{school}', [\App\Http\Controllers\Admin\SchoolController::class, 'show'])->name('schools.show');
+    Route::post('/schools/{school}/licenses', [\App\Http\Controllers\Admin\SchoolController::class, 'createLicense'])->name('schools.licenses.store');
 });
 
 // --- Pricing ---
@@ -161,6 +205,12 @@ Route::middleware(['auth', 'parent'])->prefix('parent')->name('parent.')->group(
 // --- Certificate Download & Verification ---
 Route::get('/certificates/{certificate}/download', [\App\Http\Controllers\CertificateController::class, 'download'])->name('certificate.download')->middleware('auth');
 Route::get('/certificates/verify/{certificateId}',  [\App\Http\Controllers\CertificateController::class, 'verify'])->name('certificate.verify');
+
+// --- Communications (shared between parents & teachers) ---
+Route::middleware('auth')->prefix('communications')->name('communications.')->group(function () {
+    Route::get('/', [\App\Http\Controllers\CommunicationController::class, 'index'])->name('index');
+    Route::post('/{log}/read', [\App\Http\Controllers\CommunicationController::class, 'markRead'])->name('read');
+});
 
 // --- Notifications ---
 Route::middleware('auth')->prefix('notifications')->name('notifications.')->group(function () {

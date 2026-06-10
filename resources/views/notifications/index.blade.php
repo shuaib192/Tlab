@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.parent')
 @section('title', 'Notifications')
 
-@section('content')
-<div class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+@section('parent-content')
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     <div class="flex items-center justify-between mb-8">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:#F0FDF4">

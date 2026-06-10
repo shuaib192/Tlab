@@ -1,0 +1,99 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop, 'feature/**']
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: mbstring, pdo, mysql, gd
+      - name: Install Dependencies
+        run: composer install --no-progress --prefer-dist
+      - name: Copy .env
+        run: cp .env.example .env
+      - name: Generate Key
+        run: php artisan key:generate
+      - name: Run PHP CodeSniffer (PSR-12)
+        run: vendor/bin/phpcs --standard=PSR12 app/ --ignore=app/Http/Middleware
+
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: tlab_test
+          MYSQL_ROOT_PASSWORD: password
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: mbstring, pdo, mysql, gd
+      - name: Install Dependencies
+        run: composer install --no-progress --prefer-dist
+      - name: Copy .env
+        run: cp .env.example .env
+      - name: Generate Key
+        run: php artisan key:generate
+      - name: Run Migrations
+        run: php artisan migrate --env=testing --force
+      - name: Run Tests
+        run: php artisan test --env=testing
+
+  deploy-staging:
+    if: github.ref == 'refs/heads/develop'
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to Staging
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ secrets.STAGING_PATH }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          rsync -avz --delete --exclude='.env' --exclude='.git' --exclude='node_modules' --exclude='storage' \
+            -e "ssh -p $DEPLOY_PORT -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            ./ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/
+          ssh -p $DEPLOY_PORT -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && php artisan migrate --force && php artisan optimize:clear && touch public/index.php"
+
+  deploy-production:
+    if: github.ref == 'refs/heads/main'
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to Production
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ secrets.PROD_PATH }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          rsync -avz --delete --exclude='.env' --exclude='.git' --exclude='node_modules' --exclude='storage' \
+            -e "ssh -p $DEPLOY_PORT -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            ./ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/
+          ssh -p $DEPLOY_PORT -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && php artisan migrate --force && php artisan optimize:clear && touch public/index.php"

@@ -1,0 +1,28 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+      - name: Install Dependencies
+        run: composer install --no-progress --prefer-dist
+      - name: Copy .env
+        run: cp .env.example .env
+      - name: Generate Key
+        run: php artisan key:generate
+      - name: Validate Routes
+        run: php artisan route:list
+      - name: Check no dd/dump/ray
+        run: |
+          ! grep -r 'dd(' app/ --include='*.php'
+          ! grep -r 'dump(' app/ --include='*.php'  
+          ! grep -r 'ray(' app/ --include='*.php'
+          echo "No debug statements found ✓"

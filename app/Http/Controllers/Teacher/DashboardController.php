@@ -9,8 +9,10 @@ use App\Models\Attendance;
 use App\Models\ChildProfile;
 use App\Models\ClassSession;
 use App\Models\Cohort;
+use App\Models\CommunicationLog;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class DashboardController extends Controller
 {
@@ -143,6 +145,45 @@ class DashboardController extends Controller
         return view('teacher.assignments', compact('course', 'assignments'));
     }
 
+    public function createAssignment(Course $course)
+    {
+        $this->authorizeTeach($course);
+        $course->load('modules.lessons');
+        return view('teacher.assignments-create', compact('course'));
+    }
+
+    public function storeAssignment(Request $request, Course $course)
+    {
+        $this->authorizeTeach($course);
+        
+        $data = $request->validate([
+            'lesson_id' => 'required|exists:lessons,id',
+            'title' => 'required|string|max:255',
+            'instructions' => 'nullable|string',
+            'type' => 'required|in:text,file,both',
+            'max_score' => 'required|integer|min:1|max:9999',
+            'due_date' => 'nullable|date',
+        ]);
+        
+        // Verify lesson belongs to this course
+        $lesson = \App\Models\Lesson::findOrFail($data['lesson_id']);
+        if ($lesson->module->course_id !== $course->id) {
+            return back()->withErrors(['lesson_id' => 'Lesson does not belong to this course.']);
+        }
+        
+        Assignment::create([
+            'lesson_id' => $data['lesson_id'],
+            'title' => $data['title'],
+            'instructions' => $data['instructions'],
+            'type' => $data['type'],
+            'max_score' => $data['max_score'],
+            'due_date' => $data['due_date'],
+        ]);
+        
+        return redirect()->route('teacher.assignments', $course)
+            ->with('success', 'Assignment created successfully.');
+    }
+
     public function grade(Assignment $assignment)
     {
         $course = $assignment->lesson->module->course;
@@ -192,6 +233,47 @@ class DashboardController extends Controller
         $child->awardXp($validated['amount'], $validated['activity']);
 
         return redirect()->back()->with('success', "Awarded {$validated['amount']} XP to {$child->name} for \"{$validated['activity']}\".");
+    }
+
+    public function communications()
+    {
+        $logs = CommunicationLog::where('teacher_id', auth()->id())
+            ->with(['child', 'parent'])
+            ->latest()
+            ->paginate(20);
+        return view('teacher.communications', compact('logs'));
+    }
+
+    public function sendCommunication(Request $request)
+    {
+        $validated = $request->validate([
+            'child_profile_id' => 'required|exists:child_profiles,id',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+            'type' => 'required|in:general,feedback,concern',
+        ]);
+
+        $child = ChildProfile::findOrFail($validated['child_profile_id']);
+
+        $log = CommunicationLog::create([
+            'teacher_id' => auth()->id(),
+            'parent_id' => $child->user_id,
+            'child_profile_id' => $child->id,
+            'subject' => $validated['subject'],
+            'message' => $validated['message'],
+            'type' => $validated['type'],
+        ]);
+
+        \App\Models\Notification::create([
+            'user_id' => $child->user_id,
+            'type' => 'teacher_communication',
+            'title' => "Message from Teacher: {$validated['subject']}",
+            'body' => Str::limit($validated['message'], 100),
+            'icon' => '📝',
+            'link' => route('communications.index'),
+        ]);
+
+        return redirect()->back()->with('success', 'Message sent to parent.');
     }
 
     private function authorizeTeach(Course $course)

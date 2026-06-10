@@ -102,6 +102,7 @@ class ChildProfile extends Model
         $this->xpLogs()->create(['amount' => $amount, 'activity' => $activity]);
         $this->updateRank();
         \App\Http\Controllers\AchievementController::checkAndAward($this);
+        \App\Models\Streak::recordActivity($this->id);
     }
 
     public function updateRank()
