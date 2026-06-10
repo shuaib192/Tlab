@@ -11,12 +11,12 @@ fi
 echo ">>> Installing dependencies..."
 if command -v composer &> /dev/null; then
     composer install --optimize-autoloader --no-dev
+elif [ -f composer.phar ]; then
+    php composer.phar install --optimize-autoloader --no-dev
 else
-    if [ -f composer.phar ]; then
-        php composer.phar install --optimize-autoloader --no-dev
-    else
-        echo ">>> Composer not found. Skipping dependency install."
-    fi
+    echo ">>> Composer not found. Downloading..."
+    curl -sS https://getcomposer.org/installer | php
+    php composer.phar install --optimize-autoloader --no-dev
 fi
 
 echo ">>> Running migrations..."
