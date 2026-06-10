@@ -1,209 +1,258 @@
 @extends('layouts.app')
 
-@section('title', 'Membership, Pricing & What Families Get')
+@section('title', 'Pricing Plans — TLab')
 
 @section('content')
 
 @include('partials.nav')
 
 {{-- Hero --}}
-<section class="relative pt-36 pb-20 bg-ink overflow-hidden">
-    <div class="absolute inset-0 z-0">
-        <div class="absolute inset-0 bg-gradient-to-br from-green-950/40 via-ink to-indigo-950/40"></div>
-        <div class="absolute top-1/4 right-0 w-80 h-80 rounded-full blur-[100px] opacity-25" style="background:#16A34A"></div>
-        <div class="absolute bottom-1/4 left-0 w-80 h-80 rounded-full blur-[100px] opacity-20" style="background:#7C3AED"></div>
-    </div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+<section class="relative pt-36 pb-24 bg-ink overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-green-950/30 via-ink to-indigo-950/30"></div>
+    <div class="absolute top-1/3 left-1/4 w-96 h-96 rounded-full blur-[120px] opacity-20" style="background:#16A34A"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-[100px] opacity-15" style="background:#7C3AED"></div>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         <span class="inline-block bg-primary/10 text-primary text-xs font-black uppercase tracking-widest px-5 py-2 rounded-full mb-6 reveal">Pricing</span>
-        <h1 class="font-black text-5xl sm:text-6xl lg:text-7xl text-white mb-6 leading-tight reveal">
-            Membership, Pricing & <span class="text-primary">What Families Get</span>
+        <h1 class="font-black text-4xl sm:text-5xl lg:text-6xl text-white mb-5 leading-tight reveal">
+            Simple, Transparent Pricing
         </h1>
-        <p class="text-white/70 font-semibold text-lg max-w-3xl mx-auto reveal leading-relaxed">
-            TLab Clubs &middot; TLab Cohorts &middot; TLab Camps
+        <p class="text-white/60 font-semibold text-base max-w-2xl mx-auto reveal leading-relaxed">
+            Choose the right plan for your child. No hidden fees. Cancel anytime.
         </p>
     </div>
 </section>
 
-<div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20">
 
-    {{-- Philosophy --}}
-    <section class="mb-16">
-        <h2 class="text-3xl font-black text-ink mb-6 reveal">Our Pricing Philosophy</h2>
-        <p class="text-muted font-semibold leading-relaxed max-w-4xl reveal">
-            TLab's pricing is deliberately set above the local market average in Abeokuta because quality costs, and parents who care deeply about their children's development understand that. We are not a &#8358;5,000-per-month computer class. We are a structured, premium development institution. However, we also offer flexible payment structures, sibling discounts, and scholarship options to ensure that access is not permanently out of reach for deserving families.
-        </p>
+    {{-- Monthly Plans --}}
+    <section class="mb-24">
+        <div class="text-center mb-14 reveal">
+            <span class="inline-block bg-primary/10 text-primary text-xs font-black uppercase tracking-widest px-5 py-2 rounded-full mb-5">Plans</span>
+            <h2 class="font-black text-4xl sm:text-5xl text-ink mb-5 leading-tight">Monthly Membership <span class="text-primary">Plans</span></h2>
+            <p class="text-muted font-semibold text-base max-w-2xl mx-auto">Pick the tier that fits your child's interests. All plans include premium facilitation and Edfrica quality standards.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+            {{-- Explorer --}}
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300 p-6 sm:p-8 flex flex-col reveal">
+                <div class="mb-6">
+                    <span class="text-xs font-black text-primary uppercase tracking-widest">EXPLORER</span>
+                    <h3 class="text-xl font-black text-ink mt-2">1 Club</h3>
+                    <div class="mt-4 flex items-baseline gap-1">
+                        <span class="text-4xl font-black text-ink">&#8358;30,000</span>
+                        <span class="text-muted font-bold text-sm">/month</span>
+                    </div>
+                    <p class="text-xs text-muted font-semibold mt-1">+ &#8358;30,000 registration (annual)</p>
+                </div>
+                <ul class="space-y-3 text-sm text-muted flex-1 mb-8">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>1 club of your choice</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>4 Saturday sessions/month (90 min each)</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>Monthly progress report (PDF)</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>Welcome kit + TLab journal</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>Student portal &amp; progress tracking</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>Demo Day participation</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>20% off Holiday Camps</span>
+                    </li>
+                </ul>
+                <a href="{{ route('register') }}" class="block w-full text-center py-3.5 rounded-xl font-black text-sm border-2 border-gray-200 text-ink hover:border-primary hover:text-primary transition-all duration-200">
+                    Choose Plan
+                </a>
+            </div>
+
+            {{-- Builder (Featured) --}}
+            <div class="bg-white rounded-2xl border-2 border-primary shadow-xl shadow-primary/10 p-6 sm:p-8 flex flex-col relative reveal md:scale-[1.02]">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full whitespace-nowrap">Most Popular</div>
+                <div class="mb-6">
+                    <span class="text-xs font-black text-primary uppercase tracking-widest">BUILDER</span>
+                    <h3 class="text-xl font-black text-ink mt-2">2 Clubs</h3>
+                    <div class="mt-4 flex items-baseline gap-1">
+                        <span class="text-4xl font-black text-ink">&#8358;54,000</span>
+                        <span class="text-muted font-bold text-sm">/month</span>
+                    </div>
+                    <p class="text-xs text-primary font-bold mt-1">Save &#8358;6,000 vs two Explorer plans</p>
+                </div>
+                <ul class="space-y-3 text-sm text-muted flex-1 mb-8">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>2 clubs of your choice</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>4 Saturday sessions/month</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>Priority scheduling &amp; seat reservation</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>Bi-monthly parent progress meeting</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>30% off Holiday Camps</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>Student Spotlight feature</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>Innovation Award eligibility</span>
+                    </li>
+                </ul>
+                <a href="{{ route('register') }}" class="block w-full text-center py-3.5 rounded-xl font-black text-sm bg-primary text-white hover:bg-primary/90 transition-all duration-200 shadow-lg shadow-primary/25">
+                    Choose Plan
+                </a>
+            </div>
+
+            {{-- All-Access --}}
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300 p-6 sm:p-8 flex flex-col reveal">
+                <div class="mb-6">
+                    <span class="text-xs font-black text-accent uppercase tracking-widest">ALL-ACCESS</span>
+                    <h3 class="text-xl font-black text-ink mt-2">4 Clubs</h3>
+                    <div class="mt-4 flex items-baseline gap-1">
+                        <span class="text-4xl font-black text-ink">&#8358;100,000</span>
+                        <span class="text-muted font-bold text-sm">/month</span>
+                    </div>
+                    <p class="text-xs text-muted font-semibold mt-1">The complete TLab experience</p>
+                </div>
+                <ul class="space-y-3 text-sm text-muted flex-1 mb-8">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>All 4 clubs — unlimited Saturday access (10am–4pm)</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>Guaranteed seat every session</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>Comprehensive cross-club monthly report</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>VIP seating at all events</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>50% off Holiday Camps</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>Leadership Club mentoring included</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        <span>1-on-1 coaching per term</span>
+                    </li>
+                </ul>
+                <a href="{{ route('register') }}" class="block w-full text-center py-3.5 rounded-xl font-black text-sm border-2 border-accent text-accent hover:bg-accent hover:text-white transition-all duration-200">
+                    Choose Plan
+                </a>
+            </div>
+        </div>
     </section>
 
     {{-- Registration Fee --}}
-    <section class="mb-16">
-        <h2 class="text-2xl font-black text-ink mb-6 reveal">One-Time Registration / Membership Fee</h2>
-        <p class="text-muted font-semibold mb-6 reveal">
-            Every new member pays a one-time annual registration fee at the start of their membership. This fee is not a penalty; it is the investment that sets your child apart as a TLab member and gives them everything they need to show up on Day 1 ready to learn.
-        </p>
-        <div class="overflow-x-auto reveal">
-            <table class="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-xl">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Membership Type</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Fee</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">What Is Included in the Registration Fee</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    <tr>
-                        <td class="px-6 py-5 text-sm font-bold text-ink">New Member (First Child)</td>
-                        <td class="px-6 py-5 text-sm font-black text-primary">&#8358;30,000</td>
-                        <td class="px-6 py-5 text-sm text-muted">
-                            <ul class="list-disc pl-5 space-y-1">
-                                <li>Welcome Kit (branded folder, student ID card, Edfrica badge, Journal)</li>
-                                <li>Personalized welcome letter from their assigned facilitator</li>
-                                <li>Demo Day VIP family pass (for parent + child)</li>
-                                <li>Student portal access for progress tracking</li>
-                                <li>TLab Club T-shirt in their size</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-5 text-sm font-bold text-ink">Second Child (Same Family)</td>
-                        <td class="px-6 py-5 text-sm font-black text-primary">&#8358;55,000</td>
-                        <td class="px-6 py-5 text-sm text-muted">
-                            <ul class="list-disc pl-5 space-y-1">
-                                <li>Same full welcome kit</li>
-                                <li>10% sibling discount on registration</li>
-                                <li>Sibling pairs are placed in sessions that allow parents one drop-off and one pick-up</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-5 text-sm font-bold text-ink">Annual Renewal (Returning Member)</td>
-                        <td class="px-6 py-5 text-sm font-black text-primary">&#8358;24,000</td>
-                        <td class="px-6 py-5 text-sm text-muted">
-                            <ul class="list-disc pl-5 space-y-1">
-                                <li>Renewing members pay a reduced annual fee as a loyalty reward</li>
-                                <li>Updated journal + badge for the new year</li>
-                                <li>Returning member ceremony at the first Saturday of the new year</li>
-                            </ul>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <section class="mb-24 max-w-4xl mx-auto">
+        <div class="text-center mb-12 reveal">
+            <span class="inline-block bg-primary/10 text-primary text-xs font-black uppercase tracking-widest px-5 py-2 rounded-full mb-5">Registration</span>
+            <h2 class="font-black text-3xl sm:text-4xl text-ink mb-4">One-Time Registration Fee</h2>
+            <p class="text-muted font-semibold text-base max-w-2xl mx-auto">Every new member pays an annual registration fee that covers their welcome kit, student ID, and first-day readiness. Renewing members pay a reduced loyalty rate.</p>
         </div>
-    </section>
-
-    {{-- Monthly Plans --}}
-    <section class="mb-16">
-        <h2 class="text-2xl font-black text-ink mb-2 reveal">Monthly Membership Plans: Three Tiers</h2>
-        <p class="text-muted font-semibold mb-8 reveal">
-            Parents choose a membership tier based on how many clubs they want their child to participate in. All tiers include the same quality of facilitation and the same Edfrica standards; the difference is simply how much of the weekly program the child accesses.
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {{-- Explorer --}}
-            <div class="border border-gray-200 rounded-2xl p-8 shadow-sm bg-white reveal flex flex-col">
-                <div class="text-xs font-black text-primary uppercase tracking-widest mb-1">EXPLORER</div>
-                <h3 class="text-2xl font-black text-ink mb-1">1 Club Membership</h3>
-                <div class="text-3xl font-black text-ink my-4">&#8358;30,000 <span class="text-sm font-bold text-muted">/ month</span></div>
-                <p class="text-sm text-muted mb-6">+ &#8358;30,000 registration (one-time annual)</p>
-                <ul class="space-y-2 text-sm text-muted flex-1">
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> 1 Club of your choice (STEM, Arts and Craft, Brain Club, Public Speaking &amp; Leadership)</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> 4 Saturday sessions per month (90 minutes each)</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Monthly written progress report (digital PDF)</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Weekly WhatsApp photo update after every session</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> TLab journal and Edfrica activity cards</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Access to all monthly mini-assessments</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Annual Demo Day participation (4 per year)</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Quarterly parent-facilitator check-in meeting</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Student portal access to view progress online</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> 20% discount on all Holiday Camps</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Birthday recognition at the Hub</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> One-on-one coaching session per term</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Year-End Awards eligibility</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Portfolio development support for University applications</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Student portfolio management support</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> TLab Ambassador status after 6–8 months</li>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 reveal">
+            <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5 sm:p-6 text-center">
+                <div class="text-xs font-black text-primary uppercase tracking-widest mb-2">New Member</div>
+                <div class="text-2xl font-black text-ink">&#8358;30,000</div>
+                <div class="text-xs text-muted font-semibold mt-1">First child</div>
+                <ul class="mt-4 text-xs text-muted space-y-1.5 text-left">
+                    <li class="flex items-start gap-2"><svg class="w-3 h-3 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Welcome kit + ID card</li>
+                    <li class="flex items-start gap-2"><svg class="w-3 h-3 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> TLab T-shirt + journal</li>
+                    <li class="flex items-start gap-2"><svg class="w-3 h-3 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Demo Day VIP pass</li>
                 </ul>
             </div>
-            {{-- Builder --}}
-            <div class="border-2 border-primary/30 rounded-2xl p-8 shadow-md bg-white reveal flex flex-col relative">
-                <div class="absolute -top-3 right-6 bg-primary text-white text-xs font-black px-4 py-1 rounded-full">Save &#8358;6,000</div>
-                <div class="text-xs font-black text-primary uppercase tracking-widest mb-1">BUILDER</div>
-                <h3 class="text-2xl font-black text-ink mb-1">2 Club Membership</h3>
-                <div class="text-3xl font-black text-ink my-4">&#8358;54,000 <span class="text-sm font-bold text-muted">/ month</span></div>
-                <p class="text-sm text-muted mb-6">Save &#8358;6,000 vs two Explorer plans</p>
-                <ul class="space-y-2 text-sm text-muted flex-1">
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> 2 Clubs of your choice (any combination)</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> 4 Saturday sessions per month</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Priority scheduling and seat reservation</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Bi-monthly parent-facilitator progress meeting</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Monthly written progress report (digital PDF)</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Journal and branded portfolio folder</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Weekly WhatsApp photo updates</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Priority access to competitions and inter-school events</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Annual Demo Day front-row family seating</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Student portal access to view progress online</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> 30% discount on all Holiday Camps</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Eligible for Edfrica Innovation Award (Band 4)</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Featured in monthly Student Spotlight (social media)</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Student portfolio management support</li>
+            <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5 sm:p-6 text-center">
+                <div class="text-xs font-black text-primary uppercase tracking-widest mb-2">Second Child</div>
+                <div class="text-2xl font-black text-ink">&#8358;55,000</div>
+                <div class="text-xs text-muted font-semibold mt-1">Same family (10% sibling discount)</div>
+                <ul class="mt-4 text-xs text-muted space-y-1.5 text-left">
+                    <li class="flex items-start gap-2"><svg class="w-3 h-3 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Full welcome kit included</li>
+                    <li class="flex items-start gap-2"><svg class="w-3 h-3 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> 10% sibling discount applied</li>
+                    <li class="flex items-start gap-2"><svg class="w-3 h-3 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Coordinated session scheduling</li>
                 </ul>
             </div>
-            {{-- All-Access --}}
-            <div class="border border-gray-200 rounded-2xl p-8 shadow-sm bg-white reveal flex flex-col">
-                <div class="text-xs font-black text-accent uppercase tracking-widest mb-1">ALL-ACCESS</div>
-                <h3 class="text-2xl font-black text-ink mb-1">All Clubs Membership</h3>
-                <div class="text-3xl font-black text-ink my-4">&#8358;120,000 <span class="text-sm font-bold text-muted">/ month</span></div>
-                <p class="text-sm text-muted mb-6">The Complete TLab Experience</p>
-                <ul class="space-y-2 text-sm text-muted flex-1">
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> All 4 clubs have unlimited Saturday access (10:00am – 4:00pm)</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Guaranteed seat in every session, every week</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Comprehensive monthly report across all clubs</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> VIP family seating at all events and showcases</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> 50% discount on all Holiday Camps</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Leadership Club mentoring sessions included</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> One-on-one coaching session per term</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> TLab Ambassador status after 6–8 months</li>
+            <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5 sm:p-6 text-center">
+                <div class="text-xs font-black text-primary uppercase tracking-widest mb-2">Renewal</div>
+                <div class="text-2xl font-black text-ink">&#8358;24,000</div>
+                <div class="text-xs text-muted font-semibold mt-1">Returning members (loyalty rate)</div>
+                <ul class="mt-4 text-xs text-muted space-y-1.5 text-left">
+                    <li class="flex items-start gap-2"><svg class="w-3 h-3 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Updated journal + badge</li>
+                    <li class="flex items-start gap-2"><svg class="w-3 h-3 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Returning member ceremony</li>
+                    <li class="flex items-start gap-2"><svg class="w-3 h-3 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> &#8358;6,000 savings vs new member</li>
                 </ul>
             </div>
         </div>
     </section>
 
-    {{-- Termly & Annual Payment --}}
-    <section class="mb-16">
-        <h2 class="text-2xl font-black text-ink mb-6 reveal">Termly and Annual Payment Options</h2>
-        <p class="text-muted font-semibold mb-6 reveal">
-            We reward commitment. Families who pay for a full term or full year in advance receive a discount and the peace of mind that comes from not thinking about monthly payments.
-        </p>
-        <div class="overflow-x-auto reveal">
-            <table class="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-xl">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Payment Cycle</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Explorer</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Builder</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">All-Access</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Saving vs Monthly</th>
+    {{-- Termly & Annual --}}
+    <section class="mb-24 max-w-5xl mx-auto">
+        <div class="text-center mb-12 reveal">
+            <span class="inline-block bg-primary/10 text-primary text-xs font-black uppercase tracking-widest px-5 py-2 rounded-full mb-5">Save More</span>
+            <h2 class="font-black text-3xl sm:text-4xl text-ink mb-4">Termly &amp; Annual Payment Options</h2>
+            <p class="text-muted font-semibold text-base max-w-2xl mx-auto">Pay ahead and save. Commitment is rewarded with significant discounts.</p>
+        </div>
+        <div class="overflow-x-auto rounded-2xl border border-gray-100 shadow-sm reveal">
+            <table class="w-full text-sm min-w-[600px]">
+                <thead>
+                    <tr class="bg-gray-50">
+                        <th class="text-left px-6 py-4 font-black text-ink text-xs uppercase tracking-wider">Payment Cycle</th>
+                        <th class="text-center px-6 py-4 font-black text-ink text-xs uppercase tracking-wider">Explorer</th>
+                        <th class="text-center px-6 py-4 font-black text-ink text-xs uppercase tracking-wider">Builder</th>
+                        <th class="text-center px-6 py-4 font-black text-ink text-xs uppercase tracking-wider">All-Access</th>
+                        <th class="text-right px-6 py-4 font-black text-ink text-xs uppercase tracking-wider">Saving</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    <tr>
-                        <td class="px-6 py-5 text-sm font-bold text-ink">Monthly (standard)</td>
-                        <td class="px-6 py-5 text-sm text-muted">&#8358;30,000/mo</td>
-                        <td class="px-6 py-5 text-sm text-muted">&#8358;54,000/mo</td>
-                        <td class="px-6 py-5 text-sm text-muted">&#8358;100,000/mo</td>
-                        <td class="px-6 py-5 text-sm text-muted">—</td>
+                <tbody class="divide-y divide-gray-50">
+                    <tr class="hover:bg-gray-50/50 transition-colors">
+                        <td class="px-6 py-4 font-bold text-ink">Monthly</td>
+                        <td class="px-6 py-4 text-center text-muted font-semibold">&#8358;30,000</td>
+                        <td class="px-6 py-4 text-center text-muted font-semibold">&#8358;54,000</td>
+                        <td class="px-6 py-4 text-center text-muted font-semibold">&#8358;100,000</td>
+                        <td class="px-6 py-4 text-right text-muted font-semibold">—</td>
                     </tr>
-                    <tr>
-                        <td class="px-6 py-5 text-sm font-bold text-ink">Termly (3 months at once)</td>
-                        <td class="px-6 py-5 text-sm text-muted">&#8358;82,800/term</td>
-                        <td class="px-6 py-5 text-sm text-muted">&#8358;149,000/term</td>
-                        <td class="px-6 py-5 text-sm text-muted">&#8358;331,000/term</td>
-                        <td class="px-6 py-5 text-sm text-primary font-bold">Save approx. 7–8%</td>
+                    <tr class="hover:bg-gray-50/50 transition-colors">
+                        <td class="px-6 py-4 font-bold text-ink">Termly <span class="text-muted font-semibold text-xs">(3 months)</span></td>
+                        <td class="px-6 py-4 text-center font-semibold text-ink">&#8358;82,800</td>
+                        <td class="px-6 py-4 text-center font-semibold text-ink">&#8358;149,000</td>
+                        <td class="px-6 py-4 text-center font-semibold text-ink">&#8358;331,000</td>
+                        <td class="px-6 py-4 text-right text-primary font-bold">~8%</td>
                     </tr>
-                    <tr>
-                        <td class="px-6 py-5 text-sm font-bold text-ink">Annual (4 terms / full year)</td>
-                        <td class="px-6 py-5 text-sm text-muted">&#8358;316,800/yr</td>
-                        <td class="px-6 py-5 text-sm text-muted">&#8358;570,000/yr</td>
-                        <td class="px-6 py-5 text-sm text-muted">&#8358;1,267,000/yr</td>
-                        <td class="px-6 py-5 text-sm text-primary font-bold">Save approx. 11–13%</td>
+                    <tr class="hover:bg-gray-50/50 transition-colors">
+                        <td class="px-6 py-4 font-bold text-ink">Annual <span class="text-muted font-semibold text-xs">(12 months)</span></td>
+                        <td class="px-6 py-4 text-center font-semibold text-ink">&#8358;316,800</td>
+                        <td class="px-6 py-4 text-center font-semibold text-ink">&#8358;570,000</td>
+                        <td class="px-6 py-4 text-center font-semibold text-ink">&#8358;1,267,000</td>
+                        <td class="px-6 py-4 text-right text-primary font-bold">~13%</td>
                     </tr>
                 </tbody>
             </table>
@@ -211,84 +260,95 @@
     </section>
 
     {{-- Discounts --}}
-    <section class="mb-16">
-        <h2 class="text-2xl font-black text-ink mb-6 reveal">Discounts and Special Access</h2>
-        <div class="overflow-x-auto reveal">
-            <table class="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-xl">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Discount Type</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">How It Works</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Amount</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    <tr>
-                        <td class="px-6 py-5 text-sm font-bold text-ink">Sibling Discount</td>
-                        <td class="px-6 py-5 text-sm text-muted">10% off monthly subscription for every additional child enrolled from the same family at the same time</td>
-                        <td class="px-6 py-5 text-sm font-bold text-primary">10% per child</td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-5 text-sm font-bold text-ink">School Group Enrollment</td>
-                        <td class="px-6 py-5 text-sm text-muted">When 5 or more children from the same school join together, each family gets a group discount</td>
-                        <td class="px-6 py-5 text-sm font-bold text-primary">15% off monthly fee</td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-5 text-sm font-bold text-ink">Referral Credit</td>
-                        <td class="px-6 py-5 text-sm text-muted">When you refer a friend and their child completes their first full month, you receive account credit</td>
-                        <td class="px-6 py-5 text-sm font-bold text-primary">&#8358;10,000 credit</td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-5 text-sm font-bold text-ink">Scholarship Tier</td>
-                        <td class="px-6 py-5 text-sm text-muted">5% of all enrollment slots are reserved for children who qualify by need and merit &mdash; screened each intake</td>
-                        <td class="px-6 py-5 text-sm font-bold text-primary">50% subsidized fee</td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-5 text-sm font-bold text-ink">Corporate Family Plan</td>
-                        <td class="px-6 py-5 text-sm text-muted">For companies whose employees want TLab memberships for their children &mdash; billed quarterly to employer</td>
-                        <td class="px-6 py-5 text-sm font-bold text-primary">Explained below</td>
-                    </tr>
-                </tbody>
-            </table>
+    <section class="mb-24 max-w-5xl mx-auto">
+        <div class="text-center mb-12 reveal">
+            <span class="inline-block bg-primary/10 text-primary text-xs font-black uppercase tracking-widest px-5 py-2 rounded-full mb-5">Discounts</span>
+            <h2 class="font-black text-3xl sm:text-4xl text-ink mb-4">Discounts &amp; Special Access</h2>
+            <p class="text-muted font-semibold text-base max-w-2xl mx-auto">We believe every child deserves access. Here's how we make it more affordable.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 reveal">
+            <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                </div>
+                <div class="font-black text-sm text-ink mb-1">Sibling Discount</div>
+                <div class="text-xs text-muted font-semibold mb-3">10% off monthly subscription for every additional child from the same family.</div>
+                <div class="text-xs font-black text-primary">10% per child</div>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                </div>
+                <div class="font-black text-sm text-ink mb-1">School Group Enrollment</div>
+                <div class="text-xs text-muted font-semibold mb-3">5+ children from the same school join together — each family gets a group discount.</div>
+                <div class="text-xs font-black text-primary">15% off monthly fee</div>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                </div>
+                <div class="font-black text-sm text-ink mb-1">Referral Credit</div>
+                <div class="text-xs text-muted font-semibold mb-3">Refer a friend. When their child completes their first month, you receive account credit.</div>
+                <div class="text-xs font-black text-primary">&#8358;10,000 credit</div>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <div class="font-black text-sm text-ink mb-1">Scholarship Tier</div>
+                <div class="text-xs text-muted font-semibold mb-3">5% of all slots reserved for children who qualify by need and merit. Screened each intake.</div>
+                <div class="text-xs font-black text-primary">50% subsidized fee</div>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5 sm:col-span-2 lg:col-span-1">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </div>
+                <div class="font-black text-sm text-ink mb-1">Corporate Family Plan</div>
+                <div class="text-xs text-muted font-semibold mb-3">Employers sponsor memberships for their teams' children. Billed quarterly to the company.</div>
+                <div class="text-xs font-black text-primary">See below</div>
+            </div>
         </div>
     </section>
 
     {{-- Corporate Plan --}}
-    <section class="mb-16">
-        <h2 class="text-2xl font-black text-ink mb-2 reveal">The Corporate Family Plan</h2>
-        <p class="text-muted font-semibold mb-6 reveal">Minimum enrollment: 5 children per company. Billed annually or quarterly.</p>
-        <div class="overflow-x-auto reveal">
-            <table class="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-xl">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Tier</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Clubs Included</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Annual Fee (per child)</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Quarterly Billing</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Value vs. Retail</th>
+    <section class="mb-24 max-w-5xl mx-auto">
+        <div class="text-center mb-12 reveal">
+            <span class="inline-block bg-primary/10 text-primary text-xs font-black uppercase tracking-widest px-5 py-2 rounded-full mb-5">Corporate</span>
+            <h2 class="font-black text-3xl sm:text-4xl text-ink mb-4">Corporate Family Plan</h2>
+            <p class="text-muted font-semibold text-base max-w-2xl mx-auto">Minimum 5 children per company. Billed annually or quarterly.</p>
+        </div>
+        <div class="overflow-x-auto rounded-2xl border border-gray-100 shadow-sm reveal">
+            <table class="w-full text-sm min-w-[500px]">
+                <thead>
+                    <tr class="bg-gray-50">
+                        <th class="text-left px-6 py-4 font-black text-ink text-xs uppercase tracking-wider">Tier</th>
+                        <th class="text-center px-6 py-4 font-black text-ink text-xs uppercase tracking-wider">Clubs</th>
+                        <th class="text-center px-6 py-4 font-black text-ink text-xs uppercase tracking-wider">Annual per Child</th>
+                        <th class="text-center px-6 py-4 font-black text-ink text-xs uppercase tracking-wider">Quarterly</th>
+                        <th class="text-right px-6 py-4 font-black text-ink text-xs uppercase tracking-wider">vs. Retail</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    <tr>
-                        <td class="px-6 py-5 text-sm font-bold text-ink">CORP EXPLORER</td>
-                        <td class="px-6 py-5 text-sm text-muted">1 Club</td>
-                        <td class="px-6 py-5 text-sm font-bold text-primary">&#8358;300,000</td>
-                        <td class="px-6 py-5 text-sm text-muted">&#8358;75,000</td>
-                        <td class="px-6 py-5 text-sm text-primary font-bold">~5% Discount</td>
+                <tbody class="divide-y divide-gray-50">
+                    <tr class="hover:bg-gray-50/50 transition-colors">
+                        <td class="px-6 py-4 font-bold text-ink">CORP EXPLORER</td>
+                        <td class="px-6 py-4 text-center text-muted font-semibold">1 Club</td>
+                        <td class="px-6 py-4 text-center font-bold text-primary">&#8358;300,000</td>
+                        <td class="px-6 py-4 text-center text-muted font-semibold">&#8358;75,000</td>
+                        <td class="px-6 py-4 text-right text-primary font-bold">~5% off</td>
                     </tr>
-                    <tr>
-                        <td class="px-6 py-5 text-sm font-bold text-ink">CORP BUILDER</td>
-                        <td class="px-6 py-5 text-sm text-muted">2 Clubs</td>
-                        <td class="px-6 py-5 text-sm font-bold text-primary">&#8358;540,000</td>
-                        <td class="px-6 py-5 text-sm text-muted">&#8358;135,000</td>
-                        <td class="px-6 py-5 text-sm text-primary font-bold">~7% Discount</td>
+                    <tr class="hover:bg-gray-50/50 transition-colors">
+                        <td class="px-6 py-4 font-bold text-ink">CORP BUILDER</td>
+                        <td class="px-6 py-4 text-center text-muted font-semibold">2 Clubs</td>
+                        <td class="px-6 py-4 text-center font-bold text-primary">&#8358;540,000</td>
+                        <td class="px-6 py-4 text-center text-muted font-semibold">&#8358;135,000</td>
+                        <td class="px-6 py-4 text-right text-primary font-bold">~7% off</td>
                     </tr>
-                    <tr>
-                        <td class="px-6 py-5 text-sm font-bold text-ink">CORP ALL-ACCESS</td>
-                        <td class="px-6 py-5 text-sm text-muted">4 Clubs</td>
-                        <td class="px-6 py-5 text-sm font-bold text-primary">&#8358;900,000</td>
-                        <td class="px-6 py-5 text-sm text-muted">&#8358;225,000</td>
-                        <td class="px-6 py-5 text-sm text-primary font-bold">~29% Discount</td>
+                    <tr class="hover:bg-gray-50/50 transition-colors">
+                        <td class="px-6 py-4 font-bold text-ink">CORP ALL-ACCESS</td>
+                        <td class="px-6 py-4 text-center text-muted font-semibold">4 Clubs</td>
+                        <td class="px-6 py-4 text-center font-bold text-primary">&#8358;900,000</td>
+                        <td class="px-6 py-4 text-center text-muted font-semibold">&#8358;225,000</td>
+                        <td class="px-6 py-4 text-right text-primary font-bold">~29% off</td>
                     </tr>
                 </tbody>
             </table>
@@ -296,60 +356,85 @@
     </section>
 
     {{-- Techiecity --}}
-    <section class="mb-16">
-        <h2 class="text-2xl font-black text-ink mb-2 reveal">Techiecity</h2>
-        <p class="text-muted font-semibold mb-6 reveal">Short-term, on-site cohort programmes for specialised tech skills.</p>
-        <div class="overflow-x-auto reveal">
-            <table class="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-xl">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Programme</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Duration</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Best For</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Pricing</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Format</th>
+    <section class="mb-24 max-w-5xl mx-auto">
+        <div class="text-center mb-12 reveal">
+            <span class="inline-block bg-primary/10 text-primary text-xs font-black uppercase tracking-widest px-5 py-2 rounded-full mb-5">Cohorts</span>
+            <h2 class="font-black text-3xl sm:text-4xl text-ink mb-4">Techiecity</h2>
+            <p class="text-muted font-semibold text-base max-w-2xl mx-auto">Short-term, on-site cohort programmes for specialised tech skills.</p>
+        </div>
+        <div class="overflow-x-auto rounded-2xl border border-gray-100 shadow-sm reveal">
+            <table class="w-full text-sm min-w-[500px]">
+                <thead>
+                    <tr class="bg-gray-50">
+                        <th class="text-left px-6 py-4 font-black text-ink text-xs uppercase tracking-wider">Programme</th>
+                        <th class="text-center px-6 py-4 font-black text-ink text-xs uppercase tracking-wider">Duration</th>
+                        <th class="text-left px-6 py-4 font-black text-ink text-xs uppercase tracking-wider hidden md:table-cell">Best For</th>
+                        <th class="text-right px-6 py-4 font-black text-ink text-xs uppercase tracking-wider">Pricing</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">Web Development (Frontend) Basics</td><td class="px-6 py-5 text-sm text-muted">16 Weeks</td><td class="px-6 py-5 text-sm text-muted">Beginners, IT graduates, developers</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;250,000</td><td class="px-6 py-5 text-sm text-muted">Cohort (On-site)</td></tr>
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">UI/UX Design</td><td class="px-6 py-5 text-sm text-muted">12 Weeks</td><td class="px-6 py-5 text-sm text-muted">Graduates, career-changers, design students</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;180,000</td><td class="px-6 py-5 text-sm text-muted">Cohort (On-site)</td></tr>
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">Data Analytics</td><td class="px-6 py-5 text-sm text-muted">12 Weeks</td><td class="px-6 py-5 text-sm text-muted">Professionals, analysts, graduates</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;200,000</td><td class="px-6 py-5 text-sm text-muted">Cohort (On-site)</td></tr>
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">Data Science</td><td class="px-6 py-5 text-sm text-muted">12 weeks</td><td class="px-6 py-5 text-sm text-muted">Professionals, analysts, graduates</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;250,000</td><td class="px-6 py-5 text-sm text-muted">Cohort</td></tr>
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">Digital Marketing</td><td class="px-6 py-5 text-sm text-muted">8 Weeks</td><td class="px-6 py-5 text-sm text-muted">Business owners, marketing staff, freelancers</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;120,000</td><td class="px-6 py-5 text-sm text-muted">Cohort</td></tr>
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">Graphic Design</td><td class="px-6 py-5 text-sm text-muted">8 Weeks</td><td class="px-6 py-5 text-sm text-muted">Creatives, side-income seekers, students</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;120,000</td><td class="px-6 py-5 text-sm text-muted">Cohort</td></tr>
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">Product Management</td><td class="px-6 py-5 text-sm text-muted">10 Weeks</td><td class="px-6 py-5 text-sm text-muted">Team leads, career-changers, tech graduates</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;160,000</td><td class="px-6 py-5 text-sm text-muted">Cohort</td></tr>
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">Video Editing</td><td class="px-6 py-5 text-sm text-muted">8 Weeks</td><td class="px-6 py-5 text-sm text-muted">Content creators, media students, influencers</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;150,000</td><td class="px-6 py-5 text-sm text-muted">Cohort</td></tr>
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">Cloud Engineering</td><td class="px-6 py-5 text-sm text-muted">12 weeks</td><td class="px-6 py-5 text-sm text-muted">Prepares students for global remote jobs</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;250,000</td><td class="px-6 py-5 text-sm text-muted">Cohort</td></tr>
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">Cybersecurity Foundations</td><td class="px-6 py-5 text-sm text-muted">8 weeks</td><td class="px-6 py-5 text-sm text-muted">Direct path to roles in Banks and Fintechs</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;250,000</td><td class="px-6 py-5 text-sm text-muted">Cohort</td></tr>
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">IT Project Management</td><td class="px-6 py-5 text-sm text-muted">6 weeks</td><td class="px-6 py-5 text-sm text-muted">Essential for senior roles; the "bridge" between tech and business</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;150,000</td><td class="px-6 py-5 text-sm text-muted">Cohort</td></tr>
+                <tbody class="divide-y divide-gray-50">
+                    @php $techiecity = [
+                        ['Web Development (Frontend) Basics', '16 Weeks', 'Beginners, IT graduates, developers', '₦250,000'],
+                        ['UI/UX Design', '12 Weeks', 'Graduates, career-changers, design students', '₦180,000'],
+                        ['Data Analytics', '12 Weeks', 'Professionals, analysts, graduates', '₦200,000'],
+                        ['Data Science', '12 Weeks', 'Professionals, analysts, graduates', '₦250,000'],
+                        ['Digital Marketing', '8 Weeks', 'Business owners, marketing staff, freelancers', '₦120,000'],
+                        ['Graphic Design', '8 Weeks', 'Creatives, side-income seekers, students', '₦120,000'],
+                        ['Product Management', '10 Weeks', 'Team leads, career-changers, tech graduates', '₦160,000'],
+                        ['Video Editing', '8 Weeks', 'Content creators, media students, influencers', '₦150,000'],
+                        ['Cloud Engineering', '12 Weeks', 'Prepares students for global remote jobs', '₦250,000'],
+                        ['Cybersecurity Foundations', '8 Weeks', 'Direct path to roles in Banks and Fintechs', '₦250,000'],
+                        ['IT Project Management', '6 Weeks', 'Essential for senior roles', '₦150,000'],
+                    ] @endphp
+                    @foreach($techiecity as $i => $t)
+                    <tr class="hover:bg-gray-50/50 transition-colors">
+                        <td class="px-6 py-3.5 font-bold text-ink text-xs">{{ $t[0] }}</td>
+                        <td class="px-6 py-3.5 text-center text-muted font-semibold text-xs">{{ $t[1] }}</td>
+                        <td class="px-6 py-3.5 text-muted text-xs hidden md:table-cell">{{ $t[2] }}</td>
+                        <td class="px-6 py-3.5 text-right font-bold text-primary text-xs">{{ $t[3] }}</td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </section>
 
     {{-- Short Courses --}}
-    <section class="mb-16">
-        <h2 class="text-2xl font-black text-ink mb-6 reveal">Short Courses</h2>
-        <div class="overflow-x-auto reveal">
-            <table class="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-xl">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Course</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Duration</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Best For</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Pricing</th>
-                        <th class="px-6 py-4 text-left text-sm font-black text-ink uppercase tracking-wider">Format</th>
+    <section class="mb-24 max-w-5xl mx-auto">
+        <div class="text-center mb-12 reveal">
+            <span class="inline-block bg-primary/10 text-primary text-xs font-black uppercase tracking-widest px-5 py-2 rounded-full mb-5">Short Courses</span>
+            <h2 class="font-black text-3xl sm:text-4xl text-ink mb-4">Short Courses</h2>
+            <p class="text-muted font-semibold text-base max-w-2xl mx-auto">Focused, affordable courses for quick skill acquisition.</p>
+        </div>
+        <div class="overflow-x-auto rounded-2xl border border-gray-100 shadow-sm reveal">
+            <table class="w-full text-sm min-w-[500px]">
+                <thead>
+                    <tr class="bg-gray-50">
+                        <th class="text-left px-6 py-4 font-black text-ink text-xs uppercase tracking-wider">Course</th>
+                        <th class="text-center px-6 py-4 font-black text-ink text-xs uppercase tracking-wider">Duration</th>
+                        <th class="text-left px-6 py-4 font-black text-ink text-xs uppercase tracking-wider hidden md:table-cell">Best For</th>
+                        <th class="text-right px-6 py-4 font-black text-ink text-xs uppercase tracking-wider">Pricing</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">Content Creation Bootcamp</td><td class="px-6 py-5 text-sm text-muted">4 Weeks</td><td class="px-6 py-5 text-sm text-muted">Aspiring full-time creators, influencers</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;70,000</td><td class="px-6 py-5 text-sm text-muted">On-site</td></tr>
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">AI Tools for Business</td><td class="px-6 py-5 text-sm text-muted">3 Weeks</td><td class="px-6 py-5 text-sm text-muted">SME owners, managers, traders</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;80,000</td><td class="px-6 py-5 text-sm text-muted">On-site</td></tr>
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">AI Prompt Engineering</td><td class="px-6 py-5 text-sm text-muted">2 weeks</td><td class="px-6 py-5 text-sm text-muted">Immediate productivity boost for any office worker</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;15,000</td><td class="px-6 py-5 text-sm text-muted">—</td></tr>
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">Digital Marketing for SMEs</td><td class="px-6 py-5 text-sm text-muted">3 Weeks</td><td class="px-6 py-5 text-sm text-muted">Market traders, shop owners, small businesses</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;80,000</td><td class="px-6 py-5 text-sm text-muted">On-site</td></tr>
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">No-Code App Development</td><td class="px-6 py-5 text-sm text-muted">4 weeks</td><td class="px-6 py-5 text-sm text-muted">Entrepreneurs wanting to build MVPs without coding</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;80,000</td><td class="px-6 py-5 text-sm text-muted">—</td></tr>
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">Motion Graphics for Social Media</td><td class="px-6 py-5 text-sm text-muted">5 Weeks</td><td class="px-6 py-5 text-sm text-muted">Graphic designers looking to level up into animation</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;70,000</td><td class="px-6 py-5 text-sm text-muted">—</td></tr>
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">Technical Writing</td><td class="px-6 py-5 text-sm text-muted">4 Weeks</td><td class="px-6 py-5 text-sm text-muted">Writers looking to enter the tech industry</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;50,000</td><td class="px-6 py-5 text-sm text-muted">—</td></tr>
-                    <tr><td class="px-6 py-5 text-sm font-bold text-ink">Customer Success &amp; CRM</td><td class="px-6 py-5 text-sm text-muted">4 weeks</td><td class="px-6 py-5 text-sm text-muted">Front-desk staff, sales reps, and customer support</td><td class="px-6 py-5 text-sm font-bold text-primary">&#8358;50,000</td><td class="px-6 py-5 text-sm text-muted">—</td></tr>
+                <tbody class="divide-y divide-gray-50">
+                    @php $shortcourses = [
+                        ['Content Creation Bootcamp', '4 Weeks', 'Aspiring full-time creators, influencers', '₦70,000'],
+                        ['AI Tools for Business', '3 Weeks', 'SME owners, managers, traders', '₦80,000'],
+                        ['AI Prompt Engineering', '2 Weeks', 'Immediate productivity boost for any office worker', '₦15,000'],
+                        ['Digital Marketing for SMEs', '3 Weeks', 'Market traders, shop owners, small businesses', '₦80,000'],
+                        ['No-Code App Development', '4 Weeks', 'Entrepreneurs wanting to build MVPs without coding', '₦80,000'],
+                        ['Motion Graphics for Social Media', '5 Weeks', 'Graphic designers looking to level up into animation', '₦70,000'],
+                        ['Technical Writing', '4 Weeks', 'Writers looking to enter the tech industry', '₦50,000'],
+                        ['Customer Success & CRM', '4 Weeks', 'Front-desk staff, sales reps, and customer support', '₦50,000'],
+                    ] @endphp
+                    @foreach($shortcourses as $s)
+                    <tr class="hover:bg-gray-50/50 transition-colors">
+                        <td class="px-6 py-3.5 font-bold text-ink text-xs">{{ $s[0] }}</td>
+                        <td class="px-6 py-3.5 text-center text-muted font-semibold text-xs">{{ $s[1] }}</td>
+                        <td class="px-6 py-3.5 text-muted text-xs hidden md:table-cell">{{ $s[2] }}</td>
+                        <td class="px-6 py-3.5 text-right font-bold text-primary text-xs">{{ $s[3] }}</td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

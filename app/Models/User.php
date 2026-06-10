@@ -18,6 +18,9 @@ class User extends Authenticatable
         'edfrica_id',
         'role',
         'avatar',
+        'phone',
+        'school_name',
+        'school_id',
     ];
 
     protected $hidden = [
@@ -35,6 +38,36 @@ class User extends Authenticatable
     public function children()
     {
         return $this->hasMany(ChildProfile::class);
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    public function activeSubscription()
+    {
+        return $this->hasOne(Subscription::class)->where('status', 'active')->latest();
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+    public function unreadNotifications()
+    {
+        return $this->hasMany(Notification::class)->where('is_read', false);
+    }
+
+    public function taughtCourses()
+    {
+        return $this->hasMany(Course::class, 'teacher_id');
     }
 
     // --- Helpers ---

@@ -59,6 +59,13 @@ Route::middleware(['auth', 'parent'])->prefix('child')->name('child.')->group(fu
     Route::get('/dashboard', [ChildDashboardController::class, 'index'])->name('dashboard');
 });
 
+// --- Child PIN Login (standalone child access) ---
+Route::prefix('child')->name('child.')->group(function () {
+    Route::get('/login',  [\App\Http\Controllers\Child\AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [\App\Http\Controllers\Child\AuthController::class, 'login'])->name('login.submit');
+    Route::post('/logout', [\App\Http\Controllers\Child\AuthController::class, 'logout'])->name('logout');
+});
+
 // --- Admin Panel ---
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/',                                      [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');

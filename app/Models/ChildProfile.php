@@ -12,6 +12,7 @@ class ChildProfile extends Model
     protected $fillable = [
         'user_id',
         'name',
+        'username',
         'dob',
         'gender',
         'interests',
@@ -19,12 +20,14 @@ class ChildProfile extends Model
         'xp',
         'rank',
         'pin',
+        'pin_enabled',
         'avatar',
     ];
 
     protected $casts = [
         'dob' => 'date',
         'interests' => 'array',
+        'pin_enabled' => 'boolean',
     ];
 
     // --- Rank thresholds ---
@@ -58,7 +61,39 @@ class ChildProfile extends Model
         return $this->belongsToMany(Course::class, 'enrollments', 'child_profile_id', 'course_id');
     }
 
+    public function attendance()
+    {
+        return $this->hasMany(Attendance::class, 'child_profile_id');
+    }
+
+    public function certificates()
+    {
+        return $this->hasMany(Certificate::class, 'child_profile_id');
+    }
+
+    public function achievements()
+    {
+        return $this->belongsToMany(Achievement::class, 'child_achievements')
+            ->withPivot('earned_at')
+            ->withTimestamps();
+    }
+
+    public function assignmentSubmissions()
+    {
+        return $this->hasMany(AssignmentSubmission::class, 'child_profile_id');
+    }
+
+    public function assessmentAttempts()
+    {
+        return $this->hasMany(AssessmentAttempt::class, 'child_profile_id');
+    }
+
     // --- Helpers ---
+
+    public function verifyPin(string $pin): bool
+    {
+        return $this->pin_enabled && $this->pin === $pin;
+    }
 
     public function awardXp(int $amount, string $activity)
     {

@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Enrollment extends Model
+class Certificate extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'child_profile_id', 'course_id', 'cohort_id',
-        'status', 'payment_status', 'started_at', 'completed_at',
+        'certificate_id', 'child_profile_id', 'course_id',
+        'type', 'title', 'grade', 'metadata', 'file_url', 'issued_at',
     ];
 
     protected $casts = [
-        'started_at' => 'datetime',
-        'completed_at' => 'datetime',
+        'metadata' => 'array',
+        'issued_at' => 'datetime',
     ];
 
     public function child()
@@ -29,8 +29,8 @@ class Enrollment extends Model
         return $this->belongsTo(Course::class);
     }
 
-    public function cohort()
+    public static function generateId(): string
     {
-        return $this->belongsTo(Cohort::class);
+        return 'TLAB-' . strtoupper(substr(uniqid(), -8)) . '-' . strtoupper(bin2hex(random_bytes(4)));
     }
 }

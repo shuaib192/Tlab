@@ -23,20 +23,24 @@ class ChildProfileController extends Controller
     {
         $request->validate([
             'name'        => 'required|string|max:100',
+            'username'    => 'nullable|string|max:50|unique:child_profiles,username',
             'dob'         => 'required|date|before:today',
             'gender'      => 'required|in:male,female,prefer_not_to_say',
             'interests'   => 'nullable|array',
             'skill_level' => 'nullable|in:beginner,intermediate,advanced',
             'pin'         => 'nullable|digits:4',
+            'pin_enabled' => 'nullable|boolean',
         ]);
 
         $child = auth()->user()->children()->create([
             'name'        => $request->name,
+            'username'    => $request->username,
             'dob'         => $request->dob,
             'gender'      => $request->gender,
             'interests'   => $request->interests ?? [],
             'skill_level' => $request->skill_level ?? 'beginner',
             'pin'         => $request->pin,
+            'pin_enabled' => $request->boolean('pin_enabled'),
         ]);
 
         return redirect()->route('parent.dashboard')
@@ -62,14 +66,17 @@ class ChildProfileController extends Controller
         $this->authorizeChild($child);
         $request->validate([
             'name'        => 'required|string|max:100',
+            'username'    => 'nullable|string|max:50|unique:child_profiles,username,' . $child->id,
             'dob'         => 'required|date|before:today',
             'gender'      => 'required|in:male,female,prefer_not_to_say',
             'interests'   => 'nullable|array',
             'skill_level' => 'nullable|in:beginner,intermediate,advanced',
             'pin'         => 'nullable|digits:4',
+            'pin_enabled' => 'nullable|boolean',
         ]);
 
-        $child->update($request->only('name','dob','gender','interests','skill_level','pin'));
+        $child->update($request->only('name','username','dob','gender','interests','skill_level','pin'));
+        $child->update(['pin_enabled' => $request->boolean('pin_enabled')]);
 
         return redirect()->route('parent.children.show', $child)
             ->with('success', "Profile updated successfully.");
@@ -93,7 +100,7 @@ class ChildProfileController extends Controller
 
     protected function authorizeChild(ChildProfile $child)
     {
-        if ($child->user_id !== auth()->id()) {
+        if ($child->user_id !== auth()->id() && !in_array(auth()->user()->role, ['admin', 'super_admin'])) {
             abort(403, 'Unauthorized action.');
         }
     }

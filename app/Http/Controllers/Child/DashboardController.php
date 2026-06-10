@@ -12,13 +12,16 @@ class DashboardController extends Controller
     {
         $childId = session('active_child_id');
         if (!$childId) {
-            return redirect()->route('parent.dashboard')->with('info', 'Please select a child to view their dashboard.');
+            return redirect()->route('child.login')->with('info', 'Please log in to continue.');
         }
 
-        $child = ChildProfile::with(['enrollments.course.club', 'xpLogs' => fn($q) => $q->latest()->take(5)])->findOrFail($childId);
+        $child = ChildProfile::with([
+            'enrollments.course.club',
+            'xpLogs' => fn($q) => $q->latest()->take(5),
+        ])->findOrFail($childId);
 
-        // Security: only owner parent can see
-        if ($child->user_id !== auth()->id()) {
+        // Security: if parent-authenticated, verify ownership
+        if (!session('child_authenticated') && $child->user_id !== auth()->id()) {
             abort(403);
         }
 
@@ -26,6 +29,8 @@ class DashboardController extends Controller
             ->take(10)
             ->get(['name', 'xp', 'rank', 'avatar']);
 
-        return view('child.dashboard', compact('child', 'leaderboard'));
+        $isChildAuth = session('child_authenticated', false);
+
+        return view('child.dashboard', compact('child', 'leaderboard', 'isChildAuth'));
     }
 }
