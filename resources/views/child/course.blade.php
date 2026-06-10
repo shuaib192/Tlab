@@ -22,8 +22,9 @@
 
 <nav class="sticky top-0 z-50 px-8 py-5 flex justify-between items-center glass border-b border-white/5">
     <div class="flex items-center gap-4">
-        <a href="{{ route('child.dashboard') }}" class="w-10 h-10 rounded-xl flex items-center justify-center font-display text-xl font-black italic text-white"
-           style="background:linear-gradient(135deg,#4E9966,#2a6e44)">T</a>
+        <a href="{{ route('child.dashboard') }}" class="flex-shrink-0">
+            <img src="/images/tlab-logo-white.png" alt="TLab" class="h-8 w-auto">
+        </a>
         <div>
             <div class="font-display text-lg font-bold">{{ $course->title }}</div>
             <div class="text-xs text-cream/60 font-bold">{{ $course->club->name ?? 'Course' }}</div>

@@ -9,7 +9,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
         <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-2" data-no-transition>
-            <div class="w-7 h-7 rounded-md flex items-center justify-center font-black text-xs italic" style="background:linear-gradient(135deg,#16A34A,#15803D); color:white">T</div>
+            <img src="/images/tlab-logo-color.png" alt="TLab" class="h-6 w-auto">
             <span class="font-bold text-sm text-ink">TLab Parent</span>
         </a>
         <a href="{{ route('parent.children.create') }}" class="p-2 rounded-lg hover:bg-gray-100 text-primary">

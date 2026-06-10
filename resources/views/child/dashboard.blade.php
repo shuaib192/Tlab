@@ -19,7 +19,7 @@
 <div class="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-gray-100 px-4 sm:px-6">
     <div class="flex items-center justify-between h-14 max-w-6xl mx-auto">
         <div class="flex items-center gap-2 min-w-0">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center font-black text-xs italic flex-shrink-0" style="background:linear-gradient(135deg,#16A34A,#15803D);color:white">T</div>
+            <img src="/images/tlab-logo-color.png" alt="TLab" class="h-7 w-auto flex-shrink-0">
             <span class="font-bold text-sm text-ink truncate">{{ $child->name }}'s Space</span>
         </div>
         <div class="flex items-center gap-2">

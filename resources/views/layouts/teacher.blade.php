@@ -83,12 +83,7 @@
     <aside id="sidebar" class="fixed lg:relative z-40 sidebar flex flex-col">
         <div class="px-5 py-6 border-b border-white/5">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center font-display text-lg font-black italic text-white"
-                     style="background:linear-gradient(135deg,#4E9966,#2a6e44)">T</div>
-                <div>
-                    <div class="font-display font-bold text-sm leading-tight">Teacher Portal</div>
-                    <div class="text-xs font-bold" style="color:#4E9966">TLab</div>
-                </div>
+                <img src="/images/tlab-logo-white.png" alt="TLab" class="h-7 w-auto">
             </div>
         </div>
 

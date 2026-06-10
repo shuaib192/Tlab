@@ -18,7 +18,7 @@
     {{-- Logo --}}
     <div class="flex items-center justify-between h-16 px-6 border-b" style="border-color:rgba(255,255,255,0.06)">
         <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-3" data-no-transition>
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center font-black text-sm italic" style="background:linear-gradient(135deg,#16A34A,#15803D); color:white">T</div>
+            <img src="/images/tlab-logo-white.png" alt="TLab" class="h-8 w-auto">
             <div>
                 <div class="font-black text-sm text-white">TLab</div>
                 <div class="text-[10px] font-bold uppercase tracking-widest" style="color:#16A34A">Parent Portal</div>
