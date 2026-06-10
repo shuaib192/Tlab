@@ -1,71 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.parent')
 @section('title', 'Parent Dashboard')
 
-@section('content')
-
-{{-- ── TOP NAV ── --}}
-<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100" x-data="{ mobileOpen: false }">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
-            <a href="{{ route('home') }}" class="flex-shrink-0" data-no-transition>
-                <img src="/images/tlab-logo-color.png" alt="TLab" class="h-8 sm:h-9 w-auto">
-            </a>
-
-            <div class="hidden sm:flex items-center gap-3">
-                <span class="text-xs font-bold uppercase tracking-widest text-muted/60 bg-surface px-4 py-2 rounded-full border border-gray-200/60">
-                    <span class="inline-block w-2 h-2 rounded-full bg-primary mr-2 animate-pulse"></span>
-                    Parent Portal
-                </span>
-                <span class="text-sm font-semibold text-muted flex items-center gap-2">
-                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                    {{ $user->name }}
-                </span>
-                <a href="{{ route('parent.children.create') }}"
-                   class="inline-flex items-center gap-1.5 bg-primary text-white px-4 py-2 rounded-xl font-bold text-xs hover:bg-primary/90 transition-all shadow-sm hover:shadow-md active:scale-95">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
-                    Add Child
-                </a>
-                <a href="{{ route('parent.courses.index') }}"
-                   class="inline-flex items-center gap-1.5 bg-surface text-ink px-4 py-2 rounded-xl font-bold text-xs border border-gray-200 hover:bg-gray-100 transition-all">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                    Browse Courses
-                </a>
-                <form method="POST" action="{{ route('logout') }}" class="inline">
-                    @csrf
-                    <button class="p-2 rounded-xl text-muted hover:text-ink hover:bg-gray-100 transition-all">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-                    </button>
-                </form>
-            </div>
-
-            <button @click="mobileOpen = !mobileOpen" class="sm:hidden p-2 rounded-xl hover:bg-gray-100">
-                <svg class="w-6 h-6 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path x-show="!mobileOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    <path x-show="mobileOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-            </button>
-        </div>
-        <div x-show="mobileOpen" x-cloak class="sm:hidden pb-4 space-y-2">
-            <a href="{{ route('parent.children.create') }}" class="flex items-center gap-3 w-full bg-primary text-white px-4 py-3 rounded-xl font-bold text-sm">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
-                Add Child
-            </a>
-            <a href="{{ route('parent.courses.index') }}" class="flex items-center gap-3 w-full bg-surface text-ink px-4 py-3 rounded-xl font-bold text-sm border border-gray-200">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                Browse Courses
-            </a>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button class="flex items-center gap-3 w-full border border-gray-200 px-4 py-3 rounded-xl font-bold text-sm text-muted">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-                    Logout
-                </button>
-            </form>
-        </div>
-    </div>
-</nav>
-
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+@section('parent-content')
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 
     {{-- Flash --}}
     @if(session('success'))
@@ -359,7 +296,7 @@
 
     @endif
 
-</main>
+</div>
 
 <style>
     @keyframes slideDown {
@@ -372,9 +309,5 @@
     .scrollbar-thin::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 99px; }
     .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
     [x-cloak] { display: none !important; }
-    @keyframes pulse { 50% { opacity: .5; } }
-    .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
 </style>
-
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
 @endsection

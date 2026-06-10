@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.parent')
 @section('title', 'Add Child Profile')
 
-@section('content')
+@section('parent-content')
 <div class="min-h-screen bg-gradient-to-br from-gray-50 to-white">
     <div class="max-w-2xl mx-auto px-4 sm:px-8 py-8 sm:py-16">
         
