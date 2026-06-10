@@ -9,14 +9,28 @@ if [ ! -f .env ]; then
 fi
 
 echo ">>> Installing dependencies..."
-if command -v composer &> /dev/null; then
-    composer install --optimize-autoloader --no-dev
-elif [ -f composer.phar ]; then
-    php composer.phar install --optimize-autoloader --no-dev
-else
-    echo ">>> Composer not found. Downloading..."
-    curl -sS https://getcomposer.org/installer | php
-    php composer.phar install --optimize-autoloader --no-dev
+COMPOSER_CMD="composer"
+if ! command -v composer &> /dev/null; then
+    if [ ! -f composer.phar ]; then
+        echo ">>> Composer not found. Downloading..."
+        curl -sS https://getcomposer.org/installer | php
+    fi
+    COMPOSER_CMD="php composer.phar"
+fi
+
+for i in 1 2 3; do
+    echo ">>> Composer install attempt $i..."
+    if $COMPOSER_CMD install --optimize-autoloader --no-dev; then
+        INSTALL_OK=1
+        break
+    fi
+    echo ">>> Retrying in 3 seconds..."
+    sleep 3
+done
+
+if [ -z "$INSTALL_OK" ]; then
+    echo ">>> Composer install failed after 3 attempts. Aborting."
+    exit 1
 fi
 
 echo ">>> Running migrations..."
