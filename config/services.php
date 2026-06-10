@@ -37,4 +37,11 @@ return [
         'client_secret' => env('EDFRICA_CLIENT_SECRET'),
     ],
 
+    'paystack' => [
+        'key' => env('PAYSTACK_PUBLIC_KEY'),
+        'secret' => env('PAYSTACK_SECRET_KEY'),
+        'payment_url' => env('PAYSTACK_PAYMENT_URL', 'https://api.paystack.co'),
+        'merchant_email' => env('PAYSTACK_MERCHANT_EMAIL'),
+    ],
+
 ];

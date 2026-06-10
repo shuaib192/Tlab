@@ -132,4 +132,45 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::put('carousel/{carousel}',             [\App\Http\Controllers\Admin\CarouselSlideController::class, 'update'])->name('carousel.update');
     Route::delete('carousel/{carousel}',          [\App\Http\Controllers\Admin\CarouselSlideController::class, 'destroy'])->name('carousel.destroy');
     Route::patch('carousel/{carousel}/toggle',    [\App\Http\Controllers\Admin\CarouselSlideController::class, 'toggleActive'])->name('carousel.toggle');
+
+    // Payments
+    Route::get('payments',             [\App\Http\Controllers\Admin\PaymentController::class, 'index'])->name('payments.index');
+    Route::get('payments/{payment}',   [\App\Http\Controllers\Admin\PaymentController::class, 'show'])->name('payments.show');
+});
+
+// --- Pricing ---
+Route::get('/pricing', [\App\Http\Controllers\PaymentController::class, 'pricing'])->name('pricing');
+
+// --- Payments ---
+Route::middleware('auth')->group(function () {
+    Route::post('/payment/checkout',             [\App\Http\Controllers\PaymentController::class, 'checkout'])->name('payment.checkout');
+    Route::get('/payment/callback',             [\App\Http\Controllers\PaymentController::class, 'callback'])->name('payment.callback');
+});
+Route::post('/payment/webhook',                 [\App\Http\Controllers\PaymentController::class, 'webhook'])->name('payment.webhook')->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
+
+// --- Parent Payment & Subscription ---
+Route::middleware(['auth', 'parent'])->prefix('parent')->name('parent.')->group(function () {
+    Route::get('/subscription',  [\App\Http\Controllers\PaymentController::class, 'subscription'])->name('subscription');
+    Route::get('/payments',      [\App\Http\Controllers\PaymentController::class, 'history'])->name('payments.history');
+
+    // Certificates
+    Route::get('/children/{child}/certificates', [\App\Http\Controllers\CertificateController::class, 'index'])->name('certificates.index');
+    Route::post('/children/{child}/certificates/generate', [\App\Http\Controllers\CertificateController::class, 'generate'])->name('certificates.generate');
+});
+
+// --- Certificate Download & Verification ---
+Route::get('/certificates/{certificate}/download', [\App\Http\Controllers\CertificateController::class, 'download'])->name('certificate.download')->middleware('auth');
+Route::get('/certificates/verify/{certificateId}',  [\App\Http\Controllers\CertificateController::class, 'verify'])->name('certificate.verify');
+
+// --- Notifications ---
+Route::middleware('auth')->prefix('notifications')->name('notifications.')->group(function () {
+    Route::get('/',                           [\App\Http\Controllers\NotificationController::class, 'index'])->name('index');
+    Route::post('/{notification}/read',       [\App\Http\Controllers\NotificationController::class, 'markRead'])->name('read');
+    Route::post('/read-all',                  [\App\Http\Controllers\NotificationController::class, 'markAllRead'])->name('read-all');
+    Route::get('/unread-count',               [\App\Http\Controllers\NotificationController::class, 'unreadCount'])->name('unread-count');
+});
+
+// --- Child Achievements ---
+Route::middleware('auth')->prefix('child')->name('child.')->group(function () {
+    Route::get('/{child}/achievements', [\App\Http\Controllers\AchievementController::class, 'index'])->name('achievements');
 });

@@ -97,9 +97,11 @@ class ChildProfile extends Model
 
     public function awardXp(int $amount, string $activity)
     {
+        $oldRank = $this->rank;
         $this->increment('xp', $amount);
         $this->xpLogs()->create(['amount' => $amount, 'activity' => $activity]);
         $this->updateRank();
+        \App\Http\Controllers\AchievementController::checkAndAward($this);
     }
 
     public function updateRank()
@@ -110,7 +112,12 @@ class ChildProfile extends Model
                 $rank = $name;
             }
         }
-        $this->update(['rank' => $rank]);
+        if ($rank !== $this->rank) {
+            $this->update(['rank' => $rank]);
+            \App\Http\Controllers\AchievementController::checkAndAward($this);
+        } elseif ($this->rank !== $rank) {
+            $this->update(['rank' => $rank]);
+        }
     }
 
     public function getAgeAttribute()
