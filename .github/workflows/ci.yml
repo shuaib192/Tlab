@@ -80,7 +80,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          rsync -avz --delete --exclude='.env' --exclude='.git' --exclude='node_modules' --exclude='storage' \
+          rsync -avz --delete --exclude='.env' --exclude='.htaccess' --exclude='.git' --exclude='node_modules' --exclude='storage' \
             -e "ssh -p ${DEPLOY_PORT} -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
             ./ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/
           ssh -p ${DEPLOY_PORT} -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
@@ -103,7 +103,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          rsync -avz --delete --exclude='.env' --exclude='.git' --exclude='node_modules' --exclude='storage' \
+          rsync -avz --delete --exclude='.env' --exclude='.htaccess' --exclude='.git' --exclude='node_modules' --exclude='storage' \
             -e "ssh -p ${DEPLOY_PORT} -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
             ./ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/
           ssh -p ${DEPLOY_PORT} -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
