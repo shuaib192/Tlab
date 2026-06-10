@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\ChildProfile;
 use App\Models\Course;
 use App\Models\Enrollment;
+use App\Services\EdfricaAuthService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ParentFlowTest extends TestCase
@@ -13,11 +14,24 @@ class ParentFlowTest extends TestCase
 
     public function test_parent_can_register()
     {
+        $this->mock(EdfricaAuthService::class, function ($mock) {
+            $mock->shouldReceive('register')
+                ->once()
+                ->andReturn(['access_token' => 'fake-token']);
+            $mock->shouldReceive('getUser')
+                ->once()
+                ->andReturn([
+                    'id' => 999,
+                    'name' => 'Test Parent',
+                    'email' => 'parent@test.com',
+                ]);
+        });
+
         $response = $this->post('/signup', [
             'name' => 'Test Parent',
             'email' => 'parent@test.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
         ]);
         $response->assertSessionHasNoErrors();
         $this->assertDatabaseHas('users', ['email' => 'parent@test.com']);
@@ -37,6 +51,7 @@ class ParentFlowTest extends TestCase
             'name' => 'Test Child',
             'username' => 'testchild',
             'dob' => '2015-01-01',
+            'gender' => 'male',
         ]);
         $response->assertSessionHasNoErrors();
         $this->assertDatabaseHas('child_profiles', ['username' => 'testchild']);

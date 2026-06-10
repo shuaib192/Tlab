@@ -16,7 +16,7 @@ class ChildFlowTest extends TestCase
         $user = User::factory()->create(['role' => 'parent']);
         $child = ChildProfile::factory()->create([
             'user_id' => $user->id,
-            'pin' => bcrypt('1234'),
+            'pin' => '1234',
             'pin_enabled' => true,
         ]);
 
@@ -32,7 +32,8 @@ class ChildFlowTest extends TestCase
         $user = User::factory()->create(['role' => 'parent']);
         $child = ChildProfile::factory()->create(['user_id' => $user->id]);
 
-        $response = $this->withSession(['active_child_id' => $child->id])
+        $response = $this->actingAs($user)
+            ->withSession(['active_child_id' => $child->id])
             ->get(route('child.dashboard'));
         $response->assertStatus(200);
     }
