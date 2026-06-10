@@ -84,7 +84,7 @@ jobs:
             -e "ssh -p ${DEPLOY_PORT} -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
             ./ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/
           ssh -p ${DEPLOY_PORT} -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
-            $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && php artisan migrate --force && php artisan optimize:clear && touch public/index.php"
+            $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && bash server_deploy.sh"
 
   deploy-production:
     if: github.ref == 'refs/heads/main'
@@ -107,4 +107,4 @@ jobs:
             -e "ssh -p ${DEPLOY_PORT} -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
             ./ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/
           ssh -p ${DEPLOY_PORT} -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
-            $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && php artisan migrate --force && php artisan optimize:clear && touch public/index.php"
+            $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && bash server_deploy.sh"
