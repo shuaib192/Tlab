@@ -1,9 +1,11 @@
 <?php
+
 namespace Tests\Feature;
-use Tests\TestCase;
+
 use App\Models\FeatureFlag;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class FeatureFlagTest extends TestCase
 {
@@ -17,14 +19,14 @@ class FeatureFlagTest extends TestCase
 
     public function test_feature_flag_staging_only_blocks_in_production()
     {
-        app()->detectEnvironment(fn() => 'production');
+        app()->detectEnvironment(fn () => 'production');
         FeatureFlag::create(['key' => 'beta_feature', 'name' => 'Beta Feature', 'is_active' => true, 'staging_only' => true]);
         $this->assertFalse(FeatureFlag::isEnabled('beta_feature'));
     }
 
     public function test_feature_flag_staging_only_allows_specific_user()
     {
-        app()->detectEnvironment(fn() => 'production');
+        app()->detectEnvironment(fn () => 'production');
         $user = User::factory()->create(['role' => 'parent']);
         FeatureFlag::create([
             'key' => 'beta_feature',

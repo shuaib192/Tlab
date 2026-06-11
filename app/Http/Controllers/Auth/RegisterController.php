@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Services\EdfricaAuthService;
 use App\Models\User;
+use App\Services\EdfricaAuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -27,16 +27,17 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
         ]);
 
         $result = $this->authService->register([
-            'name'                  => $request->name,
-            'email'                 => $request->email,
-            'password'              => $request->password,
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
             'password_confirmation' => $request->password_confirmation,
+            'role' => 'parent',
         ]);
 
         // Handle "already have an Edfrica account" per the API docs
@@ -50,13 +51,14 @@ class RegisterController extends Controller
                 $user = User::updateOrCreate(
                     ['edfrica_id' => $profile['id']],
                     [
-                        'name'     => $profile['name'],
-                        'email'    => $profile['email'],
+                        'name' => $profile['name'],
+                        'email' => $profile['email'],
                         'password' => Hash::make(Str::random(24)),
-                        'role'     => 'parent',
+                        'role' => 'parent',
                     ]
                 );
                 Auth::login($user);
+
                 return redirect()->route('parent.dashboard')->with('success', 'Welcome to TLab! Let\'s add your first child.');
             }
         }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -11,12 +12,14 @@ class InvoiceController extends Controller
     public function index()
     {
         $invoices = Invoice::with('user')->latest()->paginate(20);
+
         return view('admin.invoices.index', compact('invoices'));
     }
 
     public function create()
     {
         $users = User::whereIn('role', ['parent', 'entrepreneur', 'aider'])->orderBy('name')->get();
+
         return view('admin.invoices.create', compact('users'));
     }
 
@@ -44,6 +47,7 @@ class InvoiceController extends Controller
     {
         $invoice->load('user');
         $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('admin.invoices.pdf', compact('invoice'));
+
         return $pdf->download("invoice-{$invoice->invoice_number}.pdf");
     }
 }

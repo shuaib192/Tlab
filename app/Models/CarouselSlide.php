@@ -16,8 +16,8 @@ class CarouselSlide extends Model
     public static function active()
     {
         return static::where('active', true)
-                     ->orderBy('sort_order')
-                     ->orderBy('id')
-                     ->get();
+            ->orderBy('sort_order')
+            ->orderBy('id')
+            ->get();
     }
 }

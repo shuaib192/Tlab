@@ -33,11 +33,11 @@ class ChildProfile extends Model
 
     // --- Rank thresholds ---
     const RANKS = [
-        'Explorer'       => 0,
-        'Innovator'      => 200,
-        'Builder'        => 500,
-        'Creator'        => 1000,
-        'Master Inventor'=> 2000,
+        'Explorer' => 0,
+        'Innovator' => 200,
+        'Builder' => 500,
+        'Creator' => 1000,
+        'Master Inventor' => 2000,
     ];
 
     // --- Relationships ---
@@ -93,7 +93,7 @@ class ChildProfile extends Model
 
     public function verifyPin(string $pin): bool
     {
-        if (!$this->pin_enabled || !$this->pin) {
+        if (! $this->pin_enabled || ! $this->pin) {
             return false;
         }
         if (Hash::check($pin, $this->pin)) {
@@ -101,8 +101,10 @@ class ChildProfile extends Model
         }
         if ($this->pin === $pin) {
             $this->update(['pin' => Hash::make($pin)]);
+
             return true;
         }
+
         return false;
     }
 
@@ -145,6 +147,7 @@ class ChildProfile extends Model
                 return $t - $this->xp;
             }
         }
+
         return 0;
     }
 
@@ -159,7 +162,10 @@ class ChildProfile extends Model
                 $next = $ranks[$i + 1] ?? $t;
             }
         }
-        if ($next === $current) return 100;
+        if ($next === $current) {
+            return 100;
+        }
+
         return min(100, round((($this->xp - $current) / ($next - $current)) * 100));
     }
 }

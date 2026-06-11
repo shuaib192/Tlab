@@ -12,6 +12,7 @@ class ClubController extends Controller
     public function index()
     {
         $clubs = Club::withCount('courses')->latest()->paginate(20);
+
         return view('admin.clubs.index', compact('clubs'));
     }
 
@@ -23,12 +24,12 @@ class ClubController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name'        => 'required|string|max:100',
+            'name' => 'required|string|max:100',
             'description' => 'nullable|string',
             'color_theme' => 'required|string|max:7',
-            'icon'        => 'nullable|string|max:50',
-            'min_age'     => 'nullable|integer|min:1|max:18',
-            'max_age'     => 'nullable|integer|min:1|max:18',
+            'icon' => 'nullable|string|max:50',
+            'min_age' => 'nullable|integer|min:1|max:18',
+            'max_age' => 'nullable|integer|min:1|max:18',
         ]);
 
         $data['slug'] = Str::slug($data['name']);
@@ -47,12 +48,12 @@ class ClubController extends Controller
     public function update(Request $request, Club $club)
     {
         $data = $request->validate([
-            'name'        => 'required|string|max:100',
+            'name' => 'required|string|max:100',
             'description' => 'nullable|string',
             'color_theme' => 'required|string|max:7',
-            'icon'        => 'nullable|string|max:50',
-            'min_age'     => 'nullable|integer|min:1|max:18',
-            'max_age'     => 'nullable|integer|min:1|max:18',
+            'icon' => 'nullable|string|max:50',
+            'min_age' => 'nullable|integer|min:1|max:18',
+            'max_age' => 'nullable|integer|min:1|max:18',
         ]);
 
         $data['slug'] = Str::slug($data['name']);
@@ -67,6 +68,7 @@ class ClubController extends Controller
     {
         $name = $club->name;
         $club->delete();
+
         return redirect()->route('admin.clubs.index')
             ->with('success', "Club \"{$name}\" deleted.");
     }

@@ -1,12 +1,14 @@
 <?php
+
 namespace Tests\Feature;
-use Tests\TestCase;
-use App\Models\User;
+
 use App\Models\ChildProfile;
 use App\Models\Course;
 use App\Models\Enrollment;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 
 class ChildFlowTest extends TestCase
 {

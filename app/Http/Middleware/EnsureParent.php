@@ -10,7 +10,7 @@ class EnsureParent
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || !auth()->user()->isParent()) {
+        if (! auth()->check() || ! auth()->user()->isParent()) {
             return redirect()->route('login')->with('error', 'You must be logged in as a parent to access this page.');
         }
 

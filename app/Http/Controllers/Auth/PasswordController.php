@@ -39,15 +39,15 @@ class PasswordController extends Controller
     public function reset(Request $request)
     {
         $request->validate([
-            'email'    => 'required|email',
-            'code'     => 'required|string|size:6',
+            'email' => 'required|email',
+            'code' => 'required|string|size:6',
             'password' => 'required|min:8|confirmed',
         ]);
 
         $result = $this->authService->resetPassword([
-            'email'                 => $request->email,
-            'code'                  => $request->code,
-            'password'              => $request->password,
+            'email' => $request->email,
+            'code' => $request->code,
+            'password' => $request->password,
             'password_confirmation' => $request->password_confirmation,
         ]);
 

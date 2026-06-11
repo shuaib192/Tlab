@@ -1,9 +1,9 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\School;
-use App\Models\License;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -12,6 +12,7 @@ class SchoolController extends Controller
     public function index()
     {
         $schools = School::withCount('licenses')->latest()->paginate(20);
+
         return view('admin.schools.index', compact('schools'));
     }
 
@@ -34,7 +35,7 @@ class SchoolController extends Controller
             'subscription_tier' => 'nullable|string|in:basic,premium,enterprise',
         ]);
 
-        $validated['slug'] = Str::slug($validated['name']) . '-' . Str::random(4);
+        $validated['slug'] = Str::slug($validated['name']).'-'.Str::random(4);
 
         School::create($validated);
 
@@ -44,6 +45,7 @@ class SchoolController extends Controller
     public function show(School $school)
     {
         $school->load('licenses');
+
         return view('admin.schools.show', compact('school'));
     }
 

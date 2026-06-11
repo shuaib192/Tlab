@@ -22,12 +22,13 @@ class CourseController extends Controller
     public function show(Club $club)
     {
         $courses = $club->courses()->where('is_published', true)->get();
+
         return view('parent.courses.show', compact('club', 'courses'));
     }
 
     public function enrollForm(Course $course)
     {
-        if (!$course->is_published) {
+        if (! $course->is_published) {
             abort(404);
         }
 
@@ -44,7 +45,7 @@ class CourseController extends Controller
 
     public function enroll(Course $course, Request $request)
     {
-        if (!$course->is_published) {
+        if (! $course->is_published) {
             abort(404);
         }
 
@@ -65,10 +66,10 @@ class CourseController extends Controller
 
         Enrollment::create([
             'child_profile_id' => $child->id,
-            'course_id'        => $course->id,
-            'status'           => 'active',
-            'payment_status'   => 'pending',
-            'started_at'       => now(),
+            'course_id' => $course->id,
+            'status' => 'active',
+            'payment_status' => 'pending',
+            'started_at' => now(),
         ]);
 
         return redirect()->route('parent.courses.show', $course->club)

@@ -1,13 +1,14 @@
 <?php
+
 namespace Tests\Feature;
-use Tests\TestCase;
-use App\Models\User;
-use App\Models\Course;
-use App\Models\Cohort;
-use App\Models\ClassSession;
+
 use App\Models\ChildProfile;
-use App\Models\Assignment;
+use App\Models\ClassSession;
+use App\Models\Cohort;
+use App\Models\Course;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class TeacherFlowTest extends TestCase
 {

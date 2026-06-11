@@ -21,8 +21,11 @@ class SafeLink extends Model
     public static function isSafe($url)
     {
         $host = parse_url($url, PHP_URL_HOST);
-        if (!$host) return false;
+        if (! $host) {
+            return false;
+        }
         $host = strtolower(preg_replace('/^www\./', '', $host));
+
         return static::allowed()->where('domain', $host)->exists();
     }
 }

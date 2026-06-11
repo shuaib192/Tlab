@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Club;
 use App\Models\Course;
+use Illuminate\Database\Seeder;
 
 class ClubSeeder extends Seeder
 {
@@ -12,11 +12,11 @@ class ClubSeeder extends Seeder
     {
         $clubs = [
             [
-                'name'        => 'STEM Club',
-                'slug'        => 'stem-club',
+                'name' => 'STEM Club',
+                'slug' => 'stem-club',
                 'description' => 'Robotics, Python, Scratch, and Science experiments for ages 7–15.',
                 'color_theme' => '#4E9966',
-                'icon'        => 'chip',
+                'icon' => 'chip',
                 'courses' => [
                     ['title' => 'Introduction to Scratch', 'level' => 'beginner'],
                     ['title' => 'Python for Kids',         'level' => 'intermediate'],
@@ -25,37 +25,37 @@ class ClubSeeder extends Seeder
                 ],
             ],
             [
-                'name'        => 'Brain Club',
-                'slug'        => 'brain-club',
+                'name' => 'Brain Club',
+                'slug' => 'brain-club',
                 'description' => 'Logic, Math Olympiad, Puzzles and Lateral Thinking for ages 5–15.',
                 'color_theme' => '#D4A224',
-                'icon'        => 'lightbulb',
+                'icon' => 'lightbulb',
                 'courses' => [
                     ['title' => 'Math Foundations',       'level' => 'beginner'],
                     ['title' => 'Math Olympiad Prep',     'level' => 'advanced'],
                     ['title' => 'Logic and Puzzles',      'level' => 'beginner'],
-                    ['title' => 'Lateral Thinking Mastery','level' => 'intermediate'],
+                    ['title' => 'Lateral Thinking Mastery', 'level' => 'intermediate'],
                 ],
             ],
             [
-                'name'        => 'Art & Craft Club',
-                'slug'        => 'art-craft-club',
+                'name' => 'Art & Craft Club',
+                'slug' => 'art-craft-club',
                 'description' => 'Canva Design, Lego StoryStarter and Creative Expression for ages 3–12.',
                 'color_theme' => '#C24B1E',
-                'icon'        => 'pencil',
+                'icon' => 'pencil',
                 'courses' => [
                     ['title' => 'Canva for Kids',          'level' => 'beginner'],
                     ['title' => 'Lego StoryStarter',       'level' => 'beginner'],
-                    ['title' => 'Drawing and Illustration','level' => 'beginner'],
+                    ['title' => 'Drawing and Illustration', 'level' => 'beginner'],
                     ['title' => 'Digital Design Basics',   'level' => 'intermediate'],
                 ],
             ],
             [
-                'name'        => 'Leadership Club',
-                'slug'        => 'leadership-club',
+                'name' => 'Leadership Club',
+                'slug' => 'leadership-club',
                 'description' => 'Debate, Confidence Building, Entrepreneurship and Communication for ages 8–15.',
                 'color_theme' => '#6B3FA0',
-                'icon'        => 'users',
+                'icon' => 'users',
                 'courses' => [
                     ['title' => 'Public Speaking Foundations', 'level' => 'beginner'],
                     ['title' => 'Debate Mastery',              'level' => 'intermediate'],
@@ -76,7 +76,7 @@ class ClubSeeder extends Seeder
 
             foreach ($courses as $course) {
                 Course::updateOrCreate(
-                    ['slug' => $club->slug . '-' . \Illuminate\Support\Str::slug($course['title'])],
+                    ['slug' => $club->slug.'-'.\Illuminate\Support\Str::slug($course['title'])],
                     array_merge($course, ['club_id' => $club->id])
                 );
             }

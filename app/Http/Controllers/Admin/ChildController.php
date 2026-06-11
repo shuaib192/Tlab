@@ -27,14 +27,15 @@ class ChildController extends Controller
 
     public function show(ChildProfile $child)
     {
-        $child->load(['parent', 'enrollments.course.club', 'xpLogs' => fn($q) => $q->latest()->take(20)]);
+        $child->load(['parent', 'enrollments.course.club', 'xpLogs' => fn ($q) => $q->latest()->take(20)]);
+
         return view('admin.children.show', compact('child'));
     }
 
     public function awardXp(Request $request, ChildProfile $child)
     {
         $data = $request->validate([
-            'amount'   => 'required|integer|min:1|max:500',
+            'amount' => 'required|integer|min:1|max:500',
             'activity' => 'required|string|max:100',
         ]);
 
@@ -47,6 +48,7 @@ class ChildController extends Controller
     {
         $name = $child->name;
         $child->delete();
+
         return redirect()->route('admin.children.index')
             ->with('success', "Profile \"{$name}\" removed.");
     }

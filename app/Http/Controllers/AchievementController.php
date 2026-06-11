@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Achievement;
 use App\Models\ChildProfile;
-use App\Models\ChildAchievement;
 use App\Models\Notification;
 use App\Models\XpLog;
-use Illuminate\Http\Request;
 
 class AchievementController extends Controller
 {
@@ -17,6 +15,7 @@ class AchievementController extends Controller
         $achievements = Achievement::all();
         $earnedIds = $child->achievements->pluck('id')->toArray();
         $totalXpFromAchievements = $child->achievements->sum('xp_reward');
+
         return view('child.achievements', compact('child', 'achievements', 'earnedIds', 'totalXpFromAchievements'));
     }
 
@@ -26,7 +25,9 @@ class AchievementController extends Controller
         $achievements = Achievement::all();
 
         foreach ($achievements as $achievement) {
-            if ($child->achievements->contains($achievement->id)) continue;
+            if ($child->achievements->contains($achievement->id)) {
+                continue;
+            }
 
             $earned = false;
             switch ($achievement->slug) {
@@ -92,8 +93,8 @@ class AchievementController extends Controller
                     'user_id' => $child->user_id,
                     'type' => 'achievement',
                     'title' => "🏆 {$achievement->name} Unlocked!",
-                    'body' => "{$child->name} earned the '{$achievement->name}' badge" .
-                        ($achievement->xp_reward > 0 ? " (+{$achievement->xp_reward} XP)" : '') . "!",
+                    'body' => "{$child->name} earned the '{$achievement->name}' badge".
+                        ($achievement->xp_reward > 0 ? " (+{$achievement->xp_reward} XP)" : '').'!',
                     'icon' => $achievement->icon ?? '🏆',
                     'link' => route('child.achievements', $child),
                 ]);

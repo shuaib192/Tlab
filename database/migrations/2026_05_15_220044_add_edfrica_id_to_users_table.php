@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            if (!Schema::hasColumn('users', 'edfrica_id')) {
+            if (! Schema::hasColumn('users', 'edfrica_id')) {
                 $table->unsignedBigInteger('edfrica_id')->unique()->nullable()->after('id');
             }
-            if (!Schema::hasColumn('users', 'role')) {
+            if (! Schema::hasColumn('users', 'role')) {
                 $table->string('role')->default('parent')->after('email');
             }
-            if (!Schema::hasColumn('users', 'avatar')) {
+            if (! Schema::hasColumn('users', 'avatar')) {
                 $table->string('avatar')->nullable();
             }
         });

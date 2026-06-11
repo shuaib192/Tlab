@@ -1,12 +1,16 @@
 <?php
+
 namespace Database\Factories;
-use App\Models\AssignmentSubmission;
+
 use App\Models\Assignment;
+use App\Models\AssignmentSubmission;
 use App\Models\ChildProfile;
 use Illuminate\Database\Eloquent\Factories\Factory;
+
 class AssignmentSubmissionFactory extends Factory
 {
     protected $model = AssignmentSubmission::class;
+
     public function definition(): array
     {
         return [

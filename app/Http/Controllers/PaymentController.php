@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\Payment;
 use App\Models\Subscription;
 use App\Models\SubscriptionPlan;
-use App\Models\Enrollment;
-use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Unicodeveloper\Paystack\Facades\Paystack;
@@ -16,6 +15,7 @@ class PaymentController extends Controller
     public function pricing()
     {
         $plans = SubscriptionPlan::where('is_active', true)->orderBy('sort_order')->get();
+
         return view('pricing', compact('plans'));
     }
 
@@ -28,11 +28,11 @@ class PaymentController extends Controller
         $plan = SubscriptionPlan::findOrFail($request->plan_id);
         $user = auth()->user();
 
-        if (!$plan->is_active) {
+        if (! $plan->is_active) {
             return back()->with('error', 'This plan is no longer available.');
         }
 
-        $reference = 'TLAB-' . strtoupper(Str::random(12));
+        $reference = 'TLAB-'.strtoupper(Str::random(12));
 
         try {
             $paymentData = [
@@ -55,7 +55,7 @@ class PaymentController extends Controller
                 'amount' => $plan->price,
                 'currency' => 'NGN',
                 'status' => 'pending',
-                'description' => $plan->name . ' Plan Subscription',
+                'description' => $plan->name.' Plan Subscription',
                 'metadata' => ['plan_id' => $plan->id, 'plan_name' => $plan->name],
             ]);
 
@@ -112,9 +112,11 @@ class PaymentController extends Controller
 
                     return redirect()->route('parent.subscription')->with('success', 'Payment successful! Your subscription is now active.');
                 }
-            } catch (\Exception $e) {}
+            } catch (\Exception $e) {
+            }
 
             $payment->update(['status' => 'failed']);
+
             return redirect()->route('pricing')->with('error', 'Payment verification failed. Please try again.');
         }
 
@@ -172,6 +174,7 @@ class PaymentController extends Controller
     public function history()
     {
         $payments = Payment::where('user_id', auth()->id())->latest()->paginate(10);
+
         return view('parent.payments.history', compact('payments'));
     }
 
@@ -181,6 +184,7 @@ class PaymentController extends Controller
         $activeSubscription = $user->activeSubscription;
         $subscriptions = $user->subscriptions()->latest()->get();
         $plans = SubscriptionPlan::where('is_active', true)->orderBy('sort_order')->get();
+
         return view('parent.subscription', compact('activeSubscription', 'subscriptions', 'plans'));
     }
 }

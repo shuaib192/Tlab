@@ -1,13 +1,17 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use App\Models\FeatureFlag;
 use Illuminate\Http\Request;
+
 class FeatureFlagController extends Controller
 {
     public function index()
     {
         $flags = FeatureFlag::orderBy('key')->get();
+
         return view('admin.feature-flags', compact('flags'));
     }
 
@@ -25,12 +29,14 @@ class FeatureFlagController extends Controller
         $data['is_active'] = $request->boolean('is_active');
         $data['staging_only'] = $request->boolean('staging_only');
         FeatureFlag::create($data);
+
         return redirect()->route('admin.feature-flags.index')->with('success', 'Feature flag created.');
     }
 
     public function toggle(FeatureFlag $flag)
     {
-        $flag->update(['is_active' => !$flag->is_active]);
+        $flag->update(['is_active' => ! $flag->is_active]);
+
         return redirect()->route('admin.feature-flags.index')->with('success', 'Feature flag toggled.');
     }
 
@@ -47,6 +53,7 @@ class FeatureFlagController extends Controller
         $data['is_active'] = $request->boolean('is_active');
         $data['staging_only'] = $request->boolean('staging_only');
         $flag->update($data);
+
         return redirect()->route('admin.feature-flags.index')->with('success', 'Feature flag updated.');
     }
 }

@@ -5,25 +5,24 @@ namespace App\Http\Controllers\Child;
 use App\Http\Controllers\Controller;
 use App\Models\AssessmentAttempt;
 use App\Models\ChildProfile;
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index()
     {
         $childId = session('active_child_id');
-        if (!$childId) {
+        if (! $childId) {
             return redirect()->route('child.login')->with('info', 'Please log in to continue.');
         }
 
         $child = ChildProfile::with([
             'enrollments.course.club',
             'enrollments.course.modules.lessons.assessment',
-            'xpLogs' => fn($q) => $q->latest()->take(5),
+            'xpLogs' => fn ($q) => $q->latest()->take(5),
         ])->findOrFail($childId);
 
         // Security: if parent-authenticated, verify ownership (admins bypass)
-        if (!session('child_authenticated') && $child->user_id !== auth()->id() && !in_array(auth()->user()?->role, ['admin', 'super_admin'])) {
+        if (! session('child_authenticated') && $child->user_id !== auth()->id() && ! in_array(auth()->user()?->role, ['admin', 'super_admin'])) {
             abort(403);
         }
 

@@ -36,6 +36,7 @@ class Streak extends Model
 
         $streak->last_activity_date = now();
         $streak->save();
+
         return $streak;
     }
 }

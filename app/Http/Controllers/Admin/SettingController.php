@@ -12,14 +12,15 @@ class SettingController extends Controller
     public function index()
     {
         $settings = SiteSetting::orderBy('group')->orderBy('label')->get()->groupBy('group');
+
         return view('admin.settings.index', compact('settings'));
     }
 
     public function update(Request $request)
     {
         $data = $request->validate([
-            'settings'          => 'required|array',
-            'settings.*.key'   => 'required|string',
+            'settings' => 'required|array',
+            'settings.*.key' => 'required|string',
             'settings.*.value' => 'nullable|string',
         ]);
 
@@ -38,10 +39,10 @@ class SettingController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'key'   => 'required|string|max:100|unique:site_settings,key',
+            'key' => 'required|string|max:100|unique:site_settings,key',
             'label' => 'required|string|max:150',
             'group' => 'required|string|max:50',
-            'type'  => 'required|in:text,textarea,color,boolean,number,image',
+            'type' => 'required|in:text,textarea,color,boolean,number,image',
             'value' => 'nullable|string',
         ]);
 
@@ -55,6 +56,7 @@ class SettingController extends Controller
     {
         Cache::forget("setting:{$setting->key}");
         $setting->delete();
+
         return back()->with('success', 'Setting removed.');
     }
 }

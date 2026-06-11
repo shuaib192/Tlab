@@ -1,12 +1,12 @@
 <?php
+
 namespace Tests\Feature;
-use Tests\TestCase;
-use App\Models\User;
+
 use App\Models\ChildProfile;
-use App\Models\Course;
-use App\Models\Enrollment;
+use App\Models\User;
 use App\Services\EdfricaAuthService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ParentFlowTest extends TestCase
 {

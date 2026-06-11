@@ -11,7 +11,7 @@ class EnsureChildAccess
     {
         $childId = session('active_child_id');
 
-        if (!$childId) {
+        if (! $childId) {
             return redirect()->route('child.login')
                 ->with('info', 'Please log in to continue.');
         }

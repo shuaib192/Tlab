@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class EdfricaOAuthController extends Controller
@@ -25,14 +25,14 @@ class EdfricaOAuthController extends Controller
         session(['oauth_state' => $state]);
 
         $query = http_build_query([
-            'client_id'     => env('EDFRICA_CLIENT_ID'),
-            'redirect_uri'  => route('auth.edfrica.callback'),
+            'client_id' => env('EDFRICA_CLIENT_ID'),
+            'redirect_uri' => route('auth.edfrica.callback'),
             'response_type' => 'code',
-            'scope'         => '',
-            'state'         => $state,
+            'scope' => '',
+            'state' => $state,
         ]);
 
-        return redirect($this->authUrl() . '/oauth/authorize?' . $query);
+        return redirect($this->authUrl().'/oauth/authorize?'.$query);
     }
 
     /**
@@ -42,11 +42,11 @@ class EdfricaOAuthController extends Controller
     {
         // CSRF state check
         \Illuminate\Support\Facades\Log::info('OAuth Callback Hit', [
-            'full_url'      => $request->fullUrl(),
-            'query_params'  => $request->query(),
+            'full_url' => $request->fullUrl(),
+            'query_params' => $request->query(),
             'request_state' => $request->state,
             'session_state' => session('oauth_state'),
-            'session_id'    => session()->getId()
+            'session_id' => session()->getId(),
         ]);
 
         if ($request->state !== session('oauth_state')) {
@@ -54,28 +54,28 @@ class EdfricaOAuthController extends Controller
         }
 
         if ($request->has('error')) {
-            return redirect()->route('login')->with('error', 'Edfrica login was denied: ' . $request->error_description);
+            return redirect()->route('login')->with('error', 'Edfrica login was denied: '.$request->error_description);
         }
 
         // Exchange code for access token
-        $tokenResponse = Http::asForm()->post($this->authUrl() . '/oauth/token', [
-            'grant_type'    => 'authorization_code',
-            'client_id'     => env('EDFRICA_CLIENT_ID'),
+        $tokenResponse = Http::asForm()->post($this->authUrl().'/oauth/token', [
+            'grant_type' => 'authorization_code',
+            'client_id' => env('EDFRICA_CLIENT_ID'),
             'client_secret' => env('EDFRICA_CLIENT_SECRET'),
-            'redirect_uri'  => route('auth.edfrica.callback'),
-            'code'          => $request->code,
+            'redirect_uri' => route('auth.edfrica.callback'),
+            'code' => $request->code,
         ]);
 
-        if (!$tokenResponse->successful()) {
+        if (! $tokenResponse->successful()) {
             return redirect()->route('login')->with('error', 'Could not connect to Edfrica. Please try again.');
         }
 
         $token = $tokenResponse->json('access_token');
 
         // Fetch user info from Edfrica
-        $userResponse = Http::withToken($token)->get($this->authUrl() . '/api/user');
+        $userResponse = Http::withToken($token)->get($this->authUrl().'/api/user');
 
-        if (!$userResponse->successful()) {
+        if (! $userResponse->successful()) {
             return redirect()->route('login')->with('error', 'Could not fetch your Edfrica profile.');
         }
 
@@ -85,10 +85,10 @@ class EdfricaOAuthController extends Controller
         $user = User::updateOrCreate(
             ['edfrica_id' => $edfrica['id']],
             [
-                'name'       => $edfrica['name'],
-                'email'      => $edfrica['email'],
-                'role'       => $edfrica['role'] ?? 'parent',
-                'password'   => bcrypt(Str::random(32)), // SSO users don't use local passwords
+                'name' => $edfrica['name'],
+                'email' => $edfrica['email'],
+                'role' => $edfrica['role'] ?? 'parent',
+                'password' => bcrypt(Str::random(32)), // SSO users don't use local passwords
             ]
         );
 
@@ -97,4 +97,3 @@ class EdfricaOAuthController extends Controller
         return redirect()->intended(route('parent.dashboard'));
     }
 }
-

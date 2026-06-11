@@ -14,7 +14,7 @@ class UserController extends Controller
 
         if ($request->filled('search')) {
             $query->where('name', 'like', "%{$request->search}%")
-                  ->orWhere('email', 'like', "%{$request->search}%");
+                ->orWhere('email', 'like', "%{$request->search}%");
         }
 
         if ($request->filled('role')) {
@@ -22,12 +22,14 @@ class UserController extends Controller
         }
 
         $users = $query->latest()->paginate(20)->withQueryString();
+
         return view('admin.users.index', compact('users'));
     }
 
     public function show(User $user)
     {
         $user->load('children.enrollments');
+
         return view('admin.users.show', compact('user'));
     }
 
@@ -39,9 +41,9 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $data = $request->validate([
-            'name'  => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'role'  => 'required|in:parent,teacher,school_admin,super_admin',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'role' => 'required|in:parent,teacher,school_admin,super_admin',
         ]);
 
         $user->update($data);

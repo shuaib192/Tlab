@@ -1,11 +1,12 @@
 <?php
+
 namespace App\Http\Controllers\Parent;
+
 use App\Http\Controllers\Controller;
-use App\Models\ChildProfile;
-use App\Models\ClassSession;
 use App\Models\Attendance;
-use App\Models\XpLog;
+use App\Models\ClassSession;
 use App\Models\Streak;
+use App\Models\XpLog;
 
 class DashboardController extends Controller
 {
@@ -13,7 +14,7 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
         $children = $user->children()
-            ->withCount(['enrollments' => fn($q) => $q->where('status', 'active')])
+            ->withCount(['enrollments' => fn ($q) => $q->where('status', 'active')])
             ->with(['enrollments.course.club'])
             ->latest()
             ->get();
@@ -54,7 +55,7 @@ class DashboardController extends Controller
         foreach ($children as $child) {
             $total = $child->enrollments()->count();
             $completed = $child->enrollments()->where('status', 'completed')->count();
-            $courseCompletions[$child->id] = ['total' => $total, 'completed' => $completed, 'rate' => $total > 0 ? round(($completed/$total)*100) : 0];
+            $courseCompletions[$child->id] = ['total' => $total, 'completed' => $completed, 'rate' => $total > 0 ? round(($completed / $total) * 100) : 0];
         }
 
         // Upcoming sessions
@@ -67,8 +68,8 @@ class DashboardController extends Controller
             ->where('status', 'scheduled')
             ->orderBy('date')->orderBy('start_time')
             ->get()
-            ->map(fn($s) => [
-                'id' => $s->id, 'title' => $s->title ?? $s->course?->title . ' Session',
+            ->map(fn ($s) => [
+                'id' => $s->id, 'title' => $s->title ?? $s->course?->title.' Session',
                 'date' => $s->date, 'start_time' => $s->start_time,
                 'club_name' => $s->course?->club?->name,
                 'club_color' => $s->course?->club?->color_theme ?? '#16A34A',

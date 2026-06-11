@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Certificate;
 use App\Models\ChildProfile;
 use App\Models\Notification;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Barryvdh\DomPDF\Facade\Pdf;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class CertificateController extends Controller
 {
@@ -16,6 +15,7 @@ class CertificateController extends Controller
     {
         $this->authorize('view', $child);
         $certificates = $child->certificates()->with('course')->latest('issued_at')->get();
+
         return view('parent.certificates.index', compact('child', 'certificates'));
     }
 
@@ -37,7 +37,7 @@ class CertificateController extends Controller
             return back()->with('info', 'Certificate already exists.');
         }
 
-        $certId = 'TLAB-' . strtoupper(Str::random(10));
+        $certId = 'TLAB-'.strtoupper(Str::random(10));
         $course = \App\Models\Course::findOrFail($request->course_id);
 
         $certificate = Certificate::create([
@@ -72,7 +72,7 @@ class CertificateController extends Controller
     public function download(Certificate $certificate)
     {
         $certificate->load(['child', 'course']);
-        
+
         $verifyUrl = route('certificate.verify', $certificate->certificate_id);
         $qrCode = base64_encode(
             \SimpleSoftwareIO\QrCode\Facades\QrCode::format('svg')->size(120)->generate($verifyUrl)
@@ -85,6 +85,7 @@ class CertificateController extends Controller
         ]);
 
         $filename = "{$certificate->child->name}-{$certificate->course->title}-Certificate.pdf";
+
         return $pdf->download($filename);
     }
 

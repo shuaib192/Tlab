@@ -149,13 +149,14 @@ class DashboardController extends Controller
     {
         $this->authorizeTeach($course);
         $course->load('modules.lessons');
+
         return view('teacher.assignments-create', compact('course'));
     }
 
     public function storeAssignment(Request $request, Course $course)
     {
         $this->authorizeTeach($course);
-        
+
         $data = $request->validate([
             'lesson_id' => 'required|exists:lessons,id',
             'title' => 'required|string|max:255',
@@ -164,13 +165,13 @@ class DashboardController extends Controller
             'max_score' => 'required|integer|min:1|max:9999',
             'due_date' => 'nullable|date',
         ]);
-        
+
         // Verify lesson belongs to this course
         $lesson = \App\Models\Lesson::findOrFail($data['lesson_id']);
         if ($lesson->module->course_id !== $course->id) {
             return back()->withErrors(['lesson_id' => 'Lesson does not belong to this course.']);
         }
-        
+
         Assignment::create([
             'lesson_id' => $data['lesson_id'],
             'title' => $data['title'],
@@ -179,7 +180,7 @@ class DashboardController extends Controller
             'max_score' => $data['max_score'],
             'due_date' => $data['due_date'],
         ]);
-        
+
         return redirect()->route('teacher.assignments', $course)
             ->with('success', 'Assignment created successfully.');
     }
@@ -200,7 +201,7 @@ class DashboardController extends Controller
         $this->authorizeTeach($course);
 
         $validated = $request->validate([
-            'score' => 'required|numeric|min:0|max:' . $submission->assignment->max_score,
+            'score' => 'required|numeric|min:0|max:'.$submission->assignment->max_score,
             'feedback' => 'nullable|string|max:2000',
             'status' => 'required|in:graded,approved,rejected',
         ]);
@@ -221,7 +222,7 @@ class DashboardController extends Controller
         $taughtCourseIds = auth()->user()->taughtCourses()->pluck('id');
         $enrolled = $child->enrollments()->whereIn('course_id', $taughtCourseIds)->exists();
 
-        if (!$enrolled) {
+        if (! $enrolled) {
             return redirect()->back()->with('error', 'You can only award XP to students in your courses.');
         }
 
@@ -241,6 +242,7 @@ class DashboardController extends Controller
             ->with(['child', 'parent'])
             ->latest()
             ->paginate(20);
+
         return view('teacher.communications', compact('logs'));
     }
 

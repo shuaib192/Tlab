@@ -31,6 +31,6 @@ class Certificate extends Model
 
     public static function generateId(): string
     {
-        return 'TLAB-' . strtoupper(substr(uniqid(), -8)) . '-' . strtoupper(bin2hex(random_bytes(4)));
+        return 'TLAB-'.strtoupper(substr(uniqid(), -8)).'-'.strtoupper(bin2hex(random_bytes(4)));
     }
 }

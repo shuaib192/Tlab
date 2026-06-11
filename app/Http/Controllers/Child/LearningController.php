@@ -7,9 +7,9 @@ use App\Models\Assessment;
 use App\Models\AssessmentAttempt;
 use App\Models\Assignment;
 use App\Models\AssignmentSubmission;
+use App\Models\ChildProfile;
 use App\Models\Enrollment;
 use App\Models\Lesson;
-use App\Models\ChildProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,7 +18,7 @@ class LearningController extends Controller
     protected function verifyAccess(Enrollment $enrollment): void
     {
         $childId = session('active_child_id');
-        if (!$childId) {
+        if (! $childId) {
             redirect()->route('child.login')->with('info', 'Please log in to continue.')->send();
             exit;
         }
@@ -68,7 +68,9 @@ class LearningController extends Controller
                 if ($lesson->assessment) {
                     $completed = in_array($lesson->assessment->id, $completedLessonIds);
                 }
-                if ($completed) $completedLessons++;
+                if ($completed) {
+                    $completedLessons++;
+                }
                 $moduleLessons[] = (object) [
                     'id' => $lesson->id,
                     'title' => $lesson->title,
@@ -97,7 +99,7 @@ class LearningController extends Controller
     public function lesson(Lesson $lesson)
     {
         $childId = session('active_child_id');
-        if (!$childId) {
+        if (! $childId) {
             return redirect()->route('child.login')->with('info', 'Please log in to continue.');
         }
 
@@ -109,7 +111,7 @@ class LearningController extends Controller
             ->first();
 
         $user = auth()->user();
-        if (!$enrollment && (! $user || ! in_array($user->role ?? '', ['admin', 'super_admin']))) {
+        if (! $enrollment && (! $user || ! in_array($user->role ?? '', ['admin', 'super_admin']))) {
             abort(403);
         }
 
@@ -149,7 +151,7 @@ class LearningController extends Controller
     public function assessment(Assessment $assessment)
     {
         $childId = session('active_child_id');
-        if (!$childId) {
+        if (! $childId) {
             return redirect()->route('child.login')->with('info', 'Please log in to continue.');
         }
 
@@ -162,7 +164,7 @@ class LearningController extends Controller
             ->first();
 
         $user = auth()->user();
-        if (!$enrollment && (! $user || ! in_array($user->role ?? '', ['admin', 'super_admin']))) {
+        if (! $enrollment && (! $user || ! in_array($user->role ?? '', ['admin', 'super_admin']))) {
             abort(403);
         }
 
@@ -184,7 +186,7 @@ class LearningController extends Controller
     public function submitAssessment(Assessment $assessment, Request $request)
     {
         $childId = session('active_child_id');
-        if (!$childId) {
+        if (! $childId) {
             return redirect()->route('child.login')->with('info', 'Please log in to continue.');
         }
 
@@ -196,7 +198,7 @@ class LearningController extends Controller
             ->first();
 
         $user = auth()->user();
-        if (!$enrollment && (! $user || ! in_array($user->role ?? '', ['admin', 'super_admin']))) {
+        if (! $enrollment && (! $user || ! in_array($user->role ?? '', ['admin', 'super_admin']))) {
             abort(403);
         }
 
@@ -264,7 +266,7 @@ class LearningController extends Controller
     public function createProject(Assignment $assignment)
     {
         $childId = session('active_child_id');
-        if (!$childId) {
+        if (! $childId) {
             return redirect()->route('child.login')->with('info', 'Please log in to continue.');
         }
 
@@ -275,7 +277,7 @@ class LearningController extends Controller
             ->first();
 
         $user = auth()->user();
-        if (!$enrollment && (!$user || !in_array($user->role ?? '', ['admin', 'super_admin']))) {
+        if (! $enrollment && (! $user || ! in_array($user->role ?? '', ['admin', 'super_admin']))) {
             abort(403);
         }
 
@@ -287,7 +289,7 @@ class LearningController extends Controller
     public function submitProject(Assignment $assignment, Request $request)
     {
         $childId = session('active_child_id');
-        if (!$childId) {
+        if (! $childId) {
             return redirect()->route('child.login')->with('info', 'Please log in to continue.');
         }
 
@@ -299,7 +301,7 @@ class LearningController extends Controller
             ->first();
 
         $user = auth()->user();
-        if (!$enrollment && (!$user || !in_array($user->role ?? '', ['admin', 'super_admin']))) {
+        if (! $enrollment && (! $user || ! in_array($user->role ?? '', ['admin', 'super_admin']))) {
             abort(403);
         }
 
@@ -313,7 +315,7 @@ class LearningController extends Controller
         $fileUrl = null;
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $path = $file->store('submissions/' . $childId, 'public');
+            $path = $file->store('submissions/'.$childId, 'public');
             $fileUrl = Storage::url($path);
 
             // Create moderated upload for safety review

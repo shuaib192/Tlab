@@ -1,11 +1,12 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\SafeLink;
-use App\Models\ModeratedUpload;
 use App\Models\CommunicationLog;
+use App\Models\ModeratedUpload;
 use App\Models\Notification;
+use App\Models\SafeLink;
 use Illuminate\Http\Request;
 
 class SafetyController extends Controller
@@ -13,6 +14,7 @@ class SafetyController extends Controller
     public function safeLinks()
     {
         $links = SafeLink::latest()->paginate(20);
+
         return view('admin.safe-links', compact('links'));
     }
 
@@ -26,18 +28,21 @@ class SafetyController extends Controller
         ]);
 
         SafeLink::create($validated);
+
         return redirect()->route('admin.safety.safe-links')->with('success', 'Safe link added.');
     }
 
     public function destroySafeLink(SafeLink $safeLink)
     {
         $safeLink->delete();
+
         return redirect()->route('admin.safety.safe-links')->with('success', 'Safe link removed.');
     }
 
     public function uploads()
     {
         $uploads = ModeratedUpload::with(['child', 'moderator'])->latest()->paginate(20);
+
         return view('admin.moderation-uploads', compact('uploads'));
     }
 
@@ -52,6 +57,7 @@ class SafetyController extends Controller
             'icon' => '✅',
             'link' => route('parent.children.show', $upload->child_profile_id),
         ]);
+
         return redirect()->back()->with('success', 'Upload approved.');
     }
 
@@ -67,12 +73,14 @@ class SafetyController extends Controller
             'icon' => '❌',
             'link' => route('parent.children.show', $upload->child_profile_id),
         ]);
+
         return redirect()->back()->with('success', 'Upload rejected.');
     }
 
     public function communications()
     {
         $logs = CommunicationLog::with(['teacher', 'parent', 'child'])->latest()->paginate(20);
+
         return view('admin.communications', compact('logs'));
     }
 }

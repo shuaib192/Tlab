@@ -30,6 +30,6 @@ class Invoice extends Model
 
     public static function generateNumber()
     {
-        return 'INV-' . date('Y') . '-' . str_pad(static::max('id') + 1 ?? 1, 5, '0', STR_PAD_LEFT);
+        return 'INV-'.date('Y').'-'.str_pad(static::max('id') + 1 ?? 1, 5, '0', STR_PAD_LEFT);
     }
 }

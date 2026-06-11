@@ -1,10 +1,14 @@
 <?php
+
 namespace Database\Factories;
+
 use App\Models\ChildProfile;
 use Illuminate\Database\Eloquent\Factories\Factory;
+
 class ChildProfileFactory extends Factory
 {
     protected $model = ChildProfile::class;
+
     public function definition(): array
     {
         return [
