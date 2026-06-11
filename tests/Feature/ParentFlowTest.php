@@ -17,13 +17,14 @@ class ParentFlowTest extends TestCase
         $this->mock(EdfricaAuthService::class, function ($mock) {
             $mock->shouldReceive('register')
                 ->once()
-                ->andReturn(['access_token' => 'fake-token']);
-            $mock->shouldReceive('getUser')
-                ->once()
                 ->andReturn([
-                    'id' => 999,
-                    'name' => 'Test Parent',
-                    'email' => 'parent@test.com',
+                    'user' => [
+                        'id' => 999,
+                        'name' => 'Test Parent',
+                        'email' => 'parent@test.com',
+                        'role' => 'parent',
+                    ],
+                    'access_token' => 'fake-token',
                 ]);
         });
 

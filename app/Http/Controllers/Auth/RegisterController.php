@@ -8,7 +8,6 @@ use App\Services\EdfricaAuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -28,19 +27,10 @@ class RegisterController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
         ]);
 
-        // Create user locally FIRST so registration never fails
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'parent',
-        ]);
-
-        // Try to sync with auth.edfrica.org (optional — failure doesn't block registration)
         try {
             $result = $this->authService->register([
                 'name' => $request->name,
@@ -50,21 +40,37 @@ class RegisterController extends Controller
                 'role' => 'parent',
             ]);
 
-            if (isset($result['access_token'])) {
-                $profile = $this->authService->getUser($result['access_token']);
-                if (isset($profile['id'])) {
-                    $user->update([
-                        'edfrica_id' => $profile['id'],
-                        'password' => Hash::make(Str::random(24)),
-                    ]);
-                }
+            // Auth server created the user — create local record with edfrica_id
+            if (isset($result['user'])) {
+                $user = User::create([
+                    'edfrica_id' => $result['user']['id'],
+                    'name' => $result['user']['name'],
+                    'email' => $result['user']['email'],
+                    'password' => Hash::make($request->password),
+                    'role' => $result['user']['role'] ?? 'parent',
+                ]);
+
+                Auth::login($user);
+
+                return redirect()->route('parent.dashboard')->with('success', 'Welcome to TLab!');
             }
+
+            // Auth server rejected the registration
+            $message = $result['errors']['email'][0] ?? ($result['message'] ?? 'Registration failed');
+
+            return back()->withErrors(['email' => $message])->withInput();
         } catch (\Exception $e) {
-            // Auth server unavailable — user still registered locally
+            // Auth server unreachable — create locally as fallback
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => 'parent',
+            ]);
+
+            Auth::login($user);
+
+            return redirect()->route('parent.dashboard')->with('success', 'Welcome to TLab!');
         }
-
-        Auth::login($user);
-
-        return redirect()->route('parent.dashboard')->with('success', 'Welcome to TLab! Let\'s add your first child.');
     }
 }

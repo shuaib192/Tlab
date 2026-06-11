@@ -8,7 +8,6 @@ use App\Services\EdfricaAuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -31,35 +30,43 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        // 1. Try local authentication first
-        if (Auth::attempt($request->only('email', 'password'), $request->has('remember'))) {
-            return redirect()->intended(route('parent.dashboard'));
-        }
-
-        // 2. Fallback: try Edfrica auth server for existing Edfrica users
         try {
+            // 1. Try auth server first (central identity source)
             $result = $this->authService->login($request->email, $request->password);
 
-            if (isset($result['access_token'])) {
-                $profile = $this->authService->getUser($result['access_token']);
+            if (isset($result['user'])) {
+                // Create or update local record from auth server data
+                $user = User::updateOrCreate(
+                    ['edfrica_id' => $result['user']['id']],
+                    [
+                        'name' => $result['user']['name'],
+                        'email' => $result['user']['email'],
+                        'password' => Hash::make($request->password),
+                        'role' => $result['user']['role'] ?? 'parent',
+                    ]
+                );
 
-                if (isset($profile['id'])) {
-                    $user = User::updateOrCreate(
-                        ['edfrica_id' => $profile['id']],
-                        [
-                            'name' => $profile['name'],
-                            'email' => $profile['email'],
-                            'password' => Hash::make(Str::random(24)),
-                        ]
-                    );
+                Auth::login($user, $request->has('remember'));
 
-                    Auth::login($user, $request->has('remember'));
+                return redirect()->intended(route('parent.dashboard'));
+            }
 
+            // Auth server said invalid credentials
+            if (isset($result['message'])) {
+                // Fallback: try local credentials in case auth server DB is out of sync
+                if (Auth::attempt($request->only('email', 'password'), $request->has('remember'))) {
                     return redirect()->intended(route('parent.dashboard'));
                 }
+
+                return back()->withErrors([
+                    'email' => 'The provided credentials do not match our records.',
+                ])->onlyInput('email');
             }
         } catch (\Exception $e) {
-            // Auth server unavailable — login already handled locally
+            // Auth server unreachable — fall back to local credentials
+            if (Auth::attempt($request->only('email', 'password'), $request->has('remember'))) {
+                return redirect()->intended(route('parent.dashboard'));
+            }
         }
 
         return back()->withErrors([
