@@ -28,41 +28,43 @@ class RegisterController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed',
         ]);
 
-        $result = $this->authService->register([
+        // Create user locally FIRST so registration never fails
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
-            'password_confirmation' => $request->password_confirmation,
+            'password' => Hash::make($request->password),
             'role' => 'parent',
         ]);
 
-        // Handle "already have an Edfrica account" per the API docs
-        if (isset($result['errors']['email'])) {
-            return back()->with('info', 'You already have an Edfrica account! Please log in instead.')->withInput();
-        }
+        // Try to sync with auth.edfrica.org (optional — failure doesn't block registration)
+        try {
+            $result = $this->authService->register([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password,
+                'password_confirmation' => $request->password_confirmation,
+                'role' => 'parent',
+            ]);
 
-        if (isset($result['access_token'])) {
-            $profile = $this->authService->getUser($result['access_token']);
-            if (isset($profile['id'])) {
-                $user = User::updateOrCreate(
-                    ['edfrica_id' => $profile['id']],
-                    [
-                        'name' => $profile['name'],
-                        'email' => $profile['email'],
+            if (isset($result['access_token'])) {
+                $profile = $this->authService->getUser($result['access_token']);
+                if (isset($profile['id'])) {
+                    $user->update([
+                        'edfrica_id' => $profile['id'],
                         'password' => Hash::make(Str::random(24)),
-                        'role' => 'parent',
-                    ]
-                );
-                Auth::login($user);
-
-                return redirect()->route('parent.dashboard')->with('success', 'Welcome to TLab! Let\'s add your first child.');
+                    ]);
+                }
             }
+        } catch (\Exception $e) {
+            // Auth server unavailable — user still registered locally
         }
 
-        return back()->withErrors(['email' => 'Registration failed. Please try again.'])->withInput();
+        Auth::login($user);
+
+        return redirect()->route('parent.dashboard')->with('success', 'Welcome to TLab! Let\'s add your first child.');
     }
 }

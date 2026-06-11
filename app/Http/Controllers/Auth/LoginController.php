@@ -31,31 +31,39 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        $result = $this->authService->login($request->email, $request->password);
+        // 1. Try local authentication first
+        if (Auth::attempt($request->only('email', 'password'), $request->has('remember'))) {
+            return redirect()->intended(route('parent.dashboard'));
+        }
 
-        if (isset($result['access_token'])) {
-            // Get user profile from Edfrica Identity
-            $profile = $this->authService->getUser($result['access_token']);
+        // 2. Fallback: try Edfrica auth server for existing Edfrica users
+        try {
+            $result = $this->authService->login($request->email, $request->password);
 
-            if (isset($profile['id'])) {
-                // Find or create local user
-                $user = User::updateOrCreate(
-                    ['edfrica_id' => $profile['id']],
-                    [
-                        'name' => $profile['name'],
-                        'email' => $profile['email'],
-                        'password' => Hash::make(Str::random(24)), // Random password, auth is handled by Edfrica
-                    ]
-                );
+            if (isset($result['access_token'])) {
+                $profile = $this->authService->getUser($result['access_token']);
 
-                Auth::login($user, $request->has('remember'));
+                if (isset($profile['id'])) {
+                    $user = User::updateOrCreate(
+                        ['edfrica_id' => $profile['id']],
+                        [
+                            'name' => $profile['name'],
+                            'email' => $profile['email'],
+                            'password' => Hash::make(Str::random(24)),
+                        ]
+                    );
 
-                return redirect()->intended(route('parent.dashboard'));
+                    Auth::login($user, $request->has('remember'));
+
+                    return redirect()->intended(route('parent.dashboard'));
+                }
             }
+        } catch (\Exception $e) {
+            // Auth server unavailable — login already handled locally
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records or Edfrica Identity.',
+            'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
     }
 
