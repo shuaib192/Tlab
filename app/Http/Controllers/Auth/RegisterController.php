@@ -58,7 +58,13 @@ class RegisterController extends Controller
             }
 
             // Auth server rejected the registration — show their error
-            $message = $result['errors']['email'][0] ?? ($result['message'] ?? 'Registration failed');
+            $message = 'Registration failed. Please try again.';
+            if (isset($result['errors']) && is_array($result['errors'])) {
+                $message = collect($result['errors'])->flatten()->first() ?? $message;
+            } elseif (isset($result['message'])) {
+                $message = $result['message'];
+            }
+
             if (str_contains($message, 'already been taken')) {
                 $message = 'This email is already registered. Please sign in instead.';
             }

@@ -15,7 +15,7 @@ class EdfricaAuthService
 
     public function login($email, $password)
     {
-        $response = Http::post("{$this->baseUrl}/api/login", [
+        $response = Http::acceptJson()->post("{$this->baseUrl}/api/login", [
             'email' => $email,
             'password' => $password,
         ]);
@@ -25,14 +25,14 @@ class EdfricaAuthService
 
     public function register($data)
     {
-        $response = Http::post("{$this->baseUrl}/api/register", $data);
+        $response = Http::acceptJson()->post("{$this->baseUrl}/api/register", $data);
 
         return $response->json();
     }
 
     public function forgotPassword($email)
     {
-        $response = Http::post("{$this->baseUrl}/api/forgot-password", [
+        $response = Http::acceptJson()->post("{$this->baseUrl}/api/forgot-password", [
             'email' => $email,
         ]);
 
@@ -41,14 +41,14 @@ class EdfricaAuthService
 
     public function resetPassword($data)
     {
-        $response = Http::post("{$this->baseUrl}/api/reset-password", $data);
+        $response = Http::acceptJson()->post("{$this->baseUrl}/api/reset-password", $data);
 
         return $response->json();
     }
 
     public function getUser($token)
     {
-        $response = Http::withToken($token)->get("{$this->baseUrl}/api/user");
+        $response = Http::withToken($token)->acceptJson()->get("{$this->baseUrl}/api/user");
 
         return $response->json();
     }
