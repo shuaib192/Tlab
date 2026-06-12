@@ -25,7 +25,7 @@ class EdfricaOAuthController extends Controller
         session(['oauth_state' => $state]);
 
         $query = http_build_query([
-            'client_id' => env('EDFRICA_CLIENT_ID'),
+            'client_id' => config('services.edfrica.client_id'),
             'redirect_uri' => route('auth.edfrica.callback'),
             'response_type' => 'code',
             'scope' => '',
@@ -60,8 +60,8 @@ class EdfricaOAuthController extends Controller
         // Exchange code for access token
         $tokenResponse = Http::asForm()->post($this->authUrl().'/oauth/token', [
             'grant_type' => 'authorization_code',
-            'client_id' => env('EDFRICA_CLIENT_ID'),
-            'client_secret' => env('EDFRICA_CLIENT_SECRET'),
+            'client_id' => config('services.edfrica.client_id'),
+            'client_secret' => config('services.edfrica.client_secret'),
             'redirect_uri' => route('auth.edfrica.callback'),
             'code' => $request->code,
         ]);
