@@ -33,6 +33,7 @@ class ParentFlowTest extends TestCase
             'email' => 'parent@test.com',
             'password' => 'password123',
             'password_confirmation' => 'password123',
+            'terms' => '1',
         ]);
         $response->assertSessionHasNoErrors();
         $this->assertDatabaseHas('users', ['email' => 'parent@test.com']);
