@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\EdfricaAuthService;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -29,6 +30,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
+            'terms' => 'accepted',
         ]);
 
         try {
@@ -55,12 +57,20 @@ class RegisterController extends Controller
                 return redirect()->route('parent.dashboard')->with('success', 'Welcome to TLab!');
             }
 
-            // Auth server rejected the registration
+            // Auth server rejected the registration — show their error
             $message = $result['errors']['email'][0] ?? ($result['message'] ?? 'Registration failed');
+            if (str_contains($message, 'already been taken')) {
+                $message = 'This email is already registered. Please sign in instead.';
+            }
 
             return back()->withErrors(['email' => $message])->withInput();
-        } catch (\Exception $e) {
+        } catch (ConnectionException $e) {
             // Auth server unreachable — create locally as fallback
+            \Illuminate\Support\Facades\Log::warning('Auth server unreachable during registration, falling back to local', [
+                'email' => $request->email,
+                'error' => $e->getMessage(),
+            ]);
+
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -71,6 +81,14 @@ class RegisterController extends Controller
             Auth::login($user);
 
             return redirect()->route('parent.dashboard')->with('success', 'Welcome to TLab!');
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Registration error', [
+                'email' => $request->email,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return back()->withErrors(['email' => 'Registration failed. Please try again.'])->withInput();
         }
     }
 }
