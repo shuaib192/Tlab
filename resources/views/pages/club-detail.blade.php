@@ -8,10 +8,10 @@
 {{-- Per-club hero images map --}}
 @php
 $heroImages = [
-    'stem-club'  => '/images/club-stem.png',
-    'brain-club' => '/images/club-brain.png',
-    'art-craft'  => '/images/club-art.png',
-    'leadership' => '/images/club-leadership.png',
+    'stem-club'  => '/images/club-stem.jpg',
+    'brain-club' => '/images/club-brain.jpg',
+    'art-craft'  => '/images/club-art.jpg',
+    'leadership' => '/images/club-leadership.jpg',
 ];
 $heroImg = $heroImages[$club['slug']] ?? $heroImages['stem-club'];
 @endphp
@@ -71,10 +71,10 @@ $heroImg = $heroImages[$club['slug']] ?? $heroImages['stem-club'];
                 <div class="rounded-3xl overflow-hidden h-56 sm:h-72 reveal bg-slate-100">
                     @php
                     $bannerImages = [
-                        'stem-club'  => '/images/club-stem-banner.png',
-                        'brain-club' => '/images/club-brain-banner.png',
-                        'art-craft'  => '/images/club-art-banner.png',
-                        'leadership' => '/images/club-leadership-banner.png',
+                        'stem-club'  => '/images/club-stem-banner.jpg',
+                        'brain-club' => '/images/club-brain-banner.jpg',
+                        'art-craft'  => '/images/club-art-banner.jpg',
+                        'leadership' => '/images/club-leadership-banner.jpg',
                     ];
                     @endphp
                     <img src="{{ $bannerImages[$club['slug']] ?? $bannerImages['stem-club'] }}"
