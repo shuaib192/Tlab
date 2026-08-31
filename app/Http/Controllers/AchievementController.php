@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AchievementUnlocked;
 use App\Models\Achievement;
 use App\Models\ChildProfile;
 use App\Models\Notification;
 use App\Models\XpLog;
+use Illuminate\Support\Facades\Mail;
 
 class AchievementController extends Controller
 {
@@ -98,6 +100,11 @@ class AchievementController extends Controller
                     'icon' => $achievement->icon ?? '🏆',
                     'link' => route('child.achievements', $child),
                 ]);
+                try {
+                    if ($child->parent && $child->parent->email) {
+                        Mail::to($child->parent->email)->send(new AchievementUnlocked($achievement, $child));
+                    }
+                } catch (\Exception $e) {}
                 $awarded[] = $achievement->name;
             }
         }

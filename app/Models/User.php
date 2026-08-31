@@ -91,4 +91,9 @@ class User extends Authenticatable
     {
         return $this->role === 'super_admin';
     }
+
+    public function isAdmin()
+    {
+        return in_array($this->role, ['admin', 'super_admin']);
+    }
 }

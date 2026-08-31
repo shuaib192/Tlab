@@ -20,6 +20,13 @@ Route::get('/membership', [PageController::class, 'membership'])->name('membersh
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [PageController::class, 'contactSubmit'])->name('contact.submit');
 
+// --- Privacy & Compliance ---
+Route::get('/privacy', [\App\Http\Controllers\ComplianceController::class, 'privacy'])->name('privacy');
+Route::get('/parental-consent', [\App\Http\Controllers\ComplianceController::class, 'consent'])->name('consent');
+Route::post('/consent/record', [\App\Http\Controllers\ComplianceController::class, 'recordConsent'])->name('consent.record')->middleware('auth');
+Route::post('/compliance/age-gate', [\App\Http\Controllers\ComplianceController::class, 'ageGate'])->name('compliance.age-gate');
+Route::post('/compliance/delete-request', [\App\Http\Controllers\ComplianceController::class, 'requestDeletion'])->name('compliance.delete-request')->middleware('auth');
+
 // --- Edfrica OAuth SSO ---
 Route::get('/auth/edfrica', [\App\Http\Controllers\Auth\EdfricaOAuthController::class, 'redirect'])->name('auth.edfrica');
 Route::get('/auth/edfrica/callback', [\App\Http\Controllers\Auth\EdfricaOAuthController::class, 'callback'])->name('auth.edfrica.callback');
@@ -84,6 +91,7 @@ Route::middleware(['auth', 'teacher'])->prefix('teacher')->name('teacher.')->gro
     Route::get('/dashboard', [\App\Http\Controllers\Teacher\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/courses/{course}', [\App\Http\Controllers\Teacher\DashboardController::class, 'course'])->name('course');
     Route::get('/cohorts/{cohort}', [\App\Http\Controllers\Teacher\DashboardController::class, 'cohort'])->name('cohort');
+    Route::post('/cohorts/{cohort}/sessions', [\App\Http\Controllers\Teacher\DashboardController::class, 'createSession'])->name('cohort.sessions.store');
     Route::get('/sessions/{session}', [\App\Http\Controllers\Teacher\DashboardController::class, 'session'])->name('session');
     Route::post('/sessions/{session}/attendance', [\App\Http\Controllers\Teacher\DashboardController::class, 'markAttendance'])->name('session.attendance');
     Route::get('/courses/{course}/assignments', [\App\Http\Controllers\Teacher\DashboardController::class, 'assignments'])->name('assignments');
@@ -94,11 +102,32 @@ Route::middleware(['auth', 'teacher'])->prefix('teacher')->name('teacher.')->gro
     Route::post('/children/{child}/award-xp', [\App\Http\Controllers\Teacher\DashboardController::class, 'awardXp'])->name('award-xp');
     Route::get('/communications', [\App\Http\Controllers\Teacher\DashboardController::class, 'communications'])->name('communications');
     Route::post('/communications/send', [\App\Http\Controllers\Teacher\DashboardController::class, 'sendCommunication'])->name('communications.send');
+
+    // Course progress tracking
+    Route::get('/courses/{course}/progress', [\App\Http\Controllers\Teacher\ProgressController::class, 'courseProgress'])->name('progress');
+    Route::get('/courses/{course}/progress/{child}', [\App\Http\Controllers\Teacher\ProgressController::class, 'studentProgress'])->name('progress.student');
 });
 
-// --- Admin Panel ---
+// --- School Admin Portal ---
+Route::middleware(['auth', 'school_admin'])->prefix('school')->name('school.')->group(function () {
+    Route::get('/', [\App\Http\Controllers\School\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/students', [\App\Http\Controllers\School\DashboardController::class, 'students'])->name('students');
+    Route::get('/students/import', [\App\Http\Controllers\School\StudentController::class, 'importForm'])->name('students.import');
+    Route::post('/students/import', [\App\Http\Controllers\School\StudentController::class, 'importCsv'])->name('students.import.submit');
+    Route::get('/students/provisioning', [\App\Http\Controllers\School\StudentController::class, 'provisioning'])->name('students.provisioning');
+    Route::post('/students/provisioning', [\App\Http\Controllers\School\StudentController::class, 'provisionTeachers'])->name('students.provisioning.submit');
+    Route::get('/analytics', [\App\Http\Controllers\School\AnalyticsController::class, 'index'])->name('analytics');
+});
+
+// --- Admin Panel (Admin + Super Admin) ---
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+
+    // Upcoming Classes — schedule & manage upcoming classes for students
+    Route::get('upcoming', [\App\Http\Controllers\Admin\UpcomingClassController::class, 'index'])->name('upcoming.index');
+    Route::post('upcoming', [\App\Http\Controllers\Admin\UpcomingClassController::class, 'store'])->name('upcoming.store');
+    Route::get('upcoming/{session}', [\App\Http\Controllers\Admin\UpcomingClassController::class, 'show'])->name('upcoming.show');
+    Route::put('upcoming/{session}', [\App\Http\Controllers\Admin\UpcomingClassController::class, 'update'])->name('upcoming.update');
 
     // Clubs
     Route::resource('clubs', \App\Http\Controllers\Admin\ClubController::class);
@@ -106,18 +135,42 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Courses
     Route::resource('courses', \App\Http\Controllers\Admin\CourseController::class);
 
-    // Users
-    Route::get('users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
-    Route::get('users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'show'])->name('users.show');
-    Route::get('users/{user}/edit', [\App\Http\Controllers\Admin\UserController::class, 'edit'])->name('users.edit');
-    Route::put('users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'update'])->name('users.update');
-    Route::delete('users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy');
+    // Staff Management — Super Admin only (promote/demote admins)
+    Route::middleware('super_admin')->group(function () {
+        Route::get('staff', [\App\Http\Controllers\Admin\StaffController::class, 'index'])->name('staff.index');
+        Route::post('staff/{user}/promote', [\App\Http\Controllers\Admin\StaffController::class, 'promote'])->name('staff.promote');
+        Route::post('staff/{user}/demote', [\App\Http\Controllers\Admin\StaffController::class, 'demote'])->name('staff.demote');
+
+        Route::get('users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
+        Route::get('users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'show'])->name('users.show');
+        Route::get('users/{user}/edit', [\App\Http\Controllers\Admin\UserController::class, 'edit'])->name('users.edit');
+        Route::put('users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'update'])->name('users.update');
+        Route::delete('users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy');
+    });
 
     // Children
     Route::get('children', [\App\Http\Controllers\Admin\ChildController::class, 'index'])->name('children.index');
     Route::get('children/{child}', [\App\Http\Controllers\Admin\ChildController::class, 'show'])->name('children.show');
     Route::post('children/{child}/award-xp', [\App\Http\Controllers\Admin\ChildController::class, 'awardXp'])->name('children.award-xp');
     Route::delete('children/{child}', [\App\Http\Controllers\Admin\ChildController::class, 'destroy'])->name('children.destroy');
+
+    // Curriculum Builder (Modules, Lessons, Assessments)
+    Route::prefix('curriculum')->name('curriculum.')->group(function () {
+        Route::get('/courses/{course}/modules', [\App\Http\Controllers\Admin\CurriculumController::class, 'modules'])->name('modules');
+        Route::post('/courses/{course}/modules', [\App\Http\Controllers\Admin\CurriculumController::class, 'storeModule'])->name('modules.store');
+        Route::put('/modules/{module}', [\App\Http\Controllers\Admin\CurriculumController::class, 'updateModule'])->name('modules.update');
+        Route::delete('/modules/{module}', [\App\Http\Controllers\Admin\CurriculumController::class, 'destroyModule'])->name('modules.destroy');
+
+        Route::get('/modules/{module}/lessons', [\App\Http\Controllers\Admin\CurriculumController::class, 'lessons'])->name('lessons');
+        Route::post('/modules/{module}/lessons', [\App\Http\Controllers\Admin\CurriculumController::class, 'storeLesson'])->name('lessons.store');
+        Route::put('/lessons/{lesson}', [\App\Http\Controllers\Admin\CurriculumController::class, 'updateLesson'])->name('lessons.update');
+        Route::delete('/lessons/{lesson}', [\App\Http\Controllers\Admin\CurriculumController::class, 'destroyLesson'])->name('lessons.destroy');
+
+        Route::get('/lessons/{lesson}/assessments', [\App\Http\Controllers\Admin\CurriculumController::class, 'assessments'])->name('assessments');
+        Route::post('/lessons/{lesson}/assessments', [\App\Http\Controllers\Admin\CurriculumController::class, 'storeAssessment'])->name('assessments.store');
+        Route::post('/assessments/{assessment}/questions', [\App\Http\Controllers\Admin\CurriculumController::class, 'storeQuestion'])->name('questions.store');
+        Route::delete('/questions/{question}', [\App\Http\Controllers\Admin\CurriculumController::class, 'destroyQuestion'])->name('questions.destroy');
+    });
 
     // Enrollments
     Route::get('enrollments', [\App\Http\Controllers\Admin\EnrollmentController::class, 'index'])->name('enrollments.index');
@@ -126,14 +179,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::put('enrollments/{enrollment}', [\App\Http\Controllers\Admin\EnrollmentController::class, 'update'])->name('enrollments.update');
     Route::delete('enrollments/{enrollment}', [\App\Http\Controllers\Admin\EnrollmentController::class, 'destroy'])->name('enrollments.destroy');
 
-    // Settings
-    Route::get('settings', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
-    Route::post('settings', [\App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
-    Route::get('settings/create', [\App\Http\Controllers\Admin\SettingController::class, 'create'])->name('settings.create');
-    Route::post('settings/new', [\App\Http\Controllers\Admin\SettingController::class, 'store'])->name('settings.store');
-    Route::delete('settings/{setting}', [\App\Http\Controllers\Admin\SettingController::class, 'destroy'])->name('settings.destroy');
-
-    // Homepage Carousel
+    // Homepage Carousel (Admin + Super Admin)
     Route::get('carousel', [\App\Http\Controllers\Admin\CarouselSlideController::class, 'index'])->name('carousel.index');
     Route::get('carousel/create', [\App\Http\Controllers\Admin\CarouselSlideController::class, 'create'])->name('carousel.create');
     Route::post('carousel', [\App\Http\Controllers\Admin\CarouselSlideController::class, 'store'])->name('carousel.store');
@@ -142,42 +188,46 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::delete('carousel/{carousel}', [\App\Http\Controllers\Admin\CarouselSlideController::class, 'destroy'])->name('carousel.destroy');
     Route::patch('carousel/{carousel}/toggle', [\App\Http\Controllers\Admin\CarouselSlideController::class, 'toggleActive'])->name('carousel.toggle');
 
-    // Payments
+    // Payments (Admin + Super Admin)
     Route::get('payments', [\App\Http\Controllers\Admin\PaymentController::class, 'index'])->name('payments.index');
     Route::get('payments/{payment}', [\App\Http\Controllers\Admin\PaymentController::class, 'show'])->name('payments.show');
 
-    // Safety & Compliance
-    Route::prefix('safety')->name('safety.')->group(function () {
-        Route::get('/safe-links', [\App\Http\Controllers\Admin\SafetyController::class, 'safeLinks'])->name('safe-links');
-        Route::post('/safe-links', [\App\Http\Controllers\Admin\SafetyController::class, 'storeSafeLink'])->name('safe-links.store');
-        Route::delete('/safe-links/{safeLink}', [\App\Http\Controllers\Admin\SafetyController::class, 'destroySafeLink'])->name('safe-links.destroy');
-        Route::get('/uploads', [\App\Http\Controllers\Admin\SafetyController::class, 'uploads'])->name('uploads');
-        Route::post('/uploads/{upload}/approve', [\App\Http\Controllers\Admin\SafetyController::class, 'approveUpload'])->name('uploads.approve');
-        Route::post('/uploads/{upload}/reject', [\App\Http\Controllers\Admin\SafetyController::class, 'rejectUpload'])->name('uploads.reject');
-        Route::get('/communications', [\App\Http\Controllers\Admin\SafetyController::class, 'communications'])->name('communications');
+    // Super Admin Only — System & Sensitive
+    Route::middleware('super_admin')->group(function () {
+        Route::get('settings', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
+        Route::post('settings', [\App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
+        Route::get('settings/create', [\App\Http\Controllers\Admin\SettingController::class, 'create'])->name('settings.create');
+        Route::post('settings/new', [\App\Http\Controllers\Admin\SettingController::class, 'store'])->name('settings.store');
+        Route::delete('settings/{setting}', [\App\Http\Controllers\Admin\SettingController::class, 'destroy'])->name('settings.destroy');
+
+        Route::prefix('safety')->name('safety.')->group(function () {
+            Route::get('/safe-links', [\App\Http\Controllers\Admin\SafetyController::class, 'safeLinks'])->name('safe-links');
+            Route::post('/safe-links', [\App\Http\Controllers\Admin\SafetyController::class, 'storeSafeLink'])->name('safe-links.store');
+            Route::delete('/safe-links/{safeLink}', [\App\Http\Controllers\Admin\SafetyController::class, 'destroySafeLink'])->name('safe-links.destroy');
+            Route::get('/uploads', [\App\Http\Controllers\Admin\SafetyController::class, 'uploads'])->name('uploads');
+            Route::post('/uploads/{upload}/approve', [\App\Http\Controllers\Admin\SafetyController::class, 'approveUpload'])->name('uploads.approve');
+            Route::post('/uploads/{upload}/reject', [\App\Http\Controllers\Admin\SafetyController::class, 'rejectUpload'])->name('uploads.reject');
+            Route::get('/communications', [\App\Http\Controllers\Admin\SafetyController::class, 'communications'])->name('communications');
+        });
+
+        Route::get('/compliance', [\App\Http\Controllers\Admin\ComplianceController::class, 'index'])->name('compliance.index');
+
+        Route::get('/feature-flags', [\App\Http\Controllers\Admin\FeatureFlagController::class, 'index'])->name('feature-flags.index');
+        Route::post('/feature-flags', [\App\Http\Controllers\Admin\FeatureFlagController::class, 'store'])->name('feature-flags.store');
+        Route::post('/feature-flags/{flag}/toggle', [\App\Http\Controllers\Admin\FeatureFlagController::class, 'toggle'])->name('feature-flags.toggle');
+        Route::put('/feature-flags/{flag}', [\App\Http\Controllers\Admin\FeatureFlagController::class, 'update'])->name('feature-flags.update');
+
+        Route::get('/invoices', [\App\Http\Controllers\Admin\InvoiceController::class, 'index'])->name('invoices.index');
+        Route::get('/invoices/create', [\App\Http\Controllers\Admin\InvoiceController::class, 'create'])->name('invoices.create');
+        Route::post('/invoices', [\App\Http\Controllers\Admin\InvoiceController::class, 'store'])->name('invoices.store');
+        Route::get('/invoices/{invoice}/download', [\App\Http\Controllers\Admin\InvoiceController::class, 'downloadPdf'])->name('invoices.download');
+
+        Route::get('/schools', [\App\Http\Controllers\Admin\SchoolController::class, 'index'])->name('schools.index');
+        Route::get('/schools/create', [\App\Http\Controllers\Admin\SchoolController::class, 'create'])->name('schools.create');
+        Route::post('/schools', [\App\Http\Controllers\Admin\SchoolController::class, 'store'])->name('schools.store');
+        Route::get('/schools/{school}', [\App\Http\Controllers\Admin\SchoolController::class, 'show'])->name('schools.show');
+        Route::post('/schools/{school}/licenses', [\App\Http\Controllers\Admin\SchoolController::class, 'createLicense'])->name('schools.licenses.store');
     });
-
-    // Compliance
-    Route::get('/compliance', [\App\Http\Controllers\Admin\ComplianceController::class, 'index'])->name('compliance.index');
-
-    // Feature Flags
-    Route::get('/feature-flags', [\App\Http\Controllers\Admin\FeatureFlagController::class, 'index'])->name('feature-flags.index');
-    Route::post('/feature-flags', [\App\Http\Controllers\Admin\FeatureFlagController::class, 'store'])->name('feature-flags.store');
-    Route::post('/feature-flags/{flag}/toggle', [\App\Http\Controllers\Admin\FeatureFlagController::class, 'toggle'])->name('feature-flags.toggle');
-    Route::put('/feature-flags/{flag}', [\App\Http\Controllers\Admin\FeatureFlagController::class, 'update'])->name('feature-flags.update');
-
-    // Invoices
-    Route::get('/invoices', [\App\Http\Controllers\Admin\InvoiceController::class, 'index'])->name('invoices.index');
-    Route::get('/invoices/create', [\App\Http\Controllers\Admin\InvoiceController::class, 'create'])->name('invoices.create');
-    Route::post('/invoices', [\App\Http\Controllers\Admin\InvoiceController::class, 'store'])->name('invoices.store');
-    Route::get('/invoices/{invoice}/download', [\App\Http\Controllers\Admin\InvoiceController::class, 'downloadPdf'])->name('invoices.download');
-
-    // Schools
-    Route::get('/schools', [\App\Http\Controllers\Admin\SchoolController::class, 'index'])->name('schools.index');
-    Route::get('/schools/create', [\App\Http\Controllers\Admin\SchoolController::class, 'create'])->name('schools.create');
-    Route::post('/schools', [\App\Http\Controllers\Admin\SchoolController::class, 'store'])->name('schools.store');
-    Route::get('/schools/{school}', [\App\Http\Controllers\Admin\SchoolController::class, 'show'])->name('schools.show');
-    Route::post('/schools/{school}/licenses', [\App\Http\Controllers\Admin\SchoolController::class, 'createLicense'])->name('schools.licenses.store');
 });
 
 // --- Pricing ---

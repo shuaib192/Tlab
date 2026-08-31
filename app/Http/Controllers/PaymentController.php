@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PaymentConfirmation;
 use App\Models\Notification;
 use App\Models\Payment;
 use App\Models\Subscription;
 use App\Models\SubscriptionPlan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Unicodeveloper\Paystack\Facades\Paystack;
 
@@ -109,6 +111,8 @@ class PaymentController extends Controller
                             'link' => route('parent.subscription'),
                         ]);
                     }
+
+                    try { Mail::to($payment->user->email)->send(new PaymentConfirmation($payment, $plan)); } catch (\Exception $e) {}
 
                     return redirect()->route('parent.subscription')->with('success', 'Payment successful! Your subscription is now active.');
                 }

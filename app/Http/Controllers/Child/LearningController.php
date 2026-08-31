@@ -342,7 +342,9 @@ class LearningController extends Controller
             ]
         );
 
+        $child->awardXp(15, "Submitted project: {$assignment->title}");
+
         return redirect()->route('child.course', $enrollment ?? 0)
-            ->with('success', 'Project submitted successfully!');
+            ->with('success', 'Project submitted successfully! +15 XP earned.');
     }
 }

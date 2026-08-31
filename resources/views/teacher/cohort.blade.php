@@ -91,7 +91,12 @@
 
         {{-- Sessions List --}}
         <div>
-            <h2 class="text-lg font-bold mb-4">Sessions ({{ $sessions->count() }})</h2>
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-bold">Sessions ({{ $sessions->count() }})</h2>
+                <button onclick="document.getElementById('create-session-modal').classList.remove('hidden')" class="btn-primary btn-sm">
+                    + New Session
+                </button>
+            </div>
             <div class="space-y-3">
                 @forelse($sessions as $session)
                     <a href="{{ route('teacher.session', $session) }}" class="card p-4 block hover:border-mint/30 transition-all group">
@@ -113,5 +118,56 @@
                 @endforelse
             </div>
         </div>
+    </div>
+
+    {{-- Create Session Modal --}}
+    <div id="create-session-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black/60 backdrop-blur-sm">
+        <div class="bg-gray-900 rounded-2xl p-6 w-full max-w-lg mx-4 shadow-2xl border border-white/10">
+            <div class="flex items-center justify-between mb-5">
+                <h3 class="text-lg font-bold">New Session</h3>
+                <button onclick="document.getElementById('create-session-modal').classList.add('hidden')" class="text-cream/40 hover:text-white transition-colors text-xl leading-none">&times;</button>
+            </div>
+            <form method="POST" action="{{ route('teacher.cohort.sessions.store', $cohort) }}" class="space-y-4">
+                @csrf
+                <div>
+                    <label class="label">Title</label>
+                    <input type="text" name="title" class="input w-full" required maxlength="255" placeholder="e.g. Week 3 - Python Loops">
+                </div>
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="label">Date</label>
+                        <input type="date" name="date" class="input w-full" required value="{{ now()->format('Y-m-d') }}">
+                    </div>
+                    <div>
+                        <label class="label">Start</label>
+                        <input type="time" name="start_time" class="input w-full" required>
+                    </div>
+                    <div>
+                        <label class="label">End</label>
+                        <input type="time" name="end_time" class="input w-full" required>
+                    </div>
+                </div>
+                <div>
+                    <label class="label">Meeting URL (optional)</label>
+                    <input type="url" name="meeting_url" class="input w-full" placeholder="https://zoom.us/j/... or https://meet.google.com/...">
+                </div>
+                <div>
+                    <label class="label">Notes (optional)</label>
+                    <textarea name="notes" class="input w-full" rows="2" maxlength="2000" placeholder="Session topic, materials needed..."></textarea>
+                </div>
+                <div class="flex justify-end gap-3 pt-2">
+                    <button type="button" onclick="document.getElementById('create-session-modal').classList.add('hidden')" class="btn-secondary btn-sm">Cancel</button>
+                    <button type="submit" class="btn-primary btn-sm">Create Session</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.getElementById('create-session-modal').classList.add('hidden');
+            }
+        });
+    </script>
     </div>
 @endsection

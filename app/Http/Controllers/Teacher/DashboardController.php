@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Mail\TeacherFeedback;
 use App\Models\Assignment;
 use App\Models\AssignmentSubmission;
 use App\Models\Attendance;
@@ -12,6 +13,7 @@ use App\Models\Cohort;
 use App\Models\CommunicationLog;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class DashboardController extends Controller
@@ -108,7 +110,7 @@ class DashboardController extends Controller
         ]);
 
         foreach ($validated['attendance'] as $childId => $data) {
-            Attendance::updateOrCreate(
+            $attendance = Attendance::updateOrCreate(
                 [
                     'session_id' => $session->id,
                     'child_profile_id' => $childId,
@@ -119,10 +121,17 @@ class DashboardController extends Controller
                     'marked_by' => auth()->id(),
                 ]
             );
+
+            if (in_array($data['status'], ['present', 'late'])) {
+                $child = ChildProfile::find($childId);
+                if ($child) {
+                    $child->awardXp(10, "Attended session: {$session->title}");
+                }
+            }
         }
 
         return redirect()->route('teacher.session', $session)
-            ->with('success', 'Attendance saved successfully.');
+            ->with('success', 'Attendance saved successfully. XP awarded to present students.');
     }
 
     public function assignments(Course $course)
@@ -275,7 +284,42 @@ class DashboardController extends Controller
             'link' => route('communications.index'),
         ]);
 
+        try {
+            if ($child->parent && $child->parent->email) {
+                Mail::to($child->parent->email)->send(new TeacherFeedback($log));
+            }
+        } catch (\Exception $e) {}
+
         return redirect()->back()->with('success', 'Message sent to parent.');
+    }
+
+    public function createSession(Request $request, Cohort $cohort)
+    {
+        $this->authorizeTeach($cohort->course);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'date' => 'required|date',
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'meeting_url' => 'nullable|url|max:500',
+            'notes' => 'nullable|string|max:2000',
+        ]);
+
+        ClassSession::create([
+            'cohort_id' => $cohort->id,
+            'course_id' => $cohort->course_id,
+            'title' => $validated['title'],
+            'date' => $validated['date'],
+            'start_time' => $validated['start_time'],
+            'end_time' => $validated['end_time'],
+            'meeting_url' => $validated['meeting_url'] ?? null,
+            'notes' => $validated['notes'] ?? null,
+            'status' => 'scheduled',
+        ]);
+
+        return redirect()->route('teacher.cohort', $cohort)
+            ->with('success', 'Session created successfully.');
     }
 
     private function authorizeTeach(Course $course)

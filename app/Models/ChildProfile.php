@@ -23,12 +23,14 @@ class ChildProfile extends Model
         'pin',
         'pin_enabled',
         'avatar',
+        'metadata',
     ];
 
     protected $casts = [
         'dob' => 'date',
         'interests' => 'array',
         'pin_enabled' => 'boolean',
+        'metadata' => 'array',
     ];
 
     // --- Rank thresholds ---

@@ -43,6 +43,7 @@
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex items-center justify-end gap-2">
+                            <a href="{{ route('admin.curriculum.modules', $course) }}" class="btn-primary text-xs px-3 py-2">Build</a>
                             <a href="{{ route('admin.courses.edit', $course) }}" class="btn-secondary text-xs px-3 py-2">Edit</a>
                             <form method="POST" action="{{ route('admin.courses.destroy', $course) }}"
                                   onsubmit="return confirm('Delete course {{ addslashes($course->title) }}?')">

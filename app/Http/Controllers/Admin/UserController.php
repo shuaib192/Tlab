@@ -43,7 +43,7 @@ class UserController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,'.$user->id,
-            'role' => 'required|in:parent,teacher,school_admin,super_admin',
+            'role' => 'required|in:parent,teacher,school_admin,admin,super_admin',
         ]);
 
         $user->update($data);

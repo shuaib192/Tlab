@@ -43,7 +43,7 @@
                             </div>
                             <div>
                                 <div class="text-muted text-[0.62rem] font-black uppercase tracking-wider">Office Address</div>
-                                <div class="font-semibold text-xs text-ink mt-0.5 leading-relaxed">12 Joel Ogunnaike St, Gbagada Phase 2, Lagos, Nigeria</div>
+                                <div class="font-semibold text-xs text-ink mt-0.5 leading-relaxed">Edfrica Innovation Hub, adjacent Revd Kuti School, Nawairudeen Road, Isabo, Abeokuta, Ogun State</div>
                             </div>
                         </div>
 

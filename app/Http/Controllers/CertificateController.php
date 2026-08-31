@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CertificateAwarded;
 use App\Models\Certificate;
 use App\Models\ChildProfile;
 use App\Models\Notification;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class CertificateController extends Controller
@@ -64,6 +66,8 @@ class CertificateController extends Controller
             'icon' => '📜',
             'link' => route('parent.certificates.index', $child),
         ]);
+
+        try { Mail::to($child->parent->email)->send(new CertificateAwarded($certificate)); } catch (\Exception $e) {}
 
         return redirect()->route('parent.certificates.index', $child)
             ->with('success', 'Certificate generated successfully!');
