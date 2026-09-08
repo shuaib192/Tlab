@@ -29,7 +29,7 @@ class LearningController extends Controller
             return;
         }
 
-        if ($enrollment->child_profile_id !== $childId) {
+        if ((int) $enrollment->child_profile_id !== (int) $childId) {
             abort(403);
         }
     }
@@ -121,7 +121,7 @@ class LearningController extends Controller
             abort(403);
         }
 
-        if ($enrollment && $enrollment->child_profile_id !== $childId && (! $user || ! in_array($user->role ?? '', ['admin', 'super_admin']))) {
+        if ($enrollment && (int) $enrollment->child_profile_id !== (int) $childId && (! $user || ! in_array($user->role ?? '', ['admin', 'super_admin']))) {
             abort(403);
         }
 
@@ -174,7 +174,7 @@ class LearningController extends Controller
             abort(403);
         }
 
-        if ($enrollment && $enrollment->child_profile_id !== $childId && (! $user || ! in_array($user->role ?? '', ['admin', 'super_admin']))) {
+        if ($enrollment && (int) $enrollment->child_profile_id !== (int) $childId && (! $user || ! in_array($user->role ?? '', ['admin', 'super_admin']))) {
             abort(403);
         }
 
@@ -208,7 +208,7 @@ class LearningController extends Controller
             abort(403);
         }
 
-        if ($enrollment && $enrollment->child_profile_id !== $childId && (! $user || ! in_array($user->role ?? '', ['admin', 'super_admin']))) {
+        if ($enrollment && (int) $enrollment->child_profile_id !== (int) $childId && (! $user || ! in_array($user->role ?? '', ['admin', 'super_admin']))) {
             abort(403);
         }
 
