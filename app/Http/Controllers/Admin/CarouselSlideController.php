@@ -34,7 +34,7 @@ class CarouselSlideController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $data['image'] = '/Tlab/public/storage/'.$request->file('image')->store('carousel', 'public');
+            $data['image'] = \Illuminate\Support\Facades\Storage::url($request->file('image')->store('carousel', 'public'));
         }
 
         $data['active'] = $request->boolean('active', true);
@@ -62,7 +62,7 @@ class CarouselSlideController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $data['image'] = '/Tlab/public/storage/'.$request->file('image')->store('carousel', 'public');
+            $data['image'] = \Illuminate\Support\Facades\Storage::url($request->file('image')->store('carousel', 'public'));
         }
 
         $data['active'] = $request->boolean('active', true);
