@@ -17,6 +17,7 @@ class EnsureLiveAccess
             return $next($request);
         }
 
-        abort(403, 'You must be signed in to join a live classroom.');
+        return redirect()->route('login')
+            ->with('info', 'Please sign in to join the live classroom.');
     }
 }
