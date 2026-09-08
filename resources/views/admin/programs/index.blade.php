@@ -16,7 +16,7 @@
             Directly governs all 5 foundational pillars [Science, Tech, Engineering, Arts, Math] and their calibrated 3–18 age progression conduits.
         </p>
     </div>
-    <div class="flex items-center gap-3">
+    <div class="flex flex-wrap items-center gap-3">
         <a href="{{ route('programs') }}" target="_blank" class="btn-secondary text-xs uppercase tracking-wider font-mono">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
             Live Conduit
@@ -48,9 +48,9 @@
                          style="background: {{ $program->color }}18; border-color: {{ $program->color }}; color: {{ $program->color }};">
                         {{ strtoupper(substr($program->name, 0, 1)) }}
                     </div>
-                    <div>
-                        <h2 class="font-display text-2xl font-black text-cream tracking-tight">{{ $program->name }}</h2>
-                        <span class="text-xs font-mono text-cream/40">slug: /programs/{{ $program->slug }}</span>
+                    <div class="min-w-0">
+                        <h2 class="font-display text-2xl font-black text-cream tracking-tight leading-tight break-words">{{ $program->name }}</h2>
+                        <span class="text-xs font-mono text-cream/40 block truncate">slug: /programs/{{ $program->slug }}</span>
                     </div>
                 </div>
                 <span class="badge {{ $program->is_active ? 'badge-green' : 'badge-red' }} font-mono text-[10px]">
@@ -70,7 +70,7 @@
 
             {{-- Growth Line Telemetry --}}
             <div class="bg-surface rounded-xl p-4 border border-white/5 mb-6">
-                <div class="flex items-center justify-between text-xs font-mono mb-2">
+                <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-mono mb-2">
                     <span class="text-cream/40 uppercase tracking-wider">Growth Line Stages</span>
                     <span class="font-bold px-2 py-0.5 rounded text-ink" style="background: {{ $program->color }};">
                         {{ $program->growth_stages_count }} Stages (Ages {{ $program->ages }})
