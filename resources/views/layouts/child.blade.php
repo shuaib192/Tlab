@@ -203,31 +203,28 @@
     </span>
 </a>
 
-@isset($child)
-<span class="hud-pod pod-in top-4 right-4 px-4 py-2 bg-gold bg-none" style="animation-delay:.08s;border-color:#171033">
-    <span class="museum text-space/50">XP</span>
-    <span class="font-display font-extrabold text-space text-lg leading-none tabular-nums">{{ number_format($child->xp) }}</span>
-</span>
-@endisset
-
-<div class="hud-pod pod-in bottom-4 left-4 flex flex-col items-stretch gap-2 p-2" style="position:static;animation-delay:.16s">
+<div class="fixed top-4 right-4 z-60 flex items-center gap-2 pod-in" style="animation-delay:.08s">
     @isset($child)
+    <span class="flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-gold border-2 border-space shadow-[5px_5px_0_rgba(9,6,24,.92)]">
+        <span class="museum text-space/50">XP</span>
+        <span class="font-display font-extrabold text-space text-lg leading-none tabular-nums">{{ number_format($child->xp) }}</span>
+    </span>
         @if($isChildAuth ?? false)
-            <form method="POST" action="{{ route('child.logout') }}" class="m-0">
-                @csrf
-                <button type="submit" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black tracking-widest text-cream/80 hover:text-cream hover:bg-white/10 transition-colors w-full">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-                    LEAVE DECK
-                </button>
-            </form>
+        <form method="POST" action="{{ route('child.logout') }}" class="m-0">
+            @csrf
+            <button type="submit" class="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-panel border-2 border-cream/20 shadow-[5px_5px_0_rgba(9,6,24,.92)] text-[11px] font-black tracking-widest text-cream/85 hover:text-cream hover:border-cream/45 hover:bg-surface transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                LEAVE DECK
+            </button>
+        </form>
         @else
-            <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black tracking-widest text-cream/80 hover:text-cream hover:bg-white/10 transition-colors">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                PARENT HQ
-            </a>
+        <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-panel border-2 border-cream/20 shadow-[5px_5px_0_rgba(9,6,24,.92)] text-[11px] font-black tracking-widest text-cream/85 hover:text-cream hover:border-cream/45 hover:bg-surface transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            PARENT HQ
+        </a>
         @endif
     @else
-        <a href="{{ route('login') }}" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black tracking-widest text-cream/80 hover:text-cream hover:bg-white/10 transition-colors">
+        <a href="{{ route('login') }}" class="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-panel border-2 border-cream/20 shadow-[5px_5px_0_rgba(9,6,24,.92)] text-[11px] font-black tracking-widest text-cream/85 hover:text-cream hover:border-cream/45 hover:bg-surface transition-colors">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
             PARENT? LOG IN
         </a>
