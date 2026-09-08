@@ -113,6 +113,19 @@
             height:2px;
         }
 
+        /* ── Cockpit HUD pods ─────────────────────────── */
+        .tlab-logo { filter:drop-shadow(0 3px 0 rgba(9,6,24,.9)); }
+        .hud-pod {
+            position:fixed; z-index:60;
+            display:inline-flex; align-items:center; gap:8px;
+            background:#221747;
+            border:2px solid rgba(255,246,233,.16); border-radius:1.1rem;
+            box-shadow:5px 5px 0 rgba(9,6,24,.92);
+            backdrop-filter:blur(6px);
+        }
+        .pod-in { animation:podIn .45s cubic-bezier(.34,1.56,.64,1) both; }
+        @keyframes podIn { 0%{transform:translateY(12px) scale(.9); opacity:0} 100%{transform:translateY(0) scale(1); opacity:1} }
+
         /* ── Rocketship loader ────────────────────────── */
         #kid-loader {
             position:fixed; inset:0; z-index:9999;
@@ -179,60 +192,48 @@
     <div class="float absolute right-[12%] bottom-40 select-none opacity-40" style="animation-delay:2s"><span class="geo-plus"></span></div>
 </div>
 
-{{-- HUD / top bar --}}
-<header class="sticky top-0 z-40 border-b-2 border-cream/10 bg-space/85 backdrop-blur-md">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
-        <div class="flex items-center gap-3 min-w-0">
-            <a href="{{ route('child.dashboard') }}" class="flex items-center gap-2.5 flex-shrink-0 group">
-                <span class="grid place-items-center w-9 h-9 rounded-xl border-2 border-cream/20 bg-gradient-to-br from-mint via-sky to-grape font-black text-space text-base shadow-[3px_3px_0_#0a0718] group-hover:-rotate-6 transition-transform">
-                    T
-                </span>
-                <span class="hidden sm:flex flex-col leading-none">
-                    <span class="font-display font-extrabold text-cream text-base tracking-tight">LAB<span class="text-mint">.</span></span>
-                    <span class="museum text-cream/40 mt-0.5">Mission Control</span>
-                </span>
+{{-- Cockpit HUD: brand nameplate + XP pod + exit hatch (no nav bar) --}}
+<a href="{{ route('child.dashboard') }}" class="hud-pod pod-in top-4 left-4 pl-2.5 pr-4 py-1.5 -rotate-1 hover:rotate-0 hover:border-cream/35 transition-all group">
+    <img src="/images/tlab-logo-white.png" alt="TLab" class="h-8 w-auto tlab-logo group-hover:scale-105 transition-transform">
+    <span class="h-6 w-px bg-cream/15"></span>
+    <span class="leading-none py-0.5">
+        <span class="museum text-mint block mb-1">KIDS // MISSION</span>
+        <span class="text-[10px] font-black text-cream/70 tracking-widest">SPACE DECK 01</span>
+    </span>
+</a>
+
+@isset($child)
+<span class="hud-pod pod-in top-4 right-4 px-4 py-2 bg-gold bg-none" style="animation-delay:.08s;border-color:#171033">
+    <span class="museum text-space/50">XP</span>
+    <span class="font-display font-extrabold text-space text-lg leading-none tabular-nums">{{ number_format($child->xp) }}</span>
+</span>
+@endisset
+
+<div class="hud-pod pod-in bottom-4 left-4 flex flex-col items-stretch gap-2 p-2" style="position:static;animation-delay:.16s">
+    @isset($child)
+        @if($isChildAuth ?? false)
+            <form method="POST" action="{{ route('child.logout') }}" class="m-0">
+                @csrf
+                <button type="submit" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black tracking-widest text-cream/80 hover:text-cream hover:bg-white/10 transition-colors w-full">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    LEAVE DECK
+                </button>
+            </form>
+        @else
+            <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black tracking-widest text-cream/80 hover:text-cream hover:bg-white/10 transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                PARENT HQ
             </a>
-            <div class="space-divider w-8 hidden md:block"></div>
-            @isset($child)
-            <div class="hidden md:flex items-center gap-2 text-cream/60 font-bold text-xs min-w-0">
-                <span class="w-2.5 h-2.5 rotate-45 rounded-[3px] bg-mint/80"></span>
-                <span class="truncate">MISSION: <span class="text-cream">{{ strtoupper(explode(' ', $child->name)[0]) }}</span></span>
-            </div>
-            @endisset
-        </div>
+        @endif
+    @else
+        <a href="{{ route('login') }}" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black tracking-widest text-cream/80 hover:text-cream hover:bg-white/10 transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            PARENT? LOG IN
+        </a>
+    @endisset
+</div>
 
-        <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-            @isset($child)
-            <span class="sticker px-3 py-1.5 bg-gold text-sm font-black text-space">
-                <span class="tabular-nums">{{ number_format($child->xp) }}</span>
-                <span class="text-[10px] uppercase tracking-wider font-bold opacity-70">XP</span>
-            </span>
-            @endif
-            @isset($child)
-                @if($isChildAuth ?? false)
-                    <form method="POST" action="{{ route('child.logout') }}">
-                        @csrf
-                        <button class="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-cream/60 hover:text-cream hover:bg-white/5 transition-all">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-                            Logout
-                        </button>
-                    </form>
-                @else
-                    <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-cream/60 hover:text-cream hover:bg-white/5 transition-all">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                        Parent HQ
-                    </a>
-                @endif
-            @else
-                <a href="{{ route('login') }}" class="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-cream/60 hover:text-cream hover:bg-white/5 transition-all">
-                    Parent? Log in
-                </a>
-            @endisset
-        </div>
-    </div>
-</header>
-
-<main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+<main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-16 sm:pb-20">
     @if(session('success'))
         <div class="mb-6 candy-card hard-shadow-sm rounded-2xl px-5 py-4 text-sm font-bold" style="border-color:rgba(77,255,162,.5);background:rgba(77,255,162,.12)">
             <span class="inline-block w-4 h-4 mr-1.5 text-mint align-[-3px]" aria-hidden="true">✓</span>{{ session('success') }}

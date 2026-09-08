@@ -10,7 +10,8 @@
 
         <div class="relative rounded-[2rem] border-[3px] border-cream/20 bg-panel/90 backdrop-blur-md hard-shadow p-7 sm:p-8">
             <div class="text-center mb-7">
-                <div class="w-20 h-20 rounded-[1.4rem] grid place-items-center font-display font-extrabold text-4xl text-space border-[3px] border-space bg-gradient-to-br from-mint to-sky shadow-[5px_5px_0_#0a0718] mx-auto mb-4 float">T</div>
+                <img src="/images/tlab-logo-white.png" alt="TLab" class="h-16 w-auto mx-auto mb-3 tlab-logo bounce-in">
+                <div class="museum text-cream/45 mb-3">// TLAB KIDS DECK //</div>
                 <h1 class="font-display font-extrabold text-2xl text-cream">Welcome Back, Explorer!</h1>
                 <p class="text-cream/50 text-sm font-bold mt-1">Enter your username + secret PIN to board</p>
             </div>
