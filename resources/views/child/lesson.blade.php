@@ -42,9 +42,9 @@
         </div>
     </div>
     <div class="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-sm text-cream/40 flex-shrink-0">
-        @if($lesson->duration)<span class="hidden sm:flex items-center gap-1">⏱ {{ $lesson->duration }} min</span>@endif
+        @if($lesson->duration)<span class="hidden sm:flex items-center gap-1">{{ $lesson->duration }} min</span>@endif
         <span class="chip hidden sm:inline-flex" style="background:{{ $lesson->type === 'video' ? 'rgba(46,139,192,0.12);color:#2E8BC0' : ($lesson->type === 'text' ? 'rgba(78,153,102,0.12);color:#4E9966' : 'rgba(212,162,36,0.12);color:#D4A224') }}">
-            {{ $lesson->type === 'video' ? '🎬 Video' : ($lesson->type === 'text' ? '📖 Text' : '📝 Quiz') }}
+            {{ ucfirst($lesson->type) }}
         </span>
     </div>
 </nav>
@@ -109,16 +109,16 @@
             <div class="reveal" data-delay="200">
                 <div class="space-y-3 sm:space-y-4">
                     <div class="flex items-center gap-2 text-sm sm:text-base">
-                        <span class="text-xl">💡</span>
+                        <div class="text-2xl text-gold"><span class="geo-diamond"></span></div>
                         <span class="font-bold text-cream/70">Quick Check</span>
                     </div>
                     <div class="checkpoint-card glass rounded-2xl p-4 sm:p-6 border border-white/5" onclick="revealTip(this)">
                         <div class="flex items-center justify-between">
-                            <span class="text-sm sm:text-base text-cream/50">💭 <span class="font-bold text-cream/70">Think about it:</span> What was the most important thing you learned in this lesson?</span>
+                            <span class="text-sm sm:text-base text-cream/50"><span class="font-bold text-cream/70">Think about it:</span> What was the most important thing you learned in this lesson?</span>
                             <span class="text-cream/30 text-xs font-bold flex-shrink-0 ml-2">Click to reveal tip →</span>
                         </div>
                         <div class="hidden mt-4 p-4 rounded-xl text-sm" style="background:rgba(78,153,102,0.08);border:1px solid rgba(78,153,102,0.2)">
-                            <span class="text-cream/80">🤔 <strong>Pro Tip:</strong> Try explaining the concept to someone else! If you can teach it, you've truly learned it.</span>
+                            <span class="text-cream/80"><strong>Pro Tip:</strong> Try explaining the concept to someone else! If you can teach it, you've truly learned it.</span>
                         </div>
                     </div>
                 </div>
@@ -129,7 +129,7 @@
             <div class="reveal" data-delay="150">
                 <div class="rounded-3xl p-5 sm:p-8" style="background:linear-gradient(135deg,rgba(212,162,36,0.06),rgba(212,162,36,0.02));border:1px solid rgba(212,162,36,0.2)">
                     <div class="flex items-center gap-3 sm:gap-4 mb-4">
-                        <div class="text-3xl sm:text-4xl">📝</div>
+                        <div class="text-3xl sm:text-4xl"><span class="inline-block"><span class="geo-diamond" style="width:36px;height:36px"></span></span></div>
                         <div>
                             <h2 class="font-display text-lg sm:text-xl font-bold text-gold">{{ $lesson->assessment->title ?? 'Knowledge Check' }}</h2>
                             <p class="text-cream/60 text-xs sm:text-sm">{{ $lesson->assessment->description ?? 'Test what you just learned!' }}</p>
@@ -137,13 +137,13 @@
                     </div>
                     <div class="flex items-center gap-3 sm:gap-4 text-[10px] sm:text-sm text-cream/50 mb-5 sm:mb-6 flex-wrap">
                         @if($lesson->assessment->passing_score)<span>Pass: <strong class="text-cream/80">{{ $lesson->assessment->passing_score }}%</strong></span>@endif
-                        @if($lesson->assessment->time_limit)<span>⏱ <strong class="text-cream/80">{{ $lesson->assessment->time_limit }} min</strong></span>@endif
-                        <span>📊 <strong class="text-cream/80">{{ $lesson->assessment->questions()->count() }}</strong> questions</span>
+                        @if($lesson->assessment->time_limit)<span><strong class="text-cream/80">{{ $lesson->assessment->time_limit }} min</strong></span>@endif
+                        <span><strong class="text-cream/80">{{ $lesson->assessment->questions()->count() }}</strong> questions</span>
                     </div>
                     <a href="{{ route('child.assessment', $lesson->assessment->id) }}"
                        class="inline-flex items-center gap-2 px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl font-bold text-xs sm:text-sm text-white transition-all hover:scale-105 active:scale-95"
                        style="background:linear-gradient(135deg,#D4A224,#b8891e);box-shadow:0 4px 16px rgba(212,162,36,0.3)">
-                        @if($isCompleted)🔄 Retake Quiz @else 🎯 Start Quiz @endif
+                        @if($isCompleted)Retake Quiz @else Start Quiz @endif
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
                     </a>
                 </div>
@@ -205,13 +205,13 @@
                 <a href="{{ route('child.assessment', $lesson->assessment->id) }}"
                    class="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl font-bold text-xs sm:text-sm text-white transition-all hover:scale-105 active:scale-95"
                    style="background:linear-gradient(135deg,#D4A224,#b8891e);box-shadow:0 4px 16px rgba(212,162,36,0.3)">
-                    {{ $isCompleted ? '🔄 Retake Quiz' : '📝 Take Quiz' }}
+                    {{ $isCompleted ? 'Retake Quiz' : 'Take Quiz' }}
                 </a>
                 @endif
 
                 <a href="{{ $enrollment ? route('child.course', $enrollment->id) : route('child.dashboard') }}"
                    class="flex items-center justify-center gap-2 w-full px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl font-bold text-xs sm:text-sm text-cream/50 transition-all hover:text-cream/80 hover:bg-white/5">
-                    📋 Back to Course
+                    Back to Course
                 </a>
             </div>
 

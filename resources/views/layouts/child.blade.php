@@ -121,8 +121,28 @@
             transition:opacity .25s ease, visibility .25s ease;
         }
         #kid-loader.out { opacity:0; visibility:hidden; }
-        .loader-rocket { font-size:3rem; animation:rocketBounce 1s ease-in-out infinite; }
-        @keyframes rocketBounce { 0%,100%{transform:translateY(0) rotate(-4deg)} 50%{transform:translateY(-16px) rotate(4deg)} }
+        .loader-tile {
+            width:64px; height:64px; border-radius:14px;
+            display:grid; place-items:center;
+            font-family:'Baloo 2',cursive; font-weight:800; font-size:1.9rem; color:#171033;
+            background:linear-gradient(135deg,#4DFFA2,#5AD7FF);
+            border:3px solid rgba(255,246,233,.25);
+            box-shadow:6px 6px 0 #0a0718;
+            animation:rocketBounce 1s ease-in-out infinite;
+        }
+        @keyframes rocketBounce { 0%,100%{transform:translateY(0) rotate(-4deg)} 50%{transform:translateY(-14px) rotate(4deg)} }
+
+        /* ── Geometric deco (no emoji zone) ───────────── */
+        .geo-ring { display:inline-block; width:34px; height:34px; border-radius:50%; border:3px solid rgba(155,123,255,.55); position:relative; }
+        .geo-ring::after { content:''; position:absolute; inset:8px; border-radius:50%; border:2px solid rgba(255,246,233,.3); }
+        .geo-ring::before { content:''; position:absolute; top:50%; left:50%; width:4px; height:4px; border-radius:50%; background:#FFD93D; transform:translate(-50%,-50%); }
+        .geo-diamond { display:inline-block; width:20px; height:20px; transform:rotate(45deg); background:rgba(255,217,61,.7); border:2px solid rgba(255,246,233,.25); }
+        .geo-plus { display:inline-block; width:26px; height:26px; position:relative; }
+        .geo-plus::before,.geo-plus::after { content:''; position:absolute; background:rgba(255,107,181,.6); }
+        .geo-plus::before { left:50%; top:2px; bottom:2px; width:3px; transform:translateX(-50%); }
+        .geo-plus::after { top:50%; left:2px; right:2px; height:3px; transform:translateY(-50%); }
+        .geo-outbox { display:inline-block; width:56px; height:56px; border:3px solid rgba(255,246,233,.18); border-radius:12px; position:relative; }
+        .geo-outbox::before { content:''; position:absolute; inset:10px; border:2px dashed rgba(255,246,233,.14); border-radius:6px; }
 
         /* ── Scroll reveal ────────────────────────────── */
         .reveal { opacity:0; transform:translateY(14px); will-change:transform,opacity; }
@@ -145,7 +165,7 @@
 
 {{-- Rocketship loader --}}
 <div id="kid-loader" aria-hidden="true">
-    <div class="loader-rocket">🚀</div>
+    <div class="loader-tile">T</div>
     <div class="museum text-mint blink-caret">// TLAB MISSION CONTROL //</div>
 </div>
 
@@ -154,9 +174,9 @@
     <div class="absolute -left-16 top-24 w-40 h-40 rounded-full opacity-20 blur-3xl" style="background:#9B7BFF"></div>
     <div class="absolute -right-20 top-1/2 w-56 h-56 rounded-full opacity-15 blur-3xl" style="background:#5AD7FF"></div>
     <div class="absolute left-1/3 -bottom-24 w-64 h-64 rounded-full opacity-15 blur-3xl" style="background:#FF6BB5"></div>
-    <div class="float absolute right-[8%] top-28 text-3xl select-none" style="--rot:12deg">🪐</div>
-    <div class="float absolute left-[6%] top-1/2 text-2xl select-none" style="--rot:-8deg;animation-delay:1.2s">🌟</div>
-    <div class="float absolute right-[12%] bottom-40 text-2xl select-none" style="--rot:5deg;animation-delay:2s">💫</div>
+    <div class="float absolute right-[8%] top-28 select-none opacity-60"><span class="geo-ring"></span></div>
+    <div class="float absolute left-[6%] top-1/2 select-none opacity-50" style="animation-delay:1.2s"><span class="geo-diamond"></span></div>
+    <div class="float absolute right-[12%] bottom-40 select-none opacity-40" style="animation-delay:2s"><span class="geo-plus"></span></div>
 </div>
 
 {{-- HUD / top bar --}}
@@ -175,7 +195,7 @@
             <div class="space-divider w-8 hidden md:block"></div>
             @isset($child)
             <div class="hidden md:flex items-center gap-2 text-cream/60 font-bold text-xs min-w-0">
-                <span class="text-sm">👩‍🚀</span>
+                <span class="w-2.5 h-2.5 rotate-45 rounded-[3px] bg-mint/80"></span>
                 <span class="truncate">MISSION: <span class="text-cream">{{ strtoupper(explode(' ', $child->name)[0]) }}</span></span>
             </div>
             @endisset
@@ -184,7 +204,7 @@
         <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
             @isset($child)
             <span class="sticker px-3 py-1.5 bg-gold text-sm font-black text-space">
-                ⚡ <span class="tabular-nums">{{ number_format($child->xp) }}</span>
+                <span class="tabular-nums">{{ number_format($child->xp) }}</span>
                 <span class="text-[10px] uppercase tracking-wider font-bold opacity-70">XP</span>
             </span>
             @endif
@@ -205,7 +225,7 @@
                 @endif
             @else
                 <a href="{{ route('login') }}" class="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-cream/60 hover:text-cream hover:bg-white/5 transition-all">
-                    👨‍👩‍👧‍👦 Parent? Log in
+                    Parent? Log in
                 </a>
             @endisset
         </div>
@@ -215,12 +235,12 @@
 <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
     @if(session('success'))
         <div class="mb-6 candy-card hard-shadow-sm rounded-2xl px-5 py-4 text-sm font-bold" style="border-color:rgba(77,255,162,.5);background:rgba(77,255,162,.12)">
-            ✅ {{ session('success') }}
+            <span class="inline-block w-4 h-4 mr-1.5 text-mint align-[-3px]" aria-hidden="true">✓</span>{{ session('success') }}
         </div>
     @endif
     @if(session('error'))
         <div class="mb-6 candy-card hard-shadow-sm rounded-2xl px-5 py-4 text-sm font-bold" style="border-color:rgba(255,107,77,.5);background:rgba(255,107,77,.12)">
-            ❌ {{ session('error') }}
+            <span class="inline-block w-4 h-4 mr-1.5 text-terra align-[-3px]" aria-hidden="true">✕</span>{{ session('error') }}
         </div>
     @endif
 
@@ -231,7 +251,7 @@
 <footer class="relative z-10 border-t-2 border-cream/10 mt-10">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
         <span class="museum text-cream/40">// TLAB FOR KIDS //</span>
-        <span class="text-cream/50 font-bold text-xs">Built for explorers 🌍 · Every click counts XP ⚡</span>
+        <span class="text-cream/50 font-bold text-xs">Built for explorers. Every click counts XP.</span>
     </div>
 </footer>
 

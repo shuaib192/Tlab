@@ -39,9 +39,9 @@
         </div>
     </div>
     <div class="hidden sm:flex items-center gap-2 text-sm text-cream/40">
-        <span class="flex items-center gap-1">📚 <span class="font-bold text-cream/70">{{ $totalLessons }}</span> lessons</span>
+        <span class="flex items-center gap-1"><span class="font-bold text-cream/70">{{ $totalLessons }}</span> lessons</span>
         <span class="w-1 h-1 rounded-full bg-cream/20"></span>
-        <span class="flex items-center gap-1">✅ <span class="font-bold text-mint">{{ $completedLessons }}</span> done</span>
+        <span class="flex items-center gap-1"><span class="inline-block w-2 h-2 rounded-full bg-mint/90"></span><span class="font-bold text-mint">{{ $completedLessons }}</span> done</span>
     </div>
 </nav>
 
@@ -51,9 +51,9 @@
     @php $ar = session('assessment_result'); @endphp
     <div class="mb-8 rounded-3xl p-5 sm:p-6 celebrate-text {{ $ar['status'] === 'passed' ? 'bg-mint/10 border border-mint/30' : 'bg-terra/10 border border-terra/30' }}">
         <div class="flex items-center gap-3 sm:gap-4">
-            <div class="text-3xl sm:text-4xl bounce-in">{{ $ar['status'] === 'passed' ? '🎉' : '💪' }}</div>
+            <div class="text-3xl sm:text-4xl bounce-in">{{ $ar['status'] === 'passed' ? '✓' : '✕' }}</div>
             <div class="flex-1 min-w-0">
-                <div class="font-display text-lg sm:text-xl font-bold {{ $ar['status'] === 'passed' ? 'text-mint' : 'text-terra' }}">{{ $ar['status'] === 'passed' ? 'Assessment Passed! 🎉' : 'Keep Trying! 💪' }}</div>
+                <div class="font-display text-lg sm:text-xl font-bold {{ $ar['status'] === 'passed' ? 'text-mint' : 'text-terra' }}">{{ $ar['status'] === 'passed' ? 'Assessment Passed!' : 'Keep Trying!' }}</div>
                 <div class="text-cream/70 text-xs sm:text-sm mt-0.5">Score: <span class="font-bold">{{ $ar['score'] }}/{{ $ar['total'] }}</span> · Passing: {{ $ar['passing_score'] }}%</div>
             </div>
         </div>
@@ -89,7 +89,7 @@
                     <div class="flex justify-between text-xs sm:text-sm mb-2">
                         <span class="text-cream/70 font-bold">{{ $completedLessons }}/{{ $totalLessons }} lessons completed</span>
                         @if($progress == 100)
-                        <span class="text-mint font-bold bounce-in" id="complete-badge">🎉 Complete!</span>
+                        <span class="text-mint font-bold bounce-in" id="complete-badge">Complete!</span>
                         @endif
                     </div>
                     <div class="h-2.5 rounded-full overflow-hidden" style="background:rgba(250,245,232,0.08)">
@@ -153,7 +153,7 @@
                             <a href="{{ route('live.room', $ls) }}?enrollment={{ $enrollment->id }}"
                                class="px-4 py-2 rounded-xl text-xs sm:text-sm font-black tracking-wide transition-transform hover:scale-105 no-underline"
                                style="background:{{ $ls->status === 'live' ? '#00E5FF' : 'rgba(0,229,255,0.15)' }};color:{{ $ls->status === 'live' ? '#0B0D10' : '#67e8f9' }};border:1px solid rgba(0,229,255,0.5)">
-                                {{ $ls->status === 'live' ? '▶ Join Now' : 'Join Class' }}
+                                {{ $ls->status === 'live' ? 'Join Now' : 'Join Class' }}
                             </a>
                         @endif
                     </div>
@@ -193,7 +193,7 @@
                 </div>
                 <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
                     @if($modComplete)
-                    <span class="text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-1 rounded-full" style="background:rgba(78,153,102,0.15);color:#4E9966">✅ Complete</span>
+                    <span class="text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-1 rounded-full" style="background:rgba(78,153,102,0.15);color:#4E9966">✓ Complete</span>
                     @endif
                     <span class="text-cream/40 text-[10px] sm:text-xs font-bold hidden sm:inline">{{ $modDone }}/{{ $modTotal }}</span>
                     <svg class="accordion-arrow w-4 h-4 sm:w-5 sm:h-5 text-cream/40 {{ $index === 0 ? 'open' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -218,14 +218,14 @@
                         <div class="flex-1 min-w-0">
                             <div class="font-bold text-xs sm:text-sm {{ $lesson->completed ? 'text-mint' : 'text-cream' }} truncate">{{ $lesson->title }}</div>
                             <div class="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs text-cream/40 mt-0.5 flex-wrap">
-                                <span>{{ $lesson->type === 'video' ? '🎬' : ($lesson->type === 'text' ? '📖' : ($lesson->has_assessment ? '📝' : '📖')) }} {{ ucfirst($lesson->type) }}</span>
-                                @if($lesson->duration)<span>⏱ {{ $lesson->duration }} min</span>@endif
+                                <span>{{ ucfirst($lesson->type) }}</span>
+                                @if($lesson->duration)<span>{{ $lesson->duration }} min</span>@endif
                                 @if($lesson->has_assessment)<span class="px-1.5 py-0.5 rounded text-[9px] font-bold" style="background:rgba(212,162,36,0.12);color:#D4A224">Quiz</span>@endif
                             </div>
                         </div>
                         <div class="flex-shrink-0">
                             @if($lesson->completed)
-                            <span class="chip text-[10px] sm:text-xs" style="background:rgba(78,153,102,0.12);color:#4E9966">✅ Done</span>
+                            <span class="chip text-[10px] sm:text-xs" style="background:rgba(78,153,102,0.12);color:#4E9966">✓ Done</span>
                             @else
                             <span class="inline-flex items-center gap-1 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl font-bold text-[10px] sm:text-xs transition-all hover:scale-105" 
                                   style="background:rgba(78,153,102,0.15);color:#4E9966">
@@ -243,7 +243,7 @@
         </div>
         @empty
         <div class="glass rounded-2xl p-8 sm:p-12 text-center">
-            <div class="text-5xl sm:text-6xl mb-4">📚</div>
+            <div class="inline-flex mb-4"><span class="geo-outbox" style="width:64px;height:64px"></span></div>
             <p class="text-cream/50 text-sm sm:text-base">No modules have been added to this course yet.</p>
         </div>
         @endforelse
@@ -252,12 +252,12 @@
     {{-- Course Complete Celebration --}}
     @if($progress == 100)
     <div class="mt-8 rounded-3xl p-6 sm:p-8 text-center celebrate-text" style="background:linear-gradient(135deg,rgba(78,153,102,0.12),rgba(78,153,102,0.03));border:1px solid rgba(78,153,102,0.3)">
-        <div class="text-5xl sm:text-6xl mb-4 bounce-in">🏆</div>
+        <div class="inline-flex mb-4"><span class="geo-ring" style="width:56px;height:56px"></span></div>
         <h2 class="font-display text-xl sm:text-2xl font-black text-mint mb-2">Course Complete!</h2>
         <p class="text-cream/60 text-sm sm:text-base mb-4">Amazing work! You've completed all lessons in this course.</p>
         <a href="{{ route('child.dashboard') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white transition-all hover:scale-105 pulse-glow" 
            style="background:linear-gradient(135deg,#4E9966,#2a6e44)">
-            🎯 Back to Dashboard
+            Back to Dashboard
         </a>
     </div>
     @endif

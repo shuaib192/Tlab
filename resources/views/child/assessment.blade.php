@@ -66,7 +66,7 @@
     @if($existingAttempt && $existingAttempt->status === 'passed')
     <div class="mb-6 sm:mb-8 rounded-3xl p-4 sm:p-6 bounce-in" style="background:rgba(78,153,102,0.1);border:1px solid rgba(78,153,102,0.3)">
         <div class="flex items-center gap-3 sm:gap-4">
-            <div class="text-3xl sm:text-4xl">🎉</div>
+            <div class="text-3xl sm:text-4xl">✓</div>
             <div>
                 <div class="font-display font-bold text-base sm:text-xl text-mint">You Passed Before!</div>
                 <div class="text-cream/70 text-xs sm:text-sm mt-0.5">Score: <strong>{{ $existingAttempt->score }}/{{ $existingAttempt->total }}</strong> · Retake to improve!</div>
@@ -76,7 +76,7 @@
     @elseif($existingAttempt)
     <div class="mb-6 sm:mb-8 rounded-3xl p-4 sm:p-6 bounce-in" style="background:rgba(194,75,30,0.1);border:1px solid rgba(194,75,30,0.25)">
         <div class="flex items-center gap-3 sm:gap-4">
-            <div class="text-3xl sm:text-4xl">💪</div>
+            <div class="text-3xl sm:text-4xl">✕</div>
             <div>
                 <div class="font-display font-bold text-base sm:text-xl" style="color:#C24B1E">Previous Attempt</div>
                 <div class="text-cream/70 text-xs sm:text-sm mt-0.5">Score: <strong>{{ $existingAttempt->score }}/{{ $existingAttempt->total }}</strong> · Try again!</div>
@@ -143,7 +143,7 @@
                     @else
                     <button type="button" onclick="submitQuiz()" class="px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-bold text-xs sm:text-sm text-white transition-all hover:scale-105 active:scale-95 pulse-glow"
                             style="background:linear-gradient(135deg,#D4A224,#b8891e);box-shadow:0 4px 16px rgba(212,162,36,0.3)">
-                        🎯 Submit All
+                        Submit All
                     </button>
                     @endif
                 </div>
@@ -155,21 +155,21 @@
     {{-- Result Modal --}}
     <div id="result-modal" class="fixed inset-0 z-[999] flex items-center justify-center p-4 hidden" style="background:rgba(0,0,0,0.7);backdrop-filter:blur(8px)">
         <div class="w-full max-w-md rounded-3xl p-6 sm:p-8 text-center bounce-in" id="result-card" style="background:#141A16;border:2px solid rgba(78,153,102,0.3)">
-            <div id="result-icon" class="text-5xl sm:text-6xl mb-4">🏆</div>
+            <div id="result-icon" class="text-5xl sm:text-6xl mb-4 font-black text-mint">✓</div>
             <h2 id="result-title" class="font-display text-xl sm:text-2xl font-black text-cream mb-2">Great Job!</h2>
             <div class="my-4 sm:my-6">
                 <div class="text-cream/50 text-xs sm:text-sm font-bold uppercase tracking-wider mb-1">Your Score</div>
                 <div id="result-score" class="font-black text-4xl sm:text-5xl text-mint">0/0</div>
             </div>
             <div class="flex items-center justify-center gap-3 sm:gap-4 text-xs sm:text-sm text-cream/50 mb-4 sm:mb-6">
-                <span>📊 <strong id="result-percent" class="text-cream/80">0%</strong></span>
-                <span>⏱ <strong id="result-time" class="text-cream/80">0s</strong></span>
+                <span><strong id="result-percent" class="text-cream/80">0%</strong></span>
+                <span><strong id="result-time" class="text-cream/80">0s</strong></span>
             </div>
             <div id="result-xp" class="text-gold font-bold text-sm sm:text-base mb-4 bounce-in hidden">+0 XP!</div>
             <div class="flex gap-3">
                 <button onclick="closeResult()" class="flex-1 px-5 py-3 rounded-xl font-bold text-xs sm:text-sm border border-white/10 text-cream/70 hover:bg-white/5 transition-all">Review</button>
                 <a href="{{ route('child.course', $enrollment->id ?? 0) }}" class="flex-1 px-5 py-3 rounded-xl font-bold text-xs sm:text-sm text-white transition-all hover:scale-105"
-                   style="background:linear-gradient(135deg,#4E9966,#2a6e44)">📋 Back to Course</a>
+                   style="background:linear-gradient(135deg,#4E9966,#2a6e44)">Back to Course</a>
             </div>
         </div>
     </div>
@@ -324,14 +324,14 @@
         modal.classList.remove('hidden');
         
         if (passed) {
-            icon.textContent = '🎉';
-            title.textContent = 'Amazing Work! 🎉';
+            icon.textContent = '✓';
+            title.textContent = 'Amazing Work!';
             scoreEl.style.color = '#4E9966';
             Sound.play('win');
             spawnConfetti(70);
         } else {
-            icon.textContent = '💪';
-            title.textContent = 'Keep Going! 💪';
+            icon.textContent = '✕';
+            title.textContent = 'Keep Going!';
             scoreEl.style.color = '#D4A224';
             Sound.play('wrong');
         }
