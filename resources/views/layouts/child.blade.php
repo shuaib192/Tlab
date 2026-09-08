@@ -126,24 +126,23 @@
         .pod-in { animation:podIn .45s cubic-bezier(.34,1.56,.64,1) both; }
         @keyframes podIn { 0%{transform:translateY(12px) scale(.9); opacity:0} 100%{transform:translateY(0) scale(1); opacity:1} }
 
-        /* ── Rocketship loader ────────────────────────── */
+        /* ── Loader: logo dock ────────────────────────── */
         #kid-loader {
             position:fixed; inset:0; z-index:9999;
-            display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+            display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px;
             background:#171033;
             transition:opacity .25s ease, visibility .25s ease;
         }
         #kid-loader.out { opacity:0; visibility:hidden; }
-        .loader-tile {
-            width:64px; height:64px; border-radius:14px;
-            display:grid; place-items:center;
-            font-family:'Baloo 2',cursive; font-weight:800; font-size:1.9rem; color:#171033;
-            background:linear-gradient(135deg,#4DFFA2,#5AD7FF);
-            border:3px solid rgba(255,246,233,.25);
-            box-shadow:6px 6px 0 #0a0718;
-            animation:rocketBounce 1s ease-in-out infinite;
+        .loader-wrap { position:relative; display:grid; place-items:center; width:132px; height:132px; }
+        .loader-wrap::before {
+            content:''; position:absolute; inset:0; border-radius:50%;
+            background:radial-gradient(circle, rgba(77,255,162,.28), rgba(90,215,255,.12) 45%, transparent 70%);
+            animation:pulseGlow 1.1s ease-in-out infinite;
         }
-        @keyframes rocketBounce { 0%,100%{transform:translateY(0) rotate(-4deg)} 50%{transform:translateY(-14px) rotate(4deg)} }
+        @keyframes pulseGlow { 0%,100%{transform:scale(.92); opacity:.75} 50%{transform:scale(1.08); opacity:1} }
+        .loader-logo { height:110px; width:auto; position:relative; z-index:1; animation:loaderDock 1.1s ease-in-out infinite; filter:drop-shadow(0 5px 0 rgba(0,0,0,.45)); }
+        @keyframes loaderDock { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
 
         /* ── Geometric deco (no emoji zone) ───────────── */
         .geo-ring { display:inline-block; width:34px; height:34px; border-radius:50%; border:3px solid rgba(155,123,255,.55); position:relative; }
@@ -178,7 +177,9 @@
 
 {{-- Rocketship loader --}}
 <div id="kid-loader" aria-hidden="true">
-    <div class="loader-tile">T</div>
+    <div class="loader-wrap">
+        <img src="/images/tlab-logo-white.png" alt="TLab" class="loader-logo">
+    </div>
     <div class="museum text-mint blink-caret">// TLAB MISSION CONTROL //</div>
 </div>
 
