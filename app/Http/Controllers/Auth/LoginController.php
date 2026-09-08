@@ -48,7 +48,7 @@ class LoginController extends Controller
 
                 Auth::login($user, $request->has('remember'));
 
-                return redirect()->intended($this->homeRedirect($user));
+                return redirect()->intended(route($this->homeRedirect($user)));
             }
 
             // Auth server said invalid credentials
