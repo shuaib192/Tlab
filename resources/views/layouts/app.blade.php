@@ -27,6 +27,10 @@
                         ink:     '#0F172A',
                         muted:   '#64748B',
                         surface: '#F8FAFC',
+                        mint:    '#00E676',
+                        gold:    '#FFB800',
+                        sky:     '#4DC3FF',
+                        cream:   '#FAF5E8',
                     },
                     fontFamily: {
                         sans:    ['"Montserrat"', 'sans-serif'],

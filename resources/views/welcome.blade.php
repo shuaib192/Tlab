@@ -19,23 +19,27 @@
             @if(isset($slides) && $slides->count() > 0)
                 {{-- Floating Interactive Announcement Carousel --}}
                 <div class="mb-8 relative z-20 reveal max-w-md">
-                    <div class="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-4 pr-12">
-                        @foreach($slides as $index => $slide)
+                    <div class="relative overflow-hidden rounded-xl border-2 border-mint/30 bg-[#0B1220]/90 backdrop-blur-md shadow-[0_0_0_1px_rgba(0,230,118,0.12),0_16px_40px_rgba(0,0,0,0.55)]">
+                        <div class="flex items-center gap-2 px-4 py-2 border-b border-mint/20 bg-mint/10">
+                            <span class="inline-block w-1.5 h-1.5 rounded-full bg-mint"></span>
+                            <span class="text-[9px] font-black uppercase tracking-[0.25em] text-mint font-mono">// Announcements //</span>
+                        </div>
+                        <div class="relative p-4 pr-12">
+                            @foreach($slides as $index => $slide)
                             <div class="slide-item {{ $index === 0 ? 'block' : 'hidden' }} transition-opacity duration-500" data-index="{{ $index }}">
                                 <div class="flex items-center gap-3.5">
                                     @if($slide->image)
-                                        <img src="{{ $slide->image }}" class="w-12 h-12 rounded-xl object-cover flex-shrink-0 border border-white/10">
+                                        <img src="{{ $slide->image }}" class="w-12 h-12 rounded-lg object-cover flex-shrink-0 border-2 border-mint/25">
                                     @elseif($slide->bg_color)
-                                        <div class="w-12 h-12 rounded-xl flex-shrink-0 border border-white/10" style="background:{{ $slide->bg_color }}"></div>
+                                        <div class="w-12 h-12 rounded-lg flex-shrink-0 border-2 border-white/15" style="background:{{ $slide->bg_color }}"></div>
                                     @endif
                                     <div class="min-w-0">
-                                        <span class="text-[9px] font-black uppercase tracking-widest text-mint px-2 py-0.5 rounded bg-mint/10 border border-mint/20">Announcements</span>
-                                        <h4 class="text-xs font-bold text-white mt-1 truncate">{{ $slide->title }}</h4>
+                                        <h4 class="text-sm font-bold text-white mt-0.5 truncate">{{ $slide->title }}</h4>
                                         @if($slide->body)
-                                            <p class="text-[11px] text-white/60 line-clamp-1 mt-0.5">{{ $slide->body }}</p>
+                                            <p class="text-xs text-white/60 line-clamp-1 mt-0.5">{{ $slide->body }}</p>
                                         @endif
                                         @if($slide->link)
-                                            <a href="{{ $slide->link }}" class="inline-flex items-center gap-1 text-[11px] font-bold text-mint hover:underline mt-1">
+                                            <a href="{{ $slide->link }}" class="inline-flex items-center gap-1 text-xs font-bold text-mint hover:text-white transition-colors mt-1">
                                                 {{ $slide->link_text ?? 'Learn More' }}
                                                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
                                             </a>
@@ -43,13 +47,14 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
-                        
-                        @if($slides->count() > 1)
-                            <button onclick="nextSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all">
+                            @endforeach
+
+                            @if($slides->count() > 1)
+                            <button onclick="nextSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-white/5 hover:bg-mint/20 border border-mint/30 flex items-center justify-center text-mint transition-all">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
                             </button>
-                        @endif
+                            @endif
+                        </div>
                     </div>
                 </div>
                 
@@ -69,12 +74,12 @@
                 @endif
             @endif
 
-            <div class="section-tag text-primary mb-5 reveal">Africa's Leading STEM Platform for Kids</div>
+            <div class="section-tag text-mint mb-5 reveal">&gt; AFRICA'S LEADING STEM PLATFORM FOR KIDS</div>
             <h1 class="font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-[1.08] mb-6 reveal">
                 Where Kids<br>
-                <span style="color:#4ade80">Learn</span>,<br>
-                <span style="color:#60a5fa">Build</span> &amp;<br>
-                <span style="color:#c084fc">Lead</span>.
+                <span style="color:#00E676;text-shadow:0 0 22px rgba(0,230,118,0.55)">Learn</span>,<br>
+                <span style="color:#FFB800;text-shadow:0 0 22px rgba(255,184,0,0.55)">Build</span> &amp;<br>
+                <span style="color:#FF5C4D;text-shadow:0 0 22px rgba(255,92,77,0.55)">Lead</span>.
             </h1>
             <p class="text-white/70 font-semibold text-lg leading-relaxed mb-10 max-w-xl reveal">
                 A safe, parent-controlled, gamified STEM ecosystem for children aged 3–15.
@@ -109,7 +114,7 @@
 <section class="py-14" style="background:#111827">
     <div class="max-w-5xl mx-auto px-6">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            @foreach([['500+','Active Learners','#4ade80'],['4','STEM Clubs','#60a5fa'],['16+','Courses','#c084fc'],['5','Rank Levels','#fb923c']] as [$n,$l,$c])
+            @foreach([['500+','Active Learners','#00E676'],['4','STEM Clubs','#FFB800'],['16+','Courses','#FF5C4D'],['5','Rank Levels','#4DC3FF']] as [$n,$l,$c])
             <div class="reveal">
                 <div class="font-black text-4xl sm:text-5xl mb-1" style="color:{{ $c }}">{{ $n }}</div>
                 <div class="text-white/50 font-semibold text-sm">{{ $l }}</div>
