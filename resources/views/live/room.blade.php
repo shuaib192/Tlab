@@ -208,8 +208,24 @@
 
         if (document.getElementById('copyLink')) {
             document.getElementById('copyLink').addEventListener('click', () => {
-                navigator.clipboard.writeText(window.location.href)
-                    .then(() => flash('Join link copied.', 1800));
+                const text = window.location.href;
+                const done = () => flash('Join link copied.', 1800);
+                const fallback = () => {
+                    const ta = document.createElement('textarea');
+                    ta.value = text;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    try { document.execCommand('copy'); } catch (e) {}
+                    document.body.removeChild(ta);
+                    done();
+                };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(done).catch(fallback);
+                } else {
+                    fallback();
+                }
             });
         }
     })();

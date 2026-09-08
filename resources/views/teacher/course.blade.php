@@ -5,9 +5,22 @@
 @push('scripts')
 <script>
     function copyLive(link, el) {
-        navigator.clipboard.writeText(link)
-            .then(() => { el.classList.add('text-mint'); })
-            .catch(() => {});
+        function fallback() {
+            const ta = document.createElement('textarea');
+            ta.value = link;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); } catch (e) {}
+            document.body.removeChild(ta);
+            el.classList.add('text-mint');
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(link).then(() => el.classList.add('text-mint')).catch(fallback);
+        } else {
+            fallback();
+        }
     }
 </script>
 @endpush

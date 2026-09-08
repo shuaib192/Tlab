@@ -164,10 +164,28 @@
 @push('scripts')
 <script>
     function copyRoom(event) {
-        const link = event.currentTarget.dataset.link;
-        navigator.clipboard.writeText(link)
-            .then(() => event.currentTarget.closest('td').querySelector('code').classList.add('text-mint'))
-            .catch(() => {});
+        const el = event.currentTarget;
+        copyText(el.dataset.link, () => {
+            el.closest('td').querySelector('code').classList.add('text-mint');
+        });
+    }
+    function copyText(text, onDone) {
+        function fallback() {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); } catch (e) {}
+            document.body.removeChild(ta);
+            if (onDone) onDone();
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(onDone || (() => {})).catch(fallback);
+        } else {
+            fallback();
+        }
     }
 </script>
 @endpush

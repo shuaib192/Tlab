@@ -66,8 +66,9 @@ class LiveSessionController extends Controller
         return redirect()->route('admin.live.index')->with('success', 'Live session created.');
     }
 
-    public function start(LiveSession $session)
+    public function start($liveSession)
     {
+        $session = LiveSession::findOrFail($liveSession);
         $this->authorizeHardcode($session);
 
         if ($session->isEnded()) {
@@ -83,8 +84,9 @@ class LiveSessionController extends Controller
         return redirect()->route('live.room', $session);
     }
 
-    public function end(LiveSession $session)
+    public function end($liveSession)
     {
+        $session = LiveSession::findOrFail($liveSession);
         $this->authorizeHardcode($session);
 
         $session->ended_at = now();
@@ -94,8 +96,9 @@ class LiveSessionController extends Controller
         return redirect()->route('admin.live.index')->with('success', 'Live session ended.');
     }
 
-    public function destroy(LiveSession $session)
+    public function destroy($liveSession)
     {
+        $session = LiveSession::findOrFail($liveSession);
         $this->authorizeHardcode($session);
 
         $session->delete();
@@ -103,8 +106,9 @@ class LiveSessionController extends Controller
         return redirect()->route('admin.live.index')->with('success', 'Live session deleted.');
     }
 
-    public function room(LiveSession $session, JitsiService $jitsi)
+    public function room($liveSession, JitsiService $jitsi)
     {
+        $session = LiveSession::findOrFail($liveSession);
         if ($session->isEnded()) {
             abort(410, 'This live session has ended.');
         }
@@ -137,10 +141,11 @@ class LiveSessionController extends Controller
         return view('live.room', compact('session', 'jitsi', 'moderator', 'observer', 'identity', 'jwt'));
     }
 
-    public function attendance(Request $request, LiveSession $session)
+    public function attendance(Request $request, $liveSession)
     {
         $request->validate(['enrollment_id' => 'required|integer']);
 
+        $session = LiveSession::findOrFail($liveSession);
         $enrollment = Enrollment::find($request->enrollment_id);
         if (! $enrollment) {
             return response()->json(['ok' => false, 'message' => 'Enrollment not found.'], 404);
