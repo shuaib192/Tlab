@@ -77,8 +77,8 @@
             </div>
         </div>
 
-        {{-- Mobile Menu with elegant slide down --}}
-        <div id="mobile-nav" class="md:hidden overflow-hidden transition-all duration-300 ease-in-out rounded-b-2xl bg-ink/95 border-t border-white/5" style="max-height: 0px;">
+        {{-- Mobile Menu with elegant slide down / scroll --}}
+        <div id="mobile-nav" class="md:hidden overflow-y-auto transition-all duration-300 ease-in-out rounded-b-2xl bg-ink/95 border-t border-white/5" style="max-height: 0px; -webkit-overflow-scrolling: touch;">
             <div class="px-6 py-6 space-y-4">
                 <a href="{{ route('about') }}" class="block font-black text-xs uppercase tracking-wider text-white/70 hover:text-white py-2">Our Story</a>
 
@@ -136,18 +136,35 @@ document.addEventListener('DOMContentLoaded', function() {
         newHamburger.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            if (mobileNav.style.maxHeight === '0px' || !mobileNav.style.maxHeight) {
-                mobileNav.style.maxHeight = mobileNav.scrollHeight + 'px';
-                mobileNav.classList.add('border-t');
-            } else {
-                mobileNav.style.maxHeight = '0px';
-                setTimeout(() => {
-                    if (mobileNav.style.maxHeight === '0px') {
-                        mobileNav.classList.remove('border-t');
-                    }
-                }, 300);
-            }
+            toggleMenu();
         });
+    }
+
+    function menuOpen() {
+        return mobileNav.style.maxHeight && mobileNav.style.maxHeight !== '0px';
+    }
+
+    // Height cap: viewport minus the floating nav's top offset + a little breathing room
+    function menuCap() {
+        const gap = 24;
+        const top = (mobileNav.getBoundingClientRect().top || mobileNav.offsetTop) + gap;
+        return (window.innerHeight - top) + 'px';
+    }
+
+    function setMenuHeight() {
+        mobileNav.style.maxHeight = menuCap();
+    }
+
+    function toggleMenu() {
+        if (menuOpen()) {
+            mobileNav.style.maxHeight = '0px';
+            setTimeout(() => {
+                if (!menuOpen()) mobileNav.classList.remove('border-t');
+            }, 300);
+        } else {
+            mobileNav.classList.add('border-t');
+            setMenuHeight();
+        }
     }
 
     // ─── Mobile STEM Clubs dropdown ─────────────────────────
@@ -157,10 +174,18 @@ document.addEventListener('DOMContentLoaded', function() {
     if (stemBtn && stemPanel) {
         stemBtn.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
             const open = stemPanel.style.maxHeight && stemPanel.style.maxHeight !== '0px';
             stemPanel.style.maxHeight = open ? '0px' : stemPanel.scrollHeight + 'px';
             if (stemChev) stemChev.style.transform = open ? 'rotate(0deg)' : 'rotate(180deg)';
+            // Ensure the outer menu grows to fit the expanded panel (and scrolls if too tall)
+            if (menuOpen()) setMenuHeight();
         });
     }
+
+    // Keep the scrollable area usable if viewport resizes (e.g. rotate)
+    window.addEventListener('resize', function() {
+        if (menuOpen()) setMenuHeight();
+    });
 });
 </script>
