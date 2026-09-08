@@ -15,6 +15,7 @@
     </div>
 
     <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
         <table class="w-full">
             <thead><tr class="border-b border-gray-50 bg-gray-50/50">
                 <th class="text-left px-6 py-4 text-xs font-bold uppercase text-muted">Student</th>
@@ -66,6 +67,6 @@
                 @endforelse
             </tbody>
         </table>
+        </div>
     </div>
-</div>
 @endsection

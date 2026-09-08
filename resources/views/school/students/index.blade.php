@@ -24,6 +24,7 @@
             <button class="px-5 py-2.5 bg-gray-100 rounded-xl font-bold text-sm text-ink hover:bg-gray-200 transition-colors">Filter</button>
         </form>
     </div>
+    <div class="overflow-x-auto">
     <table class="w-full">
         <thead><tr class="border-b border-gray-50">
             <th class="text-left px-6 py-4 text-xs font-bold uppercase text-muted">Name</th>
@@ -57,6 +58,7 @@
             @endforelse
         </tbody>
     </table>
+    </div>
     @if($students->hasPages())
     <div class="px-6 py-4 border-t border-gray-50">{{ $students->links() }}</div>
     @endif

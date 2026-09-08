@@ -81,8 +81,34 @@
         <div id="mobile-nav" class="md:hidden overflow-hidden transition-all duration-300 ease-in-out rounded-b-2xl bg-ink/95 border-t border-white/5" style="max-height: 0px;">
             <div class="px-6 py-6 space-y-4">
                 <a href="{{ route('about') }}" class="block font-black text-xs uppercase tracking-wider text-white/70 hover:text-white py-2">Our Story</a>
-                <a href="{{ route('clubs') }}" class="block font-black text-xs uppercase tracking-wider text-white/70 hover:text-white py-2">STEM Clubs</a>
-                <a href="{{ route('programs') }}" class="block font-black text-xs uppercase tracking-wider text-white/70 hover:text-white py-2">STEAM Growth Lines</a>
+
+                {{-- STEM Clubs expandable dropdown (mobile) --}}
+                <div class="border border-white/10 rounded-2xl overflow-hidden">
+                    <button type="button" id="mobile-stem-btn" class="w-full flex items-center justify-between font-black text-xs uppercase tracking-wider text-white/80 hover:text-white py-3 px-4">
+                        <span>STEM Clubs</span>
+                        <svg id="mobile-stem-chev" class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="mobile-stem-panel" style="max-height:0;" class="overflow-hidden transition-all duration-300">
+                        <div class="px-4 pb-4 space-y-1">
+                            <div class="pt-1 text-[0.62rem] font-black text-primary uppercase tracking-[0.16em]">STEM Clubs</div>
+                            <a href="{{ route('club.detail', 'stem-club') }}" class="block py-2 text-xs font-bold text-white/70 hover:text-white">STEM Club</a>
+                            <a href="{{ route('club.detail', 'brain-club') }}" class="block py-2 text-xs font-bold text-white/70 hover:text-white">Brain Club</a>
+                            <a href="{{ route('club.detail', 'art-craft') }}" class="block py-2 text-xs font-bold text-white/70 hover:text-white">Art &amp; Craft</a>
+                            <a href="{{ route('club.detail', 'leadership') }}" class="block py-2 text-xs font-bold text-white/70 hover:text-white">Leadership Club</a>
+                            <div class="pt-2 text-[0.62rem] font-black text-primary uppercase tracking-[0.16em]">STEAM Growth Lines</div>
+                            <a href="{{ route('programs.show', 'science') }}" class="block py-2 text-xs font-bold text-white/70 hover:text-white">Science Lab</a>
+                            <a href="{{ route('programs.show', 'technology') }}" class="block py-2 text-xs font-bold text-white/70 hover:text-white">Tech Grid</a>
+                            <a href="{{ route('programs.show', 'engineering') }}" class="block py-2 text-xs font-bold text-white/70 hover:text-white">Engineering</a>
+                            <a href="{{ route('programs.show', 'arts') }}" class="block py-2 text-xs font-bold text-white/70 hover:text-white">Arts Collective</a>
+                            <a href="{{ route('programs.show', 'mathematics') }}" class="block py-2 text-xs font-bold text-white/70 hover:text-white">Math Decoder</a>
+                            <a href="{{ route('programs') }}" class="block py-2.5 mt-1 text-center rounded-lg text-[0.7rem] font-black text-mint hover:bg-mint/10">View Growth Line Map</a>
+                            <a href="{{ route('clubs') }}" class="block py-2.5 text-center rounded-lg text-[0.7rem] font-black text-primary hover:bg-primary/10">All Programmes</a>
+                        </div>
+                    </div>
+                </div>
+
                 <a href="{{ route('membership') }}" class="block font-black text-xs uppercase tracking-wider text-white/70 hover:text-white py-2">Pricing</a>
                 <a href="{{ route('contact') }}" class="block font-black text-xs uppercase tracking-wider text-white/70 hover:text-white py-2">Contact</a>
                 <div class="pt-4 border-t border-white/10 flex flex-col gap-3">
@@ -121,6 +147,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }, 300);
             }
+        });
+    }
+
+    // ─── Mobile STEM Clubs dropdown ─────────────────────────
+    const stemBtn = document.getElementById('mobile-stem-btn');
+    const stemPanel = document.getElementById('mobile-stem-panel');
+    const stemChev = document.getElementById('mobile-stem-chev');
+    if (stemBtn && stemPanel) {
+        stemBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const open = stemPanel.style.maxHeight && stemPanel.style.maxHeight !== '0px';
+            stemPanel.style.maxHeight = open ? '0px' : stemPanel.scrollHeight + 'px';
+            if (stemChev) stemChev.style.transform = open ? 'rotate(0deg)' : 'rotate(180deg)';
         });
     }
 });

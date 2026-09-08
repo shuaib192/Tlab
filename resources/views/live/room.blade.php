@@ -24,7 +24,7 @@
         *{margin:0;padding:0;box-sizing:border-box}
         html,body{height:100%}
         body{background:#0B0D10;color:#FAF5E8;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;display:flex;flex-direction:column;overflow:hidden}
-        header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;background:#11141A;border-bottom:2px solid #00FF88}
+        header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;background:#11141A;border-bottom:2px solid #00FF88;flex-wrap:wrap}
         .brand{display:flex;align-items:center;gap:10px;min-width:0}
         .badge-live{background:#00FF8820;color:#00FF88;border:1px solid #00FF8833;font-weight:800;font-size:10px;letter-spacing:2px;padding:4px 8px;border-radius:6px;white-space:nowrap}
         .title{font-weight:800;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -34,7 +34,7 @@
         .chip-lobby-off{background:#FAF5E820;color:#FAF5E880;border:1px solid #FAF5E833}
         .chip-moderator{background:#00E5FF15;color:#00E5FF;border:1px solid #00E5FF44}
         .chip-observer{background:#FF007F15;color:#FF007F;border:1px solid #FF007F44}
-        nav{display:flex;align-items:center;gap:8px}
+        nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
         .btn{font:inherit;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 12px;border-radius:8px;cursor:pointer;border:1px solid transparent;transition:all .15s}
         .btn-mint{background:#00FF88;color:#0B0D10;border-color:#00FF88}
         .btn-mint:hover{filter:brightness(1.1)}

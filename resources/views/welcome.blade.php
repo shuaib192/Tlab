@@ -70,7 +70,7 @@
             @endif
 
             <div class="section-tag text-primary mb-5 reveal">Africa's Leading STEM Platform for Kids</div>
-            <h1 class="font-black text-6xl sm:text-7xl lg:text-8xl text-white leading-[1.08] mb-6 reveal">
+            <h1 class="font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-[1.08] mb-6 reveal">
                 Where Kids<br>
                 <span style="color:#4ade80">Learn</span>,<br>
                 <span style="color:#60a5fa">Build</span> &amp;<br>
@@ -111,7 +111,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             @foreach([['500+','Active Learners','#4ade80'],['4','STEM Clubs','#60a5fa'],['16+','Courses','#c084fc'],['5','Rank Levels','#fb923c']] as [$n,$l,$c])
             <div class="reveal">
-                <div class="font-black text-5xl mb-1" style="color:{{ $c }}">{{ $n }}</div>
+                <div class="font-black text-4xl sm:text-5xl mb-1" style="color:{{ $c }}">{{ $n }}</div>
                 <div class="text-white/50 font-semibold text-sm">{{ $l }}</div>
             </div>
             @endforeach

@@ -133,7 +133,7 @@
                     <label class="label">Title</label>
                     <input type="text" name="title" class="input w-full" required maxlength="255" placeholder="e.g. Week 3 - Python Loops">
                 </div>
-                <div class="grid grid-cols-3 gap-3">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
                         <label class="label">Date</label>
                         <input type="date" name="date" class="input w-full" required value="{{ now()->format('Y-m-d') }}">

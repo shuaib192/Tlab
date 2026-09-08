@@ -237,7 +237,7 @@
                 @if($achievements->isNotEmpty())
                 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
                     <h2 class="font-black text-lg text-ink mb-5">Badges & Achievements</h2>
-                    <div class="grid grid-cols-3 gap-3">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
                         @foreach($achievements as $a)
                         <div class="text-center p-3 rounded-xl bg-gray-50" title="{{ $a->description }}">
                             <div class="text-2xl mb-1">{{ $a->icon ?? '🏆' }}</div>

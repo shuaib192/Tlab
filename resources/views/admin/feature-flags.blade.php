@@ -42,6 +42,7 @@
 </form>
 
 <div class="card overflow-hidden">
+    <div class="overflow-x-auto">
     <table class="w-full text-sm">
         <thead>
             <tr class="border-b border-white/5 text-left text-xs text-cream/50 font-bold uppercase tracking-wider">
@@ -103,5 +104,6 @@
             @endforelse
         </tbody>
     </table>
+    </div>
 </div>
 @endsection

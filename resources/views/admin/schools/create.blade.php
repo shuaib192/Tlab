@@ -40,7 +40,7 @@
                 <textarea name="address" class="input" rows="2" placeholder="School address...">{{ old('address') }}</textarea>
             </div>
 
-            <div class="grid grid-cols-3 gap-4 mb-5">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-5">
                 <div>
                     <label class="label">City</label>
                     <input type="text" name="city" class="input" placeholder="Lagos" value="{{ old('city') }}">

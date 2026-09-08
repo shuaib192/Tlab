@@ -90,7 +90,7 @@
                 <div class="space-y-5">
                     <div>
                         <label class="form-label">Skill Level</label>
-                        <div class="grid grid-cols-3 gap-3">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             @foreach(['beginner' => '🌱 Beginner', 'intermediate' => '⚡ Intermediate', 'advanced' => '🚀 Advanced'] as $value => $label)
                             <label class="cursor-pointer">
                                 <input type="radio" name="skill_level" value="{{ $value }}" class="sr-only peer"
