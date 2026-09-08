@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CarouselSlide;
+use App\Models\Program;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -100,6 +101,35 @@ class PageController extends Controller
         $club = $this->clubs[$slug] ?? abort(404);
 
         return view('pages.club-detail', compact('club'));
+    }
+
+    public function programs()
+    {
+        $programs = Program::with(['growthStages' => function ($q) {
+            $q->orderBy('sort_order')->orderBy('min_age');
+        }])
+            ->active()
+            ->orderBy('sort_order')
+            ->get();
+
+        return view('pages.programs', compact('programs'));
+    }
+
+    public function programDetail(string $slug)
+    {
+        $program = Program::with(['growthStages' => function ($q) {
+            $q->orderBy('sort_order')->orderBy('min_age');
+        }])
+            ->where('slug', $slug)
+            ->active()
+            ->firstOrFail();
+
+        $siblings = Program::active()
+            ->where('id', '!=', $program->id)
+            ->orderBy('sort_order')
+            ->get();
+
+        return view('pages.program-detail', compact('program', 'siblings'));
     }
 
     public function membership()

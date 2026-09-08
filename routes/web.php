@@ -16,6 +16,8 @@ Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/clubs', [PageController::class, 'clubs'])->name('clubs');
 Route::get('/clubs/{slug}', [PageController::class, 'clubDetail'])->name('club.detail');
+Route::get('/programs', [PageController::class, 'programs'])->name('programs');
+Route::get('/programs/{slug}', [PageController::class, 'programDetail'])->name('programs.show');
 Route::get('/membership', [PageController::class, 'membership'])->name('membership');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [PageController::class, 'contactSubmit'])->name('contact.submit');
@@ -131,6 +133,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Clubs
     Route::resource('clubs', \App\Http\Controllers\Admin\ClubController::class);
+
+    // STEAM Programs & Growth Lines
+    Route::resource('programs', \App\Http\Controllers\Admin\ProgramController::class)->except(['show']);
+    Route::post('programs/{program}/stages', [\App\Http\Controllers\Admin\ProgramController::class, 'storeStage'])->name('programs.stages.store');
+    Route::put('programs/stages/{stage}', [\App\Http\Controllers\Admin\ProgramController::class, 'updateStage'])->name('programs.stages.update');
+    Route::delete('programs/stages/{stage}', [\App\Http\Controllers\Admin\ProgramController::class, 'destroyStage'])->name('programs.stages.destroy');
 
     // Courses
     Route::resource('courses', \App\Http\Controllers\Admin\CourseController::class);

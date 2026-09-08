@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             ClubSeeder::class,
             AchievementSeeder::class,
             SubscriptionPlanSeeder::class,
+            SteamProgramSeeder::class,
         ]);
     }
 }

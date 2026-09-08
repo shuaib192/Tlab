@@ -24,12 +24,21 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </button>
-                        <div class="absolute top-[100%] left-1/2 -translate-x-1/2 mt-2 w-56 rounded-2xl bg-ink/95 border border-white/10 p-2 shadow-[0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-2xl opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                        <div class="absolute top-[100%] left-1/2 -translate-x-1/2 mt-2 w-72 rounded-2xl bg-ink/95 border border-white/10 p-2 shadow-[0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-2xl opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                            <div class="px-4 py-2 text-[0.62rem] font-black text-primary uppercase tracking-[0.16em]">STEM Clubs</div>
                             <a href="{{ route('club.detail', 'stem-club') }}" class="block px-4 py-3 text-xs font-bold text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-all">STEM Club</a>
                             <a href="{{ route('club.detail', 'brain-club') }}" class="block px-4 py-3 text-xs font-bold text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-all">Brain Club</a>
                             <a href="{{ route('club.detail', 'art-craft') }}" class="block px-4 py-3 text-xs font-bold text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-all">Art &amp; Craft</a>
                             <a href="{{ route('club.detail', 'leadership') }}" class="block px-4 py-3 text-xs font-bold text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-all">Leadership Club</a>
                             <div class="border-t border-white/10 my-1"></div>
+                            <div class="px-4 pt-2 text-[0.62rem] font-black text-primary uppercase tracking-[0.16em]">STEAM Growth Lines</div>
+                            <a href="{{ route('programs.show', 'science') }}" class="block px-4 py-3 text-xs font-bold text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-all">Science Lab</a>
+                            <a href="{{ route('programs.show', 'technology') }}" class="block px-4 py-3 text-xs font-bold text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-all">Tech Grid</a>
+                            <a href="{{ route('programs.show', 'engineering') }}" class="block px-4 py-3 text-xs font-bold text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-all">Engineering</a>
+                            <a href="{{ route('programs.show', 'arts') }}" class="block px-4 py-3 text-xs font-bold text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-all">Arts Collective</a>
+                            <a href="{{ route('programs.show', 'mathematics') }}" class="block px-4 py-3 text-xs font-bold text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-all">Math Decoder</a>
+                            <div class="border-t border-white/10 my-1"></div>
+                            <a href="{{ route('programs') }}" class="block px-4 py-2.5 text-[0.7rem] font-black text-mint hover:text-white hover:bg-mint/20 rounded-xl transition-all text-center">View Growth Line Map</a>
                             <a href="{{ route('clubs') }}" class="block px-4 py-2.5 text-[0.7rem] font-black text-primary hover:text-white hover:bg-primary/20 rounded-xl transition-all text-center">All Programmes</a>
                         </div>
                     </div>
@@ -73,6 +82,7 @@
             <div class="px-6 py-6 space-y-4">
                 <a href="{{ route('about') }}" class="block font-black text-xs uppercase tracking-wider text-white/70 hover:text-white py-2">Our Story</a>
                 <a href="{{ route('clubs') }}" class="block font-black text-xs uppercase tracking-wider text-white/70 hover:text-white py-2">STEM Clubs</a>
+                <a href="{{ route('programs') }}" class="block font-black text-xs uppercase tracking-wider text-white/70 hover:text-white py-2">STEAM Growth Lines</a>
                 <a href="{{ route('membership') }}" class="block font-black text-xs uppercase tracking-wider text-white/70 hover:text-white py-2">Pricing</a>
                 <a href="{{ route('contact') }}" class="block font-black text-xs uppercase tracking-wider text-white/70 hover:text-white py-2">Contact</a>
                 <div class="pt-4 border-t border-white/10 flex flex-col gap-3">
