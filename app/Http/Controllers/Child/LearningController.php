@@ -10,6 +10,7 @@ use App\Models\AssignmentSubmission;
 use App\Models\ChildProfile;
 use App\Models\Enrollment;
 use App\Models\Lesson;
+use App\Models\LiveSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -93,7 +94,12 @@ class LearningController extends Controller
 
         $progress = $totalLessons > 0 ? round(($completedLessons / $totalLessons) * 100) : 0;
 
-        return view('child.course', compact('enrollment', 'course', 'child', 'moduleData', 'progress', 'completedLessons', 'totalLessons'));
+        $liveSessions = LiveSession::where(function ($q) use ($course) {
+            $q->where('course_id', $course->id)
+                ->orWhereHas('classSession', fn ($q) => $q->where('course_id', $course->id));
+        })->orderByDesc('scheduled_at')->get();
+
+        return view('child.course', compact('enrollment', 'course', 'child', 'moduleData', 'progress', 'completedLessons', 'totalLessons', 'liveSessions'));
     }
 
     public function lesson(Lesson $lesson)

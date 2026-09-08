@@ -2,6 +2,16 @@
 
 @section('title', $course->title)
 
+@push('scripts')
+<script>
+    function copyLive(link, el) {
+        navigator.clipboard.writeText(link)
+            .then(() => { el.classList.add('text-mint'); })
+            .catch(() => {});
+    }
+</script>
+@endpush
+
 @section('content')
     {{-- Course Info Header --}}
     <div class="card p-6 mb-6">
@@ -93,6 +103,47 @@
                         <div class="text-xs text-cream/40">Return to overview</div>
                     </div>
                 </a>
+            </div>
+
+            {{-- Live Sessions --}}
+            <h2 class="text-lg font-bold mt-6 mb-3 flex items-center gap-2">
+                <svg class="w-4 h-4 text-sky" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                Live Sessions
+            </h2>
+            <div class="space-y-2">
+                @forelse($liveSessions as $ls)
+                    <div class="card p-3 {{ $ls->status === 'live' ? 'border-mint/40' : '' }}">
+                        <div class="flex items-start justify-between gap-2">
+                            <div class="min-w-0">
+                                <div class="text-sm font-medium truncate">{{ $ls->title }}</div>
+                                <div class="text-xs text-cream/40 mt-0.5">
+                                    @if($ls->status === 'live')
+                                        <span class="text-mint font-bold">● On Air</span>
+                                    @elseif($ls->status === 'ended')
+                                        <span class="text-cream/30">Ended</span>
+                                    @else
+                                        {{ $ls->scheduled_at?->format('M j, g:i A') }}
+                                    @endif
+                                </div>
+                            </div>
+                            @if($ls->status !== 'ended')
+                                <div class="flex-shrink-0 flex gap-2">
+                                    <button type="button" onclick="copyLive('{{ route('live.room', $ls) }}', this)"
+                                            class="text-cream/40 hover:text-mint transition-colors" title="Copy join link">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                                    </button>
+                                    <a href="{{ route('live.room', $ls) }}" class="btn-primary btn-sm text-xs no-underline">
+                                        {{ $ls->status === 'live' ? 'Open Studio' : 'Host' }}
+                                    </a>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                @empty
+                    <div class="card p-4 text-xs text-cream/40 text-center border-dashed border-white/10">
+                        No live sessions scheduled yet — sessions are staged from the Admin console.
+                    </div>
+                @endforelse
             </div>
 
             {{-- Assignments Section --}}

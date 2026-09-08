@@ -71,5 +71,6 @@ class Kernel extends HttpKernel
         'teacher' => \App\Http\Middleware\EnsureTeacher::class,
         'school_admin' => \App\Http\Middleware\EnsureSchoolAdmin::class,
         'feature' => \App\Http\Middleware\CheckFeatureFlag::class,
+        'live' => \App\Http\Middleware\EnsureLiveAccess::class,
     ];
 }

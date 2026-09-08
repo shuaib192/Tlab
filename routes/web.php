@@ -180,6 +180,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::delete('/questions/{question}', [\App\Http\Controllers\Admin\CurriculumController::class, 'destroyQuestion'])->name('questions.destroy');
     });
 
+    // Live Sessions (admin control tower)
+    Route::get('live', [\App\Http\Controllers\LiveSessionController::class, 'index'])->name('live.index');
+    Route::get('live/create', [\App\Http\Controllers\LiveSessionController::class, 'create'])->name('live.create');
+    Route::post('live', [\App\Http\Controllers\LiveSessionController::class, 'store'])->name('live.store');
+    Route::post('live/{liveSession}/start', [\App\Http\Controllers\LiveSessionController::class, 'start'])->name('live.start');
+    Route::post('live/{liveSession}/end', [\App\Http\Controllers\LiveSessionController::class, 'end'])->name('live.end');
+    Route::delete('live/{liveSession}', [\App\Http\Controllers\LiveSessionController::class, 'destroy'])->name('live.destroy');
+
     // Enrollments
     Route::get('enrollments', [\App\Http\Controllers\Admin\EnrollmentController::class, 'index'])->name('enrollments.index');
     Route::get('enrollments/create', [\App\Http\Controllers\Admin\EnrollmentController::class, 'create'])->name('enrollments.create');
@@ -274,6 +282,12 @@ Route::middleware('auth')->prefix('notifications')->name('notifications.')->grou
     Route::post('/{notification}/read', [\App\Http\Controllers\NotificationController::class, 'markRead'])->name('read');
     Route::post('/read-all', [\App\Http\Controllers\NotificationController::class, 'markAllRead'])->name('read-all');
     Route::get('/unread-count', [\App\Http\Controllers\NotificationController::class, 'unreadCount'])->name('unread-count');
+});
+
+// --- TLab Live (Jitsi join + attendance) ---
+Route::middleware('live')->group(function () {
+    Route::get('live/{liveSession}', [\App\Http\Controllers\LiveSessionController::class, 'room'])->name('live.room');
+    Route::post('live/{liveSession}/attendance', [\App\Http\Controllers\LiveSessionController::class, 'attendance'])->name('live.attendance');
 });
 
 // --- Child Achievements ---

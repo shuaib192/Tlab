@@ -115,6 +115,55 @@
         </div>
     </div>
 
+    {{-- Live Classroom --}}
+    @if($liveSessions->count())
+    <div class="mb-8 rounded-3xl overflow-hidden" style="background:linear-gradient(135deg,rgba(0,229,255,0.08),rgba(0,229,255,0.02));border:1px solid rgba(0,229,255,0.3)">
+        <div class="p-5 sm:p-6">
+            <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:rgba(0,229,255,0.15);border:1px solid rgba(0,229,255,0.4)">
+                        <svg class="w-5 h-5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    </div>
+                    <div>
+                        <div class="font-display font-black text-cyan-300 text-lg tracking-tight">LIVE CLASSROOM</div>
+                        <div class="text-[10px] sm:text-xs text-cream/50 font-bold uppercase tracking-widest">Teacher-supervised · lobby-gated</div>
+                    </div>
+                </div>
+                <span class="text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1.5 rounded-full"
+                      style="background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.35);color:#67e8f9">
+                    @if($liveSessions->where('status','live')->count()) ● ON AIR @else STANDBY @endif
+                </span>
+            </div>
+
+            <div class="space-y-3">
+                @foreach($liveSessions as $ls)
+                <div class="flex items-center justify-between gap-3 p-4 rounded-2xl" style="background:rgba(250,245,232,0.03);border:1px solid rgba(250,245,232,0.08)">
+                    <div class="min-w-0">
+                        <div class="font-bold text-sm sm:text-base text-cream truncate">{{ $ls->title }}</div>
+                        <div class="text-[10px] sm:text-xs font-mono text-cream/40 mt-0.5">
+                            {{ $ls->scheduled_at ? $ls->scheduled_at->format('D, M j · g:i A') : 'On demand' }}
+                            <span class="text-cream/25">/</span> {{ $ls->duration_minutes }} min
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                        @if($ls->status === 'ended')
+                            <span class="text-[10px] font-mono font-bold text-cream/30 uppercase tracking-widest px-3 py-1.5 rounded-full border border-cream/10">Ended</span>
+                        @else
+                            <span class="hidden sm:inline-block w-2 h-2 rounded-full {{ $ls->status === 'live' ? 'bg-cyan-300 animate-pulse' : 'bg-cream/20' }}"></span>
+                            <a href="{{ route('live.room', $ls) }}?enrollment={{ $enrollment->id }}"
+                               class="px-4 py-2 rounded-xl text-xs sm:text-sm font-black tracking-wide transition-transform hover:scale-105 no-underline"
+                               style="background:{{ $ls->status === 'live' ? '#00E5FF' : 'rgba(0,229,255,0.15)' }};color:{{ $ls->status === 'live' ? '#0B0D10' : '#67e8f9' }};border:1px solid rgba(0,229,255,0.5)">
+                                {{ $ls->status === 'live' ? '▶ Join Now' : 'Join Class' }}
+                            </a>
+                        @endif
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    @endif
+
     {{-- Modules Accordion --}}
     <div class="space-y-3 sm:space-y-4" id="modules-container">
         @forelse($moduleData as $index => $module)

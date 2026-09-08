@@ -12,6 +12,7 @@ use App\Models\ClassSession;
 use App\Models\Cohort;
 use App\Models\CommunicationLog;
 use App\Models\Course;
+use App\Models\LiveSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -61,7 +62,12 @@ class DashboardController extends Controller
             $q->where('course_id', $course->id);
         })->withCount('submissions')->get();
 
-        return view('teacher.course', compact('course', 'cohorts', 'assignments'));
+        $liveSessions = LiveSession::where(function ($q) use ($course) {
+            $q->where('course_id', $course->id)
+                ->orWhereHas('classSession', fn ($q) => $q->where('course_id', $course->id));
+        })->orderByDesc('scheduled_at')->get();
+
+        return view('teacher.course', compact('course', 'cohorts', 'assignments', 'liveSessions'));
     }
 
     public function cohort(Cohort $cohort)
@@ -288,7 +294,8 @@ class DashboardController extends Controller
             if ($child->parent && $child->parent->email) {
                 Mail::to($child->parent->email)->send(new TeacherFeedback($log));
             }
-        } catch (\Exception $e) {}
+        } catch (\Exception $e) {
+        }
 
         return redirect()->back()->with('success', 'Message sent to parent.');
     }

@@ -44,4 +44,22 @@ return [
         'merchant_email' => env('PAYSTACK_MERCHANT_EMAIL'),
     ],
 
+    /*
+    | Live classrooms run on a Jitsi Meet domain. Defaults to the public
+    | meet.jit.si bridge for day one; flip JITSI_DOMAIN to a self-hosted
+    | instance whenever you're ready (no code changes required).
+    |
+    | JWT auth (app id/secret) is only used when talking to a self-hosted
+    | Jitsi instance configured for JWT authentication. Public meet.jit.si
+    | never receives a token.
+    */
+    'jitsi' => [
+        'domain' => env('JITSI_DOMAIN', 'meet.jit.si'),
+        'app_id' => env('JITSI_APP_ID', ''),
+        'app_secret' => env('JITSI_APP_SECRET', ''),
+        'jwt_enabled' => env('JITSI_JWT_ENABLED', false),
+        'room_prefix' => env('JITSI_ROOM_PREFIX', 'tlab'),
+        'force_lobby' => env('JITSI_FORCE_LOBBY', true),
+    ],
+
 ];
