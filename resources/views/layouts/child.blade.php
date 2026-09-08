@@ -134,14 +134,14 @@
             transition:opacity .25s ease, visibility .25s ease;
         }
         #kid-loader.out { opacity:0; visibility:hidden; }
-        .loader-wrap { position:relative; display:grid; place-items:center; width:132px; height:132px; }
+        .loader-wrap { position:relative; display:grid; place-items:center; width:164px; height:120px; }
         .loader-wrap::before {
             content:''; position:absolute; inset:0; border-radius:50%;
             background:radial-gradient(circle, rgba(77,255,162,.28), rgba(90,215,255,.12) 45%, transparent 70%);
             animation:pulseGlow 1.1s ease-in-out infinite;
         }
         @keyframes pulseGlow { 0%,100%{transform:scale(.92); opacity:.75} 50%{transform:scale(1.08); opacity:1} }
-        .loader-logo { height:110px; width:auto; position:relative; z-index:1; animation:loaderDock 1.1s ease-in-out infinite; filter:drop-shadow(0 5px 0 rgba(0,0,0,.45)); }
+        .loader-logo { height:64px; width:auto; max-width:220px; position:relative; z-index:1; animation:loaderDock 1.1s ease-in-out infinite; filter:drop-shadow(0 4px 0 rgba(0,0,0,.45)); }
         @keyframes loaderDock { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
 
         /* ── Geometric deco (no emoji zone) ───────────── */
