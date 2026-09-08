@@ -55,7 +55,7 @@ class LoginController extends Controller
             if (isset($result['message'])) {
                 // Fallback: try local credentials in case auth server DB is out of sync
                 if (Auth::attempt($request->only('email', 'password'), $request->has('remember'))) {
-                    return redirect()->intended($this->homeRedirect(Auth::user()));
+                    return redirect()->intended(route($this->homeRedirect(Auth::user())));
                 }
 
                 return back()->withErrors([
@@ -65,7 +65,7 @@ class LoginController extends Controller
         } catch (\Exception $e) {
             // Auth server unreachable — fall back to local credentials
             if (Auth::attempt($request->only('email', 'password'), $request->has('remember'))) {
-                return redirect()->intended($this->homeRedirect(Auth::user()));
+                return redirect()->intended(route($this->homeRedirect(Auth::user())));
             }
         }
 
