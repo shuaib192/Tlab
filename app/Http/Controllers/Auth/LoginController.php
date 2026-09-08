@@ -48,14 +48,14 @@ class LoginController extends Controller
 
                 Auth::login($user, $request->has('remember'));
 
-                return redirect()->intended(route('parent.dashboard'));
+                return redirect()->intended($this->homeRedirect($user));
             }
 
             // Auth server said invalid credentials
             if (isset($result['message'])) {
                 // Fallback: try local credentials in case auth server DB is out of sync
                 if (Auth::attempt($request->only('email', 'password'), $request->has('remember'))) {
-                    return redirect()->intended(route('parent.dashboard'));
+                    return redirect()->intended($this->homeRedirect(Auth::user()));
                 }
 
                 return back()->withErrors([
@@ -65,13 +65,26 @@ class LoginController extends Controller
         } catch (\Exception $e) {
             // Auth server unreachable — fall back to local credentials
             if (Auth::attempt($request->only('email', 'password'), $request->has('remember'))) {
-                return redirect()->intended(route('parent.dashboard'));
+                return redirect()->intended($this->homeRedirect(Auth::user()));
             }
         }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
+    }
+
+    protected function homeRedirect(User $user): string
+    {
+        if (in_array($user->role ?? '', ['admin', 'super_admin'])) {
+            return 'admin.dashboard';
+        }
+
+        if ($user->role === 'teacher') {
+            return 'teacher.dashboard';
+        }
+
+        return 'parent.dashboard';
     }
 
     public function logout(Request $request)
