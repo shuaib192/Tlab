@@ -52,4 +52,7 @@ echo ">>> Optimizing for production..."
 php artisan optimize
 php artisan event:cache
 
+echo ">>> Pre-rendering public pages to static HTML cache..."
+php artisan pages:cache
+
 echo ">>> Server setup complete!"

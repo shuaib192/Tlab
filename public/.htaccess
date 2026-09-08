@@ -9,6 +9,17 @@
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
+    # ── Static page cache: bypass PHP for pre-rendered public pages ──
+    # Skips visitors with a session cookie (logged-in / active session)
+    RewriteCond %{HTTP_COOKIE} !laravel_session [NC]
+    RewriteCond %{REQUEST_URI} ^/$
+    RewriteCond %{DOCUMENT_ROOT}/_cache/index.html -f
+    RewriteRule ^$ %{DOCUMENT_ROOT}/_cache/index.html [L]
+
+    RewriteCond %{HTTP_COOKIE} !laravel_session [NC]
+    RewriteCond %{DOCUMENT_ROOT}/_cache%{REQUEST_URI}.html -f
+    RewriteRule ^ %{DOCUMENT_ROOT}/_cache%{REQUEST_URI}.html [L]
+
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
@@ -18,4 +29,30 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+</IfModule>
+
+# ── Static asset caching: far-future Cache-Control + Expires ──
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg    "access plus 30 days"
+    ExpiresByType image/png     "access plus 30 days"
+    ExpiresByType image/gif     "access plus 30 days"
+    ExpiresByType image/svg+xml "access plus 30 days"
+    ExpiresByType image/webp    "access plus 30 days"
+    ExpiresByType image/x-icon  "access plus 30 days"
+    ExpiresByType text/css      "access plus 30 days"
+    ExpiresByType application/javascript "access plus 30 days"
+    ExpiresByType text/javascript         "access plus 30 days"
+    ExpiresByType font/woff2   "access plus 30 days"
+    ExpiresByType font/woff    "access plus 30 days"
+    ExpiresByType font/otf     "access plus 30 days"
+    ExpiresByType font/ttf     "access plus 30 days"
+    ExpiresByType application/pdf          "access plus 7 days"
+    ExpiresByType video/mp4   "access plus 7 days"
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(css|js|png|jpe?g|gif|svg|ico|webp|woff2?|otf|ttf)$">
+        Header set Cache-Control "public, max-age=2592000, immutable"
+    </FilesMatch>
 </IfModule>
