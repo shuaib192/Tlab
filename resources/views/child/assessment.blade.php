@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.child')
 @section('title', $assessment->title . ' — Quiz')
 
 @push('styles')

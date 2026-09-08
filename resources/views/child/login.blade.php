@@ -1,63 +1,63 @@
-@extends('layouts.app')
+@extends('layouts.child')
 
 @section('title', 'Child Login')
 
 @section('content')
-<div class="min-h-screen flex items-center justify-center px-4 py-12" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7,#EFF6FF)">
-    <div class="w-full max-w-sm">
-        <div class="text-center mb-8">
-            <div class="w-20 h-20 rounded-3xl flex items-center justify-center text-4xl shadow-lg mx-auto mb-4"
-                 style="background:white;border:3px solid #86EFAC">
-                🚀
-            </div>
-            <h1 class="font-black text-2xl text-ink">Welcome Back, Explorer!</h1>
-            <p class="text-muted/70 text-sm mt-1 font-semibold">Enter your username and PIN to enter your learning space</p>
-        </div>
+<div class="min-h-[80vh] flex items-center justify-center py-8">
+    <div class="w-full max-w-sm relative pop-in">
+        <div class="absolute -top-10 -left-8 text-5xl float select-none" style="--rot:-10deg">🪐</div>
+        <div class="absolute -top-6 -right-8 text-4xl float select-none" style="--rot:12deg;animation-delay:1s">🌟</div>
 
-        @if(session('success'))
-            <div class="mb-4 px-5 py-3.5 rounded-2xl text-sm font-bold text-emerald-700 bg-emerald-100 border border-emerald-200">
-                ✅ {{ session('success') }}
-            </div>
-        @endif
-
-        @if($errors->any())
-            <div class="mb-4 px-5 py-3.5 rounded-2xl text-sm font-bold text-red-700 bg-red-100 border border-red-200">
-                ❌ {{ $errors->first('pin') }}
-            </div>
-        @endif
-
-        <form method="POST" action="{{ route('child.login.submit') }}" class="space-y-5">
-            @csrf
-
-            <div>
-                <label class="block text-sm font-bold text-muted mb-2">
-                    <span class="mr-1">👤</span> Username
-                </label>
-                <input type="text" name="username" value="{{ old('username') }}" required autofocus
-                       class="w-full px-5 py-3.5 rounded-2xl bg-white border-2 border-gray-100 text-ink placeholder-muted/40 focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/10 transition-all font-bold text-sm"
-                       placeholder="Your username">
+        <div class="relative rounded-[2rem] border-[3px] border-cream/20 bg-panel/90 backdrop-blur-md hard-shadow p-7 sm:p-8">
+            <div class="text-center mb-7">
+                <div class="w-20 h-20 rounded-[1.4rem] grid place-items-center text-4xl border-[3px] border-space bg-gradient-to-br from-mint to-sky shadow-[5px_5px_0_#0a0718] mx-auto mb-4 float">🚀</div>
+                <h1 class="font-display font-extrabold text-2xl text-cream">Welcome Back, Explorer!</h1>
+                <p class="text-cream/50 text-sm font-bold mt-1">Enter your username + secret PIN to board</p>
             </div>
 
-            <div>
-                <label class="block text-sm font-bold text-muted mb-2">
-                    <span class="mr-1">🔑</span> PIN
-                </label>
-                <input type="password" name="pin" inputmode="numeric" pattern="[0-9]*" maxlength="4" required
-                       class="w-full px-5 py-3.5 rounded-2xl bg-white border-2 border-gray-100 text-ink placeholder-muted/40 focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/10 transition-all text-center text-2xl tracking-[1em] font-black"
-                       placeholder="····">
+            @if(session('success'))
+                <div class="mb-4 px-5 py-3.5 rounded-2xl text-sm font-black text-space border-2 border-space shadow-[3px_3px_0_#0a0718]" style="background:#4DFFA2">
+                    ✅ {{ session('success') }}
+                </div>
+            @endif
+
+            @if($errors->any())
+                <div class="mb-4 px-5 py-3.5 rounded-2xl text-sm font-black text-cream border-2 border-terra/60 shadow-[3px_3px_0_#0a0718]" style="background:rgba(255,107,77,.18)">
+                    ❌ {{ $errors->first('pin') }}
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('child.login.submit') }}" class="space-y-5">
+                @csrf
+
+                <div>
+                    <label class="block text-sm font-black text-cream/70 mb-2">
+                        <span class="mr-1">👤</span> Username
+                    </label>
+                    <input type="text" name="username" value="{{ old('username') }}" required autofocus
+                           class="input-candy" placeholder="Your username">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-black text-cream/70 mb-2">
+                        <span class="mr-1">🔑</span> PIN
+                    </label>
+                    <input type="password" name="pin" inputmode="numeric" pattern="[0-9]*" maxlength="4" required
+                           class="input-candy text-center text-2xl tracking-[1em] font-black"
+                           placeholder="····">
+                </div>
+
+                <button type="submit"
+                        class="btn-candy w-full py-4 text-sm bg-mint hover:bg-mint/90" style="--tw-bg-opacity:1">
+                    🎮 Enter My Space
+                </button>
+            </form>
+
+            <div class="mt-7 text-center">
+                <a href="{{ route('login') }}" class="inline-flex items-center gap-2 text-sm font-black text-cream/50 hover:text-cream transition-colors">
+                    <span>👨‍👩‍👧‍👦</span> Parent? Log in here
+                </a>
             </div>
-
-            <button type="submit"
-                    class="w-full py-4 rounded-2xl font-black text-white text-sm transition-all active:scale-[0.98] hover:shadow-lg"
-                    style="background:linear-gradient(135deg,#16A34A,#15803D)">
-                🎮 Enter My Space
-            </button>
-        </form>
-
-        <div class="mt-8 text-center">
-            <a href="{{ route('login') }}" class="inline-flex items-center gap-2 text-sm font-bold text-muted/60 hover:text-muted transition-colors">
-                <span>👨‍👩‍👧‍👦</span> Parent? Log in here
-            </a>
         </div>
     </div>
 </div>
