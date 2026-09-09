@@ -28,7 +28,10 @@
         <div class="lg:col-span-2">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-lg font-bold">My Courses</h2>
-                <span class="badge badge-green">{{ $courses->count() }} active</span>
+                <div class="flex items-center gap-2">
+                    <a href="{{ route('teacher.courses.create') }}" class="btn-primary btn-sm text-xs no-underline">+ New Course</a>
+                    <span class="badge badge-green">{{ $courses->count() }} active</span>
+                </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 @forelse($courses as $course)

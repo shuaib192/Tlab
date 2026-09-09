@@ -106,6 +106,8 @@ Route::prefix('child')->name('child.')->group(function () {
 // --- Teacher Portal ---
 Route::middleware(['auth', '2fa', 'teacher'])->prefix('teacher')->name('teacher.')->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\Teacher\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/courses/create', [\App\Http\Controllers\Teacher\CurriculumController::class, 'createCourse'])->name('courses.create');
+    Route::post('/courses', [\App\Http\Controllers\Teacher\CurriculumController::class, 'storeCourse'])->name('courses.store');
     Route::get('/courses/{course}', [\App\Http\Controllers\Teacher\DashboardController::class, 'course'])->name('course');
     Route::get('/cohorts/{cohort}', [\App\Http\Controllers\Teacher\DashboardController::class, 'cohort'])->name('cohort');
     Route::post('/cohorts/{cohort}/sessions', [\App\Http\Controllers\Teacher\DashboardController::class, 'createSession'])->name('cohort.sessions.store');
@@ -123,6 +125,16 @@ Route::middleware(['auth', '2fa', 'teacher'])->prefix('teacher')->name('teacher.
     // Course progress tracking
     Route::get('/courses/{course}/progress', [\App\Http\Controllers\Teacher\ProgressController::class, 'courseProgress'])->name('progress');
     Route::get('/courses/{course}/progress/{child}', [\App\Http\Controllers\Teacher\ProgressController::class, 'studentProgress'])->name('progress.student');
+
+    // Teacher curriculum builder
+    Route::get('/courses/{course}/curriculum', [\App\Http\Controllers\Teacher\CurriculumController::class, 'curriculum'])->name('curriculum');
+    Route::post('/courses/{course}/modules', [\App\Http\Controllers\Teacher\CurriculumController::class, 'storeModule'])->name('modules.store');
+    Route::put('/modules/{module}', [\App\Http\Controllers\Teacher\CurriculumController::class, 'updateModule'])->name('modules.update');
+    Route::delete('/modules/{module}', [\App\Http\Controllers\Teacher\CurriculumController::class, 'destroyModule'])->name('modules.destroy');
+    Route::post('/modules/{module}/lessons', [\App\Http\Controllers\Teacher\CurriculumController::class, 'storeLesson'])->name('lessons.store');
+    Route::put('/lessons/{lesson}', [\App\Http\Controllers\Teacher\CurriculumController::class, 'updateLesson'])->name('lessons.update');
+    Route::delete('/lessons/{lesson}', [\App\Http\Controllers\Teacher\CurriculumController::class, 'destroyLesson'])->name('lessons.destroy');
+    Route::post('/courses/{course}/cohorts', [\App\Http\Controllers\Teacher\CurriculumController::class, 'storeCohort'])->name('cohorts.store');
 });
 
 // --- School Admin Portal ---

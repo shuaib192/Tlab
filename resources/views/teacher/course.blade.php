@@ -37,6 +37,10 @@
                 @endif
             </div>
             <div class="flex items-center gap-3">
+                <a href="{{ route('teacher.curriculum', $course) }}" class="btn-primary btn-sm no-underline">
+                    <svg class="w-3 h-3 mr-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    Build Curriculum
+                </a>
                 <div class="text-center px-4 py-2 rounded-lg bg-mint/10">
                     <div class="text-lg font-bold text-mint">{{ $course->cohorts_count }}</div>
                     <div class="text-xs text-cream/40">Cohorts</div>
@@ -52,7 +56,46 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         {{-- Cohorts --}}
         <div class="lg:col-span-2">
-            <h2 class="text-lg font-bold mb-4">Cohorts</h2>
+            <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold">Cohorts</h2>
+            <details class="relative">
+                <summary class="btn-secondary btn-sm text-xs cursor-pointer">+ Add Cohort</summary>
+                <div class="absolute right-0 top-full mt-2 w-80 card p-4 z-10">
+                    <form method="POST" action="{{ route('teacher.cohorts.store', $course) }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="label">Cohort Name</label>
+                            <input type="text" name="name" class="input" placeholder="e.g. Saturday Morning" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="label">Description (optional)</label>
+                            <textarea name="description" rows="2" class="input" placeholder="Who is in this cohort?"></textarea>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 mb-3">
+                            <div>
+                                <label class="label">Start Date</label>
+                                <input type="date" name="start_date" class="input">
+                            </div>
+                            <div>
+                                <label class="label">End Date</label>
+                                <input type="date" name="end_date" class="input">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 mb-3">
+                            <div>
+                                <label class="label">Session Time</label>
+                                <input type="text" name="session_time" class="input" placeholder="e.g. 10:00 AM">
+                            </div>
+                            <div>
+                                <label class="label">Session Days</label>
+                                <input type="text" name="session_days" class="input" placeholder="e.g. Saturdays">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary btn-sm w-full justify-center">Create Cohort</button>
+                    </form>
+                </div>
+            </details>
+        </div>
             <div class="card overflow-hidden">
                 @if($cohorts->count())
                     <div class="overflow-x-auto">
