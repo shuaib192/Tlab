@@ -29,6 +29,26 @@ class TeacherFlowTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_teacher_progress_page_renders_in_teacher_portal()
+    {
+        $teacher = User::factory()->create(['role' => 'teacher']);
+        $course = Course::factory()->create(['teacher_id' => $teacher->id]);
+
+        $response = $this->actingAs($teacher)->get(route('teacher.progress', $course));
+        $response->assertStatus(200);
+        $response->assertSee('Student Progress');
+        $response->assertSee('Security Settings');
+    }
+
+    public function test_teacher_cannot_view_other_course_progress()
+    {
+        $teacher = User::factory()->create(['role' => 'teacher']);
+        $other = User::factory()->create(['role' => 'teacher']);
+        $course = Course::factory()->create(['teacher_id' => $other->id]);
+
+        $this->actingAs($teacher)->get(route('teacher.progress', $course))->assertStatus(403);
+    }
+
     public function test_teacher_can_mark_attendance()
     {
         $teacher = User::factory()->create(['role' => 'teacher']);
