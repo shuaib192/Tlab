@@ -16,6 +16,14 @@ class EnsureAdmin
             return redirect()->route('login');
         }
 
+        if ($user->isSuspended()) {
+            auth()->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect()->route('login')->with('error', 'This account is suspended. Contact TLab support.');
+        }
+
         if ($user->isSuperAdmin() || $user->isAdmin()) {
             return $next($request);
         }

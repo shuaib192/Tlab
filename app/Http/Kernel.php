@@ -72,5 +72,6 @@ class Kernel extends HttpKernel
         'school_admin' => \App\Http\Middleware\EnsureSchoolAdmin::class,
         'feature' => \App\Http\Middleware\CheckFeatureFlag::class,
         'live' => \App\Http\Middleware\EnsureLiveAccess::class,
+        '2fa' => \App\Http\Middleware\EnsureTwoFactor::class,
     ];
 }

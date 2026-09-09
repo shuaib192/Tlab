@@ -14,6 +14,14 @@ class EnsureSuperAdmin
             abort(403, 'Access restricted to administrators only.');
         }
 
+        if (auth()->user()->isSuspended()) {
+            auth()->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect()->route('login')->with('error', 'This account is suspended. Contact TLab support.');
+        }
+
         return $next($request);
     }
 }

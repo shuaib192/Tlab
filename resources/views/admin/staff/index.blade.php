@@ -44,30 +44,41 @@
                     </td>
                     <td class="px-6 py-4">
                         <span class="badge {{ $user->role === 'super_admin' ? 'badge-gold' : 'badge-green' }}">{{ str_replace('_',' ', $user->role) }}</span>
+                        @if($user->isSuspended())
+                            <span class="badge badge-red mt-1 block w-fit" title="{{ $user->suspended_reason }}">SUSPENDED</span>
+                        @endif
                     </td>
                     <td class="px-6 py-4 hidden lg:table-cell text-cream/50 text-sm">{{ $user->created_at->format('d M Y') }}</td>
                     <td class="px-6 py-4">
                         @if(auth()->user()->isSuperAdmin())
                         <div class="flex items-center justify-end gap-2">
                             @if($user->id !== auth()->id())
+                                @if($user->isSuspended())
+                                <form method="POST" action="{{ route('admin.staff.reactivate', $user) }}">
+                                    @csrf
+                                    <button class="btn-secondary text-xs px-3 py-2" style="color:#4DFFA2;border-color:rgba(77,255,162,0.3)">Reactivate</button>
+                                </form>
+                                @else
                                 @if($user->role === 'admin')
                                 <form method="POST" action="{{ route('admin.staff.promote', $user) }}">
                                     @csrf
                                     <input type="hidden" name="super" value="1">
                                     <button class="btn-secondary text-xs px-3 py-2">Make Super Admin</button>
                                 </form>
-                                <form method="POST" action="{{ route('admin.staff.demote', $user) }}" onsubmit="return confirm('Remove {{ addslashes($user->name) }} from admin team?')">
-                                    @csrf
-                                    <button class="btn-danger text-xs">Remove</button>
-                                </form>
                                 @else
                                 <form method="POST" action="{{ route('admin.staff.promote', $user) }}">
                                     @csrf
                                     <button class="btn-secondary text-xs px-3 py-2">Make Admin</button>
                                 </form>
+                                @endif
                                 <form method="POST" action="{{ route('admin.staff.demote', $user) }}" onsubmit="return confirm('Remove {{ addslashes($user->name) }} from admin team?')">
                                     @csrf
                                     <button class="btn-danger text-xs">Remove</button>
+                                </form>
+                                <form method="POST" action="{{ route('admin.staff.suspend', $user) }}" class="suspend-form" data-name="{{ addslashes($user->name) }}">
+                                    @csrf
+                                    <input type="hidden" name="reason" class="suspend-reason">
+                                    <button type="button" class="btn-danger text-xs suspend-btn">Suspend</button>
                                 </form>
                                 @endif
                             @else
@@ -92,5 +103,23 @@
     <p class="text-cream/50 text-sm mb-3">Go to <a href="{{ route('admin.users.index') }}" class="text-mint hover:underline font-bold">Users</a> → Edit any user → change Role to <code class="text-gold">admin</code> or <code class="text-gold">super_admin</code>. They will appear here instantly.</p>
     <p class="text-cream/30 text-xs">Admin = can manage Clubs, Courses, Curriculum, Enrollments, Upcoming Classes, Carousel. Super Admin = full access including Staff, Settings, Safety, Invoices, Schools.</p>
 </div>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.suspend-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const form = btn.closest('.suspend-form');
+            const name = form.dataset.name;
+            const reason = prompt(`Suspend ${name}?\n\nEnter the reason (visible to the staff member on next login attempt):`);
+            if (reason === null) return;
+            if (!reason.trim()) { alert('A reason is required to suspend an account.'); return; }
+            form.querySelector('.suspend-reason').value = reason.trim();
+            form.submit();
+        });
+    });
+});
+</script>
+@endpush
 
 @endsection

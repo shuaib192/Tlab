@@ -21,6 +21,11 @@ class User extends Authenticatable
         'phone',
         'school_name',
         'school_id',
+        'is_active',
+        'suspended_at',
+        'suspended_reason',
+        'two_factor_enabled',
+        'two_factor_enrolled_at',
     ];
 
     protected $hidden = [
@@ -31,6 +36,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'is_active' => 'boolean',
+        'suspended_at' => 'datetime',
+        'two_factor_enabled' => 'boolean',
+        'two_factor_enrolled_at' => 'datetime',
     ];
 
     // --- Relationships ---
@@ -105,6 +114,24 @@ class User extends Authenticatable
 
     public function isStaff()
     {
-        return $this->isAdmin() || $this->isSchoolAdmin();
+        return in_array($this->role, [
+            self::ROLE_ADMIN, self::ROLE_SUPER_ADMIN, self::ROLE_FACILITATOR,
+            'teacher', self::ROLE_SCHOOL_ADMIN,
+        ]);
+    }
+
+    public function isSuspended(): bool
+    {
+        return ! $this->is_active || $this->suspended_at !== null;
+    }
+
+    public function requiresTwoFactor(): bool
+    {
+        return $this->isStaff() && $this->two_factor_enabled;
+    }
+
+    public function revokeAllSessions(): void
+    {
+        \DB::table('sessions')->where('user_id', $this->id)->delete();
     }
 }

@@ -48,6 +48,21 @@ Route::middleware('guest')->group(function () {
 // --- Logout ---
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
+// --- Two-Factor Authentication ---
+Route::get('/two-factor/challenge', [\App\Http\Controllers\TwoFactorController::class, 'showChallenge'])->name('two-factor.challenge');
+Route::post('/two-factor/send', [\App\Http\Controllers\TwoFactorController::class, 'sendCode'])->name('two-factor.send');
+Route::post('/two-factor/resend', [\App\Http\Controllers\TwoFactorController::class, 'resend'])->name('two-factor.resend');
+Route::post('/two-factor/verify', [\App\Http\Controllers\TwoFactorController::class, 'verify'])->name('two-factor.verify');
+
+// --- Staff Security Settings (2FA enrollment) ---
+Route::middleware('auth')->group(function () {
+    Route::get('/settings/security', [\App\Http\Controllers\TwoFactorController::class, 'showSecurity'])->name('settings.security');
+    Route::post('/settings/security/enable', [\App\Http\Controllers\TwoFactorController::class, 'enable'])->name('two-factor.enable');
+    Route::post('/settings/security/disable', [\App\Http\Controllers\TwoFactorController::class, 'disable'])->name('two-factor.disable');
+    Route::get('/settings/security/enroll-verify', [\App\Http\Controllers\TwoFactorController::class, 'showEnrollVerify'])->name('two-factor.enroll-verify');
+    Route::post('/settings/security/enroll-verify', [\App\Http\Controllers\TwoFactorController::class, 'enrollVerify'])->name('two-factor.enroll-verify.store');
+});
+
 // --- Parent Portal ---
 Route::middleware(['auth', 'parent'])->prefix('parent')->name('parent.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -89,7 +104,7 @@ Route::prefix('child')->name('child.')->group(function () {
 });
 
 // --- Teacher Portal ---
-Route::middleware(['auth', 'teacher'])->prefix('teacher')->name('teacher.')->group(function () {
+Route::middleware(['auth', '2fa', 'teacher'])->prefix('teacher')->name('teacher.')->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\Teacher\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/courses/{course}', [\App\Http\Controllers\Teacher\DashboardController::class, 'course'])->name('course');
     Route::get('/cohorts/{cohort}', [\App\Http\Controllers\Teacher\DashboardController::class, 'cohort'])->name('cohort');
@@ -111,7 +126,7 @@ Route::middleware(['auth', 'teacher'])->prefix('teacher')->name('teacher.')->gro
 });
 
 // --- School Admin Portal ---
-Route::middleware(['auth', 'school_admin'])->prefix('school')->name('school.')->group(function () {
+Route::middleware(['auth', '2fa', 'school_admin'])->prefix('school')->name('school.')->group(function () {
     Route::get('/', [\App\Http\Controllers\School\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/students', [\App\Http\Controllers\School\DashboardController::class, 'students'])->name('students');
     Route::get('/students/import', [\App\Http\Controllers\School\StudentController::class, 'importForm'])->name('students.import');
@@ -122,7 +137,7 @@ Route::middleware(['auth', 'school_admin'])->prefix('school')->name('school.')->
 });
 
 // --- Admin Panel (Admin + Super Admin) ---
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', '2fa', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
     // Upcoming Classes — schedule & manage upcoming classes for students
@@ -148,6 +163,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::get('staff', [\App\Http\Controllers\Admin\StaffController::class, 'index'])->name('staff.index');
         Route::post('staff/{user}/promote', [\App\Http\Controllers\Admin\StaffController::class, 'promote'])->name('staff.promote');
         Route::post('staff/{user}/demote', [\App\Http\Controllers\Admin\StaffController::class, 'demote'])->name('staff.demote');
+        Route::post('staff/{user}/suspend', [\App\Http\Controllers\Admin\StaffController::class, 'suspend'])->name('staff.suspend');
+        Route::post('staff/{user}/reactivate', [\App\Http\Controllers\Admin\StaffController::class, 'reactivate'])->name('staff.reactivate');
 
         Route::get('users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
         Route::get('users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'show'])->name('users.show');
