@@ -1,13 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.teacher')
 @section('title', "{$child->name} - Progress Details")
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <a href="{{ route('teacher.progress', $course) }}" class="text-muted hover:text-ink text-sm font-semibold mb-2 inline-flex items-center gap-1">&larr; Back to Class Progress</a>
+    <a href="{{ route('teacher.progress', $course) }}" class="text-cream/60 hover:text-cream text-sm font-semibold mb-2 inline-flex items-center gap-1">&larr; Back to Class Progress</a>
 
     <div class="flex items-center justify-between mb-8 mt-3">
         <div>
-            <h1 class="font-black text-2xl text-ink">{{ $child->name }}</h1>
-            <p class="text-muted text-sm font-semibold">{{ $course->title }} &middot; {{ $child->rank }} &middot; {{ number_format($child->xp) }} XP</p>
+            <h1 class="font-black text-2xl text-cream">{{ $child->name }}</h1>
+            <p class="text-cream/50 text-sm font-semibold">{{ $course->title }} &middot; {{ $child->rank }} &middot; {{ number_format($child->xp) }} XP</p>
         </div>
     </div>
 

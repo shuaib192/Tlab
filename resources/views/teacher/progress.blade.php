@@ -1,16 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.teacher')
 @section('title', "Progress - {$course->title}")
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="flex items-center justify-between mb-8">
         <div>
-            <a href="{{ route('teacher.course', $course) }}" class="text-muted hover:text-ink text-sm font-semibold mb-2 inline-flex items-center gap-1">&larr; Back to Course</a>
-            <h1 class="font-black text-2xl text-ink mt-1">Student Progress</h1>
-            <p class="text-muted text-sm font-semibold">{{ $course->title }}</p>
+            <a href="{{ route('teacher.course', $course) }}" class="text-cream/60 hover:text-cream text-sm font-semibold mb-2 inline-flex items-center gap-1">&larr; Back to Course</a>
+            <h1 class="font-black text-2xl text-cream mt-1">Student Progress</h1>
+            <p class="text-cream/50 text-sm font-semibold">{{ $course->title }}</p>
         </div>
         <div class="text-right">
             <div class="font-black text-3xl text-primary">{{ round($overallProgress) }}%</div>
-            <div class="text-xs text-muted font-bold uppercase">Class Average</div>
+            <div class="text-xs text-cream/50 font-bold uppercase">Class Average</div>
         </div>
     </div>
 
