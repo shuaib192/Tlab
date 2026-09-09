@@ -129,6 +129,23 @@ class User extends Authenticatable
         return $this->is_active === false || $this->suspended_at !== null;
     }
 
+    public function homeRoute(): string
+    {
+        if (in_array($this->role, [self::ROLE_ADMIN, self::ROLE_SUPER_ADMIN])) {
+            return 'admin.dashboard';
+        }
+
+        if (in_array($this->role, ['teacher', self::ROLE_FACILITATOR])) {
+            return 'teacher.dashboard';
+        }
+
+        if ($this->role === self::ROLE_SCHOOL_ADMIN) {
+            return 'school.dashboard';
+        }
+
+        return 'parent.dashboard';
+    }
+
     public function requiresTwoFactor(): bool
     {
         return $this->isStaff() && $this->two_factor_enabled;

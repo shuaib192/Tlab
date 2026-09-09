@@ -96,19 +96,7 @@ class LoginController extends Controller
 
     protected function homeRedirect(User $user): string
     {
-        if (in_array($user->role ?? '', ['admin', 'super_admin'])) {
-            return 'admin.dashboard';
-        }
-
-        if (in_array($user->role, ['teacher', 'facilitator'])) {
-            return 'teacher.dashboard';
-        }
-
-        if ($user->role === 'school_admin') {
-            return 'school.dashboard';
-        }
-
-        return 'parent.dashboard';
+        return $user->homeRoute();
     }
 
     public function logout(Request $request)

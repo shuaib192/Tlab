@@ -33,6 +33,8 @@ return [
 
     'lifetime' => env('SESSION_LIFETIME', 120),
 
+    'idle_timeout' => env('SESSION_IDLE_TIMEOUT_MINUTES', 30),
+
     'expire_on_close' => false,
 
     /*
