@@ -224,16 +224,18 @@ class DashboardController extends Controller
             'lesson_id' => 'required|exists:lessons,id',
             'title' => 'required|string|max:255',
             'instructions' => 'nullable|string',
-            'type' => 'required|in:text,file,both',
+            'type' => 'required|in:file,link,both',
             'max_score' => 'required|integer|min:1|max:9999',
             'due_date' => 'nullable|date',
+            'is_published' => 'nullable|boolean',
         ]);
 
-        // Verify lesson belongs to this course
         $lesson = \App\Models\Lesson::findOrFail($data['lesson_id']);
         if ($lesson->module->course_id !== $course->id) {
             return back()->withErrors(['lesson_id' => 'Lesson does not belong to this course.']);
         }
+
+        $published = ($data['is_published'] ?? false);
 
         Assignment::create([
             'lesson_id' => $data['lesson_id'],
@@ -242,6 +244,8 @@ class DashboardController extends Controller
             'type' => $data['type'],
             'max_score' => $data['max_score'],
             'due_date' => $data['due_date'],
+            'is_published' => $published,
+            'published_at' => $published ? now() : null,
         ]);
 
         return redirect()->route('teacher.assignments', $course)
@@ -253,9 +257,19 @@ class DashboardController extends Controller
         $course = $assignment->lesson->module->course;
         $this->authorizeTeach($course);
 
-        $submissions = $assignment->submissions()->with('child')->get();
+        $submissions = $assignment->submissions()->with(['child', 'files'])->get();
 
-        return view('teacher.grade', compact('assignment', 'submissions'));
+        $allVersions = [];
+        foreach ($submissions as $sub) {
+            $versions = AssignmentSubmission::where('assignment_id', $assignment->id)
+                ->where('child_profile_id', $sub->child_profile_id)
+                ->orderByDesc('version')
+                ->with('files')
+                ->get();
+            $allVersions[$sub->child_profile_id] = $versions;
+        }
+
+        return view('teacher.grade', compact('assignment', 'submissions', 'allVersions'));
     }
 
     public function submitGrade(Request $request, AssignmentSubmission $submission)
@@ -266,7 +280,8 @@ class DashboardController extends Controller
         $validated = $request->validate([
             'score' => 'required|numeric|min:0|max:'.$submission->assignment->max_score,
             'feedback' => 'nullable|string|max:2000',
-            'status' => 'required|in:graded,approved,rejected',
+            'status' => 'required|in:graded,approved,rejected,returned_for_revision',
+            'new_deadline' => 'nullable|date|after:now',
         ]);
 
         $submission->update([
@@ -275,8 +290,10 @@ class DashboardController extends Controller
             'status' => $validated['status'],
         ]);
 
-        return redirect()->route('teacher.grade', $submission->assignment_id)
-            ->with('success', 'Grade submitted successfully.');
+        $label = $validated['status'] === 'returned_for_revision' ? 'returned for revision' : $validated['status'];
+
+        return redirect()->route('teacher.grade', $submission->assignment)
+            ->with('success', "Submission {$label}.");
     }
 
     public function awardXp(Request $request, ChildProfile $child)

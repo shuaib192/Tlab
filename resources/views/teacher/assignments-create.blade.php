@@ -41,10 +41,10 @@
         </div>
         <div class="grid grid-cols-2 gap-4 mb-5">
             <div>
-                <label class="label">Type</label>
+                <label class="label">Submission Method</label>
                 <select name="type" class="input">
-                    <option value="text">Text</option>
                     <option value="file">File Upload</option>
+                    <option value="link">Project Link</option>
                     <option value="both">Both</option>
                 </select>
             </div>
@@ -53,9 +53,14 @@
                 <input type="number" name="max_score" class="input" value="100" min="1">
             </div>
         </div>
-        <div class="mb-6">
+        <div class="mb-5">
             <label class="label">Due Date (optional)</label>
             <input type="date" name="due_date" class="input">
+        </div>
+        <div class="mb-6 flex items-center gap-3">
+            <input type="hidden" name="is_published" value="0">
+            <input type="checkbox" name="is_published" value="1" class="accent-mint" checked>
+            <label class="label mb-0">Publish immediately</label>
         </div>
         <button type="submit" class="btn-primary">Create Assignment</button>
     </form>

@@ -48,6 +48,7 @@ class LearningController extends Controller
         $enrollment->load([
             'course.club',
             'course.modules.lessons.assessment',
+            'course.modules.lessons.assignments',
         ]);
 
         $course = $enrollment->course;
@@ -94,12 +95,30 @@ class LearningController extends Controller
 
         $progress = $totalLessons > 0 ? round(($completedLessons / $totalLessons) * 100) : 0;
 
+        $assignments = collect();
+        $submissionMap = collect();
+        if ($course->relationLoaded('modules')) {
+            foreach ($course->modules as $module) {
+                foreach ($module->lessons as $lesson) {
+                    foreach ($lesson->assignments as $a) {
+                        $assignments->push($a);
+                    }
+                }
+            }
+            if ($child) {
+                $submissionMap = AssignmentSubmission::where('child_profile_id', $child->id)
+                    ->whereIn('assignment_id', $assignments->pluck('id'))
+                    ->get()
+                    ->keyBy('assignment_id');
+            }
+        }
+
         $liveSessions = LiveSession::where(function ($q) use ($course) {
             $q->where('course_id', $course->id)
                 ->orWhereHas('classSession', fn ($q) => $q->where('course_id', $course->id));
         })->orderByDesc('scheduled_at')->get();
 
-        return view('child.course', compact('enrollment', 'course', 'child', 'moduleData', 'progress', 'completedLessons', 'totalLessons', 'liveSessions'));
+        return view('child.course', compact('enrollment', 'course', 'child', 'moduleData', 'progress', 'completedLessons', 'totalLessons', 'liveSessions', 'assignments', 'submissionMap'));
     }
 
     public function lesson(Lesson $lesson)
@@ -289,7 +308,18 @@ class LearningController extends Controller
 
         $child = $this->getChild();
 
-        return view('child.project.create', compact('assignment', 'child'));
+        $existingSubmission = AssignmentSubmission::where('assignment_id', $assignment->id)
+            ->where('child_profile_id', $child->id)
+            ->with('files')
+            ->first();
+
+        $allVersions = AssignmentSubmission::where('assignment_id', $assignment->id)
+            ->where('child_profile_id', $child->id)
+            ->orderByDesc('version')
+            ->with('files')
+            ->get();
+
+        return view('child.project', compact('assignment', 'child', 'enrollment', 'existingSubmission', 'allVersions'));
     }
 
     public function submitProject(Assignment $assignment, Request $request)
@@ -313,44 +343,93 @@ class LearningController extends Controller
 
         $child = $this->getChild();
 
-        $data = $request->validate([
+        $rules = [
             'submission_text' => 'nullable|string|max:50000',
-            'file' => 'nullable|file|mimes:jpg,jpeg,png,gif,pdf,doc,docx,zip,mp4,mp3|max:10240',
-        ]);
+            'link_url' => 'nullable|url|max:500',
+            'link_note' => 'nullable|string|max:500',
+        ];
 
-        $fileUrl = null;
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $path = $file->store('submissions/'.$childId, 'public');
-            $fileUrl = Storage::url($path);
-
-            // Create moderated upload for safety review
-            \App\Models\ModeratedUpload::create([
-                'child_profile_id' => $child->id,
-                'file_url' => $fileUrl,
-                'file_name' => $file->getClientOriginalName(),
-                'file_type' => $file->getMimeType(),
-                'file_size' => $file->getSize(),
-                'status' => 'pending',
-            ]);
+        if ($assignment->acceptsFiles()) {
+            $rules['files'] = 'nullable|array|max:3';
+            $rules['files.*'] = 'file|mimes:pdf,docx,pptx,xlsx,jpg,jpeg,png,zip|max:25600';
         }
 
-        AssignmentSubmission::updateOrCreate(
+        $data = $request->validate($rules);
+
+        if ($assignment->acceptsLinks() && ! empty($data['link_url'])) {
+            // link_url is already validated as URL by Laravel
+        }
+
+        $existingSubmission = AssignmentSubmission::where('assignment_id', $assignment->id)
+            ->where('child_profile_id', $child->id)
+            ->first();
+
+        $nextVersion = $existingSubmission ? $existingSubmission->version + 1 : 1;
+
+        $filePaths = [];
+        if ($assignment->acceptsFiles() && $request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                $path = $file->store('submissions/'.$childId, 'public');
+                $filePaths[] = [
+                    'path' => $path,
+                    'name' => $file->getClientOriginalName(),
+                    'size' => $file->getSize(),
+                    'mime' => $file->getMimeType(),
+                ];
+
+                \App\Models\ModeratedUpload::create([
+                    'child_profile_id' => $child->id,
+                    'file_url' => Storage::url($path),
+                    'file_name' => $file->getClientOriginalName(),
+                    'file_type' => $file->getMimeType(),
+                    'file_size' => $file->getSize(),
+                    'status' => 'pending',
+                ]);
+            }
+        }
+
+        $submittedLate = false;
+        if ($assignment->due_date) {
+            $submittedLate = now()->gt($assignment->due_date->endOfDay());
+        }
+
+        $submission = AssignmentSubmission::updateOrCreate(
             [
                 'assignment_id' => $assignment->id,
                 'child_profile_id' => $child->id,
             ],
             [
+                'version' => $nextVersion,
                 'submission_text' => $data['submission_text'] ?? null,
-                'file_url' => $fileUrl,
+                'file_url' => ! empty($filePaths) ? Storage::url($filePaths[0]['path']) : ($existingSubmission?->file_url),
+                'files_json' => ! empty($filePaths) ? $filePaths : ($existingSubmission?->files_json),
+                'link_url' => $data['link_url'] ?? null,
+                'link_note' => $data['link_note'] ?? null,
                 'status' => 'submitted',
                 'submitted_at' => now(),
+                'submitted_late' => $submittedLate,
             ]
         );
 
+        if (! empty($filePaths)) {
+            foreach ($filePaths as $fp) {
+                \App\Models\SubmissionFile::create([
+                    'submission_id' => $submission->id,
+                    'file_path' => $fp['path'],
+                    'file_name' => $fp['name'],
+                    'file_size' => $fp['size'],
+                    'file_mime' => $fp['mime'],
+                ]);
+            }
+        }
+
         $child->awardXp(15, "Submitted project: {$assignment->title}");
 
+        $msg = $submittedLate
+            ? 'Project submitted (late). +15 XP earned.'
+            : 'Project submitted successfully! +15 XP earned.';
+
         return redirect()->route('child.course', $enrollment ?? 0)
-            ->with('success', 'Project submitted successfully! +15 XP earned.');
+            ->with('success', $msg);
     }
 }

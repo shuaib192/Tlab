@@ -164,6 +164,76 @@
     </div>
     @endif
 
+    {{-- Assignments --}}
+    @if($assignments && $assignments->count())
+    <div class="mb-8 rounded-3xl overflow-hidden" style="background:linear-gradient(135deg,rgba(212,162,36,0.08),rgba(212,162,36,0.02));border:1px solid rgba(212,162,36,0.25)">
+        <div class="p-5 sm:p-6">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:rgba(212,162,36,0.15);border:1px solid rgba(212,162,36,0.4)">
+                    <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                </div>
+                <div>
+                    <div class="font-display font-black text-gold text-lg tracking-tight">MISSIONS</div>
+                    <div class="text-[10px] sm:text-xs text-cream/50 font-bold uppercase tracking-widest">Submit your work</div>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                @foreach($assignments as $a)
+                @php
+                    $sub = $submissionMap->get($a->id);
+                    $isLate = $sub && $a->due_date && $sub->submitted_at && $sub->submitted_at->gt($a->due_date->endOfDay());
+                @endphp
+                <div class="flex items-center justify-between gap-3 p-4 rounded-2xl" style="background:rgba(250,245,232,0.03);border:1px solid rgba(250,245,232,0.08)">
+                    <div class="min-w-0">
+                        <div class="font-bold text-sm sm:text-base text-cream truncate">{{ $a->title }}</div>
+                        <div class="text-[10px] sm:text-xs font-mono text-cream/40 mt-0.5 flex items-center gap-2 flex-wrap">
+                            @if($a->due_date)
+                                <span>Due {{ $a->due_date->format('D, M j') }}</span>
+                            @else
+                                <span>No deadline</span>
+                            @endif
+                            <span class="text-cream/25">/</span>
+                            <span>Max {{ $a->max_score }}</span>
+                            <span class="text-cream/25">/</span>
+                            <span>
+                                @if($a->type === 'both') File or Link
+                                @elseif($a->type === 'file') File Upload
+                                @else Project Link
+                                @endif
+                            </span>
+                            @if($sub)
+                                @if($isLate)
+                                    <span class="px-1.5 py-0.5 rounded text-[9px] font-bold" style="background:rgba(194,75,30,0.15);color:#C24B1E">LATE</span>
+                                @endif
+                                @if($sub->score !== null)
+                                    <span class="px-1.5 py-0.5 rounded text-[9px] font-bold" style="background:rgba(78,153,102,0.15);color:#4E9966">{{ $sub->score }}/{{ $a->max_score }}</span>
+                                @endif
+                                @if($sub->version > 1)
+                                    <span class="text-cream/30">v{{ $sub->version }}</span>
+                                @endif
+                            @endif
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="{{ route('child.project', [$enrollment, $a]) }}"
+                           class="inline-flex items-center gap-1 px-4 py-2 rounded-xl font-bold text-[10px] sm:text-xs transition-all hover:scale-105 no-underline"
+                           style="background:{{ $sub ? 'rgba(212,162,36,0.15)' : 'rgba(78,153,102,0.15)' }};color:{{ $sub ? '#D4A224' : '#4E9966' }}">
+                            @if($sub)
+                                {{ $sub->status === 'returned_for_revision' ? 'Revise' : ($sub->score !== null ? 'View Result' : 'Update') }}
+                            @else
+                                Submit
+                            @endif
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    @endif
+
     {{-- Modules Accordion --}}
     <div class="space-y-3 sm:space-y-4" id="modules-container">
         @forelse($moduleData as $index => $module)

@@ -9,9 +9,16 @@ class Assignment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['lesson_id', 'title', 'instructions', 'type', 'due_date', 'max_score'];
+    protected $fillable = [
+        'lesson_id', 'title', 'instructions', 'type', 'due_date', 'max_score',
+        'is_published', 'published_at',
+    ];
 
-    protected $casts = ['due_date' => 'date'];
+    protected $casts = [
+        'due_date' => 'date',
+        'published_at' => 'datetime',
+        'is_published' => 'boolean',
+    ];
 
     public function lesson()
     {
@@ -21,5 +28,15 @@ class Assignment extends Model
     public function submissions()
     {
         return $this->hasMany(AssignmentSubmission::class);
+    }
+
+    public function acceptsFiles(): bool
+    {
+        return in_array($this->type, ['file', 'both']);
+    }
+
+    public function acceptsLinks(): bool
+    {
+        return in_array($this->type, ['link', 'both']);
     }
 }

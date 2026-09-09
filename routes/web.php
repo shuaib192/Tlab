@@ -84,7 +84,7 @@ Route::prefix('child')->name('child.')->group(function () {
     Route::get('/lesson/{lesson}', [\App\Http\Controllers\Child\LearningController::class, 'lesson'])->name('lesson');
     Route::get('/assessment/{assessment}', [\App\Http\Controllers\Child\LearningController::class, 'assessment'])->name('assessment');
     Route::post('/assessment/{assessment}', [\App\Http\Controllers\Child\LearningController::class, 'submitAssessment'])->name('assessment.submit');
-    Route::get('/{enrollment}/project/{assignment}', [\App\Http\Controllers\Child\LearningController::class, 'project'])->name('project');
+    Route::get('/{enrollment}/project/{assignment}', [\App\Http\Controllers\Child\LearningController::class, 'createProject'])->name('project');
     Route::post('/{enrollment}/project/{assignment}', [\App\Http\Controllers\Child\LearningController::class, 'submitProject'])->name('project.submit');
 });
 

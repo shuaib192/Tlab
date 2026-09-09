@@ -42,6 +42,18 @@
                     @if($assignment->max_score)
                         <p class="text-xs text-cream/50 mb-3">Max score: {{ $assignment->max_score }}</p>
                     @endif
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-cream/10">
+                            @if($assignment->type === 'both') File or Link
+                            @elseif($assignment->type === 'file') File Upload
+                            @elseif($assignment->type === 'link') Project Link
+                            @else {{ $assignment->type }}
+                            @endif
+                        </span>
+                        @if(! $assignment->is_published)
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 font-bold">Draft</span>
+                        @endif
+                    </div>
                     <div class="mt-auto pt-3 flex items-center justify-between">
                         <span class="text-xs text-cream/40">
                             @if($assignment->due_date)
