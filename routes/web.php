@@ -36,7 +36,7 @@ Route::get('/auth/edfrica/callback', [\App\Http\Controllers\Auth\EdfricaOAuthCon
 // --- Auth Routes (Guests Only) ---
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [LoginController::class, 'login']);
+    Route::post('/login', [LoginController::class, 'login'])->middleware('throttle:login');
     Route::get('/signup', [RegisterController::class, 'showRegisterForm'])->name('register');
     Route::post('/signup', [RegisterController::class, 'register']);
     Route::get('/forgot-password', [PasswordController::class, 'showForgotForm'])->name('password.request');
@@ -50,9 +50,9 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->midd
 
 // --- Two-Factor Authentication ---
 Route::get('/two-factor/challenge', [\App\Http\Controllers\TwoFactorController::class, 'showChallenge'])->name('two-factor.challenge');
-Route::post('/two-factor/send', [\App\Http\Controllers\TwoFactorController::class, 'sendCode'])->name('two-factor.send');
-Route::post('/two-factor/resend', [\App\Http\Controllers\TwoFactorController::class, 'resend'])->name('two-factor.resend');
-Route::post('/two-factor/verify', [\App\Http\Controllers\TwoFactorController::class, 'verify'])->name('two-factor.verify');
+Route::post('/two-factor/send', [\App\Http\Controllers\TwoFactorController::class, 'sendCode'])->name('two-factor.send')->middleware('throttle:two-factor');
+Route::post('/two-factor/resend', [\App\Http\Controllers\TwoFactorController::class, 'resend'])->name('two-factor.resend')->middleware('throttle:two-factor');
+Route::post('/two-factor/verify', [\App\Http\Controllers\TwoFactorController::class, 'verify'])->name('two-factor.verify')->middleware('throttle:two-factor');
 
 // --- Staff Security Settings (2FA enrollment) ---
 Route::middleware('auth')->group(function () {
@@ -90,7 +90,7 @@ Route::middleware(['auth', 'parent'])->prefix('parent')->name('parent.')->group(
 // --- Child Dashboard (accessed via parent switch OR child PIN login) ---
 Route::prefix('child')->name('child.')->group(function () {
     Route::get('/login', [\App\Http\Controllers\Child\AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [\App\Http\Controllers\Child\AuthController::class, 'login'])->name('login.submit');
+    Route::post('/login', [\App\Http\Controllers\Child\AuthController::class, 'login'])->name('login.submit')->middleware('throttle:child-login');
     Route::post('/logout', [\App\Http\Controllers\Child\AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [ChildDashboardController::class, 'index'])->name('dashboard')
         ->middleware('child');

@@ -343,7 +343,7 @@ class LearningController extends Controller
 
         $rules = [
             'submission_text' => 'nullable|string|max:50000',
-            'link_url' => 'nullable|url|max:500',
+            'link_url' => ['nullable', 'url', 'max:500', new \App\Rules\AllowlistedUrl],
             'link_note' => 'nullable|string|max:500',
         ];
 
