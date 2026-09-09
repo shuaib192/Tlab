@@ -8,7 +8,8 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/css/tlab.css">
+    <link rel="preload" href="/css/tlab.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css/tlab.css"></noscript>
     <style>
         html {
             --c-ink: 8 13 10;

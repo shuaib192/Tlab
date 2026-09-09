@@ -11,7 +11,12 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&display=swap">
+
+    <!-- Tailwind (compiled — non-render-blocking) -->
+    <link rel="preload" href="/css/tlab.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css/tlab.css"></noscript>
 
     <!-- Tailwind (compiled — palette via CSS variables) -->
     <link rel="stylesheet" href="/css/tlab.css">
@@ -227,7 +232,7 @@ document.addEventListener('click', (e) => {
     if (!a) return;
     const href = a.getAttribute('href');
     if (!href || href.startsWith('#') || href.startsWith('javascript') || a.target === '_blank' || a.dataset.noTransition !== undefined) return;
-    if (e.ctrlKey || e.metaKey || e.shiftKey) return; // allow open-in-new-tab
+    if (e.ctrlKey || e.metaKey || e.shiftKey) return;
     const loader = document.getElementById('page-loader');
     if (loader) loader.classList.remove('out');
 });

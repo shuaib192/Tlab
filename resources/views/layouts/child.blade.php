@@ -12,8 +12,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Tailwind (compiled — palette via CSS variables) -->
-    <link rel="stylesheet" href="/css/tlab.css">
+    <!-- Tailwind (compiled — non-render-blocking) -->
+    <link rel="preload" href="/css/tlab.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css/tlab.css"></noscript>
     <style>
         html {
             --c-space: 23 16 51;

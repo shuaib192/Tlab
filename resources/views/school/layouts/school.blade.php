@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'School Portal - TLab')</title>
-    <link rel="stylesheet" href="/css/tlab.css">
+    <link rel="preload" href="/css/tlab.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css/tlab.css"></noscript>
     <style>
         html {
             --c-primary: 22 163 74;
