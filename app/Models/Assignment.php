@@ -39,4 +39,9 @@ class Assignment extends Model
     {
         return in_array($this->type, ['link', 'both']);
     }
+
+    public function acceptsCanvas(): bool
+    {
+        return $this->type === 'canvas';
+    }
 }

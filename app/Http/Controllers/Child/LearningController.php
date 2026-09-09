@@ -352,6 +352,11 @@ class LearningController extends Controller
             $rules['files.*'] = 'file|mimes:pdf,docx,pptx,xlsx,jpg,jpeg,png,zip|max:25600';
         }
 
+        if ($assignment->acceptsCanvas()) {
+            $rules['canvas_data'] = 'nullable|string|max:6000000';
+            $rules['canvas_bg'] = 'nullable|in:white,dark';
+        }
+
         $data = $request->validate($rules);
 
         if ($assignment->acceptsLinks() && ! empty($data['link_url'])) {
@@ -363,6 +368,11 @@ class LearningController extends Controller
             ->first();
 
         $nextVersion = $existingSubmission ? $existingSubmission->version + 1 : 1;
+
+        $canvasPath = null;
+        if ($assignment->acceptsCanvas() && is_string($data['canvas_data'] ?? null) && $data['canvas_data'] !== '') {
+            $canvasPath = $this->persistCanvasData($data['canvas_data'], $childId, $assignment->id, $nextVersion);
+        }
 
         $filePaths = [];
         if ($assignment->acceptsFiles() && $request->hasFile('files')) {
@@ -403,6 +413,8 @@ class LearningController extends Controller
                 'files_json' => ! empty($filePaths) ? $filePaths : ($existingSubmission?->files_json),
                 'link_url' => $data['link_url'] ?? null,
                 'link_note' => $data['link_note'] ?? null,
+                'canvas_path' => $canvasPath ?? ($existingSubmission?->canvas_path),
+                'canvas_bg' => $data['canvas_bg'] ?? ($existingSubmission?->canvas_bg ?? 'white'),
                 'status' => 'submitted',
                 'submitted_at' => now(),
                 'submitted_late' => $submittedLate,
@@ -429,5 +441,27 @@ class LearningController extends Controller
 
         return redirect()->route('child.course', $enrollment)
             ->with('success', $msg);
+    }
+
+    private function persistCanvasData(string $dataUrl, int $childId, int $assignmentId, int $version): ?string
+    {
+        if (preg_match('/^data:image\/png;base64,/', $dataUrl) !== 1) {
+            return null;
+        }
+
+        $raw = base64_decode(substr($dataUrl, strpos($dataUrl, ',') + 1), true);
+        if ($raw === false || $raw === '') {
+            return null;
+        }
+
+        $magic = "\x89PNG\r\n\x1a\n";
+        if (strlen($raw) < 24 || ! str_starts_with($raw, $magic) || strlen($raw) > 5000000) {
+            return null;
+        }
+
+        $path = 'submissions/'.$childId.'/canvas_a'.$assignmentId.'_v'.$version.'.png';
+        Storage::disk('public')->put($path, $raw, 'public');
+
+        return $path;
     }
 }

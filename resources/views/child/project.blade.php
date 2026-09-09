@@ -38,6 +38,7 @@
                 @if($assignment->type === 'both') File or Link
                 @elseif($assignment->type === 'file') File Upload
                 @elseif($assignment->type === 'link') Project Link
+                @elseif($assignment->type === 'canvas') Interactive Canvas
                 @endif
             </span>
         </div>
@@ -77,10 +78,35 @@
             </div>
             @endif
 
-            @if($assignment->acceptsFiles())
+            @if($assignment->acceptsCanvas())
+            <div class="mb-6">
+                <label class="block font-black text-sm text-cream mb-2">Work on the Canvas Below</label>
+                <input type="hidden" name="canvas_data" id="canvas-data">
+                <input type="hidden" name="canvas_bg" id="canvas-bg" value="white">
+                <div class="rounded-2xl bg-panel border-2 border-cream/15 p-4 shadow-[4px_4px_0_rgba(9,6,24,.92)]">
+                    <div class="flex flex-wrap items-center gap-3 mb-4">
+                        <div class="flex items-center gap-1.5" id="color-swatches"></div>
+                        <div class="flex items-center gap-2 text-xs font-black text-cream/60">
+                            SIZE
+                            <input type="range" id="brush-size" min="2" max="28" value="6" class="w-24 accent-mint">
+                        </div>
+                        <button type="button" id="eraser-toggle" class="px-3 py-1.5 rounded-xl border-2 border-cream/15 text-xs font-black text-cream/70 hover:border-cream/40 hover:text-cream transition-colors">ERASER</button>
+                        <button type="button" id="bg-toggle" class="px-3 py-1.5 rounded-xl border-2 border-cream/15 text-xs font-black text-cream/70 hover:border-cream/40 hover:text-cream transition-colors">DARK PAPER</button>
+                        <button type="button" id="clear-draw" class="px-3 py-1.5 rounded-xl border-2 border-terra/30 text-xs font-black text-terra hover:border-terra transition-colors">CLEAR</button>
+                    </div>
+                    <div class="rounded-xl overflow-hidden bg-white" id="canvas-wrap">
+                        <canvas id="kid-canvas" width="800" height="1050" class="block w-full touch-none" style="aspect-ratio: 800 / 1050; background-color: #ffffff;"></canvas>
+                    </div>
+                    <p id="canvas-hint" class="text-xs text-cream/45 font-bold mt-3">Draw your work, then submit. You can keep drawing until you're happy with it.</p>
+                </div>
+                @error('canvas_data') <p class="text-terra text-xs font-bold mt-1">{{ $message }}</p> @enderror
+            </div>
+            @endif
+
+            @if($assignment->acceptsFiles() || $assignment->acceptsCanvas())
             <div class="mb-6">
                 <label class="block font-black text-sm text-cream mb-2">Notes (optional)</label>
-                <textarea name="submission_text" rows="4" class="input-candy" placeholder="Add a note about your submission...">{{ old('submission_text', $existingSubmission->submission_text ?? '') }}</textarea>
+                <textarea name="submission_text" rows="4" class="input-candy" placeholder="Add a note about your work...">{{ old('submission_text', $existingSubmission->submission_text ?? '') }}</textarea>
                 @error('submission_text') <p class="text-terra text-xs font-bold mt-1">{{ $message }}</p> @enderror
             </div>
             @endif
@@ -104,6 +130,13 @@
                 @if($existingSubmission->link_note)
                     <p class="text-xs text-cream/50 mt-2 font-bold">{{ $existingSubmission->link_note }}</p>
                 @endif
+            </div>
+        @endif
+
+        @if($existingSubmission->canvas_path)
+            <div class="p-4 rounded-2xl bg-surface/60 border-2 border-cream/10 mb-4">
+                <div class="text-xs font-black text-cream/50 mb-2">YOUR CANVAS WORK</div>
+                <img src="{{ Storage::url($existingSubmission->canvas_path) }}" alt="Your canvas work" class="rounded-xl border-2 border-cream/10 w-full max-w-md" loading="lazy">
             </div>
         @endif
 
@@ -169,6 +202,9 @@
                     @if($v->link_url)
                         <a href="{{ $v->link_url }}" target="_blank" class="text-mint text-xs">link</a>
                     @endif
+                    @if($v->canvas_path)
+                        <span class="text-cream/45 text-xs">canvas</span>
+                    @endif
                 </div>
             @endforeach
         </div>
@@ -199,6 +235,134 @@ document.addEventListener('DOMContentLoaded', () => {
             fileList.appendChild(warn);
         }
     });
+
+    const canvasEl = document.getElementById('kid-canvas');
+    if (canvasEl) {
+        const dataEl = document.getElementById('canvas-data');
+        const bgEl = document.getElementById('canvas-bg');
+        const wrapEl = document.getElementById('canvas-wrap');
+        const ctx = canvasEl.getContext('2d');
+
+        const COLORS = ['#ff4757', '#ffa502', '#ffd32a', '#2ed573', '#1e90ff', '#3742fa', '#a55eea', '#ff6b81', '#2f3542', '#ffffff'];
+        let bgColor = '#ffffff';
+        let color = '#2f3542';
+        let size = 6;
+        let erasing = false;
+        let drawing = false;
+        let hasDrawing = false;
+        let lastX = 0, lastY = 0;
+
+        const swatchBox = document.getElementById('color-swatches');
+        COLORS.forEach((c) => {
+            const b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'w-7 h-7 rounded-xl border-2 transition-transform hover:scale-110';
+            b.style.backgroundColor = c;
+            b.style.boxShadow = c === '#ffffff' ? 'inset 0 0 0 1px rgba(255,255,255,.35)' : '';
+            b.dataset.color = c;
+            if (c === color) b.style.borderColor = '#77ffa2';
+            b.addEventListener('click', () => {
+                color = c;
+                erasing = false;
+                document.getElementById('eraser-toggle').classList.remove('bg-mint', 'text-space');
+                swatchBox.querySelectorAll('button').forEach((x) => x.style.borderColor = x.dataset.color === c ? '#77ffa2' : 'rgba(203,193,224,.35)');
+            });
+            swatchBox.appendChild(b);
+        });
+
+        function fillBg() {
+            ctx.save();
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, canvasEl.width, canvasEl.height);
+            ctx.restore();
+        }
+        fillBg();
+
+        function pos(e) {
+            const rect = canvasEl.getBoundingClientRect();
+            const pt = e.touches && e.touches.length ? e.touches[0] : e;
+            return {
+                x: (pt.clientX - rect.left) * (canvasEl.width / rect.width),
+                y: (pt.clientY - rect.top) * (canvasEl.height / rect.height),
+            };
+        }
+
+        function stroke(p) {
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.strokeStyle = erasing ? bgColor : color;
+            ctx.lineWidth = erasing ? size + 6 : size;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(p.x, p.y);
+            ctx.stroke();
+            lastX = p.x;
+            lastY = p.y;
+        }
+
+        canvasEl.addEventListener('pointerdown', (e) => {
+            e.preventDefault();
+            drawing = true;
+            hasDrawing = true;
+            const p = pos(e);
+            lastX = p.x;
+            lastY = p.y;
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.fillStyle = erasing ? bgColor : color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, (erasing ? size + 6 : size) / 2, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        canvasEl.addEventListener('pointermove', (e) => {
+            if (!drawing) return;
+            e.preventDefault();
+            stroke(pos(e));
+        });
+        canvasEl.addEventListener('pointerup', () => { drawing = false; });
+        canvasEl.addEventListener('pointerleave', () => { drawing = false; });
+
+        document.getElementById('eraser-toggle').addEventListener('click', () => {
+            erasing = !erasing;
+            const b = document.getElementById('eraser-toggle');
+            b.classList.toggle('bg-mint', erasing);
+            b.classList.toggle('text-space', erasing);
+        });
+
+        document.getElementById('bg-toggle').addEventListener('click', () => {
+            const dark = bgColor === '#ffffff';
+            bgColor = dark ? '#1e1e2e' : '#ffffff';
+            bgEl.value = dark ? 'dark' : 'white';
+            wrapEl.style.backgroundColor = bgColor;
+            canvasEl.style.backgroundColor = bgColor;
+            const snap = new Image();
+            snap.onload = function onSnap() {
+                fillBg();
+                ctx.drawImage(snap, 0, 0);
+                hasDrawing = true;
+            };
+            snap.src = canvasEl.toDataURL('image/png');
+            document.getElementById('bg-toggle').textContent = bgColor === '#1e1e2e' ? 'WHITE PAPER' : 'DARK PAPER';
+        });
+
+        document.getElementById('clear-draw').addEventListener('click', () => {
+            fillBg();
+            hasDrawing = false;
+            document.getElementById('canvas-hint').textContent = 'Canvas cleared.';
+        });
+
+        document.getElementById('brush-size').addEventListener('input', (e) => {
+            size = parseInt(e.target.value, 10) || 6;
+        });
+
+        const submitForm = document.getElementById('submit-form');
+        submitForm.addEventListener('submit', () => {
+            if (hasDrawing) {
+                dataEl.value = canvasEl.toDataURL('image/png');
+            }
+        });
+    }
 });
 </script>
 @endpush

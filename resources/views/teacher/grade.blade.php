@@ -85,6 +85,13 @@
                             </div>
                         @endif
 
+                        @if($submission->canvas_path)
+                            <div class="mb-4 p-4 rounded-lg bg-cream/5">
+                                <div class="text-xs font-bold text-cream/40 mb-2">Canvas Work</div>
+                                <img src="{{ Storage::url($submission->canvas_path) }}" alt="Student canvas work" class="rounded-lg border border-white/10 w-full max-w-md" loading="lazy">
+                            </div>
+                        @endif
+
                         @if($submission->files && $submission->files->count())
                             <div class="mb-4">
                                 <div class="text-xs font-bold text-cream/40 mb-2">Attached Files</div>
@@ -127,6 +134,9 @@
                                             @endif
                                             @if($v->link_url)
                                                 <a href="{{ $v->link_url }}" target="_blank" class="text-sky hover:underline">link</a>
+                                            @endif
+                                            @if($v->canvas_path)
+                                                <span class="text-cream/30">canvas</span>
                                             @endif
                                         </div>
                                     @endforeach

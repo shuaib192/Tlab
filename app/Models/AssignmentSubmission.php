@@ -12,7 +12,7 @@ class AssignmentSubmission extends Model
 
     protected $fillable = [
         'assignment_id', 'child_profile_id', 'version', 'submission_text',
-        'file_url', 'files_json', 'link_url', 'link_note',
+        'file_url', 'files_json', 'link_url', 'link_note', 'canvas_path', 'canvas_bg',
         'score', 'feedback', 'status', 'submitted_at', 'submitted_late',
     ];
 

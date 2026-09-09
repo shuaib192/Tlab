@@ -224,7 +224,7 @@ class DashboardController extends Controller
             'lesson_id' => 'required|exists:lessons,id',
             'title' => 'required|string|max:255',
             'instructions' => 'nullable|string',
-            'type' => 'required|in:file,link,both',
+            'type' => 'required|in:file,link,both,canvas',
             'max_score' => 'required|integer|min:1|max:9999',
             'due_date' => 'nullable|date',
             'is_published' => 'nullable|boolean',
@@ -240,10 +240,10 @@ class DashboardController extends Controller
         Assignment::create([
             'lesson_id' => $data['lesson_id'],
             'title' => $data['title'],
-            'instructions' => $data['instructions'],
+            'instructions' => $data['instructions'] ?? null,
             'type' => $data['type'],
             'max_score' => $data['max_score'],
-            'due_date' => $data['due_date'],
+            'due_date' => $data['due_date'] ?? null,
             'is_published' => $published,
             'published_at' => $published ? now() : null,
         ]);

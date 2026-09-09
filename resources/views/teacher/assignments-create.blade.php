@@ -46,6 +46,7 @@
                     <option value="file">File Upload</option>
                     <option value="link">Project Link</option>
                     <option value="both">Both</option>
+                    <option value="canvas">Interactive Canvas (draw on the page)</option>
                 </select>
             </div>
             <div>
