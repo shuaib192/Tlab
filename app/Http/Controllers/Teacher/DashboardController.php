@@ -284,13 +284,58 @@ class DashboardController extends Controller
             'new_deadline' => 'nullable|date|after:now',
         ]);
 
+        $wasScoredBefore = $submission->getOriginal('score') !== null;
+        $wasPreviouslyGraded = in_array($submission->getOriginal('status'), ['graded', 'approved']);
+        $status = $validated['status'];
+
         $submission->update([
             'score' => $validated['score'],
             'feedback' => $validated['feedback'] ?? null,
-            'status' => $validated['status'],
+            'status' => $status,
         ]);
 
-        $label = $validated['status'] === 'returned_for_revision' ? 'returned for revision' : $validated['status'];
+        $isGrade = in_array($status, ['graded', 'approved']);
+        $shouldNotify = ! ($wasPreviouslyGraded && $isGrade);
+
+        if ($isGrade && ! $wasScoredBefore && $submission->assignment->max_score > 0) {
+            $pct = $validated['score'] / $submission->assignment->max_score;
+            $gradeXp = $pct >= 0.8 ? 30 : ($pct >= 0.5 ? 15 : 5);
+            $submission->child->awardXp($gradeXp, "Graded project: {$submission->assignment->title} ({$validated['score']}/{$submission->assignment->max_score})");
+        }
+
+        if ($shouldNotify) {
+            $child = $submission->child;
+            $maxScore = $submission->assignment->max_score;
+            $feedback = $submission->feedback;
+            $assignmentTitle = $submission->assignment->title;
+
+            \App\Models\CommunicationLog::create([
+                'teacher_id' => auth()->id(),
+                'parent_id' => $child->user_id,
+                'child_profile_id' => $child->id,
+                'subject' => "Grade: {$assignmentTitle}",
+                'message' => "Scored {$validated['score']}/{$maxScore} ({$status}). ".($feedback ? "Feedback: {$feedback}" : ''),
+                'type' => 'grade',
+            ]);
+
+            \App\Models\Notification::create([
+                'user_id' => $child->user_id,
+                'type' => 'grade',
+                'title' => "New grade: {$assignmentTitle}",
+                'body' => Str::limit("Scored {$validated['score']}/{$maxScore}".($feedback ? " - {$feedback}" : ''), 100),
+                'icon' => '✓',
+                'link' => route('communications.index'),
+            ]);
+
+            try {
+                if ($child->parent && $child->parent->email) {
+                    Mail::to($child->parent->email)->send(new \App\Mail\SubmissionGraded($submission));
+                }
+            } catch (\Exception $e) {
+            }
+        }
+
+        $label = $status === 'returned_for_revision' ? 'returned for revision' : $status;
 
         return redirect()->route('teacher.grade', $submission->assignment)
             ->with('success', "Submission {$label}.");
