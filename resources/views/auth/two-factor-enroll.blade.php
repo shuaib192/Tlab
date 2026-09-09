@@ -1,4 +1,6 @@
-@extends('layouts.admin')
+@extends(auth()->user()->isSchoolAdmin()
+    ? 'school.layouts.school'
+    : (auth()->user()->isAdmin() ? 'layouts.admin' : 'layouts.teacher'))
 @section('title', 'Enable Two-Factor Authentication')
 
 @section('content')

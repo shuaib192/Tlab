@@ -17,8 +17,11 @@
             --c-mint: 78 153 102;
             --c-primary: 78 153 102;
             --c-gold: 212 162 36;
+            --c-amber: 217 119 6;
+            --c-coral: 239 68 68;
             --c-terra: 194 75 30;
             --c-violet: 107 63 160;
+            --c-accent: 124 58 237;
             --c-sky: 46 139 192;
             --c-panel: 15 22 18;
             --c-surface: 20 26 22;

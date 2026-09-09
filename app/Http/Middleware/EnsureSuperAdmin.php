@@ -10,16 +10,22 @@ class EnsureSuperAdmin
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (! auth()->check() || ! auth()->user()->isSuperAdmin()) {
-            abort(403, 'Access restricted to administrators only.');
+        if (! auth()->check()) {
+            return redirect()->route('login');
         }
 
-        if (auth()->user()->isSuspended()) {
+        $user = auth()->user();
+
+        if ($user->isSuspended()) {
             auth()->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
             return redirect()->route('login')->with('error', 'This account is suspended. Contact TLab support.');
+        }
+
+        if (! $user->isSuperAdmin()) {
+            return redirect()->route($user->homeRoute());
         }
 
         return $next($request);

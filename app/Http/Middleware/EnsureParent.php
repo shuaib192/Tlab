@@ -10,16 +10,22 @@ class EnsureParent
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (! auth()->check() || ! auth()->user()->isParent()) {
-            return redirect()->route('login')->with('error', 'You must be logged in as a parent to access this page.');
+        if (! auth()->check()) {
+            return redirect()->route('login');
         }
 
-        if (auth()->user()->isSuspended()) {
+        $user = auth()->user();
+
+        if ($user->isSuspended()) {
             auth()->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
             return redirect()->route('login')->with('error', 'This account is suspended. Contact TLab support.');
+        }
+
+        if (! $user->isParent()) {
+            return redirect()->route($user->homeRoute());
         }
 
         return $next($request);

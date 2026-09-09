@@ -73,4 +73,28 @@ class SessionRedirectTest extends TestCase
         $this->actingAs($teacher)->get(route('teacher.dashboard'))->assertStatus(200);
         $this->assertAuthenticatedAs($teacher);
     }
+
+    public function test_teacher_hitting_parent_route_goes_to_own_home_not_login()
+    {
+        $teacher = User::factory()->create(['role' => 'teacher']);
+
+        $this->actingAs($teacher)->get(route('parent.dashboard'))->assertRedirect(route('teacher.dashboard'));
+        $this->assertAuthenticatedAs($teacher);
+    }
+
+    public function test_parent_hitting_teacher_route_goes_to_parent_home_not_login()
+    {
+        $parent = User::factory()->create(['role' => 'parent']);
+
+        $this->actingAs($parent)->get(route('teacher.dashboard'))->assertRedirect(route('parent.dashboard'));
+        $this->assertAuthenticatedAs($parent);
+    }
+
+    public function test_admin_hitting_super_admin_route_goes_to_admin_home_not_403()
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+
+        $this->actingAs($admin)->get(route('admin.staff.index'))->assertRedirect(route('admin.dashboard'));
+        $this->assertAuthenticatedAs($admin);
+    }
 }

@@ -28,6 +28,6 @@ class EnsureAdmin
             return $next($request);
         }
 
-        abort(403, 'Access restricted to administrators.');
+        return redirect()->route($user->homeRoute());
     }
 }
