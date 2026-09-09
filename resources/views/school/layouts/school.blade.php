@@ -13,30 +13,45 @@
     <noscript><link rel="stylesheet" href="/css/tlab.css"></noscript>
     <style>
         html {
-            --c-ink: 15 23 42;
-            --c-muted: 100 116 139;
-            --c-primary: 78 153 102;
-            --c-mint: 78 153 102;
-            --c-accent: 124 58 237;
+            --c-ink: 8 13 10;
             --c-cream: 250 245 232;
+            --c-mint: 78 153 102;
+            --c-primary: 78 153 102;
             --c-gold: 212 162 36;
+            --c-terra: 194 75 30;
+            --c-violet: 107 63 160;
+            --c-sky: 46 139 192;
             --c-panel: 15 22 18;
-            --c-surface: 250 245 232;
+            --c-surface: 20 26 22;
             --font-sans: 'Outfit', sans-serif;
             --font-display: 'Syne', sans-serif;
         }
     </style>
 
     <style>
-        body { background:#FAF5E8; color:#0F172A; font-family:'Outfit',sans-serif; }
+        body { background:#080D0A; color:#FAF5E8; font-family:'Outfit',sans-serif; }
         .sidebar { width:256px; min-height:100vh; background:#0F1612; border-right:1px solid rgba(250,245,232,0.06); flex-shrink:0; }
         .sidebar-link { display:flex; align-items:center; gap:12px; padding:10px 16px; border-radius:10px; font-weight:600; font-size:0.875rem; color:rgba(250,245,232,0.55); transition:all 0.15s; }
         .sidebar-link:hover { color:#FAF5E8; background:rgba(250,245,232,0.06); }
         .sidebar-link.active { color:#FAF5E8; background:rgba(78,153,102,0.15); border-left:3px solid #4E9966; }
         .sidebar-section { font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:rgba(250,245,232,0.25); padding:16px 16px 6px; }
         .glass { background:rgba(250,245,232,0.03); border:1px solid rgba(250,245,232,0.07); }
+        .card { background:#141A16; border:1px solid rgba(250,245,232,0.07); border-radius:16px; }
+        .btn-primary { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; font-weight:700; font-size:0.875rem; color:#fff; background:linear-gradient(135deg,#4E9966,#2a6e44); transition:all 0.15s; }
+        .btn-primary:hover { opacity:0.9; transform:scale(1.02); }
+        .btn-secondary { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; font-weight:700; font-size:0.875rem; color:rgba(250,245,232,0.7); background:rgba(250,245,232,0.06); border:1px solid rgba(250,245,232,0.1); transition:all 0.15s; }
+        .btn-secondary:hover { color:#FAF5E8; background:rgba(250,245,232,0.1); }
+        .btn-danger { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:8px; font-weight:600; font-size:0.8rem; color:#C24B1E; background:rgba(194,75,30,0.1); border:1px solid rgba(194,75,30,0.25); transition:all 0.15s; }
+        .btn-danger:hover { background:rgba(194,75,30,0.2); }
+        .badge { display:inline-flex; padding:3px 10px; border-radius:999px; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; }
+        .badge-green  { background:rgba(78,153,102,0.15); color:#4E9966; border:1px solid rgba(78,153,102,0.3); }
+        .badge-gold   { background:rgba(212,162,36,0.15); color:#D4A224; border:1px solid rgba(212,162,36,0.3); }
+        .badge-red    { background:rgba(194,75,30,0.15);  color:#C24B1E; border:1px solid rgba(194,75,30,0.3); }
+        .badge-gray   { background:rgba(250,245,232,0.07); color:rgba(250,245,232,0.5); border:1px solid rgba(250,245,232,0.1); }
         .flash-success { padding:12px 18px; border-radius:10px; background:rgba(78,153,102,0.12); border:1px solid rgba(78,153,102,0.35); color:#4E9966; font-weight:600; margin-bottom:20px; }
         .flash-error   { padding:12px 18px; border-radius:10px; background:rgba(194,75,30,0.12); border:1px solid rgba(194,75,30,0.35); color:#C24B1E; font-weight:600; margin-bottom:20px; }
+        .flash { padding:12px 18px; border-radius:10px; font-weight:600; margin-bottom:20px; }
+        .flash-success.flash, .flash-error.flash, .flash.flash-success, .flash.flash-error { margin-bottom:0; }
         /* Mobile sidebar toggle */
         #sidebar { transform:translateX(-100%); transition:transform 0.25s ease; }
         #sidebar.open { transform:translateX(0); }

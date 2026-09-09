@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex items-center justify-between mb-8">
     <div>
-        <h1 class="font-black text-2xl text-ink">School Analytics</h1>
+        <h1 class="font-black text-2xl text-cream">School Analytics</h1>
         <p class="text-muted text-sm font-semibold">{{ $school->name }}</p>
     </div>
 </div>

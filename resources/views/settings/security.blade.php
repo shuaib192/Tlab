@@ -1,4 +1,6 @@
-@extends('layouts.admin')
+@extends(auth()->user()->isSchoolAdmin()
+    ? 'school.layouts.school'
+    : (auth()->user()->isAdmin() ? 'layouts.admin' : 'layouts.teacher'))
 @section('title', 'Security Settings')
 
 @section('content')

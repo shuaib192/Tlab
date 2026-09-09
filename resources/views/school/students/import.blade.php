@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex items-center justify-between mb-8">
     <div>
-        <h1 class="font-black text-2xl text-ink">Bulk Import Students</h1>
+        <h1 class="font-black text-2xl text-cream">Bulk Import Students</h1>
         <p class="text-muted text-sm font-semibold">{{ $school->name }}</p>
     </div>
     <a href="{{ route('school.students', ['school_id' => $school->id]) }}" class="inline-flex items-center gap-2 bg-white border border-gray-200 text-ink px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-gray-50 transition-all">Back to Students</a>
