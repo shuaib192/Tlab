@@ -252,6 +252,54 @@ class DashboardController extends Controller
             ->with('success', 'Assignment created successfully.');
     }
 
+    public function updateAssignment(Request $request, Assignment $assignment)
+    {
+        $course = $assignment->lesson->module->course;
+        $this->authorizeTeach($course);
+
+        $data = $request->validate([
+            'lesson_id' => 'required|exists:lessons,id',
+            'title' => 'required|string|max:255',
+            'instructions' => 'nullable|string',
+            'type' => 'required|in:file,link,both,canvas',
+            'max_score' => 'required|integer|min:1|max:9999',
+            'due_date' => 'nullable|date',
+            'is_published' => 'nullable|boolean',
+        ]);
+
+        $lesson = \App\Models\Lesson::findOrFail($data['lesson_id']);
+        if ($lesson->module->course_id !== $course->id) {
+            return back()->withErrors(['lesson_id' => 'Lesson does not belong to this course.']);
+        }
+
+        $published = (bool) ($data['is_published'] ?? false);
+
+        $assignment->update([
+            'lesson_id' => $data['lesson_id'],
+            'title' => $data['title'],
+            'instructions' => $data['instructions'] ?? null,
+            'type' => $data['type'],
+            'max_score' => $data['max_score'],
+            'due_date' => $data['due_date'] ?? null,
+            'is_published' => $published,
+            'published_at' => $published && ! $assignment->is_published ? now() : $assignment->published_at,
+        ]);
+
+        return redirect()->route('teacher.assignments', $course)
+            ->with('success', 'Assignment updated successfully.');
+    }
+
+    public function destroyAssignment(Assignment $assignment)
+    {
+        $course = $assignment->lesson->module->course;
+        $this->authorizeTeach($course);
+
+        $assignment->delete();
+
+        return redirect()->route('teacher.assignments', $course)
+            ->with('success', 'Assignment deleted.');
+    }
+
     public function grade(Assignment $assignment)
     {
         $course = $assignment->lesson->module->course;

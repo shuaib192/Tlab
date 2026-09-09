@@ -124,7 +124,7 @@
     <div>
         <h2 class="text-lg font-bold mb-4">Quick Actions</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <a href="{{ route('teacher.dashboard') }}" class="card p-5 flex items-center gap-4 hover:border-mint/30 transition-all group">
+            <a href="{{ route('teacher.dashboard') }}#sessions" class="card p-5 flex items-center gap-4 hover:border-mint/30 transition-all group">
                 <div class="w-10 h-10 rounded-lg bg-mint/10 flex items-center justify-center flex-shrink-0">
                     <svg class="w-5 h-5 text-mint" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                 </div>
@@ -133,7 +133,7 @@
                     <div class="text-xs text-cream/40">Check upcoming sessions</div>
                 </div>
             </a>
-            <a href="{{ route('teacher.dashboard') }}#assignments" class="card p-5 flex items-center gap-4 hover:border-gold/30 transition-all group">
+            <a href="{{ $courses->first() ? route('teacher.assignments', $courses->first()) : route('teacher.dashboard') }}" class="card p-5 flex items-center gap-4 hover:border-gold/30 transition-all group">
                 <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0">
                     <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
                 </div>
@@ -142,7 +142,7 @@
                     <div class="text-xs text-cream/40">Review student work</div>
                 </div>
             </a>
-            <a href="{{ route('teacher.dashboard') }}" class="card p-5 flex items-center gap-4 hover:border-sky/30 transition-all group">
+            <a href="{{ $courses->first() ? route('teacher.course', $courses->first()) : route('teacher.dashboard') }}" class="card p-5 flex items-center gap-4 hover:border-sky/30 transition-all group">
                 <div class="w-10 h-10 rounded-lg bg-sky/10 flex items-center justify-center flex-shrink-0">
                     <svg class="w-5 h-5 text-sky" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 </div>

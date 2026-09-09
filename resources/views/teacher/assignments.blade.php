@@ -47,6 +47,7 @@
                             @if($assignment->type === 'both') File or Link
                             @elseif($assignment->type === 'file') File Upload
                             @elseif($assignment->type === 'link') Project Link
+                            @elseif($assignment->type === 'canvas') Interactive Canvas
                             @else {{ $assignment->type }}
                             @endif
                         </span>
@@ -54,7 +55,7 @@
                             <span class="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 font-bold">Draft</span>
                         @endif
                     </div>
-                    <div class="mt-auto pt-3 flex items-center justify-between">
+                    <div class="mt-auto pt-3 flex items-center justify-between gap-2">
                         <span class="text-xs text-cream/40">
                             @if($assignment->due_date)
                                 Due {{ $assignment->due_date->diffForHumans() }}
@@ -62,9 +63,70 @@
                                 No due date
                             @endif
                         </span>
-                        <a href="{{ route('teacher.grade', $assignment) }}" class="btn-primary btn-sm text-xs no-underline">
-                            Grade
-                        </a>
+                        <div class="flex items-center gap-1.5">
+                            <details class="relative">
+                                <summary class="btn-secondary btn-sm text-xs cursor-pointer">Edit</summary>
+                                <div class="absolute right-0 top-full mt-2 w-80 card p-4 z-20">
+                                    <form method="POST" action="{{ route('teacher.assignments.update', $assignment) }}">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="mb-3">
+                                            <label class="label">Lesson</label>
+                                            <select name="lesson_id" class="input" required>
+                                                @foreach($course->modules as $module)
+                                                    <optgroup label="{{ $module->title }}">
+                                                        @foreach($module->lessons as $lesson)
+                                                            <option value="{{ $lesson->id }}" {{ $assignment->lesson_id === $lesson->id ? 'selected' : '' }}>{{ $lesson->title }}</option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="label">Assignment Title</label>
+                                            <input type="text" name="title" value="{{ $assignment->title }}" class="input" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="label">Instructions</label>
+                                            <textarea name="instructions" rows="3" class="input">{{ $assignment->instructions }}</textarea>
+                                        </div>
+                                        <div class="grid grid-cols-3 gap-3 mb-3">
+                                            <div class="col-span-2">
+                                                <label class="label">Submission Method</label>
+                                                <select name="type" class="input">
+                                                    @foreach(['file' => 'File Upload', 'link' => 'Project Link', 'both' => 'Both', 'canvas' => 'Interactive Canvas'] as $typeValue => $typeLabel)
+                                                        <option value="{{ $typeValue }}" {{ $assignment->type === $typeValue ? 'selected' : '' }}>{{ $typeLabel }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label class="label">Max Score</label>
+                                                <input type="number" name="max_score" value="{{ $assignment->max_score }}" class="input" min="1">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="label">Due Date (optional)</label>
+                                            <input type="date" name="due_date" value="{{ $assignment->due_date?->format('Y-m-d') }}" class="input">
+                                        </div>
+                                        <div class="mb-4 flex items-center gap-3">
+                                            <input type="hidden" name="is_published" value="0">
+                                            <input type="checkbox" name="is_published" value="1" class="accent-mint" {{ $assignment->is_published ? 'checked' : '' }}>
+                                            <label class="label mb-0">Published</label>
+                                        </div>
+                                        <button type="submit" class="btn-primary btn-sm w-full justify-center">Save Changes</button>
+                                    </form>
+                                </div>
+                            </details>
+                            <form method="POST" action="{{ route('teacher.assignments.destroy', $assignment) }}"
+                                  onsubmit="return confirm('Delete this assignment and all submissions?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-secondary btn-sm text-xs text-terra">Delete</button>
+                            </form>
+                            <a href="{{ route('teacher.grade', $assignment) }}" class="btn-primary btn-sm text-xs no-underline">
+                                Grade
+                            </a>
+                        </div>
                     </div>
                 </div>
             @endforeach

@@ -133,4 +133,64 @@ class TeacherCurriculumTest extends TestCase
             ->assertRedirect(route('teacher.curriculum', $course));
         $this->assertDatabaseMissing('modules', ['id' => $module->id]);
     }
+
+    public function test_teacher_can_update_an_assignment()
+    {
+        $teacher = $this->teacher();
+        $course = Course::factory()->create(['teacher_id' => $teacher->id]);
+        $module = Module::factory()->create(['course_id' => $course->id]);
+        $lesson = Lesson::factory()->create(['module_id' => $module->id]);
+        $assignment = \App\Models\Assignment::factory()->create(['lesson_id' => $lesson->id, 'type' => 'file']);
+
+        $response = $this->actingAs($teacher)
+            ->put(route('teacher.assignments.update', $assignment), [
+                'lesson_id' => $lesson->id,
+                'title' => 'Redesigned Task',
+                'instructions' => 'New brief',
+                'type' => 'canvas',
+                'max_score' => 75,
+                'is_published' => 0,
+            ]);
+
+        $response->assertRedirect(route('teacher.assignments', $course));
+        $assignment->refresh();
+        $this->assertEquals('Redesigned Task', $assignment->title);
+        $this->assertEquals('canvas', $assignment->type);
+        $this->assertEquals(75, $assignment->max_score);
+        $this->assertFalse($assignment->is_published);
+    }
+
+    public function test_teacher_can_delete_an_assignment()
+    {
+        $teacher = $this->teacher();
+        $course = Course::factory()->create(['teacher_id' => $teacher->id]);
+        $module = Module::factory()->create(['course_id' => $course->id]);
+        $lesson = Lesson::factory()->create(['module_id' => $module->id]);
+        $assignment = \App\Models\Assignment::factory()->create(['lesson_id' => $lesson->id]);
+
+        $this->actingAs($teacher)
+            ->delete(route('teacher.assignments.destroy', $assignment))
+            ->assertRedirect(route('teacher.assignments', $course));
+
+        $this->assertDatabaseMissing('assignments', ['id' => $assignment->id]);
+    }
+
+    public function test_non_owner_cannot_update_assignment()
+    {
+        $owner = $this->teacher();
+        $other = $this->teacher();
+        $course = Course::factory()->create(['teacher_id' => $owner->id]);
+        $module = Module::factory()->create(['course_id' => $course->id]);
+        $lesson = Lesson::factory()->create(['module_id' => $module->id]);
+        $assignment = \App\Models\Assignment::factory()->create(['lesson_id' => $lesson->id]);
+
+        $this->actingAs($other)
+            ->put(route('teacher.assignments.update', $assignment), [
+                'lesson_id' => $lesson->id,
+                'title' => 'Hijacked',
+                'type' => 'file',
+                'max_score' => 10,
+            ])
+->assertForbidden();
+    }
 }

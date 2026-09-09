@@ -116,6 +116,8 @@ Route::middleware(['auth', '2fa', 'teacher'])->prefix('teacher')->name('teacher.
     Route::get('/courses/{course}/assignments', [\App\Http\Controllers\Teacher\DashboardController::class, 'assignments'])->name('assignments');
     Route::get('/courses/{course}/assignments/create', [\App\Http\Controllers\Teacher\DashboardController::class, 'createAssignment'])->name('assignments.create');
     Route::post('/courses/{course}/assignments', [\App\Http\Controllers\Teacher\DashboardController::class, 'storeAssignment'])->name('assignments.store');
+    Route::put('/assignments/{assignment}', [\App\Http\Controllers\Teacher\DashboardController::class, 'updateAssignment'])->name('assignments.update');
+    Route::delete('/assignments/{assignment}', [\App\Http\Controllers\Teacher\DashboardController::class, 'destroyAssignment'])->name('assignments.destroy');
     Route::get('/assignments/{assignment}/grade', [\App\Http\Controllers\Teacher\DashboardController::class, 'grade'])->name('grade');
     Route::post('/submissions/{submission}/grade', [\App\Http\Controllers\Teacher\DashboardController::class, 'submitGrade'])->name('grade.submit');
     Route::post('/children/{child}/award-xp', [\App\Http\Controllers\Teacher\DashboardController::class, 'awardXp'])->name('award-xp');
