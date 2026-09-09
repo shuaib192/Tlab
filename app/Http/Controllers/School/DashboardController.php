@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    use ResolvesSchool;
+
     public function index()
     {
         $user = auth()->user();
@@ -61,10 +63,10 @@ class DashboardController extends Controller
 
     public function students(Request $request)
     {
-        $user = auth()->user();
-        $school = $user->isSuperAdmin()
-            ? School::findOrFail($request->school_id)
-            : School::find($user->school_id);
+        $school = $this->resolveSchool();
+        if ($school instanceof \Illuminate\Http\RedirectResponse) {
+            return $school;
+        }
 
         $students = ChildProfile::whereIn('user_id', User::where('school_id', $school->id)->pluck('id'))
             ->with(['parent', 'enrollments.course', 'attendance'])

@@ -13,12 +13,14 @@ use Illuminate\Http\Request;
 
 class AnalyticsController extends Controller
 {
+    use ResolvesSchool;
+
     public function index()
     {
-        $user = auth()->user();
-        $school = $user->isSuperAdmin()
-            ? School::findOrFail(request('school_id'))
-            : School::find($user->school_id);
+        $school = $this->resolveSchool();
+        if ($school instanceof \Illuminate\Http\RedirectResponse) {
+            return $school;
+        }
 
         $childIds = ChildProfile::whereIn('user_id', User::where('school_id', $school->id)->pluck('id'))->pluck('id');
 

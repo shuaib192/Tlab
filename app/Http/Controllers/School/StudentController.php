@@ -12,22 +12,24 @@ use Illuminate\Support\Str;
 
 class StudentController extends Controller
 {
+    use ResolvesSchool;
+
     public function importForm()
     {
-        $user = auth()->user();
-        $school = $user->isSuperAdmin()
-            ? School::findOrFail(request('school_id'))
-            : School::find($user->school_id);
+        $school = $this->resolveSchool();
+        if ($school instanceof \Illuminate\Http\RedirectResponse) {
+            return $school;
+        }
 
         return view('school.students.import', compact('school'));
     }
 
     public function importCsv(Request $request)
     {
-        $user = auth()->user();
-        $school = $user->isSuperAdmin()
-            ? School::findOrFail($request->school_id)
-            : School::find($user->school_id);
+        $school = $this->resolveSchool();
+        if ($school instanceof \Illuminate\Http\RedirectResponse) {
+            return $school;
+        }
 
         $request->validate([
             'csv_file' => 'required|file|mimes:csv,txt|max:2048',
@@ -108,20 +110,20 @@ class StudentController extends Controller
 
     public function provisioning()
     {
-        $user = auth()->user();
-        $school = $user->isSuperAdmin()
-            ? School::findOrFail(request('school_id'))
-            : School::find($user->school_id);
+        $school = $this->resolveSchool();
+        if ($school instanceof \Illuminate\Http\RedirectResponse) {
+            return $school;
+        }
 
         return view('school.students.provisioning', compact('school'));
     }
 
     public function provisionTeachers(Request $request)
     {
-        $user = auth()->user();
-        $school = $user->isSuperAdmin()
-            ? School::findOrFail($request->school_id)
-            : School::find($user->school_id);
+        $school = $this->resolveSchool();
+        if ($school instanceof \Illuminate\Http\RedirectResponse) {
+            return $school;
+        }
 
         $request->validate([
             'teachers' => 'required|array',
