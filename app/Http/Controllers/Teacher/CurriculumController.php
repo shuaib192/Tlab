@@ -15,9 +15,7 @@ class CurriculumController extends Controller
 {
     private function authorizeTeach(Course $course): void
     {
-        if ($course->teacher_id !== auth()->id()) {
-            abort(403, 'You do not have permission to access this course.');
-        }
+        abort_unless($course->canBeManagedBy(auth()->user()), 403, 'You do not have permission to access this course.');
     }
 
     public function createCourse()

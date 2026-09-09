@@ -108,6 +108,7 @@ Route::middleware(['auth', '2fa', 'teacher'])->prefix('teacher')->name('teacher.
     Route::get('/dashboard', [\App\Http\Controllers\Teacher\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/courses/create', [\App\Http\Controllers\Teacher\CurriculumController::class, 'createCourse'])->name('courses.create');
     Route::post('/courses', [\App\Http\Controllers\Teacher\CurriculumController::class, 'storeCourse'])->name('courses.store');
+    Route::get('/courses', [\App\Http\Controllers\Teacher\DashboardController::class, 'courses'])->name('courses.index');
     Route::get('/courses/{course}', [\App\Http\Controllers\Teacher\DashboardController::class, 'course'])->name('course');
     Route::get('/cohorts/{cohort}', [\App\Http\Controllers\Teacher\DashboardController::class, 'cohort'])->name('cohort');
     Route::post('/cohorts/{cohort}/sessions', [\App\Http\Controllers\Teacher\DashboardController::class, 'createSession'])->name('cohort.sessions.store');

@@ -14,9 +14,7 @@ class ProgressController extends Controller
 {
     public function courseProgress(Course $course)
     {
-        if ($course->teacher_id !== auth()->id()) {
-            abort(403);
-        }
+        abort_unless($course->canBeManagedBy(auth()->user()), 403);
 
         $course->load(['modules.lessons.assessment', 'modules.lessons.assignments']);
 
@@ -76,9 +74,7 @@ class ProgressController extends Controller
 
     public function studentProgress(Course $course, ChildProfile $child)
     {
-        if ($course->teacher_id !== auth()->id()) {
-            abort(403);
-        }
+        abort_unless($course->canBeManagedBy(auth()->user()), 403);
 
         $course->load(['modules.lessons.assessment', 'modules.lessons.assignments']);
 

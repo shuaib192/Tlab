@@ -55,4 +55,20 @@ class Course extends Model
     {
         return $this->hasMany(Certificate::class);
     }
+
+    /**
+     * Whether a staff user may manage/teach this course.
+     *
+     * The admin UI has no teacher-assignment selector, so admin-created courses
+     * are unclaimed (teacher_id = null). Any staff member may teach an unclaimed
+     * course; only the owning teacher (when one exists) may teach a claimed one.
+     */
+    public function canBeManagedBy(User $user): bool
+    {
+        if ($this->teacher_id !== null) {
+            return $this->teacher_id === $user->id;
+        }
+
+        return $user->isStaff();
+    }
 }

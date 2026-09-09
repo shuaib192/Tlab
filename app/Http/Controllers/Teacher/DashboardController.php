@@ -52,6 +52,13 @@ class DashboardController extends Controller
         ));
     }
 
+    public function courses()
+    {
+        $courses = auth()->user()->taughtCourses()->withCount(['cohorts', 'enrollments'])->get();
+
+        return view('teacher.courses', compact('courses'));
+    }
+
     public function course(Course $course)
     {
         $this->authorizeTeach($course);
@@ -489,8 +496,6 @@ class DashboardController extends Controller
 
     private function authorizeTeach(Course $course)
     {
-        if ($course->teacher_id !== auth()->id()) {
-            abort(403, 'You do not have permission to access this course.');
-        }
+        abort_unless($course->canBeManagedBy(auth()->user()), 403, 'You do not have permission to access this course.');
     }
 }

@@ -191,6 +191,44 @@ class TeacherCurriculumTest extends TestCase
                 'type' => 'file',
                 'max_score' => 10,
             ])
-->assertForbidden();
+            ->assertForbidden();
+    }
+
+    public function test_teacher_can_open_an_unclaimed_course()
+    {
+        $teacher = $this->teacher();
+        $course = Course::factory()->create(['teacher_id' => null]);
+
+        $this->actingAs($teacher)
+            ->get(route('teacher.course', $course))
+            ->assertOk();
+
+        $this->actingAs($teacher)
+            ->get(route('teacher.curriculum', $course))
+            ->assertOk();
+    }
+
+    public function test_non_owner_teacher_still_denied_on_claimed_course()
+    {
+        $owner = $this->teacher();
+        $other = $this->teacher();
+        $course = Course::factory()->create(['teacher_id' => $owner->id]);
+
+        $this->actingAs($other)
+            ->get(route('teacher.course', $course))
+            ->assertForbidden();
+    }
+
+    public function test_teacher_courses_index_lists_only_their_courses()
+    {
+        $teacher = $this->teacher();
+        $mine = Course::factory()->create(['teacher_id' => $teacher->id, 'title' => 'Robotics 101']);
+        Course::factory()->create(['teacher_id' => null, 'title' => 'Other School Course']);
+
+        $this->actingAs($teacher)
+            ->get(route('teacher.courses.index'))
+            ->assertOk()
+            ->assertSee('Robotics 101')
+            ->assertDontSee('Other School Course');
     }
 }
