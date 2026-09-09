@@ -288,7 +288,7 @@ class LearningController extends Controller
             ]);
     }
 
-    public function createProject(Assignment $assignment)
+    public function createProject(Enrollment $enrollment, Assignment $assignment)
     {
         $childId = session('active_child_id');
         if (! $childId) {
@@ -297,12 +297,11 @@ class LearningController extends Controller
 
         $assignment->load('lesson.module.course');
 
-        $enrollment = Enrollment::where('child_profile_id', $childId)
-            ->where('course_id', $assignment->lesson->module->course->id)
-            ->first();
-
         $user = auth()->user();
-        if (! $enrollment && (! $user || ! in_array($user->role ?? '', ['admin', 'super_admin']))) {
+        $isStaff = $user && in_array($user->role ?? '', ['admin', 'super_admin']);
+        $valid = (int) $enrollment->child_profile_id === (int) $childId
+            && (int) $enrollment->course_id === (int) $assignment->lesson?->module?->course?->id;
+        if (! $valid && ! $isStaff) {
             abort(403);
         }
 
@@ -322,7 +321,7 @@ class LearningController extends Controller
         return view('child.project', compact('assignment', 'child', 'enrollment', 'existingSubmission', 'allVersions'));
     }
 
-    public function submitProject(Assignment $assignment, Request $request)
+    public function submitProject(Enrollment $enrollment, Assignment $assignment, Request $request)
     {
         $childId = session('active_child_id');
         if (! $childId) {
@@ -332,12 +331,11 @@ class LearningController extends Controller
         $assignment->load('lesson.module.course');
         $course = $assignment->lesson->module->course;
 
-        $enrollment = Enrollment::where('child_profile_id', $childId)
-            ->where('course_id', $course->id)
-            ->first();
-
         $user = auth()->user();
-        if (! $enrollment && (! $user || ! in_array($user->role ?? '', ['admin', 'super_admin']))) {
+        $isStaff = $user && in_array($user->role ?? '', ['admin', 'super_admin']);
+        $valid = (int) $enrollment->child_profile_id === (int) $childId
+            && (int) $enrollment->course_id === (int) $course->id;
+        if (! $valid && ! $isStaff) {
             abort(403);
         }
 
@@ -429,7 +427,7 @@ class LearningController extends Controller
             ? 'Project submitted (late). +15 XP earned.'
             : 'Project submitted successfully! +15 XP earned.';
 
-        return redirect()->route('child.course', $enrollment ?? 0)
+        return redirect()->route('child.course', $enrollment)
             ->with('success', $msg);
     }
 }
