@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PaymentConfirmation;
+use App\Models\Invoice;
 use App\Models\Notification;
 use App\Models\Payment;
 use App\Models\Subscription;
 use App\Models\SubscriptionPlan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Unicodeveloper\Paystack\Facades\Paystack;
 
@@ -180,6 +183,64 @@ class PaymentController extends Controller
         $payments = Payment::where('user_id', auth()->id())->latest()->paginate(10);
 
         return view('parent.payments.history', compact('payments'));
+    }
+
+    public function invoices()
+    {
+        $invoices = Invoice::where('user_id', auth()->id())->latest()->paginate(10);
+
+        return view('parent.payments.invoices', compact('invoices'));
+    }
+
+    public function uploadProof(Request $request)
+    {
+        $request->validate([
+            'invoice_id' => 'required|exists:invoices,id',
+            'proof' => 'required|file|mimes:jpg,jpeg,png,webp,pdf|max:8192',
+        ]);
+
+        $invoice = Invoice::where('id', $request->invoice_id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        if ($invoice->status === 'paid') {
+            return back()->with('error', 'This invoice has already been paid.');
+        }
+
+        $path = $request->file('proof')->store('payment-proof/'.auth()->id(), 'public');
+
+        $reference = 'TLAB-MAN-'.strtoupper(Str::random(10));
+
+        $payment = Payment::updateOrCreate(
+            [
+                'user_id' => auth()->id(),
+                'invoice_id' => $invoice->id,
+                'status' => 'pending',
+                'gateway' => 'manual',
+            ],
+            [
+                'reference' => $reference,
+                'amount' => $invoice->amount,
+                'currency' => $invoice->currency ?? 'NGN',
+                'description' => 'Payment for invoice '.$invoice->invoice_number,
+                'proof_path' => $path,
+                'proof_submitted_at' => now(),
+                'metadata' => ['invoice_id' => $invoice->id, 'invoice_number' => $invoice->invoice_number],
+            ]
+        );
+
+        foreach (User::whereIn('role', ['admin', 'super_admin'])->cursor() as $admin) {
+            Notification::create([
+                'user_id' => $admin->id,
+                'type' => 'payment',
+                'title' => 'Payment proof awaiting review',
+                'body' => "{$invoice->invoice_number} — ".auth()->user()->name.' uploaded transfer proof (N'.$invoice->amount.') and is waiting for verification.',
+                'icon' => '🔎',
+                'link' => route('admin.payments.show', $payment),
+            ]);
+        }
+
+        return back()->with('success', 'Proof submitted! Our team will verify your payment shortly.');
     }
 
     public function subscription()

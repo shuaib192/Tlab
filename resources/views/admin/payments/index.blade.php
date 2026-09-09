@@ -11,6 +11,25 @@
         </div>
     </div>
 
+    <form method="GET" class="flex flex-wrap gap-3 mb-6">
+        <select name="status" class="border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold text-ink bg-white">
+            <option value="">All statuses</option>
+            @foreach(['pending','paid','failed'] as $s)
+                <option value="{{ $s }}" @selected(request('status')===$s)>{{ ucfirst($s) }}</option>
+            @endforeach
+        </select>
+        <select name="gateway" class="border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold text-ink bg-white">
+            <option value="">All gateways</option>
+            @foreach(['paystack','manual'] as $g)
+                <option value="{{ $g }}" @selected(request('gateway')===$g)>{{ $g === 'manual' ? 'Manual (proof)' : 'Paystack' }}</option>
+            @endforeach
+        </select>
+        <button class="bg-ink text-white rounded-xl px-5 py-2.5 text-sm font-bold" type="submit">Filter</button>
+        @if(request('status') || request('gateway'))
+            <a href="{{ route('admin.payments.index') }}" class="border border-gray-200 rounded-xl px-5 py-2.5 text-sm font-bold text-muted">Clear</a>
+        @endif
+    </form>
+
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
             <div class="text-xs font-bold text-muted uppercase tracking-wider mb-1">Total Revenue</div>
@@ -34,6 +53,7 @@
                         <th class="text-left px-6 py-4 font-black text-ink text-xs uppercase">Ref</th>
                         <th class="text-left px-6 py-4 font-black text-ink text-xs uppercase">User</th>
                         <th class="text-right px-6 py-4 font-black text-ink text-xs uppercase">Amount</th>
+                        <th class="text-center px-6 py-4 font-black text-ink text-xs uppercase">Gateway</th>
                         <th class="text-center px-6 py-4 font-black text-ink text-xs uppercase">Status</th>
                         <th class="text-right px-6 py-4 font-black text-ink text-xs uppercase">Date</th>
                     </tr>
@@ -47,6 +67,11 @@
                             <span class="text-xs text-muted block">{{ $payment->user->email }}</span>
                         </td>
                         <td class="px-6 py-4 text-right font-bold text-ink">&#8358;{{ number_format($payment->amount) }}</td>
+                        <td class="px-6 py-4 text-center">
+                            <span class="text-xs font-bold px-3 py-1.5 rounded-lg" style="{{ $payment->isManual() ? 'background:#EEF2FF;color:#4F46E5' : 'background:#ECFDF5;color:#059669' }}">
+                                {{ $payment->isManual() ? 'Manual' : 'Paystack' }}
+                            </span>
+                        </td>
                         <td class="px-6 py-4 text-center">
                             <span class="text-xs font-bold px-3 py-1.5 rounded-lg" style="background:{{ $payment->status === 'paid' ? '#F0FDF4' : ($payment->status === 'pending' ? '#FFFBEB' : '#FEF2F2') }};color:{{ $payment->status === 'paid' ? '#16A34A' : ($payment->status === 'pending' ? '#D97706' : '#DC2626') }}">
                                 {{ ucfirst($payment->status) }}

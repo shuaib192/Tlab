@@ -207,6 +207,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Payments (Admin + Super Admin)
     Route::get('payments', [\App\Http\Controllers\Admin\PaymentController::class, 'index'])->name('payments.index');
     Route::get('payments/{payment}', [\App\Http\Controllers\Admin\PaymentController::class, 'show'])->name('payments.show');
+    Route::post('payments/{payment}/verify', [\App\Http\Controllers\Admin\PaymentController::class, 'verify'])->name('payments.verify');
+    Route::post('payments/{payment}/reject', [\App\Http\Controllers\Admin\PaymentController::class, 'reject'])->name('payments.reject');
 
     // Super Admin Only — System & Sensitive
     Route::middleware('super_admin')->group(function () {
@@ -253,6 +255,7 @@ Route::get('/pricing', [\App\Http\Controllers\PaymentController::class, 'pricing
 Route::middleware('auth')->group(function () {
     Route::post('/payment/checkout', [\App\Http\Controllers\PaymentController::class, 'checkout'])->name('payment.checkout');
     Route::get('/payment/callback', [\App\Http\Controllers\PaymentController::class, 'callback'])->name('payment.callback');
+    Route::post('/payment/proof', [\App\Http\Controllers\PaymentController::class, 'uploadProof'])->name('payment.proof');
 });
 Route::post('/payment/webhook', [\App\Http\Controllers\PaymentController::class, 'webhook'])->name('payment.webhook')->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
 
@@ -260,6 +263,7 @@ Route::post('/payment/webhook', [\App\Http\Controllers\PaymentController::class,
 Route::middleware(['auth', 'parent'])->prefix('parent')->name('parent.')->group(function () {
     Route::get('/subscription', [\App\Http\Controllers\PaymentController::class, 'subscription'])->name('subscription');
     Route::get('/payments', [\App\Http\Controllers\PaymentController::class, 'history'])->name('payments.history');
+    Route::get('/invoices', [\App\Http\Controllers\PaymentController::class, 'invoices'])->name('invoices');
 
     // Certificates
     Route::get('/children/{child}/certificates', [\App\Http\Controllers\CertificateController::class, 'index'])->name('certificates.index');
