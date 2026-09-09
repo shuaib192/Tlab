@@ -20,6 +20,7 @@ $heroImg = $heroImages[$club['slug']] ?? $heroImages['stem-club'];
 <section class="relative min-h-[65vh] flex items-end pt-20 overflow-hidden bg-ink">
     <div class="absolute inset-0 z-0 bg-slate-900">
         <img src="{{ $heroImg }}" alt="{{ $club['name'] }} African students" class="w-full h-full object-cover opacity-90 transition-opacity duration-300"
+             fetchpriority="high" decoding="async"
              onload="this.classList.remove('opacity-0')" onerror="this.style.display='none'">
         <div class="absolute inset-0" style="background:linear-gradient(to top,#0F172A 35%,rgba(15,23,42,0.7) 65%,rgba(15,23,42,0.2) 100%)"></div>
         <div class="absolute inset-0 mix-blend-multiply opacity-30" style="background:{{ $club['gradient'] }}"></div>
@@ -80,6 +81,7 @@ $heroImg = $heroImages[$club['slug']] ?? $heroImages['stem-club'];
                     <img src="{{ $bannerImages[$club['slug']] ?? $bannerImages['stem-club'] }}"
                          alt="{{ $club['name'] }} with African children in action"
                          class="w-full h-full object-cover transition-opacity duration-300"
+                         loading="lazy" decoding="async"
                          onload="this.classList.remove('opacity-0')" onerror="this.style.display='none'">
                 </div>
 

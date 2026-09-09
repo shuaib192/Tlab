@@ -11,6 +11,7 @@
     <div class="absolute inset-0 z-0">
         <img src="/images/hero-bg.jpg"
              alt="African children learning robotics" class="w-full h-full object-cover opacity-25"
+             fetchpriority="high" decoding="async"
              onload="this.classList.remove('opacity-0')" onerror="this.style.display='none'">
         <div class="absolute inset-0" style="background:linear-gradient(100deg,#0F172A 45%,rgba(15,23,42,0.6) 75%,transparent 100%)"></div>
     </div>
@@ -29,7 +30,7 @@
                             <div class="slide-item {{ $index === 0 ? 'block' : 'hidden' }} transition-opacity duration-500" data-index="{{ $index }}">
                                 <div class="flex items-center gap-3.5">
                                     @if($slide->image)
-                                        <img src="{{ $slide->image }}" class="w-12 h-12 rounded-lg object-cover flex-shrink-0 border-2 border-mint/25">
+                                        <img src="{{ $slide->image }}" class="w-12 h-12 rounded-lg object-cover flex-shrink-0 border-2 border-mint/25" loading="lazy" decoding="async">
                                     @elseif($slide->bg_color)
                                         <div class="w-12 h-12 rounded-lg flex-shrink-0 border-2 border-white/15" style="background:{{ $slide->bg_color }}"></div>
                                     @endif
@@ -142,7 +143,7 @@
             <div class="relative overflow-hidden group cursor-pointer reveal min-h-[380px] shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)]" 
                  style="border-top-left-radius: 4rem; border-bottom-right-radius: 4rem; border-top-right-radius: 0.5rem; border-bottom-left-radius: 0.5rem;">
                 <div class="absolute inset-0 z-0">
-                    <img src="{{ $img }}" alt="{{ $name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <img src="{{ $img }}" alt="{{ $name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async">
                 </div>
                 <div class="absolute inset-0 z-10 transition-colors duration-500 group-hover:opacity-90" style="background:{{ $grad }}"></div>
                 <div class="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl opacity-20 z-20" style="background:{{ $glow }};transform:translate(30%,-30%)"></div>

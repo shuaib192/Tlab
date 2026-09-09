@@ -4,8 +4,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'School Portal - TLab')</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={theme:{extend:{colors:{primary:'#16A34A',mint:'#16A34A',accent:'#7C3AED',ink:'#0F172A',muted:'#64748B',coral:'#EF4444',amber:'#D97706',violet:'#7C3AED',gold:'#D97706',cream:'#F8FAFC'}}}}</script>
+    <link rel="stylesheet" href="/css/tlab.css">
+    <style>
+        html {
+            --c-primary: 22 163 74;
+            --c-mint: 22 163 74;
+            --c-accent: 124 58 237;
+            --c-ink: 15 23 42;
+            --c-muted: 100 116 139;
+            --c-coral: 239 68 68;
+            --c-amber: 217 119 6;
+            --c-violet: 124 58 237;
+            --c-gold: 217 119 6;
+            --c-cream: 248 250 252;
+            --font-sans: 'Inter', sans-serif;
+            --font-display: 'Inter', sans-serif;
+        }
+    </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>body{font-family:'Inter',sans-serif;background:#f8fafc}.sidebar-link{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;color:#94a3b8;transition:all .2s}.sidebar-link:hover{background:#1e293b;color:#fff}.sidebar-link.active{background:#16A34A20;color:#16A34A}.sidebar-section{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:#475569;padding:16px 14px 8px}</style>

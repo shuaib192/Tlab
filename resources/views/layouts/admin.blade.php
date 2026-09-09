@@ -10,30 +10,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
     <!-- Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        ink:    '#080D0A',
-                        cream:  '#FAF5E8',
-                        mint:   '#4E9966',
-                        gold:   '#D4A224',
-                        terra:  '#C24B1E',
-                        violet: '#6B3FA0',
-                        sky:    '#2E8BC0',
-                        panel:  '#0F1612',
-                        surface:'#141A16',
-                    },
-                    fontFamily: {
-                        sans:    ['Outfit', 'sans-serif'],
-                        display: ['Syne', 'sans-serif'],
-                    }
-                }
-            }
+    <link rel="stylesheet" href="/css/tlab.css">
+    <style>
+        html {
+            --c-ink: 8 13 10;
+            --c-cream: 250 245 232;
+            --c-mint: 78 153 102;
+            --c-gold: 212 162 36;
+            --c-terra: 194 75 30;
+            --c-violet: 107 63 160;
+            --c-sky: 46 139 192;
+            --c-panel: 15 22 18;
+            --c-surface: 20 26 22;
+            --font-sans: 'Outfit', sans-serif;
+            --font-display: 'Syne', sans-serif;
         }
-    </script>
+    </style>
 
     <style>
         body { background:#080D0A; color:#FAF5E8; font-family:'Outfit',sans-serif; }

@@ -12,35 +12,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        space:   '#171033',
-                        panel:   '#221747',
-                        surface: '#2A1F52',
-                        ink:     '#171033',
-                        cream:   '#FFF6E9',
-                        mint:    '#4DFFA2',
-                        gold:    '#FFD93D',
-                        sky:     '#5AD7FF',
-                        bubble:  '#FF6BB5',
-                        grape:   '#9B7BFF',
-                        terra:   '#FF6B4D',
-                        violet:  '#9B7BFF',
-                    },
-                    fontFamily: {
-                        sans:    ['"Nunito"', 'sans-serif'],
-                        display: ['"Baloo 2"', 'sans-serif'],
-                        mono:    ['"JetBrains Mono"', 'monospace'],
-                    }
-                }
-            }
+    <!-- Tailwind (compiled — palette via CSS variables) -->
+    <link rel="stylesheet" href="/css/tlab.css">
+    <style>
+        html {
+            --c-space: 23 16 51;
+            --c-panel: 34 23 71;
+            --c-surface: 42 31 82;
+            --c-ink: 23 16 51;
+            --c-cream: 255 246 233;
+            --c-mint: 77 255 162;
+            --c-gold: 255 217 61;
+            --c-sky: 90 215 255;
+            --c-bubble: 255 107 181;
+            --c-grape: 155 123 255;
+            --c-terra: 255 107 77;
+            --c-violet: 155 123 255;
+            --font-sans: 'Nunito', sans-serif;
+            --font-display: 'Baloo 2', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
-    </script>
+    </style>
 
     <style>
         * { box-sizing: border-box; }

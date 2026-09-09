@@ -10,6 +10,7 @@
     <div class="absolute inset-0 z-0 bg-gradient-to-br from-indigo-900 to-slate-900">
         <img src="/images/clubs-hero.jpg"
              alt="African children in STEM class" class="w-full h-full object-cover opacity-90 transition-opacity duration-300"
+             fetchpriority="high" decoding="async"
              onload="this.classList.remove('opacity-0')" onerror="this.style.display='none'">
         <div class="absolute inset-0" style="background:linear-gradient(to top,#0F172A 35%,rgba(15,23,42,0.6) 68%,rgba(15,23,42,0.2) 100%)"></div>
     </div>
@@ -46,6 +47,7 @@
                     <div class="relative w-full lg:w-2/5 h-64 lg:h-auto overflow-hidden flex-shrink-0 bg-slate-900">
                         <img src="{{ $clubImages[$slug] }}" alt="{{ $c['name'] }}"
                              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 transition-opacity duration-300"
+                             loading="lazy" decoding="async"
                              onload="this.classList.remove('opacity-0')" onerror="this.style.display='none'">
                         <div class="absolute inset-0" style="background:{{ $c['gradient'] }};opacity:0.55"></div>
                         <div class="absolute inset-0 flex flex-col justify-end p-8">

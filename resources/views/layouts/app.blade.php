@@ -10,42 +10,37 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
 
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#16A34A',
-                        accent:  '#2563EB',
-                        violet:  '#7C3AED',
-                        amber:   '#D97706',
-                        coral:   '#EA580C',
-                        ink:     '#0F172A',
-                        muted:   '#64748B',
-                        surface: '#F8FAFC',
-                        mint:    '#00E676',
-                        gold:    '#FFB800',
-                        sky:     '#4DC3FF',
-                        cream:   '#FAF5E8',
-                    },
-                    fontFamily: {
-                        sans:    ['"Montserrat"', 'sans-serif'],
-                        display: ['"Montserrat"', 'sans-serif'],
-                    }
-                }
-            }
+    <!-- Tailwind (compiled — palette via CSS variables) -->
+    <link rel="stylesheet" href="/css/tlab.css">
+    <style>
+        html {
+            --c-primary: 22 163 74;
+            --c-accent: 37 99 235;
+            --c-violet: 124 58 237;
+            --c-amber: 217 119 6;
+            --c-coral: 234 88 12;
+            --c-ink: 15 23 42;
+            --c-muted: 100 116 139;
+            --c-surface: 248 250 252;
+            --c-mint: 0 230 118;
+            --c-gold: 255 184 0;
+            --c-sky: 77 195 255;
+            --c-cream: 250 245 232;
+            --font-sans: 'Montserrat', sans-serif;
+            --font-display: 'Montserrat', sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
         }
-    </script>
-
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    </style>
 
     <style>
         *  { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+        }
         body { background:#fff; color:#0F172A; font-family:'Montserrat',sans-serif; overflow-x:hidden; }
 
         /* ─── Page Transition Overlay ───────────────────── */
