@@ -47,6 +47,7 @@
                     </td>
                     <td class="px-6 py-4 hidden lg:table-cell text-cream/50 text-sm">{{ $user->created_at->format('d M Y') }}</td>
                     <td class="px-6 py-4">
+                        @if(auth()->user()->isSuperAdmin())
                         <div class="flex items-center justify-end gap-2">
                             @if($user->id !== auth()->id())
                                 @if($user->role === 'admin')
@@ -73,6 +74,9 @@
                                 <span class="text-cream/30 text-xs">You</span>
                             @endif
                         </div>
+                        @else
+                        <span class="text-cream/30 text-xs">Super Admin only</span>
+                        @endif
                     </td>
                 </tr>
                 @empty

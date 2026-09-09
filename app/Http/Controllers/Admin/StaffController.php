@@ -10,7 +10,7 @@ class StaffController extends Controller
 {
     public function index(Request $request)
     {
-        $query = User::whereIn('role', ['admin', 'super_admin']);
+        $query = User::whereIn('role', ['admin', 'super_admin', 'teacher', 'facilitator']);
 
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
@@ -19,7 +19,7 @@ class StaffController extends Controller
             });
         }
 
-        $staff = $query->orderByRaw("FIELD(role, 'super_admin', 'admin')")->latest()->get();
+        $staff = $query->orderByRaw("FIELD(role, 'super_admin', 'admin', 'facilitator', 'teacher')")->latest()->get();
 
         return view('admin.staff.index', compact('staff'));
     }
@@ -28,6 +28,10 @@ class StaffController extends Controller
     {
         if ($user->id === auth()->id()) {
             return back()->with('error', 'You cannot change your own role.');
+        }
+
+        if (! auth()->user()->isSuperAdmin()) {
+            return back()->with('error', 'Only Super Admins can manage staff roles.');
         }
 
         $target = $request->has('super') ? 'super_admin' : 'admin';
@@ -44,9 +48,13 @@ class StaffController extends Controller
             return back()->with('error', 'You cannot change your own role.');
         }
 
+        if (! auth()->user()->isSuperAdmin()) {
+            return back()->with('error', 'Only Super Admins can manage staff roles.');
+        }
+
         $role = $request->input('to', 'parent');
 
-        $user->update(['role' => in_array($role, ['parent', 'teacher', 'school_admin']) ? $role : 'parent']);
+        $user->update(['role' => in_array($role, ['parent', 'teacher', 'facilitator', 'school_admin']) ? $role : 'parent']);
 
         return redirect()->route('admin.staff.index')
             ->with('success', "{$user->name} removed from the management team.");

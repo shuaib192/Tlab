@@ -70,30 +70,41 @@ class User extends Authenticatable
         return $this->hasMany(Course::class, 'teacher_id');
     }
 
+    public const ROLE_SUPER_ADMIN = 'super_admin';
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_FACILITATOR = 'facilitator';
+    public const ROLE_PARENT = 'parent';
+    public const ROLE_SCHOOL_ADMIN = 'school_admin';
+
     // --- Helpers ---
 
     public function isParent()
     {
-        return in_array($this->role, ['parent', 'entrepreneur', 'aider', 'admin', 'super_admin']) || empty($this->role);
+        return in_array($this->role, ['parent', 'entrepreneur', 'aider', 'admin', 'super_admin', 'facilitator']) || empty($this->role);
     }
 
     public function isTeacher()
     {
-        return $this->role === 'teacher';
+        return in_array($this->role, ['teacher', self::ROLE_FACILITATOR]);
     }
 
     public function isSchoolAdmin()
     {
-        return $this->role === 'school_admin';
+        return $this->role === self::ROLE_SCHOOL_ADMIN;
     }
 
     public function isSuperAdmin()
     {
-        return $this->role === 'super_admin';
+        return $this->role === self::ROLE_SUPER_ADMIN;
     }
 
     public function isAdmin()
     {
-        return in_array($this->role, ['admin', 'super_admin']);
+        return in_array($this->role, [self::ROLE_ADMIN, self::ROLE_SUPER_ADMIN]);
+    }
+
+    public function isStaff()
+    {
+        return $this->isAdmin() || $this->isSchoolAdmin();
     }
 }
