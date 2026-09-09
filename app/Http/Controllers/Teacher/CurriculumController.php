@@ -181,7 +181,7 @@ class CurriculumController extends Controller
             'description' => 'nullable|string|max:2000',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
-            'session_time' => 'nullable|string|max:100',
+            'session_time' => ['nullable', 'string', 'max:100', 'regex:/^([01]?\d|2[0-3])(:[0-5]\d)?\s*([AaPp][Mm])?$/'],
             'session_days' => 'nullable|string|max:255',
             'status' => 'nullable|in:active,completed,archived',
         ]);
@@ -193,7 +193,7 @@ class CurriculumController extends Controller
             'description' => $data['description'] ?? null,
             'start_date' => $data['start_date'] ?? null,
             'end_date' => $data['end_date'] ?? null,
-            'session_time' => $data['session_time'] ?? null,
+            'session_time' => ! empty($data['session_time']) ? \Carbon\Carbon::parse($data['session_time'])->format('H:i:s') : null,
             'session_days' => $data['session_days'] ?? null,
             'status' => $data['status'] ?? 'active',
         ]);
