@@ -80,9 +80,13 @@ class User extends Authenticatable
     }
 
     public const ROLE_SUPER_ADMIN = 'super_admin';
+
     public const ROLE_ADMIN = 'admin';
+
     public const ROLE_FACILITATOR = 'facilitator';
+
     public const ROLE_PARENT = 'parent';
+
     public const ROLE_SCHOOL_ADMIN = 'school_admin';
 
     // --- Helpers ---
@@ -122,7 +126,7 @@ class User extends Authenticatable
 
     public function isSuspended(): bool
     {
-        return ! $this->is_active || $this->suspended_at !== null;
+        return $this->is_active === false || $this->suspended_at !== null;
     }
 
     public function requiresTwoFactor(): bool
