@@ -102,8 +102,7 @@ class TwoFactorController extends Controller
                 auth()->login($user, session()->pull('two_factor_remember', false));
                 session(['two_factor_verified_user' => $user->id]);
 
-                $routeName = in_array($user->role, ['admin', 'super_admin']) ? 'admin.dashboard'
-                    : ($user->role === 'teacher' ? 'teacher.dashboard' : 'parent.dashboard');
+                $routeName = $this->homeRouteFor($user);
 
                 return redirect()->intended(route($routeName));
             }
@@ -115,9 +114,7 @@ class TwoFactorController extends Controller
         if (auth()->check()) {
             session()->forget(['two_factor_code_hash', 'two_factor_expires_at']);
 
-            $role = auth()->user()->role;
-            $routeName = in_array($role, ['admin', 'super_admin']) ? 'admin.dashboard'
-                : ($role === 'school_admin' ? 'school.dashboard' : 'teacher.dashboard');
+            $routeName = $this->homeRouteFor(auth()->user());
 
             return redirect()->intended(route($routeName));
         }
@@ -201,6 +198,23 @@ class TwoFactorController extends Controller
 
         return redirect()->route('settings.security')
             ->with('success', 'Two-factor authentication is now enabled. It applies on your next sign-in.');
+    }
+
+    private function homeRouteFor(User $user): string
+    {
+        if (in_array($user->role, ['admin', 'super_admin'])) {
+            return 'admin.dashboard';
+        }
+
+        if (in_array($user->role, ['teacher', 'facilitator'])) {
+            return 'teacher.dashboard';
+        }
+
+        if ($user->role === 'school_admin') {
+            return 'school.dashboard';
+        }
+
+        return 'parent.dashboard';
     }
 
     private function pendingUserId(): ?int

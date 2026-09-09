@@ -100,8 +100,12 @@ class LoginController extends Controller
             return 'admin.dashboard';
         }
 
-        if ($user->role === 'teacher') {
+        if (in_array($user->role, ['teacher', 'facilitator'])) {
             return 'teacher.dashboard';
+        }
+
+        if ($user->role === 'school_admin') {
+            return 'school.dashboard';
         }
 
         return 'parent.dashboard';
