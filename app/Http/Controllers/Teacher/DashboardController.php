@@ -12,6 +12,7 @@ use App\Models\ClassSession;
 use App\Models\Cohort;
 use App\Models\CommunicationLog;
 use App\Models\Course;
+use App\Models\AuditLog;
 use App\Models\LiveSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -113,22 +114,69 @@ class DashboardController extends Controller
             'attendance' => 'required|array',
             'attendance.*.status' => 'required|in:present,absent,late,excused',
             'attendance.*.notes' => 'nullable|string|max:255',
+            'attendance.*.edit_reason' => 'nullable|string|max:500',
+            'bulk_present' => 'nullable|boolean',
         ]);
 
+        $bulkPresent = (bool) ($validated['bulk_present'] ?? false);
+
         foreach ($validated['attendance'] as $childId => $data) {
+            $existing = Attendance::where('session_id', $session->id)
+                ->where('child_profile_id', $childId)
+                ->first();
+
+            $isEdit = $existing && $existing->marked_at;
+            $needsReason = $isEdit && $existing->isOlderThanHours(24);
+            $oldStatus = $existing?->status;
+            $newStatus = $data['status'];
+
+            if ($needsReason && empty($data['edit_reason'])) {
+                return back()->withErrors([
+                    "attendance.{$childId}.edit_reason" => 'A reason is required to edit attendance after 24 hours.',
+                ])->withInput();
+            }
+
+            $attrs = [
+                'status' => $newStatus,
+                'notes' => $data['notes'] ?? null,
+                'marked_by' => auth()->id(),
+            ];
+
+            if ($isEdit) {
+                $attrs['edited_at'] = now();
+            }
+            if ($needsReason) {
+                $attrs['edit_reason'] = $data['edit_reason'];
+            }
+
             $attendance = Attendance::updateOrCreate(
                 [
                     'session_id' => $session->id,
                     'child_profile_id' => $childId,
                 ],
-                [
-                    'status' => $data['status'],
-                    'notes' => $data['notes'] ?? null,
-                    'marked_by' => auth()->id(),
-                ]
+                $attrs
             );
 
-            if (in_array($data['status'], ['present', 'late'])) {
+            if ($isEdit && $oldStatus !== $newStatus) {
+                AuditLog::log(
+                    Attendance::class,
+                    $attendance->id,
+                    'updated',
+                    ['status' => $oldStatus, 'notes' => $existing->notes],
+                    ['status' => $newStatus, 'notes' => $data['notes'] ?? null],
+                    $data['edit_reason'] ?? null,
+                );
+            } elseif (! $isEdit) {
+                AuditLog::log(
+                    Attendance::class,
+                    $attendance->id,
+                    'created',
+                    null,
+                    ['status' => $newStatus, 'notes' => $data['notes'] ?? null],
+                );
+            }
+
+            if (in_array($newStatus, ['present', 'late']) && ! $isEdit) {
                 $child = ChildProfile::find($childId);
                 if ($child) {
                     $child->awardXp(10, "Attended session: {$session->title}");
@@ -137,7 +185,7 @@ class DashboardController extends Controller
         }
 
         return redirect()->route('teacher.session', $session)
-            ->with('success', 'Attendance saved successfully. XP awarded to present students.');
+            ->with('success', 'Attendance saved.');
     }
 
     public function assignments(Course $course)
