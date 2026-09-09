@@ -8,11 +8,9 @@
     <meta name="description" content="@yield('description', 'TLab by Edfrica — a safe, gamified STEM learning ecosystem for African children aged 3–15.')">
     <link rel="icon" href="/images/tlab-favicon.png">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&display=swap">
+    <!-- Fonts (self-hosted — eliminates Google CDN latency) -->
+    <link rel="preload" href="/fonts/montserrat-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/css/montserrat.css">
 
     <!-- Tailwind (compiled — non-render-blocking) -->
     <link rel="preload" href="/css/tlab.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
