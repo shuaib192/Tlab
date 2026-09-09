@@ -122,10 +122,10 @@
 
     {{-- Create Session Modal --}}
     <div id="create-session-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black/60 backdrop-blur-sm">
-        <div class="bg-gray-900 rounded-2xl p-6 w-full max-w-lg mx-4 shadow-2xl border border-white/10">
+        <div class="bg-white rounded-2xl p-6 w-full max-w-lg mx-4 shadow-2xl border border-cream/10">
             <div class="flex items-center justify-between mb-5">
                 <h3 class="text-lg font-bold">New Session</h3>
-                <button onclick="document.getElementById('create-session-modal').classList.add('hidden')" class="text-cream/40 hover:text-white transition-colors text-xl leading-none">&times;</button>
+                <button onclick="document.getElementById('create-session-modal').classList.add('hidden')" class="text-cream/40 hover:text-ink transition-colors text-xl leading-none">&times;</button>
             </div>
             <form method="POST" action="{{ route('teacher.cohort.sessions.store', $cohort) }}" class="space-y-4">
                 @csrf

@@ -12,58 +12,66 @@
     <noscript><link rel="stylesheet" href="/css/tlab.css"></noscript>
     <style>
         html {
-            --c-ink: 8 13 10;
-            --c-cream: 250 245 232;
-            --c-mint: 78 153 102;
-            --c-primary: 78 153 102;
-            --c-gold: 212 162 36;
+            --c-ink: 23 24 28;
+            --c-cream: 23 24 28;
+            --c-mint: 5 150 105;
+            --c-primary: 79 70 229;
+            --c-gold: 217 119 6;
             --c-amber: 217 119 6;
-            --c-coral: 239 68 68;
-            --c-terra: 194 75 30;
-            --c-violet: 107 63 160;
-            --c-accent: 124 58 237;
-            --c-sky: 46 139 192;
-            --c-panel: 15 22 18;
-            --c-surface: 20 26 22;
+            --c-coral: 220 38 38;
+            --c-terra: 220 38 38;
+            --c-violet: 124 58 237;
+            --c-accent: 79 70 229;
+            --c-sky: 2 132 199;
+            --c-panel: 246 247 249;
+            --c-surface: 255 255 255;
             --font-sans: 'Outfit', sans-serif;
             --font-display: 'Syne', sans-serif;
         }
     </style>
 
     <style>
-        body { background:#080D0A; color:#FAF5E8; font-family:'Outfit',sans-serif; }
-        .sidebar { width:256px; min-height:100vh; background:#0F1612; border-right:1px solid rgba(250,245,232,0.06); flex-shrink:0; }
-        .sidebar-link { display:flex; align-items:center; gap:12px; padding:10px 16px; border-radius:10px; font-weight:600; font-size:0.875rem; color:rgba(250,245,232,0.55); transition:all 0.15s; }
-        .sidebar-link:hover { color:#FAF5E8; background:rgba(250,245,232,0.06); }
-        .sidebar-link.active { color:#FAF5E8; background:rgba(78,153,102,0.15); border-left:3px solid #4E9966; }
-        .sidebar-section { font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:rgba(250,245,232,0.25); padding:16px 16px 6px; }
-        .glass { background:rgba(250,245,232,0.03); border:1px solid rgba(250,245,232,0.07); }
-        .card { background:#141A16; border:1px solid rgba(250,245,232,0.07); border-radius:16px; }
-        .btn-primary { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; font-weight:700; font-size:0.875rem; color:#fff; background:linear-gradient(135deg,#4E9966,#2a6e44); transition:all 0.15s; }
-        .btn-primary:hover { opacity:0.9; transform:scale(1.02); }
-        .btn-secondary { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; font-weight:700; font-size:0.875rem; color:rgba(250,245,232,0.7); background:rgba(250,245,232,0.06); border:1px solid rgba(250,245,232,0.1); transition:all 0.15s; }
-        .btn-secondary:hover { color:#FAF5E8; background:rgba(250,245,232,0.1); }
-        .btn-danger { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:8px; font-weight:600; font-size:0.8rem; color:#C24B1E; background:rgba(194,75,30,0.1); border:1px solid rgba(194,75,30,0.25); transition:all 0.15s; }
-        .btn-danger:hover { background:rgba(194,75,30,0.2); }
+        body { background:#F6F7F9; color:#17181C; font-family:'Outfit',sans-serif; }
+        .sidebar { width:256px; min-height:100vh; background:#FFFFFF; border-right:1px solid #EAECF1; flex-shrink:0; }
+        .sidebar-link { display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:10px; font-weight:600; font-size:0.875rem; color:#5B6472; transition:all 0.15s; }
+        .sidebar-link:hover { color:#17181C; background:#F4F5F8; }
+        .sidebar-link.active { color:#4F46E5; background:#EEF2FF; border-left:3px solid #4F46E5; }
+        .sidebar-section { font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:#A0A8B3; padding:16px 14px 6px; }
+        .glass { background:rgba(255,255,255,0.7); border:1px solid #EAECF1; }
+        .card { background:#FFFFFF; border:1px solid #E4E7EC; border-radius:16px; box-shadow:0 1px 2px rgba(16,24,40,0.04),0 1px 3px rgba(16,24,40,0.05); }
+        .btn-primary { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; font-weight:700; font-size:0.875rem; color:#fff; background:#4F46E5; box-shadow:0 1px 2px rgba(79,70,229,0.25); transition:all 0.15s; }
+        .btn-primary:hover { background:#4338CA; }
+        .btn-secondary { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; font-weight:700; font-size:0.875rem; color:#3F4650; background:#FFFFFF; border:1px solid #D9DDE7; transition:all 0.15s; }
+        .btn-secondary:hover { color:#17181C; background:#F4F5F8; }
+        .btn-danger { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:8px; font-weight:600; font-size:0.8rem; color:#DC2626; background:rgba(220,38,38,0.08); border:1px solid rgba(220,38,38,0.2); transition:all 0.15s; }
+        .btn-danger:hover { background:rgba(220,38,38,0.14); }
         .btn-sm { padding:6px 14px; font-size:0.8rem; }
-        .input { width:100%; padding:12px 16px; border-radius:10px; background:rgba(250,245,232,0.04); border:1px solid rgba(250,245,232,0.1); color:#FAF5E8; font-size:0.875rem; transition:all 0.15s; outline:none; }
-        .input:focus { border-color:#4E9966; background:rgba(78,153,102,0.05); }
-        .input::placeholder { color:rgba(250,245,232,0.25); }
-        .label { display:block; font-size:0.8rem; font-weight:700; color:rgba(250,245,232,0.6); margin-bottom:6px; }
+        .input { width:100%; padding:12px 16px; border-radius:10px; background:#FFFFFF; border:1px solid #D9DDE7; color:#17181C; font-size:0.875rem; transition:all 0.15s; outline:none; }
+        .input:focus { border-color:#4F46E5; box-shadow:0 0 0 3px rgba(79,70,229,0.12); }
+        .input::placeholder { color:#A0A8B3; }
+        .label { display:block; font-size:0.8rem; font-weight:700; color:#5B6472; margin-bottom:6px; }
         .badge { display:inline-flex; padding:3px 10px; border-radius:999px; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; }
-        .badge-green  { background:rgba(78,153,102,0.15); color:#4E9966; border:1px solid rgba(78,153,102,0.3); }
-        .badge-gold   { background:rgba(212,162,36,0.15); color:#D4A224; border:1px solid rgba(212,162,36,0.3); }
-        .badge-red    { background:rgba(194,75,30,0.15);  color:#C24B1E; border:1px solid rgba(194,75,30,0.3); }
-        .badge-gray   { background:rgba(250,245,232,0.07); color:rgba(250,245,232,0.5); border:1px solid rgba(250,245,232,0.1); }
-        .badge-sky    { background:rgba(46,139,192,0.15); color:#2E8BC0; border:1px solid rgba(46,139,192,0.3); }
-        .flash-success { padding:12px 18px; border-radius:10px; background:rgba(78,153,102,0.12); border:1px solid rgba(78,153,102,0.35); color:#4E9966; font-weight:600; margin-bottom:20px; }
-        .flash-error   { padding:12px 18px; border-radius:10px; background:rgba(194,75,30,0.12); border:1px solid rgba(194,75,30,0.35); color:#C24B1E; font-weight:600; margin-bottom:20px; }
-        .table-row { border-bottom:1px solid rgba(250,245,232,0.05); transition:background 0.12s; }
-        .table-row:hover { background:rgba(250,245,232,0.03); }
-        .stat-card { padding:20px; border-radius:16px; background:#141A16; border:1px solid rgba(250,245,232,0.07); }
-        .stat-value { font-size:1.75rem; font-weight:800; line-height:1; }
-        .stat-label { font-size:0.8rem; font-weight:600; color:rgba(250,245,232,0.5); margin-top:4px; }
-        select.input { appearance:none; background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23FAF5E8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position:right 12px center; background-repeat:no-repeat; background-size:20px; padding-right:40px; }
+        .badge-green  { background:#ECFDF5; color:#059669; border:1px solid #A7F3D0; }
+        .badge-gold   { background:#FFFBEB; color:#B45309; border:1px solid #FDE68A; }
+        .badge-red    { background:#FEF2F2; color:#DC2626; border:1px solid #FECACA; }
+        .badge-gray   { background:#F3F4F6; color:#6B7280; border:1px solid #E5E7EB; }
+        .badge-sky    { background:#F0F9FF; color:#0284C7; border:1px solid #BAE6FD; }
+        .flash-success { padding:12px 18px; border-radius:10px; background:#ECFDF5; border:1px solid #A7F3D0; color:#047857; font-weight:600; margin-bottom:20px; }
+        .flash-error   { padding:12px 18px; border-radius:10px; background:#FEF2F2; border:1px solid #FECACA; color:#B91C1C; font-weight:600; margin-bottom:20px; }
+        .table-row { border-bottom:1px solid #EEF0F4; transition:background 0.12s; }
+        .table-row:hover { background:#F8FAFC; }
+        .stat-card { padding:20px; border-radius:16px; background:#FFFFFF; border:1px solid #E4E7EC; box-shadow:0 1px 2px rgba(16,24,40,0.04),0 1px 3px rgba(16,24,40,0.05); }
+        .stat-value { font-size:1.75rem; font-weight:800; line-height:1; color:#17181C; }
+        .stat-label { font-size:0.8rem; font-weight:600; color:#8A93A2; margin-top:4px; }
+        select.input { appearance:none; background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%235b6472' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position:right 12px center; background-repeat:no-repeat; background-size:20px; padding-right:40px; }
+        .border-white\/5 { border-color:#EAECF1; }
+        .border-white\/10 { border-color:#E4E7EC; }
+        .bg-white\/5 { background-color:#F6F7F9; }
+        .text-red-400 { color:#DC2626; }
+        .bg-red-500\/10 { background-color:rgba(220,38,38,0.08); }
+        .text-amber-400 { color:#D97706; }
+        .text-amber-400\/80 { color:rgba(217,119,6,0.8); }
+        .bg-amber-500\/10 { background-color:rgba(217,119,6,0.08); }
         #sidebar { transform:translateX(-100%); transition:transform 0.25s ease; }
         #sidebar.open { transform:translateX(0); }
         @media(min-width:1024px) { #sidebar { transform:none !important; position:relative; } }
@@ -78,9 +86,9 @@
     <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-30 hidden lg:hidden" onclick="closeSidebar()"></div>
 
     <aside id="sidebar" class="fixed lg:relative z-40 sidebar flex flex-col">
-        <div class="px-5 py-6 border-b border-white/5">
+        <div class="px-5 py-6 border-b border-cream/10">
             <div class="flex items-center gap-3">
-                <img src="/images/tlab-logo-white.png" alt="TLab" class="h-7 w-auto">
+                <img src="/images/tlab-logo-black.png" alt="TLab" class="h-7 w-auto">
             </div>
         </div>
 
@@ -112,7 +120,7 @@
                 Assignments
             </a>
 
-            <div class="pt-4 mt-4 border-t border-white/5">
+            <div class="pt-4 mt-4 border-t border-cream/10">
                 <a href="{{ route('settings.security') }}"
                    class="sidebar-link {{ request()->routeIs('settings.security') ? 'active' : '' }}">
                     <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
@@ -133,7 +141,7 @@
             </div>
         </nav>
 
-        <div class="px-4 py-4 border-t border-white/5">
+        <div class="px-4 py-4 border-t border-cream/10">
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-lg bg-mint/10 border border-mint/20 flex items-center justify-center text-xs font-bold text-mint">
                     {{ strtoupper(substr(auth()->user()->name ?? 'T', 0, 1)) }}
@@ -147,7 +155,7 @@
     </aside>
 
     <div class="flex-1 flex flex-col min-w-0">
-        <div class="lg:hidden flex items-center justify-between px-4 py-4 border-b border-white/5 bg-panel">
+        <div class="lg:hidden flex items-center justify-between px-4 py-4 border-b border-cream/10 bg-panel">
             <button onclick="openSidebar()" class="p-2 rounded-lg glass">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
             </button>
