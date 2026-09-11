@@ -39,7 +39,7 @@
 
 <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 
-    @include('parent.partials.stepper', ['step' => 4])
+    @include('parent.partials.stepper', ['step' => 4, 'club' => $enrollment->course->club])
 
     @if(session('error'))
         <div class="flex items-center gap-3 px-5 py-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 font-bold text-sm mb-8 animate-slideDown">

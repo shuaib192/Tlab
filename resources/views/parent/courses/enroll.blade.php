@@ -77,7 +77,7 @@
         Back to {{ $course->club->name }}
     </a>
 
-    @include('parent.partials.stepper', ['step' => 3])
+    @include('parent.partials.stepper', ['step' => 3, 'club' => $course->club])
 
     {{-- Course Summary --}}
     <div class="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8 mb-8 reveal">

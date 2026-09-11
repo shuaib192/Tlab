@@ -1,7 +1,7 @@
 @php
     $steps = [
         ['label' => 'Find Course', 'route' => 'parent.courses.index'],
-        ['label' => 'Course Details', 'route' => null],
+        ['label' => 'Course Details', 'route' => isset($club) ? 'parent.courses.show' : null],
         ['label' => 'Enrolment', 'route' => null],
         ['label' => 'Payment', 'route' => null],
         ['label' => 'Confirmation', 'route' => null],
@@ -20,7 +20,11 @@
                     {{ $num }}
                 @endif
             </span>
-            <span class="font-bold {{ $num === $step ? 'text-ink' : 'text-muted hidden sm:inline' }}">{{ $step['label'] }}</span>
+            @if($step['route'] && $num < $step)
+                <a href="{{ route($step['route'], isset($club) ? [$club] : []) }}" class="font-bold {{ $num === $step ? 'text-ink' : 'text-muted hover:text-primary hidden sm:inline' }}">{{ $step['label'] }}</a>
+            @else
+                <span class="font-bold {{ $num === $step ? 'text-ink' : 'text-muted hidden sm:inline' }}">{{ $step['label'] }}</span>
+            @endif
             @if($num < 5)
                 <div class="w-6 sm:w-10 h-px bg-gray-200 {{ $num < $step ? 'bg-primary/30' : '' }}"></div>
             @endif
