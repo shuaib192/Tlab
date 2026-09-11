@@ -38,7 +38,7 @@ class ComplianceController extends Controller
         $child->metadata = $metadata;
         $child->save();
 
-        return back()->with('success', 'Parental consent ' . ($request->consent_given ? 'granted' : 'withdrawn') . '.');
+        return back()->with('success', 'Parental consent '.($request->consent_given ? 'granted' : 'withdrawn').'.');
     }
 
     public function requestDeletion(Request $request)
@@ -49,7 +49,7 @@ class ComplianceController extends Controller
 
         $user = User::findOrFail($request->user_id);
 
-        if (!auth()->user()->isSuperAdmin()) {
+        if (! auth()->user()->isSuperAdmin()) {
             abort(403);
         }
 

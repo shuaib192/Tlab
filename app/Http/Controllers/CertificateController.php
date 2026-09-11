@@ -61,13 +61,16 @@ class CertificateController extends Controller
         Notification::create([
             'user_id' => $child->user_id,
             'type' => 'achievement',
-            'title' => '🎉 Certificate Awarded!',
+            'title' => 'Certificate Awarded!',
             'body' => "{$child->name} earned a certificate for completing {$course->title}!",
-            'icon' => '📜',
+            'icon' => null,
             'link' => route('parent.certificates.index', $child),
         ]);
 
-        try { Mail::to($child->parent->email)->send(new CertificateAwarded($certificate)); } catch (\Exception $e) {}
+        try {
+            Mail::to($child->parent->email)->send(new CertificateAwarded($certificate));
+        } catch (\Exception $e) {
+        }
 
         return redirect()->route('parent.certificates.index', $child)
             ->with('success', 'Certificate generated successfully!');

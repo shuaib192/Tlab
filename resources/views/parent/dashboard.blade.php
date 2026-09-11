@@ -77,7 +77,19 @@
         @php $s = $streaks->get($child->id); @endphp
         <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-lg transition-all">
             <div class="flex items-center gap-3 mb-3">
-                <span class="text-2xl">{{ $s && $s->current_streak >= 5 ? '🔥' : ($s && $s->current_streak >= 3 ? '⭐' : '🌱') }}</span>
+                @if($s && $s->current_streak >= 5)
+                <span class="w-11 h-11 rounded-xl grid place-items-center flex-shrink-0" style="background:#FFFBEB;color:#D97706">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.298-2.328a9.489 9.489 0 01-2.357 1.84 1 1 0 00-.017 1.849c.77.397 1.23.939 1.368 1.551.124.55.04 1.16-.157 1.738l-.143.428a16.982 16.982 0 01-1.175 2.65c-.334.657-.405 1.413-.155 2.067.25.653.85 1.17 1.606 1.24.826.076 1.654.115 2.48.115.826 0 1.654-.039 2.48-.115.756-.07 1.356-.587 1.606-1.24.25-.654.179-1.41-.155-2.067a16.977 16.977 0 01-1.175-2.65l-.143-.428c-.197-.578-.281-1.188-.157-1.738.138-.612.598-1.154 1.368-1.551a1 1 0 00-.017-1.849 9.489 9.489 0 01-2.357-1.84 8.65 8.65 0 00.061-1.14 6.3 6.3 0 00-.44-1.891c-.306-.79-.774-1.755-1.415-2.88z" clip-rule="evenodd"/></svg>
+                </span>
+            @elseif($s && $s->current_streak >= 3)
+                <span class="w-11 h-11 rounded-xl grid place-items-center flex-shrink-0" style="background:#FFFBEB;color:#F59E0B">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.922-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.196-1.539-1.118l1.07-3.292a1 1 0 00-.363-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                </span>
+            @else
+                <span class="w-11 h-11 rounded-xl grid place-items-center flex-shrink-0" style="background:#F0FDF4;color:#16A34A">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.492 8.51 10 3.75l2.508 4.76 5.493.332-4.13 3.635 1.195 5.378L10 15.396l-5.066 2.46 1.195-5.378L1.99 8.842l5.5-.333z" clip-rule="evenodd" opacity="0"/><path d="M15 8.5a5 5 0 01-7.78 4.196 6.13 6.13 0 01-.62-1.06c-.381-.85-.57-1.77-.57-2.704v-.05c.034-1.902 1.267-3.596 3.075-4.212-.1 1.344.114 2.69.603 3.929.11.279.146.44.146.44s1.054-.754 1.148-1.95l.009-.016c.086.043.173.087.26.118a5.002 5.002 0 013.108 1.305z"/></svg>
+                </span>
+            @endif
                 <div>
                     <div class="font-black text-lg text-ink">{{ $s ? $s->current_streak : 0 }} day streak</div>
                     <div class="text-xs text-muted font-semibold">{{ $child->name }}</div>
@@ -227,11 +239,11 @@
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             @php
                 $rankData = [
-                    'Explorer'       => ['color'=>'#16A34A','bg'=>'#F0FDF4','light'=>'#DCFCE7','border'=>'#86EFAC','emoji'=>'🌱','gradient'=>'from-emerald-500 to-emerald-600'],
-                    'Innovator'      => ['color'=>'#2563EB','bg'=>'#EFF6FF','light'=>'#DBEAFE','border'=>'#93C5FD','emoji'=>'⚡','gradient'=>'from-blue-500 to-blue-600'],
-                    'Builder'        => ['color'=>'#EA580C','bg'=>'#FFF7ED','light'=>'#FFEDD5','border'=>'#FDBA74','emoji'=>'🔨','gradient'=>'from-orange-500 to-orange-600'],
-                    'Creator'        => ['color'=>'#7C3AED','bg'=>'#F5F3FF','light'=>'#EDE9FE','border'=>'#C4B5FD','emoji'=>'🎨','gradient'=>'from-violet-500 to-violet-600'],
-                    'Master Inventor'=> ['color'=>'#D97706','bg'=>'#FFFBEB','light'=>'#FEF3C7','border'=>'#FCD34D','emoji'=>'🚀','gradient'=>'from-amber-500 to-amber-600'],
+                    'Explorer'       => ['color'=>'#16A34A','bg'=>'#F0FDF4','light'=>'#DCFCE7','border'=>'#86EFAC','svg'=>'M3 3v1.5A5.5 5.5 0 008.5 10H13m1-6v7m-2-7v7m-5 5h10','gradient'=>'from-emerald-500 to-emerald-600'],
+                    'Innovator'      => ['color'=>'#2563EB','bg'=>'#EFF6FF','light'=>'#DBEAFE','border'=>'#93C5FD','svg'=>'M13 2L3 14h7l-1 8 10-12h-7l1-8z','gradient'=>'from-blue-500 to-blue-600'],
+                    'Builder'        => ['color'=>'#EA580C','bg'=>'#FFF7ED','light'=>'#FFEDD5','border'=>'#FDBA74','svg'=>'M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z','gradient'=>'from-orange-500 to-orange-600'],
+                    'Creator'        => ['color'=>'#7C3AED','bg'=>'#F5F3FF','light'=>'#EDE9FE','border'=>'#C4B5FD','svg'=>'M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245 4.5 4.5 0 00-.22-1.128zm0 0L15.75 9.75m-6.465 13.872A2.25 2.25 0 005.3 14.417a5.9 5.9 0 015.622-6.622A2.25 2.25 0 0013.25 2.25H11.25a2.25 2.25 0 00-.965 4.3','gradient'=>'from-violet-500 to-violet-600'],
+                    'Master Inventor'=> ['color'=>'#D97706','bg'=>'#FFFBEB','light'=>'#FEF3C7','border'=>'#FCD34D','svg'=>'M15.36 2.64c1.96 1.76 4.57 3.1 7.14 3.43-.33 2.57-1.67 5.18-3.43 7.14-3.83 3.83-8 5.29-8 5.29l-6-6s1.46-4.17 5.29-8c1.96-1.96 4.57-3.11 7.14-3.43zM5.5 16.5c-1.5 1.5-2.5 5-2.5 5s3.5-1 5-2.5','gradient'=>'from-amber-500 to-amber-600'],
                 ];
             @endphp
 
@@ -253,8 +265,8 @@
                                  style="background:{{ $rd['bg'] }};color:{{ $rd['color'] }};border:2px solid {{ $rd['border'] }}">
                                 {{ strtoupper(substr($child->name, 0, 1)) }}
                             </div>
-                            <div class="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-white shadow-sm flex items-center justify-center text-xs border border-gray-100">
-                                {{ $rd['emoji'] }}
+                            <div class="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-white shadow-sm grid place-items-center text-xs border border-gray-100" style="color:{{ $rd['color'] }}">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $rd['svg'] }}"/></svg>
                             </div>
                         </div>
                         <div class="flex-1 min-w-0">

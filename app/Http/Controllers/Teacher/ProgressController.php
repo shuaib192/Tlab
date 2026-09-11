@@ -26,7 +26,7 @@ class ProgressController extends Controller
 
         $students = $enrollments->map(function ($enrollment) use ($course) {
             $child = $enrollment->child;
-            $totalLessons = $course->modules->sum(fn($m) => $m->lessons->count());
+            $totalLessons = $course->modules->sum(fn ($m) => $m->lessons->count());
             $completedLessons = 0;
 
             foreach ($course->modules as $module) {
@@ -36,19 +36,21 @@ class ProgressController extends Controller
                             ->where('assessment_id', $lesson->assessment->id)
                             ->where('status', 'passed')
                             ->isNotEmpty();
-                        if ($passed) $completedLessons++;
+                        if ($passed) {
+                            $completedLessons++;
+                        }
                     }
                 }
             }
 
-            $totalAssignments = $course->modules->sum(fn($m) => $m->lessons->sum(fn($l) => $l->assignments->count()));
+            $totalAssignments = $course->modules->sum(fn ($m) => $m->lessons->sum(fn ($l) => $l->assignments->count()));
             $gradedAssignments = $child->assignmentSubmissions
-                ->whereIn('assignment_id', $course->modules->flatMap(fn($m) => $m->lessons->flatMap(fn($l) => $l->assignments->pluck('id'))))
+                ->whereIn('assignment_id', $course->modules->flatMap(fn ($m) => $m->lessons->flatMap(fn ($l) => $l->assignments->pluck('id'))))
                 ->whereIn('status', ['graded', 'approved'])
                 ->count();
 
             $avgScore = $child->assessmentAttempts
-                ->whereIn('assessment_id', $course->modules->flatMap(fn($m) => $m->lessons->flatMap(fn($l) => $l->assessment?->id)))
+                ->whereIn('assessment_id', $course->modules->flatMap(fn ($m) => $m->lessons->flatMap(fn ($l) => $l->assessment?->id)))
                 ->avg('score');
 
             $sessions = $course->cohorts()->with('sessions')->get()->flatMap->sessions;
@@ -106,7 +108,7 @@ class ProgressController extends Controller
                 ];
             }
 
-            $done = collect($lessonData)->filter(fn($l) => $l['assessment_passed'])->count();
+            $done = collect($lessonData)->filter(fn ($l) => $l['assessment_passed'])->count();
             $total = count($lessonData);
 
             $moduleData[] = [

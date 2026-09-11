@@ -14,6 +14,7 @@ class ClassReminder extends Mailable
     use Queueable, SerializesModels;
 
     public ClassSession $session;
+
     public string $childName;
 
     public function __construct(ClassSession $session, string $childName)

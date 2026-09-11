@@ -7,12 +7,12 @@ use App\Mail\TeacherFeedback;
 use App\Models\Assignment;
 use App\Models\AssignmentSubmission;
 use App\Models\Attendance;
+use App\Models\AuditLog;
 use App\Models\ChildProfile;
 use App\Models\ClassSession;
 use App\Models\Cohort;
 use App\Models\CommunicationLog;
 use App\Models\Course;
-use App\Models\AuditLog;
 use App\Models\LiveSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -378,7 +378,7 @@ class DashboardController extends Controller
                 'type' => 'grade',
                 'title' => "New grade: {$assignmentTitle}",
                 'body' => Str::limit("Scored {$validated['score']}/{$maxScore}".($feedback ? " - {$feedback}" : ''), 100),
-                'icon' => '✓',
+                'icon' => null,
                 'link' => route('communications.index'),
             ]);
 
@@ -451,7 +451,7 @@ class DashboardController extends Controller
             'type' => 'teacher_communication',
             'title' => "Message from Teacher: {$validated['subject']}",
             'body' => Str::limit($validated['message'], 100),
-            'icon' => '📝',
+            'icon' => null,
             'link' => route('communications.index'),
         ]);
 

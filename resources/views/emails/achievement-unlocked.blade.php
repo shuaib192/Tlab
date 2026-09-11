@@ -1,6 +1,6 @@
 @extends('emails.layout')
 @section('content')
-<h2>Achievement Unlocked! 🏆</h2>
+<h2>Achievement Unlocked</h2>
 <p>Great news! <strong>{{ $child->name }}</strong> has unlocked a new achievement:</p>
 <div class="details">
 <dl>

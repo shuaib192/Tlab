@@ -5,15 +5,13 @@ namespace App\Console\Commands;
 use App\Mail\PaymentConfirmation;
 use App\Models\Payment;
 use App\Models\Subscription;
-use App\Models\SubscriptionPlan;
-use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
 class ProcessSubscriptions extends Command
 {
     protected $signature = 'subscriptions:process';
+
     protected $description = 'Process subscription renewals, expirations, and trial periods';
 
     public function handle()
@@ -77,7 +75,7 @@ class ProcessSubscriptions extends Command
 
                 $payment = Payment::create([
                     'user_id' => $sub->user_id,
-                    'reference' => 'RENEWAL-' . strtoupper(substr(uniqid(), -8)),
+                    'reference' => 'RENEWAL-'.strtoupper(substr(uniqid(), -8)),
                     'amount' => $plan->price,
                     'currency' => 'NGN',
                     'status' => 'paid',

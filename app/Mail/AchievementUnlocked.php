@@ -15,6 +15,7 @@ class AchievementUnlocked extends Mailable
     use Queueable, SerializesModels;
 
     public Achievement $achievement;
+
     public ChildProfile $child;
 
     public function __construct(Achievement $achievement, ChildProfile $child)

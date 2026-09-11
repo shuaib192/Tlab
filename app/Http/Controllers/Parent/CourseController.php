@@ -125,7 +125,7 @@ class CourseController extends Controller
                 'type' => 'enrollment',
                 'title' => 'Enrolment Confirmed!',
                 'body' => "{$enrollment->child->name} is now enrolled in {$enrollment->course->title}.",
-                'icon' => '🎉',
+                'icon' => null,
                 'link' => route('parent.enrollments.confirmation', $enrollment),
             ]);
 

@@ -2,15 +2,15 @@
 
 namespace App\Console\Commands;
 
-use App\Models\ClassSession;
-use App\Models\Enrollment;
 use App\Mail\ClassReminder;
+use App\Models\ClassSession;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
 class SendClassReminders extends Command
 {
     protected $signature = 'classes:remind';
+
     protected $description = 'Send 24-hour class reminders to parents';
 
     public function handle()
@@ -28,7 +28,9 @@ class SendClassReminders extends Command
         foreach ($sessions as $session) {
             foreach ($session->cohort->enrollments as $enrollment) {
                 $child = $enrollment->child;
-                if (!$child || !$child->parent || !$child->parent->email) continue;
+                if (! $child || ! $child->parent || ! $child->parent->email) {
+                    continue;
+                }
 
                 try {
                     Mail::to($child->parent->email)
@@ -41,6 +43,7 @@ class SendClassReminders extends Command
         }
 
         $this->info("Sent {$sent} class reminders for tomorrow's sessions.");
+
         return Command::SUCCESS;
     }
 }

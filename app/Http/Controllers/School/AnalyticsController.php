@@ -7,9 +7,7 @@ use App\Models\Attendance;
 use App\Models\ChildProfile;
 use App\Models\ClassSession;
 use App\Models\Enrollment;
-use App\Models\School;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class AnalyticsController extends Controller
 {
@@ -36,7 +34,7 @@ class AnalyticsController extends Controller
         ];
 
         $activeStudents = ChildProfile::whereIn('user_id', User::where('school_id', $school->id)->pluck('id'))
-            ->whereHas('enrollments', fn($q) => $q->where('status', 'active'))->count();
+            ->whereHas('enrollments', fn ($q) => $q->where('status', 'active'))->count();
 
         $totalStudents = ChildProfile::whereIn('user_id', User::where('school_id', $school->id)->pluck('id'))->count();
 

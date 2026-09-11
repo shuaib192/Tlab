@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Course;
-use App\Models\Module;
-use App\Models\Lesson;
 use App\Models\Assessment;
 use App\Models\AssessmentQuestion;
+use App\Models\Course;
+use App\Models\Lesson;
+use App\Models\Module;
 use Illuminate\Http\Request;
 
 class CurriculumController extends Controller
@@ -15,6 +15,7 @@ class CurriculumController extends Controller
     public function modules(Course $course)
     {
         $course->load('modules.lessons');
+
         return view('admin.curriculum.modules', compact('course'));
     }
 
@@ -60,6 +61,7 @@ class CurriculumController extends Controller
     public function lessons(Module $module)
     {
         $module->load('course', 'lessons.assessment');
+
         return view('admin.curriculum.lessons', compact('module'));
     }
 
@@ -112,6 +114,7 @@ class CurriculumController extends Controller
     public function assessments(Lesson $lesson)
     {
         $lesson->load('module.course', 'assessment.questions');
+
         return view('admin.curriculum.assessments', compact('lesson'));
     }
 

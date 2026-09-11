@@ -15,6 +15,7 @@ class PaymentConfirmation extends Mailable
     use Queueable, SerializesModels;
 
     public Payment $payment;
+
     public ?SubscriptionPlan $plan;
 
     public function __construct(Payment $payment, ?SubscriptionPlan $plan = null)

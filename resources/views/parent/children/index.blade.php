@@ -6,11 +6,11 @@
 
     @php
         $rankData = [
-            'Explorer'       => ['color'=>'#16A34A','bg'=>'#F0FDF4','emoji'=>'🌱','gradient'=>'from-emerald-500 to-emerald-600'],
-            'Innovator'      => ['color'=>'#2563EB','bg'=>'#EFF6FF','emoji'=>'⚡','gradient'=>'from-blue-500 to-blue-600'],
-            'Builder'        => ['color'=>'#EA580C','bg'=>'#FFF7ED','emoji'=>'🔨','gradient'=>'from-orange-500 to-orange-600'],
-            'Creator'        => ['color'=>'#7C3AED','bg'=>'#F5F3FF','emoji'=>'🎨','gradient'=>'from-violet-500 to-violet-600'],
-            'Master Inventor'=> ['color'=>'#D97706','bg'=>'#FFFBEB','emoji'=>'🚀','gradient'=>'from-amber-500 to-amber-600'],
+            'Explorer'       => ['color'=>'#16A34A','bg'=>'#F0FDF4','svg'=>'M3 3v1.5A5.5 5.5 0 008.5 10H13m1-6v7m-2-7v7m-5 5h10','gradient'=>'from-emerald-500 to-emerald-600'],
+            'Innovator'      => ['color'=>'#2563EB','bg'=>'#EFF6FF','svg'=>'M13 2L3 14h7l-1 8 10-12h-7l1-8z','gradient'=>'from-blue-500 to-blue-600'],
+            'Builder'        => ['color'=>'#EA580C','bg'=>'#FFF7ED','svg'=>'M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z','gradient'=>'from-orange-500 to-orange-600'],
+            'Creator'        => ['color'=>'#7C3AED','bg'=>'#F5F3FF','svg'=>'M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245 4.5 4.5 0 00-.22-1.128zm0 0L15.75 9.75m-6.465 13.872A2.25 2.25 0 005.3 14.417a5.9 5.9 0 015.622-6.622A2.25 2.25 0 0013.25 2.25H11.25a2.25 2.25 0 00-.965 4.3','gradient'=>'from-violet-500 to-violet-600'],
+            'Master Inventor'=> ['color'=>'#D97706','bg'=>'#FFFBEB','svg'=>'M15.36 2.64c1.96 1.76 4.57 3.1 7.14 3.43-.33 2.57-1.67 5.18-3.43 7.14-3.83 3.83-8 5.29-8 5.29l-6-6s1.46-4.17 5.29-8c1.96-1.96 4.57-3.11 7.14-3.43zM5.5 16.5c-1.5 1.5-2.5 5-2.5 5s3.5-1 5-2.5','gradient'=>'from-amber-500 to-amber-600'],
         ];
     @endphp
 
@@ -65,7 +65,9 @@
                                  style="background:{{ $rd['bg'] }};color:{{ $rd['color'] }};border:2px solid {{ $rd['color'] }}30">
                                 {{ strtoupper(substr($child->name, 0, 1)) }}
                             </div>
-                            <div class="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-white shadow-sm flex items-center justify-center text-xs border border-gray-100">{{ $rd['emoji'] }}</div>
+                            <div class="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-white shadow-sm grid place-items-center text-xs border border-gray-100" style="color:{{ $rd['color'] }}">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $rd['svg'] }}"/></svg>
+                                </div>
                         </div>
                         <div class="flex-1 min-w-0">
                             <div class="font-black text-lg text-ink truncate">{{ $child->name }}</div>

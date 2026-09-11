@@ -6,12 +6,12 @@ use App\Models\ArchivedLog;
 use App\Models\ChildProfile;
 use App\Models\CommunicationLog;
 use App\Models\XpLog;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class DataRetentionCleanup extends Command
 {
     protected $signature = 'data:retention-cleanup {--days=365 : Age in days to archive/delete}';
+
     protected $description = 'Archive or delete data older than the retention period per COPPA/GDPR-K';
 
     public function handle()
@@ -25,7 +25,7 @@ class DataRetentionCleanup extends Command
         $oldXpLogs = XpLog::where('created_at', '<', $cutoff)->count();
         if ($oldXpLogs > 0) {
             ArchivedLog::insert(
-                XpLog::where('created_at', '<', $cutoff)->get()->map(fn($log) => [
+                XpLog::where('created_at', '<', $cutoff)->get()->map(fn ($log) => [
                     'original_type' => 'xp_log',
                     'original_id' => $log->id,
                     'data' => json_encode($log->toArray()),
@@ -40,7 +40,7 @@ class DataRetentionCleanup extends Command
         $oldComms = CommunicationLog::where('created_at', '<', $cutoff)->count();
         if ($oldComms > 0) {
             ArchivedLog::insert(
-                CommunicationLog::where('created_at', '<', $cutoff)->get()->map(fn($log) => [
+                CommunicationLog::where('created_at', '<', $cutoff)->get()->map(fn ($log) => [
                     'original_type' => 'communication_log',
                     'original_id' => $log->id,
                     'data' => json_encode($log->toArray()),
@@ -66,6 +66,7 @@ class DataRetentionCleanup extends Command
         }
 
         $this->info('Data retention cleanup complete.');
+
         return Command::SUCCESS;
     }
 }

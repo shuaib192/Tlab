@@ -54,7 +54,7 @@ class SafetyController extends Controller
             'type' => 'upload_approved',
             'title' => 'Upload Approved',
             'body' => "{$upload->file_name} was approved by admin.",
-            'icon' => '✅',
+            'icon' => null,
             'link' => route('parent.children.show', $upload->child_profile_id),
         ]);
 
@@ -70,7 +70,7 @@ class SafetyController extends Controller
             'type' => 'upload_rejected',
             'title' => 'Upload Rejected',
             'body' => $request->reason ? "{$upload->file_name} was rejected: {$request->reason}" : "{$upload->file_name} was rejected.",
-            'icon' => '❌',
+            'icon' => null,
             'link' => route('parent.children.show', $upload->child_profile_id),
         ]);
 

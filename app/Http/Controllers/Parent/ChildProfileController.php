@@ -46,7 +46,7 @@ class ChildProfileController extends Controller
         ]);
 
         return redirect()->route('parent.dashboard')
-            ->with('success', "🎉 {$child->name}'s profile has been created! Ready to explore TLab clubs.");
+            ->with('success', "{$child->name}'s profile has been created! Ready to explore TLab clubs.");
     }
 
     public function show(ChildProfile $child)

@@ -28,7 +28,7 @@ class ApprovalController extends Controller
         \App\Models\Notification::create([
             'user_id' => auth()->id(), 'type' => 'upload_approved',
             'title' => 'Upload Approved', 'body' => "{$upload->file_name} was approved.",
-            'icon' => '✅', 'link' => route('parent.children.show', $upload->child_profile_id),
+            'icon' => null, 'link' => route('parent.children.show', $upload->child_profile_id),
         ]);
 
         return redirect()->back()->with('success', 'Upload approved.');

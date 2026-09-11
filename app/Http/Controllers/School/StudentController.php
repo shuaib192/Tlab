@@ -4,7 +4,6 @@ namespace App\Http\Controllers\School;
 
 use App\Http\Controllers\Controller;
 use App\Models\ChildProfile;
-use App\Models\School;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -44,7 +43,7 @@ class StudentController extends Controller
         foreach ($expectedHeaders as $h) {
             $pos = array_search($h, $header);
             if ($pos === false) {
-                return back()->with('error', "Missing column: {$h}. Required: " . implode(', ', $expectedHeaders));
+                return back()->with('error', "Missing column: {$h}. Required: ".implode(', ', $expectedHeaders));
             }
             $headerIndex[$h] = $pos;
         }
@@ -78,11 +77,11 @@ class StudentController extends Controller
                     ]
                 );
 
-                if (!empty($childName)) {
+                if (! empty($childName)) {
                     $child = ChildProfile::firstOrCreate(
                         ['user_id' => $parent->id, 'name' => $childName],
                         [
-                            'username' => strtolower(Str::slug($childName)) . '_' . Str::random(4),
+                            'username' => strtolower(Str::slug($childName)).'_'.Str::random(4),
                             'dob' => $childDob ?: null,
                             'gender' => in_array($childGender, ['male', 'female', 'prefer_not_to_say']) ? $childGender : 'prefer_not_to_say',
                             'pin' => Hash::make(substr($childDob, -4) ?: '1234'),
@@ -100,8 +99,8 @@ class StudentController extends Controller
         fclose($handle);
 
         $message = "Imported {$imported} records successfully.";
-        if (!empty($errors)) {
-            $message .= ' Errors: ' . implode('; ', array_slice($errors, 0, 5));
+        if (! empty($errors)) {
+            $message .= ' Errors: '.implode('; ', array_slice($errors, 0, 5));
         }
 
         return redirect()->route('school.students', ['school_id' => $school->id])

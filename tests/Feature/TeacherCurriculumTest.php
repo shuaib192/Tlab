@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Cohort;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Module;

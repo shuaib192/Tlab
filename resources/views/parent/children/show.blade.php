@@ -14,11 +14,11 @@
 
         @php
             $rankColors = [
-                'Explorer'       => ['color'=>'#16A34A','bg'=>'#F0FDF4','light'=>'#DCFCE7','border'=>'#86EFAC','emoji'=>'🌱','desc'=>'Just starting the journey'],
-                'Innovator'      => ['color'=>'#2563EB','bg'=>'#EFF6FF','light'=>'#DBEAFE','border'=>'#93C5FD','emoji'=>'⚡','desc'=>'Discovering new ideas'],
-                'Builder'        => ['color'=>'#EA580C','bg'=>'#FFF7ED','light'=>'#FFEDD5','border'=>'#FDBA74','emoji'=>'🔨','desc'=>'Building real skills'],
-                'Creator'        => ['color'=>'#7C3AED','bg'=>'#F5F3FF','light'=>'#EDE9FE','border'=>'#C4B5FD','emoji'=>'🎨','desc'=>'Creating and innovating'],
-                'Master Inventor'=> ['color'=>'#D97706','bg'=>'#FFFBEB','light'=>'#FEF3C7','border'=>'#FCD34D','emoji'=>'🚀','desc'=>'Master of their craft'],
+                'Explorer'       => ['color'=>'#16A34A','bg'=>'#F0FDF4','light'=>'#DCFCE7','border'=>'#86EFAC','svg'=>'M3 3v1.5A5.5 5.5 0 008.5 10H13m1-6v7m-2-7v7m-5 5h10','desc'=>'Just starting the journey'],
+                'Innovator'      => ['color'=>'#2563EB','bg'=>'#EFF6FF','light'=>'#DBEAFE','border'=>'#93C5FD','svg'=>'M13 2L3 14h7l-1 8 10-12h-7l1-8z','desc'=>'Discovering new ideas'],
+                'Builder'        => ['color'=>'#EA580C','bg'=>'#FFF7ED','light'=>'#FFEDD5','border'=>'#FDBA74','svg'=>'M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z','desc'=>'Building real skills'],
+                'Creator'        => ['color'=>'#7C3AED','bg'=>'#F5F3FF','light'=>'#EDE9FE','border'=>'#C4B5FD','svg'=>'M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245 4.5 4.5 0 00-.22-1.128zm0 0L15.75 9.75m-6.465 13.872A2.25 2.25 0 005.3 14.417a5.9 5.9 0 015.622-6.622A2.25 2.25 0 0013.25 2.25H11.25a2.25 2.25 0 00-.965 4.3','desc'=>'Creating and innovating'],
+                'Master Inventor'=> ['color'=>'#D97706','bg'=>'#FFFBEB','light'=>'#FEF3C7','border'=>'#FCD34D','svg'=>'M15.36 2.64c1.96 1.76 4.57 3.1 7.14 3.43-.33 2.57-1.67 5.18-3.43 7.14-3.83 3.83-8 5.29-8 5.29l-6-6s1.46-4.17 5.29-8c1.96-1.96 4.57-3.11 7.14-3.43zM5.5 16.5c-1.5 1.5-2.5 5-2.5 5s3.5-1 5-2.5','desc'=>'Master of their craft'],
             ];
             $rc = $rankColors[$child->rank] ?? $rankColors['Explorer'];
             $progress = $child->rank_progress;
@@ -55,9 +55,10 @@
                 <div class="flex-1 min-w-0">
                     <div class="flex flex-wrap items-center gap-3 mb-1">
                         <h1 class="font-black text-2xl sm:text-3xl text-ink">{{ $child->name }}</h1>
-                        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold"
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold"
                               style="background:{{ $rc['bg'] }};color:{{ $rc['color'] }};border:1px solid {{ $rc['border'] }}">
-                            {{ $rc['emoji'] }} {{ $child->rank }}
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $rc['svg'] }}"/></svg>
+                            {{ $child->rank }}
                         </span>
                         @if($child->username)
                         <span class="text-xs text-muted bg-gray-100 px-3 py-1 rounded-full">@ {{ $child->username }}</span>
@@ -166,7 +167,9 @@
                     </div>
                     @empty
                     <div class="text-center py-10">
-                        <div class="text-4xl mb-3">📚</div>
+                        <div class="w-14 h-14 rounded-2xl bg-gray-100 grid place-items-center mx-auto mb-3">
+                            <svg class="w-7 h-7 text-muted/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                        </div>
                         <p class="text-muted font-semibold text-sm">No courses enrolled yet.</p>
                         <a href="{{ route('membership') }}" class="text-primary font-bold text-sm hover:underline mt-2 inline-block">View available clubs</a>
                     </div>
@@ -192,7 +195,9 @@
                     </div>
                     @empty
                     <div class="text-center py-10">
-                        <div class="text-4xl mb-3">⭐</div>
+                        <div class="w-14 h-14 rounded-2xl bg-amber-50 grid place-items-center mx-auto mb-3">
+                            <svg class="w-7 h-7 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        </div>
                         <p class="text-muted font-semibold text-sm">No XP earned yet. Learning adventures await!</p>
                     </div>
                     @endforelse
@@ -207,17 +212,17 @@
                     <h2 class="font-black text-lg text-ink mb-5">Rank Journey</h2>
                     <div class="space-y-2">
                         @foreach([
-                            ['Explorer', 0, '#16A34A', '🌱'],
-                            ['Innovator', 200, '#2563EB', '⚡'],
-                            ['Builder', 500, '#EA580C', '🔨'],
-                            ['Creator', 1000, '#7C3AED', '🎨'],
-                            ['Master Inventor', 2000, '#D97706', '🚀'],
-                        ] as [$name, $threshold, $color, $emoji])
+                            ['Explorer', 0, '#16A34A', 'M3 3v1.5A5.5 5.5 0 008.5 10H13m1-6v7m-2-7v7m-5 5h10'],
+                            ['Innovator', 200, '#2563EB', 'M13 2L3 14h7l-1 8 10-12h-7l1-8z'],
+                            ['Builder', 500, '#EA580C', 'M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z'],
+                            ['Creator', 1000, '#7C3AED', 'M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245 4.5 4.5 0 00-.22-1.128zm0 0L15.75 9.75m-6.465 13.872A2.25 2.25 0 005.3 14.417a5.9 5.9 0 015.622-6.622A2.25 2.25 0 0013.25 2.25H11.25a2.25 2.25 0 00-.965 4.3'],
+                            ['Master Inventor', 2000, '#D97706', 'M15.36 2.64c1.96 1.76 4.57 3.1 7.14 3.43-.33 2.57-1.67 5.18-3.43 7.14-3.83 3.83-8 5.29-8 5.29l-6-6s1.46-4.17 5.29-8c1.96-1.96 4.57-3.11 7.14-3.43zM5.5 16.5c-1.5 1.5-2.5 5-2.5 5s3.5-1 5-2.5'],
+                        ] as [$name, $threshold, $color, $svg])
                         @php $achieved = $child->xp >= $threshold; @endphp
                         <div class="flex items-center gap-3 p-3 rounded-xl transition-all {{ $child->rank === $name ? 'bg-gray-50 border border-gray-200' : '' }}">
-                            <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0 transition-all"
-                                 style="background:{{ $achieved ? $color . '15' : '#F9FAFB' }}; opacity:{{ $achieved ? '1' : '0.5' }}">
-                                {{ $emoji }}
+                            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all"
+                                 style="background:{{ $achieved ? $color . '15' : '#F9FAFB' }}; color:{{ $achieved ? $color : '#9CA3AF' }}; opacity:{{ $achieved ? '1' : '0.5' }}">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $svg }}"/></svg>
                             </div>
                             <div class="flex-1">
                                 <div class="font-bold text-sm {{ $achieved ? 'text-ink' : 'text-muted' }}">{{ $name }}</div>
@@ -240,7 +245,9 @@
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
                         @foreach($achievements as $a)
                         <div class="text-center p-3 rounded-xl bg-gray-50" title="{{ $a->description }}">
-                            <div class="text-2xl mb-1">{{ $a->icon ?? '🏆' }}</div>
+                            <div class="w-10 h-10 rounded-xl bg-amber-100 grid place-items-center mx-auto mb-2">
+                                <svg class="w-5 h-5 text-amber-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a3 3 0 013 3v1a7 7 0 01-6 6.92V16h2a1 1 0 110 2H6a1 1 0 110-2h2v-1.08A7 7 0 012 8V7a3 3 0 013-3h1V3a1 1 0 011-1zm-1.5 6a5 5 0 0010 0V7a1 1 0 00-1-1h-8a1 1 0 00-1 1v1z" clip-rule="evenodd"/></svg>
+                            </div>
                             <div class="text-xs font-bold text-muted truncate">{{ $a->name }}</div>
                         </div>
                         @endforeach

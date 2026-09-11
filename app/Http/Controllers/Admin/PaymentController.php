@@ -81,7 +81,7 @@ class PaymentController extends Controller
             'type' => 'payment',
             'title' => 'Payment Verified!',
             'body' => 'Your transfer payment '.$payment->reference.' has been confirmed. Thank you!',
-            'icon' => '✅',
+            'icon' => null,
             'link' => route('payment.history'),
         ]);
 
@@ -107,7 +107,7 @@ class PaymentController extends Controller
             'type' => 'payment',
             'title' => 'Payment not verified',
             'body' => $payment->rejection_reason.' — please contact support or resubmit clearer proof.',
-            'icon' => '⚠️',
+            'icon' => null,
             'link' => route('payment.history'),
         ]);
 

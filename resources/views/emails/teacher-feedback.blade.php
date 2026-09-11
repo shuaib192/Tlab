@@ -1,6 +1,6 @@
 @extends('emails.layout')
 @section('content')
-<h2>New Message from Teacher 📝</h2>
+<h2>New Message from Teacher</h2>
 <p>You have received a new message from your child's teacher:</p>
 <div class="details">
 <dl>

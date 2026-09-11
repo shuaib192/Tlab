@@ -139,7 +139,9 @@
     </div>
     @else
     <div class="p-12 text-center">
-        <div class="text-4xl mb-3">📡</div>
+        <div class="w-14 h-14 rounded-2xl bg-mint/10 border border-mint/20 grid place-items-center mx-auto mb-3">
+        <svg class="w-7 h-7 text-mint/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.354 15.354A9 9 0 018.646 3.646m-3.536 4.95a9 9 0 0010.293 10.293m-10.294-7.05A7 7 0 0114.586 4.414m4.95 4.95a2 2 0 01-2.828 2.828M12 18a2 2 0 100 4 2 2 0 000-4z"/></svg>
+    </div>
         <p class="text-cream/50 font-mono text-sm mb-1">No broadcast events scheduled.</p>
         <p class="text-cream/30 text-xs font-mono">Fabricate a session above to light up the tower.</p>
     </div>

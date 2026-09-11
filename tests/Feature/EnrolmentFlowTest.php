@@ -52,7 +52,7 @@ class EnrolmentFlowTest extends TestCase
 
         $this->actingAs($user)->get(route('parent.enrollments.confirmation', $enrollment))
             ->assertStatus(200)
-            ->assertSee('Enrolment Confirmed!');
+            ->assertSee('Enrolment Confirmed');
     }
 
     public function test_paid_course_pay_redirects_to_paystack_and_creates_pending_payment()

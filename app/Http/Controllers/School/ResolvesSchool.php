@@ -14,7 +14,7 @@ trait ResolvesSchool
             ? (request('school_id') ? School::findOrFail(request('school_id')) : null)
             : School::find($user->school_id);
 
-        if (!$school) {
+        if (! $school) {
             return redirect()->route('school.dashboard')->with('error', 'No school is assigned to your account yet.');
         }
 

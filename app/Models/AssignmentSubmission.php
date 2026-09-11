@@ -42,6 +42,7 @@ class AssignmentSubmission extends Model
         if (! $this->assignment->due_date || ! $this->submitted_at) {
             return false;
         }
+
         return $this->submitted_at->gt($this->assignment->due_date->endOfDay());
     }
 }

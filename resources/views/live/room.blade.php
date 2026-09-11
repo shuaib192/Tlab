@@ -30,6 +30,7 @@
         .title{font-weight:800;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
         .sub{color:#00E5FF;font-size:10px;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
         .chip{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;padding:5px 10px;border-radius:999px;white-space:nowrap}
+        .chip svg,.btn svg.icon{width:11px;height:11px;flex-shrink:0}
         .chip-lobby-on{background:#FFB80020;color:#FFB800;border:1px solid #FFB80044}
         .chip-lobby-off{background:#FAF5E820;color:#FAF5E880;border:1px solid #FAF5E833}
         .chip-moderator{background:#00E5FF15;color:#00E5FF;border:1px solid #00E5FF44}
@@ -62,13 +63,13 @@
     </div>
     <nav>
         @if($moderator)
-            <span class="chip hide-xs chip-moderator">⚡ MODERATOR</span>
+            <span class="chip hide-xs chip-moderator"><svg class="icon" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg> MODERATOR</span>
             <button class="btn btn-mint" id="lobbyBtn">Enable Lobby</button>
         @elseif($observer)
-            <span class="chip chip-observer">👁 OBSERVER</span>
+            <span class="chip chip-observer"><svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> OBSERVER</span>
         @endif
         <button class="btn btn-outline" id="copyLink" title="Copy private join link">
-            <span class="hide-xs">Copy Link</span>🔗
+            <span class="hide-xs">Copy Link</span><svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 010 5.656l-4 4a4 4 0 01-5.656-5.657l1.914-1.914"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.172 13.828a4 4 0 010-5.657l4-4a4 4 0 015.656 5.657l-1.914 1.914"/></svg>
         </button>
         <a class="btn btn-danger no-underline" href="@if(session('active_child_id')){{ route('child.dashboard') }}@elseif(auth()->user()?->role === 'teacher'){{ route('teacher.dashboard') }}@elseif(auth()->user()?->isParent()){{ route('parent.dashboard') }}@else{{ route('admin.dashboard') }}@endif">
             Leave

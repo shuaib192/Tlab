@@ -1,6 +1,6 @@
 @extends('emails.layout')
 @section('content')
-<h2>Payment Confirmed! 🎉</h2>
+<h2>Payment Confirmed</h2>
 <p>Your payment of <strong>₦{{ number_format($payment->amount) }}</strong> for the <strong>{{ $plan?->name ?? 'TLab' }}</strong> subscription has been confirmed.</p>
 <div class="details">
 <dl>

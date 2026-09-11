@@ -137,13 +137,20 @@
                     <div>
                         <label class="form-label">Skill Level</label>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                            @foreach(['beginner' => '🌱 Beginner', 'intermediate' => '⚡ Intermediate', 'advanced' => '🚀 Advanced'] as $value => $label)
+                            @foreach([
+                                'beginner' => ['text' => 'Beginner', 'svg' => 'M3 3v1.5A5.5 5.5 0 008.5 10H13m1-6v7m-2-7v7m-5 5h10', 'color' => '#16A34A', 'bg' => '#F0FDF4'],
+                                'intermediate' => ['text' => 'Intermediate', 'svg' => 'M13 2L3 14h7l-1 8 10-12h-7l1-8z', 'color' => '#2563EB', 'bg' => '#EFF6FF'],
+                                'advanced' => ['text' => 'Advanced', 'svg' => 'M15.36 2.64c1.96 1.76 4.57 3.1 7.14 3.43-.33 2.57-1.67 5.18-3.43 7.14-3.83 3.83-8 5.29-8 5.29l-6-6s1.46-4.17 5.29-8c1.96-1.96 4.57-3.11 7.14-3.43zM5.5 16.5c-1.5 1.5-2.5 5-2.5 5s3.5-1 5-2.5', 'color' => '#D97706', 'bg' => '#FFFBEB'],
+                            ] as $value => $level)
                             <label class="cursor-pointer">
                                 <input type="radio" name="skill_level" value="{{ $value }}" class="sr-only peer"
                                        {{ old('skill_level', 'beginner') == $value ? 'checked' : '' }}>
                                 <div class="px-4 py-3.5 rounded-xl border-2 border-gray-200 text-center text-sm font-bold transition-all
                                             peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:border-gray-300">
-                                    {{ $label }}
+                                    <div class="w-9 h-9 rounded-lg grid place-items-center mx-auto mb-1.5" style="background:{{ $level['bg'] }};color:{{ $level['color'] }}">
+                                        <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $level['svg'] }}"/></svg>
+                                    </div>
+                                    {{ $level['text'] }}
                                 </div>
                             </label>
                             @endforeach
@@ -157,21 +164,24 @@
                         </label>
                         <div class="grid grid-cols-2 gap-3">
                             @foreach([
-                                'robotics'    => ['🤖', 'Robotics'],
-                                'coding'      => ['💻', 'Coding'],
-                                'math'        => ['➕', 'Mathematics'],
-                                'science'     => ['🔬', 'Science Experiments'],
-                                'art'         => ['🎨', 'Art & Design'],
-                                'leadership'  => ['🗣️', 'Leadership'],
-                                'chess'       => ['♟️', 'Chess & Strategy'],
-                                'entrepreneurship' => ['💡', 'Entrepreneurship'],
-                            ] as $value => [$emoji, $label])
+                                'robotics'    => ['Robotics', 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z'],
+                                'coding'      => ['Coding', 'M16 18l6-6-6-6M8 6l-6 6 6 6'],
+                                'math'        => ['Mathematics', 'M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z'],
+                                'science'     => ['Science Experiments', 'M9 3h6M10 3v6.268a2 2 0 01-.56 1.413L4.34 16.76A3 3 0 006.9 21h10.2a3 3 0 002.56-4.24l-5.1-6.079a2 2 0 01-.56-1.413V3'],
+                                'art'         => ['Art & Design', 'M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245 4.5 4.5 0 00-.22-1.128zm0 0L15.75 9.75m-6.465 13.872A2.25 2.25 0 005.3 14.417a5.9 5.9 0 015.622-6.622A2.25 2.25 0 0013.25 2.25H11.25a2.25 2.25 0 00-.965 4.3'],
+                                'leadership'  => ['Leadership', 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z'],
+                                'chess'       => ['Chess & Strategy', 'M3 17h12m-4-7V7a4.5 4.5 0 01-6.8-.9A4 4 0 019 1.5M5 17l1.2-6h4.6L15 8m-1 6h5V7a4 4 0 00-4-4l-2.5-1.5'],
+                                'entrepreneurship' => ['Entrepreneurship', 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z'],
+                            ] as $value => [$label, $svg])
                             <label class="cursor-pointer flex items-center gap-3 px-4 py-3.5 rounded-xl border-2 border-gray-200 hover:border-gray-300 transition-all
                                         {{ in_array($value, old('interests', [])) ? 'border-primary bg-primary/5' : '' }}">
                                 <input type="checkbox" name="interests[]" value="{{ $value }}"
                                        class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
                                        {{ in_array($value, old('interests', [])) ? 'checked' : '' }}>
-                                <span class="text-sm font-semibold"><span class="mr-1.5">{{ $emoji }}</span>{{ $label }}</span>
+                                <span class="w-8 h-8 rounded-lg bg-gray-100 text-gray-500 grid place-items-center flex-shrink-0">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="{{ $svg }}"/></svg>
+                                </span>
+                                <span class="text-sm font-semibold">{{ $label }}</span>
                             </label>
                             @endforeach
                         </div>

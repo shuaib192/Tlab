@@ -1,6 +1,6 @@
 @extends('emails.layout')
 @section('content')
-<h2>Certificate Awarded! 📜</h2>
+<h2>Certificate Awarded</h2>
 <p>Congratulations! <strong>{{ $certificate->child->name }}</strong> has earned a certificate for completing <strong>{{ $certificate->course->title }}</strong>!</p>
 <div class="details">
 <dl>

@@ -26,8 +26,9 @@ class DashboardController extends Controller
             $school = School::find($user->school_id);
         }
 
-        if (!$school) {
+        if (! $school) {
             $schools = School::active()->get();
+
             return view('school.select', compact('schools'));
         }
 
@@ -70,8 +71,8 @@ class DashboardController extends Controller
 
         $students = ChildProfile::whereIn('user_id', User::where('school_id', $school->id)->pluck('id'))
             ->with(['parent', 'enrollments.course', 'attendance'])
-            ->when($request->search, fn($q, $s) => $q->where('name', 'like', "%{$s}%"))
-            ->when($request->course_id, fn($q, $id) => $q->whereHas('enrollments', fn($e) => $e->where('course_id', $id)))
+            ->when($request->search, fn ($q, $s) => $q->where('name', 'like', "%{$s}%"))
+            ->when($request->course_id, fn ($q, $id) => $q->whereHas('enrollments', fn ($e) => $e->where('course_id', $id)))
             ->latest()->paginate(20);
 
         $courses = Course::whereIn('id', Cohort::whereHas('enrollments.child', function ($q) use ($school) {

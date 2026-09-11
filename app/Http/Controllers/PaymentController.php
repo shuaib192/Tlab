@@ -99,7 +99,7 @@ class PaymentController extends Controller
                                 'type' => 'enrollment',
                                 'title' => 'Enrolment Confirmed!',
                                 'body' => ($metadata['child_name'] ?? 'Your child').' is now enrolled in '.($metadata['course_title'] ?? 'your course').'.',
-                                'icon' => '🎉',
+                                'icon' => null,
                                 'link' => route('parent.enrollments.confirmation', $enrollment),
                             ]);
 
@@ -136,7 +136,7 @@ class PaymentController extends Controller
                             'type' => 'payment',
                             'title' => 'Payment Successful!',
                             'body' => "Your {$plan->name} subscription is now active.",
-                            'icon' => '🎉',
+                            'icon' => null,
                             'link' => route('parent.subscription'),
                         ]);
                     }
@@ -280,7 +280,7 @@ class PaymentController extends Controller
                 'type' => 'payment',
                 'title' => 'Payment proof awaiting review',
                 'body' => "{$invoice->invoice_number} — ".auth()->user()->name.' uploaded transfer proof (N'.$invoice->amount.') and is waiting for verification.',
-                'icon' => '🔎',
+                'icon' => null,
                 'link' => route('admin.payments.show', $payment),
             ]);
         }

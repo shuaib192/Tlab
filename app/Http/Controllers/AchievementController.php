@@ -94,17 +94,18 @@ class AchievementController extends Controller
                 Notification::create([
                     'user_id' => $child->user_id,
                     'type' => 'achievement',
-                    'title' => "🏆 {$achievement->name} Unlocked!",
+                    'title' => "{$achievement->name} Unlocked!",
                     'body' => "{$child->name} earned the '{$achievement->name}' badge".
                         ($achievement->xp_reward > 0 ? " (+{$achievement->xp_reward} XP)" : '').'!',
-                    'icon' => $achievement->icon ?? '🏆',
+                    'icon' => null,
                     'link' => route('child.achievements', $child),
                 ]);
                 try {
                     if ($child->parent && $child->parent->email) {
                         Mail::to($child->parent->email)->send(new AchievementUnlocked($achievement, $child));
                     }
-                } catch (\Exception $e) {}
+                } catch (\Exception $e) {
+                }
                 $awarded[] = $achievement->name;
             }
         }

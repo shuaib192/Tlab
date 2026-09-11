@@ -14,7 +14,7 @@
                 {{ auth()->user()->isSuperAdmin() ? 'Super Admin Control Center' : 'Admin Portal' }}
             </div>
             <h1 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight mb-2">
-                Welcome back, {{ auth()->user()->name }} 👋
+                Welcome back, {{ auth()->user()->name }}
             </h1>
             <p class="text-cream/60 text-sm max-w-2xl">
                 Here is what is happening across the TLab ecosystem today. Live stats, revenue trends, and quick access to management tools.
@@ -117,7 +117,9 @@
             </div>
             @if($xpStats['top_child'])
             <div class="flex items-center gap-3 pt-2 border-t border-white/5">
-                <div class="w-7 h-7 rounded-full bg-gold/20 text-gold font-bold text-xs flex items-center justify-center">🏆</div>
+                <div class="w-7 h-7 rounded-full bg-gold/20 text-gold font-bold text-xs flex items-center justify-center">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a3 3 0 013 3v1a7 7 0 01-6 6.92V16h2a1 1 0 110 2H6a1 1 0 110-2h2v-1.08A7 7 0 012 8V7a3 3 0 013-3h1V3a1 1 0 011-1zm-1.5 6a5 5 0 0010 0V7a1 1 0 00-1-1h-8a1 1 0 00-1 1v1z" clip-rule="evenodd"/></svg>
+                </div>
                 <div class="min-w-0">
                     <div class="text-xs text-cream/50">Top Leaderboard Student</div>
                     <div class="text-xs font-bold text-cream truncate">{{ $xpStats['top_child']->name }} <span class="text-gold">({{ number_format($xpStats['top_child']->xp) }} XP)</span></div>
