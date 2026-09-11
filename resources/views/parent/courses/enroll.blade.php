@@ -77,6 +77,8 @@
         Back to {{ $course->club->name }}
     </a>
 
+    @include('parent.partials.stepper', ['step' => 3])
+
     {{-- Course Summary --}}
     <div class="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8 mb-8 reveal">
         <div class="flex items-center gap-4 mb-5">
@@ -99,6 +101,11 @@
             @endif
             @if($course->grade_level)
                 <span class="chip bg-gray-100 text-muted">Grade {{ $course->grade_level }}</span>
+            @endif
+            @if($course->fee)
+                <span class="chip" style="background:{{ $theme['light'] }};color:{{ $theme['accent'] }}">
+                    ₦{{ number_format($course->fee) }}
+                </span>
             @endif
             @if($course->teacher)
                 <span class="chip bg-gray-100 text-muted">
@@ -190,9 +197,9 @@
                         <div>
                             <p class="font-bold text-sm text-ink">What happens next?</p>
                             <ul class="text-sm text-muted mt-2 space-y-1.5">
-                                <li class="flex items-center gap-2">· Your child will be enrolled with <strong>active</strong> status</li>
-                                <li class="flex items-center gap-2">· Payment status will be set to <strong>pending</strong></li>
-                                <li class="flex items-center gap-2">· You can manage enrollment from your dashboard</li>
+                                <li class="flex items-center gap-2">· Your child will be enrolled in this course</li>
+                                <li class="flex items-center gap-2">· You'll be taken to the payment step to confirm the enrolment</li>
+                                <li class="flex items-center gap-2">· Once confirmed, your child can start learning immediately</li>
                             </ul>
                         </div>
                     </div>

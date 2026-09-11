@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PaymentConfirmation;
+use App\Models\Enrollment;
 use App\Models\Invoice;
 use App\Models\Notification;
 use App\Models\Payment;
@@ -11,7 +12,6 @@ use App\Models\SubscriptionPlan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Unicodeveloper\Paystack\Facades\Paystack;
 
@@ -86,7 +86,33 @@ class PaymentController extends Controller
                         'paid_at' => now(),
                     ]);
 
-                    $metadata = $payment->metadata;
+                    $metadata = $payment->metadata ?? [];
+
+                    if (! empty($metadata['enrollment_id'])) {
+                        $enrollment = Enrollment::find($metadata['enrollment_id']);
+
+                        if ($enrollment) {
+                            $enrollment->update(['payment_status' => 'paid']);
+
+                            Notification::create([
+                                'user_id' => $payment->user_id,
+                                'type' => 'enrollment',
+                                'title' => 'Enrolment Confirmed!',
+                                'body' => ($metadata['child_name'] ?? 'Your child').' is now enrolled in '.($metadata['course_title'] ?? 'your course').'.',
+                                'icon' => '🎉',
+                                'link' => route('parent.enrollments.confirmation', $enrollment),
+                            ]);
+
+                            try {
+                                Mail::to($payment->user->email)->send(new PaymentConfirmation($payment, null));
+                            } catch (\Exception $e) {
+                            }
+
+                            return redirect()->route('parent.enrollments.confirmation', $enrollment)
+                                ->with('success', 'Payment successful! Your enrolment is confirmed.');
+                        }
+                    }
+
                     $plan = SubscriptionPlan::find($metadata['plan_id'] ?? null);
 
                     if ($plan) {
@@ -115,7 +141,10 @@ class PaymentController extends Controller
                         ]);
                     }
 
-                    try { Mail::to($payment->user->email)->send(new PaymentConfirmation($payment, $plan)); } catch (\Exception $e) {}
+                    try {
+                        Mail::to($payment->user->email)->send(new PaymentConfirmation($payment, $plan));
+                    } catch (\Exception $e) {
+                    }
 
                     return redirect()->route('parent.subscription')->with('success', 'Payment successful! Your subscription is now active.');
                 }
@@ -124,7 +153,17 @@ class PaymentController extends Controller
 
             $payment->update(['status' => 'failed']);
 
+            if (! empty($payment->metadata['enrollment_id'] ?? null)) {
+                return redirect()->route('parent.courses.payment', $payment->metadata['enrollment_id'])
+                    ->with('error', 'Payment verification failed. Please try again.');
+            }
+
             return redirect()->route('pricing')->with('error', 'Payment verification failed. Please try again.');
+        }
+
+        if (! empty($payment->metadata['enrollment_id'] ?? null)) {
+            return redirect()->route('parent.courses.payment', $payment->metadata['enrollment_id'])
+                ->with('error', 'Payment was cancelled.');
         }
 
         return redirect()->route('pricing')->with('error', 'Payment was cancelled.');
@@ -153,8 +192,14 @@ class PaymentController extends Controller
                     'paid_at' => now(),
                 ]);
 
-                $metadata = $payment->metadata;
+                $metadata = $payment->metadata ?? [];
                 $plan = SubscriptionPlan::find($metadata['plan_id'] ?? null);
+
+                if (! empty($metadata['enrollment_id'])) {
+                    Enrollment::where('id', $metadata['enrollment_id'])
+                        ->where('payment_status', '!=', 'paid')
+                        ->update(['payment_status' => 'paid']);
+                }
 
                 if ($plan) {
                     $endsAt = match ($plan->interval) {

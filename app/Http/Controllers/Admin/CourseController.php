@@ -31,6 +31,7 @@ class CourseController extends Controller
             'title' => 'required|string|max:150',
             'description' => 'nullable|string',
             'level' => 'required|in:beginner,intermediate,advanced',
+            'fee' => 'nullable|integer|min:0',
         ]);
 
         $data['slug'] = Str::slug($data['title']).'-'.now()->timestamp;
@@ -55,6 +56,7 @@ class CourseController extends Controller
             'title' => 'required|string|max:150',
             'description' => 'nullable|string',
             'level' => 'required|in:beginner,intermediate,advanced',
+            'fee' => 'nullable|integer|min:0',
         ]);
 
         $course->update($data);

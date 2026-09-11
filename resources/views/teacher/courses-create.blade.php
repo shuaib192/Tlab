@@ -43,6 +43,11 @@
                     <input type="text" name="grade_level" class="input" placeholder="e.g. Grades 4-6">
                 </div>
             </div>
+            <div class="mb-5">
+                <label class="label">Enrolment Fee (₦) <span class="opacity-60 font-normal">— leave blank for free</span></label>
+                <input type="number" name="fee" class="input" min="0" placeholder="e.g. 5000">
+                @error('fee') <p class="text-terra text-xs font-bold mt-1">{{ $message }}</p> @enderror
+            </div>
             <div class="mb-6 flex items-center gap-3">
                 <input type="hidden" name="is_published" value="0">
                 <input type="checkbox" name="is_published" value="1" class="accent-mint" checked>

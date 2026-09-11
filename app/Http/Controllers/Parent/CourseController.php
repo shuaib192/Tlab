@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Club;
 use App\Models\Course;
 use App\Models\Enrollment;
+use App\Models\Notification;
+use App\Models\Payment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CourseController extends Controller
 {
@@ -72,7 +75,112 @@ class CourseController extends Controller
             'started_at' => now(),
         ]);
 
-        return redirect()->route('parent.courses.show', $course->club)
-            ->with('success', "{$child->name} has been enrolled in {$course->title}!");
+        $enrollment = Enrollment::where('child_profile_id', $child->id)
+            ->where('course_id', $course->id)
+            ->latest()
+            ->first();
+
+        return redirect()->route('parent.courses.payment', $enrollment);
+    }
+
+    public function payment(Enrollment $enrollment)
+    {
+        $parent = auth()->user();
+        $parentChildIds = $parent->children()->pluck('child_profiles.id')->toArray();
+
+        if (! in_array($enrollment->child_profile_id, $parentChildIds)) {
+            abort(403);
+        }
+
+        $enrollment->load(['course.club', 'child']);
+        $payment = Payment::where('metadata->enrollment_id', $enrollment->id)
+            ->whereIn('status', ['pending', 'paid'])
+            ->latest()
+            ->first();
+
+        return view('parent.courses.payment', compact('enrollment', 'payment'));
+    }
+
+    public function pay(Enrollment $enrollment, Request $request)
+    {
+        $parent = auth()->user();
+        $parentChildIds = $parent->children()->pluck('child_profiles.id')->toArray();
+
+        if (! in_array($enrollment->child_profile_id, $parentChildIds)) {
+            abort(403);
+        }
+
+        if ($enrollment->payment_status === 'paid') {
+            return redirect()->route('parent.enrollments.confirmation', $enrollment);
+        }
+
+        $enrollment->load(['course', 'child']);
+        $fee = (int) $enrollment->course->fee;
+
+        if ($fee <= 0) {
+            $enrollment->update(['payment_status' => 'paid']);
+
+            Notification::create([
+                'user_id' => $parent->id,
+                'type' => 'enrollment',
+                'title' => 'Enrolment Confirmed!',
+                'body' => "{$enrollment->child->name} is now enrolled in {$enrollment->course->title}.",
+                'icon' => '🎉',
+                'link' => route('parent.enrollments.confirmation', $enrollment),
+            ]);
+
+            return redirect()->route('parent.enrollments.confirmation', $enrollment)
+                ->with('success', 'Your enrolment is confirmed.');
+        }
+
+        $reference = 'TLAB-ENR-'.strtoupper(Str::random(10));
+
+        $payment = Payment::create([
+            'user_id' => $parent->id,
+            'reference' => $reference,
+            'amount' => $fee,
+            'currency' => 'NGN',
+            'status' => 'pending',
+            'description' => "Enrolment fee for {$enrollment->course->title}",
+            'metadata' => [
+                'enrollment_id' => $enrollment->id,
+                'course_id' => $enrollment->course_id,
+                'course_title' => $enrollment->course->title,
+                'child_profile_id' => $enrollment->child_profile_id,
+                'child_name' => $enrollment->child->name,
+            ],
+        ]);
+
+        try {
+            $paystack = \Unicodeveloper\Paystack\Facades\Paystack::getAuthorizationUrl([
+                'amount' => $fee * 100,
+                'email' => $parent->email,
+                'reference' => $reference,
+                'currency' => 'NGN',
+                'metadata' => json_encode($payment->metadata),
+                'callback_url' => route('payment.callback'),
+            ]);
+
+            return redirect()->away($paystack->url);
+        } catch (\Exception $e) {
+            return back()->with('error', 'Unable to initialize payment. Please try again.');
+        }
+    }
+
+    public function confirmation(Enrollment $enrollment)
+    {
+        $parent = auth()->user();
+        $parentChildIds = $parent->children()->pluck('child_profiles.id')->toArray();
+
+        if (! in_array($enrollment->child_profile_id, $parentChildIds)) {
+            abort(403);
+        }
+
+        $enrollment->load(['course.club', 'child']);
+        $payment = Payment::where('metadata->enrollment_id', $enrollment->id)
+            ->where('status', 'paid')
+            ->first();
+
+        return view('parent.courses.confirmation', compact('enrollment', 'payment'));
     }
 }

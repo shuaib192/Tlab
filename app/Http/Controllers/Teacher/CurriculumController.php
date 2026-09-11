@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use App\Models\Club;
-use App\Models\Course;
 use App\Models\Cohort;
+use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Module;
 use Illuminate\Http\Request;
@@ -33,6 +33,7 @@ class CurriculumController extends Controller
             'description' => 'nullable|string|max:5000',
             'level' => 'nullable|string|max:255',
             'grade_level' => 'nullable|string|max:255',
+            'fee' => 'nullable|integer|min:0',
             'is_published' => 'nullable|boolean',
         ]);
 
@@ -45,6 +46,7 @@ class CurriculumController extends Controller
             'grade_level' => $data['grade_level'] ?? null,
             'teacher_id' => auth()->id(),
             'is_published' => (bool) ($data['is_published'] ?? false),
+            'fee' => $data['fee'] ?? null,
         ]);
 
         return redirect()->route('teacher.course', $course)

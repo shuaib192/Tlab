@@ -35,6 +35,14 @@
         </div>
 
         <div>
+            <label class="label">Enrolment Fee (₦) <span class="opacity-60 font-normal">— leave blank for free</span></label>
+            <input type="number" name="fee" value="{{ old('fee', $course->fee) }}" min="0" class="input" placeholder="e.g. 5000">
+            @error('fee')
+                <p class="text-terra text-xs font-bold mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
             <label class="label">Description</label>
             <textarea name="description" rows="3" class="input resize-none">{{ old('description', $course->description) }}</textarea>
         </div>

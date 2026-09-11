@@ -11,7 +11,7 @@ class Course extends Model
 
     protected $fillable = [
         'club_id', 'title', 'slug', 'description', 'level',
-        'teacher_id', 'grade_level', 'thumbnail', 'is_published',
+        'teacher_id', 'grade_level', 'thumbnail', 'fee', 'is_published',
     ];
 
     protected $casts = ['is_published' => 'boolean'];

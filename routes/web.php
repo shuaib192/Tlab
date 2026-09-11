@@ -84,6 +84,10 @@ Route::middleware(['auth', 'parent'])->prefix('parent')->name('parent.')->group(
     Route::get('/courses/{course}/enroll', [\App\Http\Controllers\Parent\CourseController::class, 'enrollForm'])->name('courses.enroll');
     Route::post('/courses/{course}/enroll', [\App\Http\Controllers\Parent\CourseController::class, 'enroll'])->name('courses.enroll.submit');
 
+    Route::get('/courses/{enrollment}/payment', [\App\Http\Controllers\Parent\CourseController::class, 'payment'])->name('courses.payment');
+    Route::post('/courses/{enrollment}/pay', [\App\Http\Controllers\Parent\CourseController::class, 'pay'])->name('courses.pay');
+    Route::get('/enrollments/{enrollment}/confirmation', [\App\Http\Controllers\Parent\CourseController::class, 'confirmation'])->name('enrollments.confirmation');
+
     // Approval routes
     Route::post('/enrollments/{enrollment}/approve', [\App\Http\Controllers\Parent\ApprovalController::class, 'approveEnrollment'])->name('enrollments.approve');
     Route::post('/uploads/{upload}/approve', [\App\Http\Controllers\Parent\ApprovalController::class, 'approveUpload'])->name('uploads.approve');
