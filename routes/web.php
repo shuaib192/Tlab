@@ -61,6 +61,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/settings/security/disable', [\App\Http\Controllers\TwoFactorController::class, 'disable'])->name('two-factor.disable');
     Route::get('/settings/security/enroll-verify', [\App\Http\Controllers\TwoFactorController::class, 'showEnrollVerify'])->name('two-factor.enroll-verify');
     Route::post('/settings/security/enroll-verify', [\App\Http\Controllers\TwoFactorController::class, 'enrollVerify'])->name('two-factor.enroll-verify.store');
+
+    Route::get('/settings/profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('settings.profile');
+    Route::post('/settings/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('settings.profile.update');
 });
 
 // --- Parent Portal ---
