@@ -50,6 +50,10 @@
                     <a href="{{ route('contact') }}" class="relative py-2 text-xs font-black uppercase tracking-wider text-white/70 hover:text-white transition-colors duration-300 {{ request()->routeIs('contact') ? 'text-white border-b-2 border-primary' : '' }}">
                         Contact
                     </a>
+
+                    <a href="{{ route('programme.landing') }}" class="relative px-4 py-2 text-xs font-black uppercase tracking-wider text-white rounded-xl transition-all duration-300 {{ request()->routeIs('programme.landing') || request()->routeIs('programme.enrol*') ? 'bg-primary' : 'bg-primary/20 hover:bg-primary/40' }}">
+                        Foundational Skills
+                    </a>
                 </div>
 
                 {{-- Action Panel --}}
@@ -111,6 +115,7 @@
 
                 <a href="{{ route('membership') }}" class="block font-black text-xs uppercase tracking-wider text-white/70 hover:text-white py-2">Pricing</a>
                 <a href="{{ route('contact') }}" class="block font-black text-xs uppercase tracking-wider text-white/70 hover:text-white py-2">Contact</a>
+                <a href="{{ route('programme.landing') }}" class="block w-full text-center py-3 rounded-xl bg-primary/20 hover:bg-primary/40 text-xs font-black uppercase tracking-wider text-white transition-colors">Foundational Skills Programme</a>
                 <div class="pt-4 border-t border-white/10 flex flex-col gap-3">
                     @auth
                         <a href="{{ route('parent.dashboard') }}" class="w-full text-center py-3 rounded-xl bg-gradient-to-r from-primary to-accent text-xs font-black uppercase tracking-wider text-white shadow-lg">Dashboard</a>

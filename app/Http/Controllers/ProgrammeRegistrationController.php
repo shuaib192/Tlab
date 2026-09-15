@@ -32,6 +32,11 @@ class ProgrammeRegistrationController extends Controller
         ];
     }
 
+    public function landing()
+    {
+        return view('programme-landing');
+    }
+
     public function enrol()
     {
         return view('enrol');

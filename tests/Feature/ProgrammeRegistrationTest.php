@@ -24,9 +24,9 @@ class ProgrammeRegistrationTest extends TestCase
         'consent' => '1',
     ];
 
-    public function test_home_page_lists_programme_sections(): void
+    public function test_landing_page_lists_programme_sections(): void
     {
-        $this->get(route('home'))
+        $this->get(route('programme.landing'))
             ->assertStatus(200)
             ->assertSee('Practical Skills for')
             ->assertSee('Choose a Programme')

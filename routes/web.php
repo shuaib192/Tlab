@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PageController::class, 'home'])->name('home');
 
 // --- Programme Enrolment (Guest) ---
+Route::get('/foundational-skills', [\App\Http\Controllers\ProgrammeRegistrationController::class, 'landing'])->name('programme.landing');
 Route::get('/enrol', [\App\Http\Controllers\ProgrammeRegistrationController::class, 'enrol'])->name('programme.enrol');
 Route::post('/enrol', [\App\Http\Controllers\ProgrammeRegistrationController::class, 'store'])->name('programme.enrol.store');
 Route::get('/enrol/success', [\App\Http\Controllers\ProgrammeRegistrationController::class, 'success'])->name('programme.enrol.success');
