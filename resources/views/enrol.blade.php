@@ -24,9 +24,8 @@
 
     <nav class="landing-nav sticky top-0 z-50 border-b border-gray-100">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-            <a href="{{ route('home') }}" class="flex items-center gap-2 font-black text-xl">
-                <svg class="w-6 h-6" fill="none" stroke="#16A34A" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                TLab
+            <a href="{{ route('home') }}" class="flex items-center gap-2">
+                <img src="/images/tlab-logo-black.png" alt="TLab" class="h-8 w-auto">
             </a>
             <a href="{{ route('programme.enrol') }}" class="landing-cta rounded-xl px-5 py-2.5 text-sm font-bold">Register Your Child</a>
         </div>
