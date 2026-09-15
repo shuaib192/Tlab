@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CarouselSlide;
 use App\Models\Program;
 use Illuminate\Http\Request;
 
@@ -81,9 +80,7 @@ class PageController extends Controller
 
     public function home()
     {
-        $slides = CarouselSlide::active();
-
-        return view('welcome', compact('slides'));
+        return view('home');
     }
 
     public function about()

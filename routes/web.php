@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Route;
 // --- Public Landing Page ---
 Route::get('/', [PageController::class, 'home'])->name('home');
 
+// --- Programme Enrolment (Guest) ---
+Route::get('/enrol', [\App\Http\Controllers\ProgrammeRegistrationController::class, 'enrol'])->name('programme.enrol');
+Route::post('/enrol', [\App\Http\Controllers\ProgrammeRegistrationController::class, 'store'])->name('programme.enrol.store');
+Route::get('/enrol/success', [\App\Http\Controllers\ProgrammeRegistrationController::class, 'success'])->name('programme.enrol.success');
+
 // --- Public Pages ---
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/clubs', [PageController::class, 'clubs'])->name('clubs');
@@ -251,6 +256,11 @@ Route::middleware(['auth', '2fa', 'admin'])->prefix('admin')->name('admin.')->gr
     Route::post('payments/{payment}/verify', [\App\Http\Controllers\Admin\PaymentController::class, 'verify'])->name('payments.verify');
     Route::post('payments/{payment}/reject', [\App\Http\Controllers\Admin\PaymentController::class, 'reject'])->name('payments.reject');
 
+    // Programme Registrations
+    Route::get('programme-registrations', [\App\Http\Controllers\Admin\ProgrammeRegistrationController::class, 'index'])->name('programme-registrations.index');
+    Route::get('programme-registrations/{programmeRegistration}', [\App\Http\Controllers\Admin\ProgrammeRegistrationController::class, 'show'])->name('programme-registrations.show');
+    Route::post('programme-registrations/{programmeRegistration}/verify', [\App\Http\Controllers\Admin\ProgrammeRegistrationController::class, 'verify'])->name('programme-registrations.verify');
+
     // Super Admin Only — System & Sensitive
     Route::middleware('super_admin')->group(function () {
         Route::get('settings', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
@@ -293,11 +303,9 @@ Route::middleware(['auth', '2fa', 'admin'])->prefix('admin')->name('admin.')->gr
 Route::get('/pricing', [\App\Http\Controllers\PaymentController::class, 'pricing'])->name('pricing');
 
 // --- Payments ---
-Route::middleware('auth')->group(function () {
-    Route::post('/payment/checkout', [\App\Http\Controllers\PaymentController::class, 'checkout'])->name('payment.checkout');
-    Route::get('/payment/callback', [\App\Http\Controllers\PaymentController::class, 'callback'])->name('payment.callback');
-    Route::post('/payment/proof', [\App\Http\Controllers\PaymentController::class, 'uploadProof'])->name('payment.proof');
-});
+Route::post('/payment/checkout', [\App\Http\Controllers\PaymentController::class, 'checkout'])->name('payment.checkout')->middleware('auth');
+Route::get('/payment/callback', [\App\Http\Controllers\PaymentController::class, 'callback'])->name('payment.callback');
+Route::post('/payment/proof', [\App\Http\Controllers\PaymentController::class, 'uploadProof'])->name('payment.proof')->middleware('auth');
 Route::post('/payment/webhook', [\App\Http\Controllers\PaymentController::class, 'webhook'])->name('payment.webhook')->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
 
 // --- Parent Payment & Subscription ---

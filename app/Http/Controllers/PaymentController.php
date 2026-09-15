@@ -7,6 +7,7 @@ use App\Models\Enrollment;
 use App\Models\Invoice;
 use App\Models\Notification;
 use App\Models\Payment;
+use App\Models\ProgrammeRegistration;
 use App\Models\Subscription;
 use App\Models\SubscriptionPlan;
 use App\Models\User;
@@ -72,6 +73,31 @@ class PaymentController extends Controller
 
     public function callback(Request $request)
     {
+        if (! $request->filled('reference')) {
+            return redirect()->route('pricing');
+        }
+
+        $registration = ProgrammeRegistration::where('reference', $request->reference)->first();
+
+        if ($registration) {
+            if ($request->trxref && $request->reference) {
+                try {
+                    $verification = Paystack::getPaymentData($request->reference);
+
+                    if ($verification['data']['status'] === 'success') {
+                        $registration->recordPaystackSuccess($verification['data']);
+
+                        return redirect()->route('programme.enrol.success', ['reference' => $registration->reference])
+                            ->with('success', 'Registration received. Your payment was successful.');
+                    }
+                } catch (\Exception $e) {
+                }
+            }
+
+            return redirect()->route('programme.enrol')
+                ->with('error', 'Payment verification failed or was cancelled. Please try again.');
+        }
+
         $payment = Payment::where('reference', $request->reference)->firstOrFail();
 
         if ($request->trxref && $request->reference) {
@@ -182,6 +208,14 @@ class PaymentController extends Controller
         if ($event === 'charge.success') {
             $data = $input['data'];
             $reference = $data['reference'];
+
+            $registration = ProgrammeRegistration::where('reference', $reference)->first();
+
+            if ($registration && $registration->status !== 'paid') {
+                $registration->recordPaystackSuccess($data);
+
+                return response()->json(['status' => 'ok']);
+            }
 
             $payment = Payment::where('reference', $reference)->first();
             if ($payment && $payment->status !== 'paid') {
