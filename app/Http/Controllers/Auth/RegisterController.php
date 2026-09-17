@@ -26,6 +26,11 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+        // Honeypot: hidden field bots auto-fill, humans cannot see it. Silently dismiss.
+        if ($request->filled('website')) {
+            return redirect()->route('home');
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email',

@@ -95,6 +95,11 @@
 
                 <form method="POST" action="{{ route('register') }}" class="space-y-4">
                     @csrf
+                    <div class="reg-honeypot" aria-hidden="true"
+                        style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+                        <label for="website">Website</label>
+                        <input id="website" type="text" name="website" tabindex="-1" autocomplete="off">
+                    </div>
                     <div>
                         <label for="reg_name" class="form-label">Full Name</label>
                         <input id="reg_name" type="text" name="name" value="{{ old('name') }}" required class="form-input"

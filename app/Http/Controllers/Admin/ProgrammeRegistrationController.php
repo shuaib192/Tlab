@@ -16,12 +16,27 @@ class ProgrammeRegistrationController extends Controller
             $query->where('status', $request->status);
         }
 
-        $registrations = $query->paginate(20);
+        if ($request->filled('q')) {
+            $term = trim($request->q);
+            $query->where(function ($each) use ($term) {
+                $each->where('child_name', 'like', "%{$term}%")
+                    ->orWhere('parent_name', 'like', "%{$term}%")
+                    ->orWhere('email', 'like', "%{$term}%")
+                    ->orWhere('phone', 'like', "%{$term}%")
+                    ->orWhere('reference', 'like', "%{$term}%");
+            });
+        }
+
+        $registrations = $query->paginate(20)->withQueryString();
         $totalRevenue = ProgrammeRegistration::where('status', 'paid')->sum('amount');
         $pendingCount = ProgrammeRegistration::where('status', 'pending')->count();
         $paidCount = ProgrammeRegistration::where('status', 'paid')->count();
+        $failedCount = ProgrammeRegistration::where('status', 'failed')->count();
+        $totalCount = ProgrammeRegistration::count();
 
-        return view('admin.programme-registrations.index', compact('registrations', 'totalRevenue', 'pendingCount', 'paidCount'));
+        return view('admin.programme-registrations.index', compact(
+            'registrations', 'totalRevenue', 'pendingCount', 'paidCount', 'failedCount', 'totalCount'
+        ));
     }
 
     public function show(ProgrammeRegistration $programmeRegistration)
