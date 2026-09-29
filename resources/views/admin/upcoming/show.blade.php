@@ -74,7 +74,7 @@
     @else
         <div class="space-y-2">
             @foreach($enrollments as $en)
-            <div class="flex items-center justify-between py-2 border-b border-white/5">
+            <div class="flex items-center justify-between py-2 border-b border-gray-200">
                 <span class="text-sm font-semibold">{{ $en->child->name ?? 'Child #'.$en->child_profile_id }}</span>
                 <span class="text-xs text-cream/40">Parent: {{ $en->child->parent->name ?? '—' }} · {{ $en->child->parent->email ?? '' }}</span>
             </div>

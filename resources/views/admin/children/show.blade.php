@@ -8,7 +8,7 @@
         Back to Children
     </a>
     <div class="flex items-center gap-4">
-        @php $rankColors = ['Explorer'=>'#4E9966','Innovator'=>'#D4A224','Builder'=>'#C24B1E','Creator'=>'#6B3FA0','Master Inventor'=>'#2E8BC0']; $color = $rankColors[$child->rank] ?? '#4E9966'; @endphp
+        @php $rankColors = ['Explorer'=>'#0DAA9C','Innovator'=>'#96690A','Builder'=>'#B03F14','Creator'=>'#6B3FA0','Master Inventor'=>'#2E8BC0']; $color = $rankColors[$child->rank] ?? '#0DAA9C'; @endphp
         <div class="w-16 h-16 rounded-2xl flex items-center justify-center font-display font-black text-3xl flex-shrink-0"
              style="background:{{ $color }}15; border:2px solid {{ $color }}35; color:{{ $color }}">
             {{ strtoupper(substr($child->name, 0, 1)) }}
@@ -49,7 +49,7 @@
     <div class="card p-6">
         <h2 class="font-display text-lg font-bold mb-4">Enrolled Courses</h2>
         @forelse($child->enrollments as $e)
-        <div class="flex items-center justify-between py-2 border-b border-white/5 last:border-0">
+        <div class="flex items-center justify-between py-2 border-b border-gray-200 last:border-0">
             <div>
                 <div class="font-semibold text-sm">{{ $e->course->title ?? 'N/A' }}</div>
                 <div class="text-cream/40 text-xs">{{ $e->course->club->name ?? '' }}</div>
@@ -65,7 +65,7 @@
     <div class="card p-6">
         <h2 class="font-display text-lg font-bold mb-4">XP History</h2>
         @forelse($child->xpLogs as $log)
-        <div class="flex items-center justify-between py-2 border-b border-white/5 last:border-0">
+        <div class="flex items-center justify-between py-2 border-b border-gray-200 last:border-0">
             <div>
                 <div class="font-medium text-sm">{{ $log->activity }}</div>
                 <div class="text-cream/40 text-xs">{{ $log->created_at->diffForHumans() }}</div>

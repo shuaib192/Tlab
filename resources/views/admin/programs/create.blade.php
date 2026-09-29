@@ -11,7 +11,7 @@
         <span class="text-cream/60 font-mono text-xs uppercase">// FABRICATE NEW PROGRAM //</span>
     </div>
 
-    <div class="card p-6 sm:p-8 border-2 border-white/10 rounded-2xl shadow-[6px_6px_0px_rgba(0,0,0,0.5)]">
+    <div class="card p-6 sm:p-8 border-2 border-gray-200 rounded-2xl shadow-[6px_6px_0px_rgba(0,0,0,0.5)]">
         <h1 class="font-display text-2xl sm:text-3xl font-black text-cream mb-2">
             Fabricate STEAM Program
         </h1>
@@ -79,7 +79,7 @@
                           placeholder="Describe the philosophical and practical core of this learning pillar...">{{ old('description') }}</textarea>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-white/5">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-gray-200">
                 <div>
                     <label class="label font-mono text-xs">What They Learn (1 per line)</label>
                     <textarea name="what_learn" rows="5" class="input font-mono text-xs"
@@ -101,13 +101,13 @@
 
             <div class="flex items-center gap-3 pt-4">
                 <input type="checkbox" name="is_active" id="is_active" value="1" checked
-                       class="w-4 h-4 rounded border-white/20 bg-surface text-mint focus:ring-mint">
+                       class="w-4 h-4 rounded border-gray-300 bg-surface text-mint focus:ring-mint">
                 <label for="is_active" class="font-mono text-xs text-cream/70 cursor-pointer">
                     Broadcast Program Live to Public Registry
                 </label>
             </div>
 
-            <div class="flex items-center justify-end gap-3 pt-6 border-t border-white/10">
+            <div class="flex items-center justify-end gap-3 pt-6 border-t border-gray-200">
                 <a href="{{ route('admin.programs.index') }}" class="btn-secondary font-mono text-xs">Cancel</a>
                 <button type="submit" class="btn-primary font-mono text-xs uppercase tracking-wider px-8 shadow-[3px_3px_0px_#000]">
                     Save &amp; Build Growth Line &rarr;

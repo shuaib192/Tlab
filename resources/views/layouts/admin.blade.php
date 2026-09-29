@@ -15,52 +15,52 @@
     <noscript><link rel="stylesheet" href="/css/tlab.css"></noscript>
     <style>
         html {
-            --c-ink: 8 13 10;
-            --c-cream: 250 245 232;
-            --c-mint: 78 153 102;
-            --c-primary: 78 153 102;
-            --c-gold: 212 162 36;
-            --c-amber: 217 119 6;
-            --c-coral: 239 68 68;
+            --c-ink: 11 31 28;
+            --c-cream: 15 32 30;
+            --c-mint: 13 170 156;
+            --c-primary: 13 170 156;
+            --c-gold: 180 132 20;
+            --c-amber: 200 108 6;
+            --c-coral: 214 61 44;
             --c-terra: 194 75 30;
             --c-violet: 107 63 160;
             --c-accent: 124 58 237;
             --c-sky: 46 139 192;
-            --c-panel: 15 22 18;
-            --c-surface: 20 26 22;
+            --c-panel: 248 250 249;
+            --c-surface: 255 255 255;
             --font-sans: 'Outfit', sans-serif;
             --font-display: 'Syne', sans-serif;
         }
     </style>
 
     <style>
-        body { background:#080D0A; color:#FAF5E8; font-family:'Outfit',sans-serif; }
-        .sidebar { width:256px; min-height:100vh; background:#0F1612; border-right:1px solid rgba(250,245,232,0.06); flex-shrink:0; }
-        .sidebar-link { display:flex; align-items:center; gap:12px; padding:10px 16px; border-radius:10px; font-weight:600; font-size:0.875rem; color:rgba(250,245,232,0.55); transition:all 0.15s; }
-        .sidebar-link:hover { color:#FAF5E8; background:rgba(250,245,232,0.06); }
-        .sidebar-link.active { color:#FAF5E8; background:rgba(78,153,102,0.15); border-left:3px solid #4E9966; }
-        .sidebar-section { font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:rgba(250,245,232,0.25); padding:16px 16px 6px; }
-        .glass { background:rgba(250,245,232,0.03); border:1px solid rgba(250,245,232,0.07); }
-        .card { background:#141A16; border:1px solid rgba(250,245,232,0.07); border-radius:16px; }
-        .btn-primary { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; font-weight:700; font-size:0.875rem; color:#fff; background:linear-gradient(135deg,#4E9966,#2a6e44); transition:all 0.15s; }
-        .btn-primary:hover { opacity:0.9; transform:scale(1.02); }
-        .btn-secondary { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; font-weight:700; font-size:0.875rem; color:rgba(250,245,232,0.7); background:rgba(250,245,232,0.06); border:1px solid rgba(250,245,232,0.1); transition:all 0.15s; }
-        .btn-secondary:hover { color:#FAF5E8; background:rgba(250,245,232,0.1); }
-        .btn-danger { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:8px; font-weight:600; font-size:0.8rem; color:#C24B1E; background:rgba(194,75,30,0.1); border:1px solid rgba(194,75,30,0.25); transition:all 0.15s; }
-        .btn-danger:hover { background:rgba(194,75,30,0.2); }
-        .input { width:100%; padding:12px 16px; border-radius:10px; background:rgba(250,245,232,0.04); border:1px solid rgba(250,245,232,0.1); color:#FAF5E8; font-size:0.875rem; transition:all 0.15s; outline:none; }
-        .input:focus { border-color:#4E9966; background:rgba(78,153,102,0.05); }
-        .input::placeholder { color:rgba(250,245,232,0.25); }
-        .label { display:block; font-size:0.8rem; font-weight:700; color:rgba(250,245,232,0.6); margin-bottom:6px; }
+        body { background:#F7F9F9; color:#0F201E; font-family:'Outfit',sans-serif; }
+        .sidebar { width:256px; min-height:100vh; background:#FFFFFF; border-right:1px solid #E7ECEB; flex-shrink:0; }
+        .sidebar-link { display:flex; align-items:center; gap:12px; padding:10px 16px; border-radius:10px; font-weight:600; font-size:0.875rem; color:#5B6B69; transition:all 0.15s; }
+        .sidebar-link:hover { color:#0F201E; background:#F1F5F4; }
+        .sidebar-link.active { color:#0A7A6E; background:rgba(13,170,156,0.10); border-left:3px solid #0DAA9C; }
+        .sidebar-section { font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:#9AA8A6; padding:16px 16px 6px; }
+        .glass { background:#FFFFFF; border:1px solid #E7ECEB; }
+        .card { background:#FFFFFF; border:1px solid #E7ECEB; border-radius:16px; box-shadow:0 1px 2px rgba(15,32,30,0.04); }
+        .btn-primary { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; font-weight:700; font-size:0.875rem; color:#fff; background:#0DAA9C; transition:all 0.15s; }
+        .btn-primary:hover { background:#0A9184; transform:scale(1.02); }
+        .btn-secondary { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; font-weight:700; font-size:0.875rem; color:#41524F; background:#FFFFFF; border:1px solid #DDE4E3; transition:all 0.15s; }
+        .btn-secondary:hover { color:#0F201E; background:#F1F5F4; }
+        .btn-danger { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:8px; font-weight:600; font-size:0.8rem; color:#B03F14; background:rgba(194,75,30,0.08); border:1px solid rgba(194,75,30,0.25); transition:all 0.15s; }
+        .btn-danger:hover { background:rgba(194,75,30,0.15); }
+        .input { width:100%; padding:12px 16px; border-radius:10px; background:#FFFFFF; border:1px solid #DDE4E3; color:#0F201E; font-size:0.875rem; transition:all 0.15s; outline:none; }
+        .input:focus { border-color:#0DAA9C; box-shadow:0 0 0 3px rgba(13,170,156,0.12); }
+        .input::placeholder { color:#9AA8A6; }
+        .label { display:block; font-size:0.8rem; font-weight:700; color:#41524F; margin-bottom:6px; }
         .badge { display:inline-flex; padding:3px 10px; border-radius:999px; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; }
-        .badge-green  { background:rgba(78,153,102,0.15); color:#4E9966; border:1px solid rgba(78,153,102,0.3); }
-        .badge-gold   { background:rgba(212,162,36,0.15); color:#D4A224; border:1px solid rgba(212,162,36,0.3); }
-        .badge-red    { background:rgba(194,75,30,0.15);  color:#C24B1E; border:1px solid rgba(194,75,30,0.3); }
-        .badge-gray   { background:rgba(250,245,232,0.07); color:rgba(250,245,232,0.5); border:1px solid rgba(250,245,232,0.1); }
-        .flash-success { padding:12px 18px; border-radius:10px; background:rgba(78,153,102,0.12); border:1px solid rgba(78,153,102,0.35); color:#4E9966; font-weight:600; margin-bottom:20px; }
-        .flash-error   { padding:12px 18px; border-radius:10px; background:rgba(194,75,30,0.12); border:1px solid rgba(194,75,30,0.35); color:#C24B1E; font-weight:600; margin-bottom:20px; }
-        .table-row { border-bottom:1px solid rgba(250,245,232,0.05); transition:background 0.12s; }
-        .table-row:hover { background:rgba(250,245,232,0.03); }
+        .badge-green  { background:rgba(13,170,156,0.12); color:#0A7A6E; border:1px solid rgba(13,170,156,0.3); }
+        .badge-gold   { background:rgba(180,132,20,0.14); color:#96690A; border:1px solid rgba(180,132,20,0.32); }
+        .badge-red    { background:rgba(194,75,30,0.12);  color:#B03F14; border:1px solid rgba(194,75,30,0.3); }
+        .badge-gray   { background:#F1F5F4; color:#5B6B69; border:1px solid #E1E8E7; }
+        .flash-success { padding:12px 18px; border-radius:10px; background:rgba(13,170,156,0.10); border:1px solid rgba(13,170,156,0.35); color:#0A7A6E; font-weight:600; margin-bottom:20px; }
+        .flash-error   { padding:12px 18px; border-radius:10px; background:rgba(194,75,30,0.08); border:1px solid rgba(194,75,30,0.3); color:#B03F14; font-weight:600; margin-bottom:20px; }
+        .table-row { border-bottom:1px solid #EDF1F1; transition:background 0.12s; }
+        .table-row:hover { background:#F7FAFA; }
         /* Mobile sidebar toggle */
         #sidebar { transform:translateX(-100%); transition:transform 0.25s ease; }
         #sidebar.open { transform:translateX(0); }
@@ -80,9 +80,9 @@
     <!-- Sidebar -->
     <aside id="sidebar" class="fixed lg:relative z-40 sidebar flex flex-col">
         <!-- Logo -->
-        <div class="px-5 py-6 border-b border-white/5">
+        <div class="px-5 py-6 border-b border-gray-200">
             <div class="flex items-center gap-3">
-                <img src="/images/tlab-logo-white.png" alt="TLab" class="h-7 w-auto">
+                <img src="/images/tlab-logo-black.png" alt="TLab" class="h-7 w-auto">
             </div>
         </div>
 
@@ -209,7 +209,7 @@
                 Carousel Slides
             </a>
 
-            <div class="pt-4 mt-4 border-t border-white/5">
+            <div class="pt-4 mt-4 border-t border-gray-200">
                 <a href="{{ route('settings.security') }}"
                    class="sidebar-link {{ request()->routeIs('settings.security') ? 'active' : '' }}">
                     <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
@@ -231,7 +231,7 @@
         </nav>
 
         <!-- Admin Info -->
-        <div class="px-4 py-4 border-t border-white/5">
+        <div class="px-4 py-4 border-t border-gray-200">
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-lg bg-mint/10 border border-mint/20 flex items-center justify-center text-xs font-bold text-mint">
                     {{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
@@ -247,7 +247,7 @@
     <!-- Main Content -->
     <div class="flex-1 flex flex-col min-w-0">
         <!-- Top Bar (mobile) -->
-        <div class="lg:hidden flex items-center justify-between px-4 py-4 border-b border-white/5 bg-panel">
+        <div class="lg:hidden flex items-center justify-between px-4 py-4 border-b border-gray-200 bg-panel">
             <button onclick="openSidebar()" class="p-2 rounded-lg glass">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
             </button>

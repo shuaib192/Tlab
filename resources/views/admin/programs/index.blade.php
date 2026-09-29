@@ -3,7 +3,7 @@
 @section('content')
 
 {{-- Tactical Header --}}
-<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 border-b border-white/10 pb-6">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 border-b border-gray-200 pb-6">
     <div>
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-mint/10 border border-mint/30 text-mint text-xs font-mono font-bold uppercase tracking-widest mb-3">
             <span class="w-2 h-2 rounded-full bg-mint animate-pulse"></span>
@@ -59,7 +59,7 @@
             </div>
 
             {{-- Tagline --}}
-            <div class="text-xs font-bold text-cream/80 italic mb-4 pb-3 border-b border-white/5" style="color: {{ $program->color }}">
+            <div class="text-xs font-bold text-cream/80 italic mb-4 pb-3 border-b border-gray-200" style="color: {{ $program->color }}">
                 "{{ $program->tagline ?? 'No protocol slogan recorded.' }}"
             </div>
 
@@ -69,7 +69,7 @@
             </p>
 
             {{-- Growth Line Telemetry --}}
-            <div class="bg-surface rounded-xl p-4 border border-white/5 mb-6">
+            <div class="bg-surface rounded-xl p-4 border border-gray-200 mb-6">
                 <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-mono mb-2">
                     <span class="text-cream/40 uppercase tracking-wider">Growth Line Stages</span>
                     <span class="font-bold px-2 py-0.5 rounded text-ink" style="background: {{ $program->color }};">
@@ -80,7 +80,7 @@
                 {{-- Visual stage conduit pips --}}
                 <div class="flex items-center gap-1.5 mt-3">
                     @for($i = 1; $i <= max(5, $program->growth_stages_count); $i++)
-                        <div class="flex-1 h-2 rounded-sm {{ $i <= $program->growth_stages_count ? '' : 'bg-white/5' }}"
+                        <div class="flex-1 h-2 rounded-sm {{ $i <= $program->growth_stages_count ? '' : 'bg-gray-50' }}"
                              style="{{ $i <= $program->growth_stages_count ? 'background:' . $program->color . ';' : '' }}"></div>
                     @endfor
                 </div>
@@ -88,7 +88,7 @@
         </div>
 
         {{-- Actions --}}
-        <div class="pt-4 border-t border-white/5 flex items-center justify-between gap-3">
+        <div class="pt-4 border-t border-gray-200 flex items-center justify-between gap-3">
             <a href="{{ route('admin.programs.edit', $program) }}"
                class="btn-primary w-full justify-center text-xs font-mono font-bold tracking-wider uppercase py-2.5 shadow-[2px_2px_0px_#000]"
                style="background: {{ $program->color }}; color: #000;">
@@ -106,7 +106,7 @@
 
     </div>
     @empty
-    <div class="col-span-full py-16 text-center border-2 border-dashed border-white/10 rounded-2xl">
+    <div class="col-span-full py-16 text-center border-2 border-dashed border-gray-200 rounded-2xl">
         <p class="text-cream/40 font-mono text-sm mb-4">// NO STEAM PROGRAM PROTOCOLS INITIALIZED //</p>
         <a href="{{ route('admin.programs.create') }}" class="btn-primary font-mono text-xs">Initialize First Program</a>
     </div>

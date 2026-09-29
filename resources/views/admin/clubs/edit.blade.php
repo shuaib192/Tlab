@@ -44,7 +44,7 @@
                 <label class="label">Brand Color</label>
                 <div class="flex items-center gap-3">
                     <input type="color" name="color_theme" value="{{ old('color_theme', $club->color_theme) }}"
-                           class="h-12 w-16 rounded-lg cursor-pointer border border-white/10 bg-transparent">
+                           class="h-12 w-16 rounded-lg cursor-pointer border border-gray-200 bg-transparent">
                     <span class="text-cream/50 text-sm">Current: <strong>{{ $club->color_theme }}</strong></span>
                 </div>
             </div>

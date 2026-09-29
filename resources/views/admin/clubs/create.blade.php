@@ -43,8 +43,8 @@
             <div>
                 <label class="label">Brand Color</label>
                 <div class="flex items-center gap-3">
-                    <input type="color" name="color_theme" value="{{ old('color_theme', '#4E9966') }}"
-                           class="h-12 w-16 rounded-lg cursor-pointer border border-white/10 bg-transparent">
+                    <input type="color" name="color_theme" value="{{ old('color_theme', '#0DAA9C') }}"
+                           class="h-12 w-16 rounded-lg cursor-pointer border border-gray-200 bg-transparent">
                     <span class="text-cream/50 text-sm">Pick a color for this club's theme</span>
                 </div>
             </div>

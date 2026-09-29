@@ -17,7 +17,7 @@
 {{-- Stats --}}
 <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
     <div class="card p-5 flex items-start gap-4">
-        <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(78,153,102,0.15);color:#4E9966;">
+        <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(13,170,156,0.12);color:#0A7A6E;">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
         </div>
         <div>
@@ -28,7 +28,7 @@
     </div>
 
     <div class="card p-5 flex items-start gap-4">
-        <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(78,153,102,0.15);color:#4E9966;">
+        <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(13,170,156,0.12);color:#0A7A6E;">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         </div>
         <div>
@@ -39,7 +39,7 @@
     </div>
 
     <div class="card p-5 flex items-start gap-4">
-        <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(212,162,36,0.15);color:#D4A224;">
+        <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(180,132,20,0.14);color:#96690A;">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         </div>
         <div>
@@ -50,7 +50,7 @@
     </div>
 
     <div class="card p-5 flex items-start gap-4">
-        <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(194,75,30,0.15);color:#C24B1E;">
+        <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(194,75,30,0.12);color:#B03F14;">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
         </div>
         <div>
@@ -81,7 +81,7 @@
 <div class="card overflow-hidden">
     @if($registrations->isEmpty())
         <div class="py-20 text-center">
-            <div class="w-14 h-14 mx-auto mb-4 rounded-2xl flex items-center justify-center" style="background:rgba(250,245,232,0.06);color:rgba(250,245,232,0.3);">
+            <div class="w-14 h-14 mx-auto mb-4 rounded-2xl flex items-center justify-center" style="background:#F1F5F4;color:#9AA8A6;">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
             </div>
             <div class="text-cream font-bold mb-1">No registrations found</div>
@@ -91,7 +91,7 @@
     <div class="overflow-x-auto">
         <table class="w-full">
             <thead>
-                <tr class="border-b border-white/5">
+                <tr class="border-b border-gray-200">
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40">Child</th>
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40">Parent</th>
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40 hidden lg:table-cell">Programme</th>
@@ -107,7 +107,7 @@
                 <tr class="table-row cursor-pointer" onclick="window.location='{{ route('admin.programme-registrations.show', $registration) }}'">
                     <td class="px-6 py-4">
                         <div class="flex items-center gap-3">
-                            <span class="w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0" style="background:rgba(78,153,102,0.18);color:#6FBE8B;">
+                            <span class="w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0" style="background:rgba(13,170,156,0.14);color:#0A7A6E;">
                                 {{ strtoupper(substr($registration->child_name, 0, 1)) }}{{ strtoupper(substr($registration->child_name, strpos($registration->child_name, ' ') ? strpos($registration->child_name, ' ') + 1 : 1, 1)) }}
                             </span>
                             <div>

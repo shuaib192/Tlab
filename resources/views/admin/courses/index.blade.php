@@ -17,7 +17,7 @@
     <div class="overflow-x-auto">
         <table class="w-full">
             <thead>
-                <tr class="border-b border-white/5">
+                <tr class="border-b border-gray-200">
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40">Course</th>
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40 hidden sm:table-cell">Club</th>
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40 hidden md:table-cell">Level</th>
@@ -32,7 +32,7 @@
                         <div class="text-cream/40 text-xs mt-0.5 hidden sm:block">{{ Str::limit($course->description, 60) }}</div>
                     </td>
                     <td class="px-6 py-4 hidden sm:table-cell">
-                        <span class="badge" style="background:{{ $course->club->color_theme ?? '#4E9966' }}15; color:{{ $course->club->color_theme ?? '#4E9966' }}; border:1px solid {{ $course->club->color_theme ?? '#4E9966' }}30">
+                        <span class="badge" style="background:{{ $course->club->color_theme ?? '#0DAA9C' }}15; color:{{ $course->club->color_theme ?? '#0DAA9C' }}; border:1px solid {{ $course->club->color_theme ?? '#0DAA9C' }}30">
                             {{ $course->club->name ?? 'Unassigned' }}
                         </span>
                     </td>
@@ -60,7 +60,7 @@
         </table>
     </div>
     @if($courses->hasPages())
-    <div class="px-6 py-4 border-t border-white/5">{{ $courses->links() }}</div>
+    <div class="px-6 py-4 border-t border-gray-200">{{ $courses->links() }}</div>
     @endif
 </div>
 @endsection

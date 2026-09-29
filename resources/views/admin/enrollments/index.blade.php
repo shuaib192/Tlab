@@ -36,7 +36,7 @@
     <div class="overflow-x-auto">
         <table class="w-full">
             <thead>
-                <tr class="border-b border-white/5">
+                <tr class="border-b border-gray-200">
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40">Child</th>
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40 hidden sm:table-cell">Course</th>
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40 hidden md:table-cell">Status</th>
@@ -70,12 +70,12 @@
                             {{-- Inline quick-update form --}}
                             <form method="POST" action="{{ route('admin.enrollments.update', $enrollment) }}" class="flex gap-1">
                                 @csrf @method('PUT')
-                                <select name="status" class="text-xs bg-white/5 border border-white/10 rounded-lg px-2 py-1.5 text-cream/70 focus:outline-none focus:border-mint">
+                                <select name="status" class="text-xs bg-gray-50 border border-gray-200 rounded-lg px-2 py-1.5 text-cream/70 focus:outline-none focus:border-mint">
                                     <option value="active"    {{ $enrollment->status === 'active'    ? 'selected' : '' }}>Active</option>
                                     <option value="completed" {{ $enrollment->status === 'completed' ? 'selected' : '' }}>Completed</option>
                                     <option value="dropped"   {{ $enrollment->status === 'dropped'   ? 'selected' : '' }}>Dropped</option>
                                 </select>
-                                <select name="payment_status" class="text-xs bg-white/5 border border-white/10 rounded-lg px-2 py-1.5 text-cream/70 focus:outline-none focus:border-mint">
+                                <select name="payment_status" class="text-xs bg-gray-50 border border-gray-200 rounded-lg px-2 py-1.5 text-cream/70 focus:outline-none focus:border-mint">
                                     <option value="pending" {{ $enrollment->payment_status === 'pending' ? 'selected' : '' }}>Pending</option>
                                     <option value="paid"    {{ $enrollment->payment_status === 'paid'    ? 'selected' : '' }}>Paid</option>
                                 </select>
@@ -96,7 +96,7 @@
         </table>
     </div>
     @if($enrollments->hasPages())
-    <div class="px-6 py-4 border-t border-white/5">{{ $enrollments->links() }}</div>
+    <div class="px-6 py-4 border-t border-gray-200">{{ $enrollments->links() }}</div>
     @endif
 </div>
 @endsection

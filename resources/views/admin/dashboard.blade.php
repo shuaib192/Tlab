@@ -36,14 +36,14 @@
 {{-- Core Stats Grid --}}
 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 mb-8">
     @foreach([
-        ['Parents', $stats['parents'], '#4E9966', 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z', route('admin.users.index')],
-        ['Children', $stats['children'], '#D4A224', 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', route('admin.children.index')],
+        ['Parents', $stats['parents'], '#0DAA9C', 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z', route('admin.users.index')],
+        ['Children', $stats['children'], '#96690A', 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', route('admin.children.index')],
         ['Teachers', $stats['teachers'], '#2E8BC0', 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z', route('admin.users.index')],
-        ['Clubs', $stats['clubs'], '#C24B1E', 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10', route('admin.clubs.index')],
+        ['Clubs', $stats['clubs'], '#B03F14', 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10', route('admin.clubs.index')],
         ['Courses', $stats['courses'], '#6B3FA0', 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253', route('admin.courses.index')],
-        ['Enrollments', $stats['enrollments'], '#D4A224', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2', route('admin.enrollments.index')],
-        ['Paid', $stats['paid'], '#4E9966', 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z', route('admin.payments.index')],
-        ['Pass Rate', $passRate . '%', '#4E9966', 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z', '#'],
+        ['Enrollments', $stats['enrollments'], '#96690A', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2', route('admin.enrollments.index')],
+        ['Paid', $stats['paid'], '#0DAA9C', 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z', route('admin.payments.index')],
+        ['Pass Rate', $passRate . '%', '#0DAA9C', 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z', '#'],
     ] as [$label, $val, $color, $icon, $link])
     <a href="{{ $link }}" class="card p-4 hover:border-mint/40 transition-all group block">
         <div class="flex items-center justify-between mb-2">
@@ -66,12 +66,12 @@
                 <h2 class="font-display text-lg font-bold">Revenue Performance</h2>
                 <p class="text-cream/50 text-xs">Past 6 months verified subscription & enrollment payments</p>
             </div>
-            <div class="flex items-center gap-4 bg-black/20 px-4 py-2 rounded-xl border border-white/5">
+            <div class="flex items-center gap-4 bg-gray-50 px-4 py-2 rounded-xl border border-gray-200">
                 <div>
                     <div class="text-[10px] uppercase font-bold text-cream/40">Total Volume</div>
                     <div class="font-bold text-gold text-sm">{{ number_format($revenue['total']) }} NGN</div>
                 </div>
-                <div class="w-px h-8 bg-white/10"></div>
+                <div class="w-px h-8 bg-gray-100"></div>
                 <div>
                     <div class="text-[10px] uppercase font-bold text-cream/40">This Month</div>
                     <div class="font-bold text-mint text-sm">{{ number_format($revenue['monthly']) }} NGN</div>
@@ -91,13 +91,13 @@
             
             <div class="space-y-3">
                 @foreach([
-                    ['New Parents', $growth['new_parents'], '#4E9966', 'M17 20h5v-2a3 3 0 00-5.356-1.857'],
-                    ['New Children', $growth['new_children'], '#D4A224', 'M16 7a4 4 0 11-8 0 4 4 0 018 0z'],
+                    ['New Parents', $growth['new_parents'], '#0DAA9C', 'M17 20h5v-2a3 3 0 00-5.356-1.857'],
+                    ['New Children', $growth['new_children'], '#96690A', 'M16 7a4 4 0 11-8 0 4 4 0 018 0z'],
                     ['New Enrollments', $growth['new_enrollments'], '#2E8BC0', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2'],
                 ] as [$label, $val, $color, $icon])
-                <div class="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.02] border border-white/5">
+                <div class="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.02] border border-gray-200">
                     <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-black/30" style="color:{{ $color }}">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-gray-100" style="color:{{ $color }}">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $icon }}"/>
                             </svg>
@@ -116,7 +116,7 @@
                 <span class="text-xs text-cream/60">Total: <strong class="text-gold">{{ number_format($xpStats['total']) }} XP</strong></span>
             </div>
             @if($xpStats['top_child'])
-            <div class="flex items-center gap-3 pt-2 border-t border-white/5">
+            <div class="flex items-center gap-3 pt-2 border-t border-gray-200">
                 <div class="w-7 h-7 rounded-full bg-gold/20 text-gold font-bold text-xs flex items-center justify-center">
                     <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a3 3 0 013 3v1a7 7 0 01-6 6.92V16h2a1 1 0 110 2H6a1 1 0 110-2h2v-1.08A7 7 0 012 8V7a3 3 0 013-3h1V3a1 1 0 011-1zm-1.5 6a5 5 0 0010 0V7a1 1 0 00-1-1h-8a1 1 0 00-1 1v1z" clip-rule="evenodd"/></svg>
                 </div>
@@ -143,7 +143,7 @@
         </div>
         <div class="space-y-3">
             @forelse($recentUsers as $user)
-            <div class="flex items-center gap-3 py-2.5 px-3 rounded-xl bg-white/[0.01] hover:bg-white/[0.03] transition-colors border border-white/5">
+            <div class="flex items-center gap-3 py-2.5 px-3 rounded-xl bg-white/[0.01] hover:bg-white/[0.03] transition-colors border border-gray-200">
                 <div class="w-9 h-9 rounded-xl bg-mint/10 border border-mint/20 flex items-center justify-center text-xs font-bold text-mint flex-shrink-0">
                     {{ strtoupper(substr($user->name, 0, 1)) }}
                 </div>
@@ -170,8 +170,8 @@
         </div>
         <div class="space-y-3">
             @forelse($recentChildren as $child)
-            <div class="flex items-center gap-3 py-2.5 px-3 rounded-xl bg-white/[0.01] hover:bg-white/[0.03] transition-colors border border-white/5">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:rgba(212,162,36,0.1);border:1px solid rgba(212,162,36,0.2);color:#D4A224">
+            <div class="flex items-center gap-3 py-2.5 px-3 rounded-xl bg-white/[0.01] hover:bg-white/[0.03] transition-colors border border-gray-200">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:rgba(180,132,20,0.1);border:1px solid rgba(180,132,20,0.2);color:#96690A">
                     {{ strtoupper(substr($child->name, 0, 1)) }}
                 </div>
                 <div class="flex-1 min-w-0">
@@ -197,7 +197,7 @@
         </div>
         <div class="space-y-3">
             @forelse($recentPayments as $payment)
-            <div class="flex items-center gap-3 py-2.5 px-3 rounded-xl bg-white/[0.01] hover:bg-white/[0.03] transition-colors border border-white/5">
+            <div class="flex items-center gap-3 py-2.5 px-3 rounded-xl bg-white/[0.01] hover:bg-white/[0.03] transition-colors border border-gray-200">
                 <div class="w-9 h-9 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-xs font-bold text-gold flex-shrink-0">
                     ₦
                 </div>
@@ -218,25 +218,25 @@
 <div class="card p-6">
     <h2 class="font-display text-base font-bold mb-4">Quick Management Actions</h2>
     <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        <a href="{{ route('admin.clubs.create') }}" class="p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-mint/40 hover:bg-mint/[0.03] transition-all text-center group">
+        <a href="{{ route('admin.clubs.create') }}" class="p-4 rounded-xl bg-white/[0.02] border border-gray-200 hover:border-mint/40 hover:bg-mint/[0.03] transition-all text-center group">
             <div class="w-10 h-10 rounded-xl bg-mint/10 border border-mint/20 text-mint flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             </div>
             <span class="text-xs font-bold text-cream/80 group-hover:text-cream">Create Club</span>
         </a>
-        <a href="{{ route('admin.courses.create') }}" class="p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-mint/40 hover:bg-mint/[0.03] transition-all text-center group">
+        <a href="{{ route('admin.courses.create') }}" class="p-4 rounded-xl bg-white/[0.02] border border-gray-200 hover:border-mint/40 hover:bg-mint/[0.03] transition-all text-center group">
             <div class="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 text-gold flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253"/></svg>
             </div>
             <span class="text-xs font-bold text-cream/80 group-hover:text-cream">Create Course</span>
         </a>
-        <a href="{{ route('admin.upcoming.index') }}" class="p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-mint/40 hover:bg-mint/[0.03] transition-all text-center group">
+        <a href="{{ route('admin.upcoming.index') }}" class="p-4 rounded-xl bg-white/[0.02] border border-gray-200 hover:border-mint/40 hover:bg-mint/[0.03] transition-all text-center group">
             <div class="w-10 h-10 rounded-xl bg-sky/10 border border-sky/20 text-sky flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             </div>
             <span class="text-xs font-bold text-cream/80 group-hover:text-cream">Schedule Class</span>
         </a>
-        <a href="{{ route('admin.schools.index') }}" class="p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-mint/40 hover:bg-mint/[0.03] transition-all text-center group">
+        <a href="{{ route('admin.schools.index') }}" class="p-4 rounded-xl bg-white/[0.02] border border-gray-200 hover:border-mint/40 hover:bg-mint/[0.03] transition-all text-center group">
             <div class="w-10 h-10 rounded-xl bg-violet/10 border border-violet/20 text-violet flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
             </div>
@@ -262,12 +262,12 @@ new Chart(ctx, {
         datasets: [{
             label: 'Revenue (NGN)',
             data: {!! json_encode(array_column($monthlyRevenue, 'amount')) !!},
-            borderColor: '#4E9966',
+            borderColor: '#0DAA9C',
             backgroundColor: gradient,
             fill: true,
             tension: 0.35,
-            pointBackgroundColor: '#4E9966',
-            pointBorderColor: '#0F1612',
+            pointBackgroundColor: '#0DAA9C',
+            pointBorderColor: '#FFFFFF',
             pointBorderWidth: 3,
             pointRadius: 5,
             pointHoverRadius: 7,
@@ -279,10 +279,10 @@ new Chart(ctx, {
         plugins: { 
             legend: { display: false },
             tooltip: {
-                backgroundColor: '#141A16',
-                titleColor: '#FAF5E8',
-                bodyColor: '#4E9966',
-                borderColor: 'rgba(250,245,232,0.1)',
+                backgroundColor: '#FFFFFF',
+                titleColor: '#0F201E',
+                bodyColor: '#0DAA9C',
+                borderColor: '#E7ECEB',
                 borderWidth: 1,
                 padding: 12,
                 displayColors: false,
@@ -295,16 +295,16 @@ new Chart(ctx, {
         },
         scales: {
             x: { 
-                ticks: { color: 'rgba(250,245,232,0.5)', font: { size: 11, family: 'Outfit' } }, 
-                grid: { color: 'rgba(250,245,232,0.03)' } 
+                ticks: { color: '#5B6B69', font: { size: 11, family: 'Outfit' } }, 
+                grid: { color: '#EDF1F1' } 
             },
             y: { 
                 ticks: { 
-                    color: 'rgba(250,245,232,0.5)', 
+                    color: '#5B6B69', 
                     font: { size: 11, family: 'Outfit' }, 
                     callback: v => '₦' + (v >= 1000 ? (v/1000).toFixed(0) + 'k' : v)
                 }, 
-                grid: { color: 'rgba(250,245,232,0.05)' } 
+                grid: { color: '#EDF1F1' } 
             }
         }
     }

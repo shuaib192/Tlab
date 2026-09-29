@@ -29,11 +29,11 @@
         </div>
         <div class="flex items-center gap-6">
             <label class="flex items-center gap-2">
-                <input type="checkbox" name="is_active" value="1" class="rounded bg-surface border-white/10">
+                <input type="checkbox" name="is_active" value="1" class="rounded bg-surface border-gray-200">
                 <span class="text-sm font-semibold text-cream/70">Active</span>
             </label>
             <label class="flex items-center gap-2">
-                <input type="checkbox" name="staging_only" value="1" class="rounded bg-surface border-white/10">
+                <input type="checkbox" name="staging_only" value="1" class="rounded bg-surface border-gray-200">
                 <span class="text-sm font-semibold text-cream/70">Staging Only</span>
             </label>
         </div>
@@ -45,7 +45,7 @@
     <div class="overflow-x-auto">
     <table class="w-full text-sm">
         <thead>
-            <tr class="border-b border-white/5 text-left text-xs text-cream/50 font-bold uppercase tracking-wider">
+            <tr class="border-b border-gray-200 text-left text-xs text-cream/50 font-bold uppercase tracking-wider">
                 <th class="p-4">Key</th>
                 <th class="p-4">Name</th>
                 <th class="p-4">Active</th>
@@ -91,7 +91,7 @@
                             @method('PUT')
                             <div class="flex items-center gap-1 text-xs">
                                 <label class="flex items-center gap-1 cursor-pointer">
-                                    <input type="checkbox" name="staging_only" value="1" {{ $flag->staging_only ? 'checked' : '' }} onchange="this.form.submit()" class="rounded bg-surface border-white/10">
+                                    <input type="checkbox" name="staging_only" value="1" {{ $flag->staging_only ? 'checked' : '' }} onchange="this.form.submit()" class="rounded bg-surface border-gray-200">
                                     <span class="text-cream/50">Staging</span>
                                 </label>
                             </div>

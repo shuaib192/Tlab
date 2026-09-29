@@ -29,7 +29,7 @@
     <div class="overflow-x-auto">
         <table class="w-full">
             <thead>
-                <tr class="border-b border-white/5">
+                <tr class="border-b border-gray-200">
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40">Child</th>
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40 hidden sm:table-cell">Parent</th>
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40 hidden md:table-cell">Rank</th>
@@ -39,10 +39,10 @@
             </thead>
             <tbody>
                 @php
-                $rankColors = ['Explorer'=>'#4E9966','Innovator'=>'#D4A224','Builder'=>'#C24B1E','Creator'=>'#6B3FA0','Master Inventor'=>'#2E8BC0'];
+                $rankColors = ['Explorer'=>'#0DAA9C','Innovator'=>'#96690A','Builder'=>'#B03F14','Creator'=>'#6B3FA0','Master Inventor'=>'#2E8BC0'];
                 @endphp
                 @forelse($children as $child)
-                @php $color = $rankColors[$child->rank] ?? '#4E9966'; @endphp
+                @php $color = $rankColors[$child->rank] ?? '#0DAA9C'; @endphp
                 <tr class="table-row">
                     <td class="px-6 py-4">
                         <div class="flex items-center gap-3">
@@ -81,7 +81,7 @@
         </table>
     </div>
     @if($children->hasPages())
-    <div class="px-6 py-4 border-t border-white/5">{{ $children->links() }}</div>
+    <div class="px-6 py-4 border-t border-gray-200">{{ $children->links() }}</div>
     @endif
 </div>
 @endsection

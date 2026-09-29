@@ -17,7 +17,7 @@
     <div class="overflow-x-auto">
         <table class="w-full">
             <thead>
-                <tr class="border-b border-white/5">
+                <tr class="border-b border-gray-200">
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40">Club</th>
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40 hidden sm:table-cell">Age Range</th>
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40 hidden md:table-cell">Courses</th>
@@ -67,7 +67,7 @@
         </table>
     </div>
     @if($clubs->hasPages())
-    <div class="px-6 py-4 border-t border-white/5">{{ $clubs->links() }}</div>
+    <div class="px-6 py-4 border-t border-gray-200">{{ $clubs->links() }}</div>
     @endif
 </div>
 @endsection

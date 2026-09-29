@@ -81,7 +81,7 @@
             <textarea name="description" rows="4" class="input font-sans text-sm leading-relaxed">{{ old('description', $program->description) }}</textarea>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-white/5">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-gray-200">
             <div>
                 <label class="label font-mono text-xs">What They Learn (1 per line)</label>
                 <textarea name="what_learn" rows="5" class="input font-mono text-xs">{{ old('what_learn', is_array($program->what_learn) ? implode("\n", $program->what_learn) : '') }}</textarea>
@@ -98,11 +98,11 @@
 
         <div class="flex items-center gap-3">
             <input type="checkbox" name="is_active" id="is_active" value="1" {{ $program->is_active ? 'checked' : '' }}
-                   class="w-4 h-4 rounded border-white/20 bg-surface text-mint focus:ring-mint">
+                   class="w-4 h-4 rounded border-gray-300 bg-surface text-mint focus:ring-mint">
             <label for="is_active" class="font-mono text-xs text-cream/70 cursor-pointer">Broadcast Live to Public Registry</label>
         </div>
 
-        <div class="flex items-center justify-end gap-3 pt-6 border-t border-white/10">
+        <div class="flex items-center justify-end gap-3 pt-6 border-t border-gray-200">
             <button type="submit" class="btn-primary font-mono text-xs uppercase tracking-wider px-8 shadow-[3px_3px_0px_#000]">
                 Save Program Specifications
             </button>
@@ -149,7 +149,7 @@
     <div class="space-y-5">
         @forelse($program->growthStages as $stage)
         <div class="rounded-xl border-2 overflow-hidden"
-             style="border-color: {{ $program->color }}33; background: rgba(250,245,232,0.02);">
+             style="border-color: {{ $program->color }}33; background: #F7FAFA;">
             <div class="px-6 py-4 flex items-center justify-between gap-4"
                  style="background: {{ $program->color }}14;">
                 <div class="flex items-center gap-3">
@@ -229,7 +229,7 @@
                     <input type="text" name="featured_project" value="{{ $stage->featured_project }}" class="input">
                 </div>
 
-                <div class="flex justify-end pt-2 border-t border-white/5">
+                <div class="flex justify-end pt-2 border-t border-gray-200">
                     <button type="submit" class="btn-primary font-mono text-xs uppercase tracking-wider px-6 shadow-[3px_3px_0px_#000]"
                             style="background: linear-gradient(135deg, {{ $program->color }}, {{ $program->color }}99);">
                         Recalibrate Node
@@ -310,7 +310,7 @@
                 <input type="text" name="featured_project" placeholder="e.g. 'Solar-powered Mars rover prototype'" class="input">
             </div>
 
-            <div class="flex justify-end pt-2 border-t border-white/5">
+            <div class="flex justify-end pt-2 border-t border-gray-200">
                 <button type="submit" class="btn-primary font-mono text-xs uppercase tracking-wider px-8 shadow-[3px_3px_0px_#000]"
                         style="background: linear-gradient(135deg, {{ $program->color }}, {{ $program->color }}99);">
                     Engineer Node &rarr;

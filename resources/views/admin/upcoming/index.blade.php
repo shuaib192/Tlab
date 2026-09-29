@@ -64,7 +64,7 @@
 
 {{-- Upcoming --}}
 <div class="card overflow-hidden mb-8">
-    <div class="px-6 py-4 border-b border-white/5 flex items-center justify-between">
+    <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
         <h2 class="font-display font-bold">Scheduled — Upcoming</h2>
         <span class="badge badge-green">{{ $upcoming->count() }} upcoming</span>
     </div>
@@ -74,7 +74,7 @@
     <div class="overflow-x-auto">
         <table class="w-full">
             <thead>
-                <tr class="border-b border-white/5">
+                <tr class="border-b border-gray-200">
                     <th class="text-left px-6 py-3 text-xs font-bold uppercase tracking-wider text-cream/40">Class</th>
                     <th class="text-left px-6 py-3 text-xs font-bold uppercase tracking-wider text-cream/40 hidden md:table-cell">Cohort / Course</th>
                     <th class="text-left px-6 py-3 text-xs font-bold uppercase tracking-wider text-cream/40">When</th>
@@ -109,7 +109,7 @@
 {{-- Past --}}
 @if($past->isNotEmpty())
 <div class="card overflow-hidden">
-    <div class="px-6 py-4 border-b border-white/5">
+    <div class="px-6 py-4 border-b border-gray-200">
         <h2 class="font-display font-bold text-cream/60">Recent — Past Classes</h2>
     </div>
     <div class="overflow-x-auto">

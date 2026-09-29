@@ -5,7 +5,7 @@
 @section('content')
     <div class="flex items-center justify-between mb-6">
         <div>
-            <div class="text-xs font-bold text-white/40 uppercase tracking-wider mb-2">
+            <div class="text-xs font-bold text-ink/50 uppercase tracking-wider mb-2">
                 <a href="{{ route('admin.curriculum.modules', $lesson->module->course) }}" class="hover:text-mint transition-colors">{{ $lesson->module->course->title }}</a>
                 /
                 <a href="{{ route('admin.curriculum.lessons', $lesson->module) }}" class="hover:text-mint transition-colors">{{ $lesson->module->title }}</a>
@@ -29,7 +29,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h3 class="font-bold">{{ $lesson->assessment->title }}</h3>
-                    <p class="text-sm text-white/60 mt-1">Passing score: {{ $lesson->assessment->passing_score }} &middot; Max attempts: {{ $lesson->assessment->max_attempts ?? 3 }}</p>
+                    <p class="text-sm text-ink/70 mt-1">Passing score: {{ $lesson->assessment->passing_score }} &middot; Max attempts: {{ $lesson->assessment->max_attempts ?? 3 }}</p>
                 </div>
                 <span class="badge badge-green">{{ $lesson->assessment->questions->count() }} questions</span>
             </div>
@@ -47,7 +47,7 @@
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm">
                         <thead>
-                            <tr class="border-b border-white/5 text-xs font-bold text-white/40 uppercase tracking-wider">
+                            <tr class="border-b border-gray-200 text-xs font-bold text-ink/50 uppercase tracking-wider">
                                 <th class="text-left px-5 py-3">#</th>
                                 <th class="text-left px-5 py-3">Question</th>
                                 <th class="text-center px-5 py-3">Type</th>
@@ -59,13 +59,13 @@
                         <tbody>
                             @foreach($lesson->assessment->questions as $i => $question)
                                 <tr class="table-row">
-                                    <td class="px-5 py-3 text-white/40">{{ $question->sort_order ?? $i + 1 }}</td>
+                                    <td class="px-5 py-3 text-ink/50">{{ $question->sort_order ?? $i + 1 }}</td>
                                     <td class="px-5 py-3 font-medium max-w-xs truncate">{{ $question->question_text }}</td>
                                     <td class="px-5 py-3 text-center">
                                         <span class="badge badge-sky text-xs">{{ str_replace('_', ' ', $question->type) }}</span>
                                     </td>
                                     <td class="px-5 py-3 text-center">{{ $question->points }}</td>
-                                    <td class="px-5 py-3 text-center text-xs text-white/60 max-w-[120px] truncate">{{ $question->correct_answer }}</td>
+                                    <td class="px-5 py-3 text-center text-xs text-ink/70 max-w-[120px] truncate">{{ $question->correct_answer }}</td>
                                     <td class="px-5 py-3 text-right">
                                         <form method="POST" action="{{ route('admin.curriculum.questions.destroy', $question) }}" class="inline" onsubmit="return confirm('Delete this question?')">
                                             @csrf @method('DELETE')
@@ -78,7 +78,7 @@
                     </table>
                 </div>
             @else
-                <div class="p-8 text-center text-white/40">
+                <div class="p-8 text-center text-ink/50">
                     <p>No questions yet. Click "Add Question" to start building.</p>
                 </div>
             @endif
@@ -87,10 +87,10 @@
 
     {{-- Create Assessment Modal --}}
     <div id="create-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black/60 backdrop-blur-sm">
-        <div class="bg-gray-900 rounded-2xl p-6 w-full max-w-lg mx-4 shadow-2xl border border-white/10">
+        <div class="bg-gray-900 rounded-2xl p-6 w-full max-w-lg mx-4 shadow-2xl border border-gray-200">
             <div class="flex items-center justify-between mb-5">
                 <h3 class="text-lg font-bold">Create Assessment</h3>
-                <button onclick="document.getElementById('create-modal').classList.add('hidden')" class="text-white/40 hover:text-white text-xl leading-none">&times;</button>
+                <button onclick="document.getElementById('create-modal').classList.add('hidden')" class="@@KEEP@@text-ink/50@@KEEP@@ leading-none">&times;</button>
             </div>
             <form method="POST" action="{{ route('admin.curriculum.assessments.store', $lesson) }}" class="space-y-4">
                 @csrf
@@ -118,10 +118,10 @@
 
     {{-- Add Question Modal --}}
     <div id="question-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black/60 backdrop-blur-sm">
-        <div class="bg-gray-900 rounded-2xl p-6 w-full max-w-xl mx-4 shadow-2xl border border-white/10">
+        <div class="bg-gray-900 rounded-2xl p-6 w-full max-w-xl mx-4 shadow-2xl border border-gray-200">
             <div class="flex items-center justify-between mb-5">
                 <h3 class="text-lg font-bold">Add Question</h3>
-                <button onclick="document.getElementById('question-modal').classList.add('hidden')" class="text-white/40 hover:text-white text-xl leading-none">&times;</button>
+                <button onclick="document.getElementById('question-modal').classList.add('hidden')" class="@@KEEP@@text-ink/50@@KEEP@@ leading-none">&times;</button>
             </div>
             <form method="POST" action="{{ route('admin.curriculum.questions.store', $lesson->assessment) }}" class="space-y-4">
                 @csrf

@@ -41,8 +41,8 @@
                     @elseif($setting['type'] === 'color')
                         <input type="color"
                                name="settings[{{ $loop->index + (($settings->keys()->search($group)) * 100) }}][value]"
-                               value="{{ $setting['value'] ?? '#4E9966' }}"
-                               class="h-12 w-20 rounded-lg cursor-pointer border border-white/10 bg-transparent">
+                               value="{{ $setting['value'] ?? '#0DAA9C' }}"
+                               class="h-12 w-20 rounded-lg cursor-pointer border border-gray-200 bg-transparent">
                     @elseif($setting['type'] === 'boolean')
                         <select name="settings[{{ $loop->index + (($settings->keys()->search($group)) * 100) }}][value]"
                                 class="input w-auto appearance-none">

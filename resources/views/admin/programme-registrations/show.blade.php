@@ -11,7 +11,7 @@
 <div class="card p-6 sm:p-8">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8">
         <div class="flex items-center gap-4">
-            <span class="w-12 h-12 rounded-full flex items-center justify-center font-black text-base flex-shrink-0" style="background:rgba(78,153,102,0.18);color:#6FBE8B;">
+            <span class="w-12 h-12 rounded-full flex items-center justify-center font-black text-base flex-shrink-0" style="background:rgba(13,170,156,0.14);color:#0A7A6E;">
                 {{ strtoupper(substr($programmeRegistration->child_name, 0, 1)) }}
             </span>
             <div>
@@ -75,7 +75,7 @@
     </div>
 
     @if($programmeRegistration->status === 'pending')
-    <div class="mt-8 rounded-2xl p-5 flex flex-wrap items-center gap-3" style="background:rgba(250,245,232,0.04);border:1px solid rgba(250,245,232,0.08);">
+    <div class="mt-8 rounded-2xl p-5 flex flex-wrap items-center gap-3" style="background:#F7FAFA;border:1px solid #E7ECEB;">
         <form method="POST" action="{{ route('admin.programme-registrations.verify', $programmeRegistration) }}" onsubmit="return confirm('Confirm this registration as paid?')">
             @csrf
             <button class="btn-primary">Verify &amp; mark as paid</button>

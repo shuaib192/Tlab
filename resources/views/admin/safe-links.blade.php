@@ -42,7 +42,7 @@
     <div class="overflow-x-auto">
         <table class="w-full text-sm">
             <thead>
-                <tr class="border-b border-white/5 text-xs font-bold text-cream/40 uppercase tracking-wider">
+                <tr class="border-b border-gray-200 text-xs font-bold text-cream/40 uppercase tracking-wider">
                     <th class="text-left px-5 py-3">Domain</th>
                     <th class="text-left px-5 py-3">Category</th>
                     <th class="text-left px-5 py-3">Status</th>

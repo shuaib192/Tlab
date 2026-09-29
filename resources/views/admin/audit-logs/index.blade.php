@@ -34,14 +34,14 @@
 </form>
 
 <div class="card overflow-hidden">
-    <div class="px-6 py-4 border-b border-white/5 flex items-center justify-between">
+    <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
         <h2 class="font-display font-bold">Change Trail</h2>
         <span class="badge badge-gold">{{ $logs->total() }} events</span>
     </div>
     <div class="overflow-x-auto">
         <table class="w-full">
             <thead>
-                <tr class="border-b border-white/5">
+                <tr class="border-b border-gray-200">
                     <th class="text-left px-6 py-3 text-xs font-bold uppercase tracking-wider text-cream/40">When</th>
                     <th class="text-left px-6 py-3 text-xs font-bold uppercase tracking-wider text-cream/40">Who</th>
                     <th class="text-left px-6 py-3 text-xs font-bold uppercase tracking-wider text-cream/40">Action</th>
@@ -89,7 +89,7 @@
             </tbody>
         </table>
     </div>
-    <div class="px-6 py-4 border-t border-white/5">
+    <div class="px-6 py-4 border-t border-gray-200">
         {{ $logs->links() }}
     </div>
 </div>

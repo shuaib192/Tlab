@@ -30,7 +30,7 @@
     <div class="overflow-x-auto">
         <table class="w-full">
             <thead>
-                <tr class="border-b border-white/5">
+                <tr class="border-b border-gray-200">
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40">User</th>
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40 hidden sm:table-cell">Role</th>
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40 hidden md:table-cell">Children</th>
@@ -81,7 +81,7 @@
         </table>
     </div>
     @if($users->hasPages())
-    <div class="px-6 py-4 border-t border-white/5">{{ $users->links() }}</div>
+    <div class="px-6 py-4 border-t border-gray-200">{{ $users->links() }}</div>
     @endif
 </div>
 @endsection

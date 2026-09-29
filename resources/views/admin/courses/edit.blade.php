@@ -54,8 +54,8 @@
                 <label class="cursor-pointer">
                     <input type="radio" name="level" value="{{ $val }}" class="sr-only peer"
                            {{ old('level', $course->level) === $val ? 'checked' : '' }}>
-                    <div class="text-center py-3 px-4 rounded-xl border border-white/10 text-sm font-bold transition-all
-                                peer-checked:border-mint peer-checked:bg-mint/10 peer-checked:text-mint hover:border-white/30">
+                    <div class="text-center py-3 px-4 rounded-xl border border-gray-200 text-sm font-bold transition-all
+                                peer-checked:border-mint peer-checked:bg-mint/10 peer-checked:text-mint hover:border-gray-300">
                         {{ $label }}
                     </div>
                 </label>

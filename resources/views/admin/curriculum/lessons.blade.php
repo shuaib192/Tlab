@@ -5,7 +5,7 @@
 @section('content')
     <div class="flex items-center justify-between mb-6">
         <div>
-            <div class="text-xs font-bold text-white/40 uppercase tracking-wider mb-1">
+            <div class="text-xs font-bold text-ink/50 uppercase tracking-wider mb-1">
                 <a href="{{ route('admin.curriculum.modules', $module->course) }}" class="hover:text-mint transition-colors">{{ $module->course->title }}</a>
                 / Lessons
             </div>
@@ -25,7 +25,7 @@
             <div class="overflow-x-auto">
                 <table class="w-full text-sm">
                     <thead>
-                        <tr class="border-b border-white/5 text-xs font-bold text-white/40 uppercase tracking-wider">
+                        <tr class="border-b border-gray-200 text-xs font-bold text-ink/50 uppercase tracking-wider">
                             <th class="text-left px-5 py-3">#</th>
                             <th class="text-left px-5 py-3">Title</th>
                             <th class="text-center px-5 py-3">Type</th>
@@ -37,17 +37,17 @@
                     <tbody>
                         @foreach($module->lessons as $i => $lesson)
                             <tr class="table-row">
-                                <td class="px-5 py-3 text-white/40">{{ $lesson->sort_order ?? $i + 1 }}</td>
+                                <td class="px-5 py-3 text-ink/50">{{ $lesson->sort_order ?? $i + 1 }}</td>
                                 <td class="px-5 py-3 font-medium">{{ $lesson->title }}</td>
                                 <td class="px-5 py-3 text-center">
                                     <span class="badge badge-sky text-xs">{{ $lesson->type ?? 'text' }}</span>
                                 </td>
-                                <td class="px-5 py-3 text-center text-white/60">{{ $lesson->duration ?? '—' }} min</td>
+                                <td class="px-5 py-3 text-center text-ink/70">{{ $lesson->duration ?? '—' }} min</td>
                                 <td class="px-5 py-3 text-center">
                                     @if($lesson->assessment)
                                         <a href="{{ route('admin.curriculum.assessments', $lesson) }}" class="text-mint hover:underline text-xs">{{ $lesson->assessment->questions->count() }} questions</a>
                                     @else
-                                        <span class="text-white/30 text-xs">None</span>
+                                        <span class="text-ink/40 text-xs">None</span>
                                     @endif
                                 </td>
                                 <td class="px-5 py-3 text-right">
@@ -64,7 +64,7 @@
                 </table>
             </div>
         @else
-            <div class="p-8 text-center text-white/40">
+            <div class="p-8 text-center text-ink/50">
                 <p>No lessons yet. Click "Add Lesson" to start building.</p>
             </div>
         @endif
@@ -72,10 +72,10 @@
 
     {{-- Create Modal --}}
     <div id="create-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black/60 backdrop-blur-sm">
-        <div class="bg-gray-900 rounded-2xl p-6 w-full max-w-lg mx-4 shadow-2xl border border-white/10">
+        <div class="bg-gray-900 rounded-2xl p-6 w-full max-w-lg mx-4 shadow-2xl border border-gray-200">
             <div class="flex items-center justify-between mb-5">
                 <h3 class="text-lg font-bold">Create Lesson</h3>
-                <button onclick="document.getElementById('create-modal').classList.add('hidden')" class="text-white/40 hover:text-white text-xl leading-none">&times;</button>
+                <button onclick="document.getElementById('create-modal').classList.add('hidden')" class="@@KEEP@@text-ink/50@@KEEP@@ leading-none">&times;</button>
             </div>
             <form method="POST" action="{{ route('admin.curriculum.lessons.store', $module) }}" class="space-y-4">
                 @csrf
@@ -120,10 +120,10 @@
 
     {{-- Edit Modal --}}
     <div id="edit-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black/60 backdrop-blur-sm">
-        <div class="bg-gray-900 rounded-2xl p-6 w-full max-w-lg mx-4 shadow-2xl border border-white/10">
+        <div class="bg-gray-900 rounded-2xl p-6 w-full max-w-lg mx-4 shadow-2xl border border-gray-200">
             <div class="flex items-center justify-between mb-5">
                 <h3 class="text-lg font-bold">Edit Lesson</h3>
-                <button onclick="document.getElementById('edit-modal').classList.add('hidden')" class="text-white/40 hover:text-white text-xl leading-none">&times;</button>
+                <button onclick="document.getElementById('edit-modal').classList.add('hidden')" class="@@KEEP@@text-ink/50@@KEEP@@ leading-none">&times;</button>
             </div>
             <form method="POST" action="" id="edit-lesson-form" class="space-y-4">
                 @csrf @method('PUT')
