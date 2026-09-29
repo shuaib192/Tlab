@@ -26,6 +26,7 @@ class ProgrammeRegistrationController extends Controller
             ['key' => 'creative-writing', 'name' => 'Creative Writing', 'band' => '8–11', 'min' => 8, 'max' => 11],
             ['key' => 'reading-dev-8', 'name' => 'Reading Development', 'band' => '8–11', 'min' => 8, 'max' => 11],
             ['key' => 'python', 'name' => 'Python Programming', 'band' => '12–17', 'min' => 12, 'max' => 17],
+            ['key' => 'html-css', 'name' => 'HTML and CSS', 'band' => '12–17', 'min' => 12, 'max' => 17],
             ['key' => 'digital-design', 'name' => 'Digital Design', 'band' => '12–17', 'min' => 12, 'max' => 17],
             ['key' => 'writing-authoring', 'name' => 'Writing and Authoring', 'band' => '12–17', 'min' => 12, 'max' => 17],
             ['key' => 'reading-dev-12', 'name' => 'Reading Development', 'band' => '12–17', 'min' => 12, 'max' => 17],
