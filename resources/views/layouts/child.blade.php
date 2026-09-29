@@ -170,6 +170,7 @@
     @stack('styles')
 </head>
 <body class="antialiased min-h-screen">
+    @include('partials.analytics-noscript')
 
 {{-- Rocketship loader --}}
 <div id="kid-loader" aria-hidden="true">

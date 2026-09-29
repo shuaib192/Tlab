@@ -81,6 +81,7 @@
     @stack('styles')
 </head>
 <body class="antialiased">
+    @include('partials.analytics-noscript')
 
 <div class="flex min-h-screen relative">
 

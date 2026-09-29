@@ -453,6 +453,7 @@
 </head>
 
 <body class="antialiased">
+    @include('partials.analytics-noscript')
 
     {{-- ═══ PAGE TRANSITION LOADER ════════════════════════════ --}}
     <div id="page-loader" aria-hidden="true">
