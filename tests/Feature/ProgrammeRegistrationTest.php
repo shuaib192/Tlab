@@ -20,6 +20,7 @@ class ProgrammeRegistrationTest extends TestCase
         'child_age' => 9,
         'programme' => 'scratch',
         'device' => 'laptop',
+        'class_format' => 'physical',
         'payment_option' => 'monthly',
         'consent' => '1',
     ];
@@ -96,6 +97,32 @@ class ProgrammeRegistrationTest extends TestCase
 
         $response->assertInvalid(['consent']);
         $this->assertDatabaseCount('programme_registrations', 0);
+    }
+
+    public function test_class_format_is_required(): void
+    {
+        $response = $this->post(route('programme.enrol.store'), [...self::VALID, 'class_format' => null]);
+
+        $response->assertInvalid(['class_format']);
+        $this->assertDatabaseCount('programme_registrations', 0);
+    }
+
+    public function test_class_format_must_be_physical_or_online(): void
+    {
+        $response = $this->post(route('programme.enrol.store'), [...self::VALID, 'class_format' => 'carrier-pigeon']);
+
+        $response->assertInvalid(['class_format']);
+        $this->assertDatabaseCount('programme_registrations', 0);
+    }
+
+    public function test_online_registration_is_saved(): void
+    {
+        $this->post(route('programme.enrol.store'), [...self::VALID, 'class_format' => 'online']);
+
+        $this->assertDatabaseHas('programme_registrations', [
+            'email' => self::VALID['email'],
+            'class_format' => 'online',
+        ]);
     }
 
     public function test_callback_marks_registration_paid_and_redirects_to_success(): void

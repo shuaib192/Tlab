@@ -95,6 +95,7 @@
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40">Child</th>
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40">Parent</th>
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40 hidden lg:table-cell">Programme</th>
+                    <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40 hidden md:table-cell">Attend</th>
                     <th class="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40 hidden md:table-cell">Payment</th>
                     <th class="text-right px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40">Amount</th>
                     <th class="text-center px-6 py-4 text-xs font-bold uppercase tracking-wider text-cream/40">Status</th>
@@ -121,6 +122,11 @@
                     </td>
                     <td class="px-6 py-4 hidden lg:table-cell">
                         <span class="text-sm text-cream/70">{{ $registration->programme }}</span>
+                    </td>
+                    <td class="px-6 py-4 hidden md:table-cell">
+                        <span class="badge {{ ($registration->class_format ?? 'physical') === 'online' ? 'badge-gray' : 'badge-green' }}">
+                            {{ ($registration->class_format ?? 'physical') === 'online' ? 'Online' : 'Physical' }}
+                        </span>
                     </td>
                     <td class="px-6 py-4 hidden md:table-cell">
                         <span class="badge {{ $registration->payment_option === 'full' ? 'badge-gold' : 'badge-gray' }}">{{ $registration->payment_option === 'full' ? 'Full' : 'Monthly' }}</span>

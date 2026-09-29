@@ -55,6 +55,7 @@ class ProgrammeRegistrationController extends Controller
             'child_age' => 'required|integer|min:5|max:17',
             'programme' => 'required|string|max:80',
             'device' => 'required|in:laptop,tablet,smartphone',
+            'class_format' => 'required|in:physical,online',
             'payment_option' => 'required|in:monthly,full',
             'consent' => 'required|accepted',
         ]);
@@ -77,6 +78,7 @@ class ProgrammeRegistrationController extends Controller
             'child_age' => $validated['child_age'],
             'programme' => $programme['name'],
             'device' => $validated['device'],
+            'class_format' => $validated['class_format'],
             'payment_option' => $validated['payment_option'],
             'amount' => $option['amount'],
             'status' => 'pending',

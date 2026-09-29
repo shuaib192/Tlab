@@ -17,6 +17,7 @@ class ProgrammeRegistration extends Model
         'child_age',
         'programme',
         'device',
+        'class_format',
         'payment_option',
         'amount',
         'status',

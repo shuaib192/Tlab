@@ -19,6 +19,7 @@ class ProgrammeRegistrationFactory extends Factory
             'child_age' => $this->faker->numberBetween(5, 17),
             'programme' => 'Scratch Programming',
             'device' => $this->faker->randomElement(['laptop', 'tablet', 'smartphone']),
+            'class_format' => $this->faker->randomElement(['physical', 'online']),
             'payment_option' => $this->faker->randomElement(['monthly', 'full']),
             'amount' => 10000,
             'status' => 'pending',

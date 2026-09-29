@@ -100,6 +100,27 @@
                 </div>
 
                 <div class="mt-6">
+                    <span class="form-label">How will your child attend?</span>
+                    <div class="grid sm:grid-cols-2 gap-3 max-w-xl">
+                        <label class="relative block">
+                            <input type="radio" name="class_format" value="physical" @checked(old('class_format', 'physical') === 'physical')>
+                            <span class="option-card block">
+                                <span class="block font-black text-sm">Physical</span>
+                                <span class="block text-xs text-muted mt-1">At the TLab centre, in a small group</span>
+                            </span>
+                        </label>
+                        <label class="relative block">
+                            <input type="radio" name="class_format" value="online" @checked(old('class_format') === 'online')>
+                            <span class="option-card block">
+                                <span class="block font-black text-sm">Online</span>
+                                <span class="block text-xs text-muted mt-1">Live from home, link sent weekly</span>
+                            </span>
+                        </label>
+                    </div>
+                    @error('class_format')<p class="error-text">{{ $message }}</p>@enderror
+                </div>
+
+                <div class="mt-6">
                     <span class="form-label">Device your child will use</span>
                     <div class="grid grid-cols-3 gap-3 max-w-xl">
                         @foreach(['laptop' => 'Laptop', 'tablet' => 'Tablet', 'smartphone' => 'Smartphone'] as $value => $label)
@@ -109,6 +130,8 @@
                         </label>
                         @endforeach
                     </div>
+                    @error('device')<p class="error-text">{{ $message }}</p>@enderror
+                </div>
                     @error('device')<p class="error-text">{{ $message }}</p>@enderror
                 </div>
 

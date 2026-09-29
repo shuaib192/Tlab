@@ -36,6 +36,12 @@
             <div class="text-xs text-cream/40">Band for ages {{ $programmeRegistration->child_age }}</div>
         </div>
         <div>
+            <div class="label">Attends</div>
+            <span class="badge {{ ($programmeRegistration->class_format ?? 'physical') === 'online' ? 'badge-gray' : 'badge-green' }}">
+                {{ ($programmeRegistration->class_format ?? 'physical') === 'online' ? 'Online' : 'Physical' }}
+            </span>
+        </div>
+        <div>
             <div class="label">Device</div>
             <div class="font-bold text-sm text-cream">{{ ucfirst($programmeRegistration->device) }}</div>
         </div>
