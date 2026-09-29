@@ -10,30 +10,30 @@
         @include('parent.partials.stepper', ['step' => 5, 'club' => $enrollment->course->club])
 
         <div class="paper-card p-8 sm:p-10 text-center">
-            <div class="w-20 h-20 mx-auto mb-6 rounded-full border-2 border-[#1B1B1E] bg-[#16A34A] grid place-items-center shadow-md">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-full border border-gray-200 bg-[#0DAA9C] grid place-items-center shadow-md">
                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
             </div>
 
-            <span class="paper-tag bg-[#16A34A] mb-4">Enrolment Confirmed</span>
-            <h1 class="font-black text-3xl sm:text-4xl tracking-tight mt-2 mb-3" style="color:#1B1B1E">You're All Set!</h1>
-            <p class="font-semibold text-sm sm:text-base max-w-md mx-auto mb-8" style="color:#1B1B1E99">
-                <b style="color:#1B1B1E">{{ $enrollment->child->name }}</b> is enrolled in
-                <b style="color:#1B1B1E">{{ $enrollment->course->title }}</b>. Learning can start right away.
+            <span class="paper-tag mb-4">Enrolment Confirmed</span>
+            <h1 class="font-black text-3xl sm:text-4xl tracking-tight mt-2 mb-3" style="color:#0F201E">You're All Set!</h1>
+            <p class="font-semibold text-sm sm:text-base max-w-md mx-auto mb-8" style="color:#0F201E80">
+                <b style="color:#0F201E">{{ $enrollment->child->name }}</b> is enrolled in
+                <b style="color:#0F201E">{{ $enrollment->course->title }}</b>. Learning can start right away.
             </p>
 
-            <div class="max-w-md mx-auto mb-8 rounded-xl border-2 border-[#1B1B1E] bg-[#FAF7F0] p-6 text-left">
-                <div class="divide-y-2 divide-[#1B1B1E]/10">
+            <div class="max-w-md mx-auto mb-8 rounded-xl border border-gray-200 bg-gray-50 p-6 text-left">
+                <div class="divide-y-2 divide-[#0F201E]/10">
                     <div class="flex justify-between items-center py-2.5">
-                        <span class="text-xs font-black uppercase tracking-wide" style="color:#1B1B1E88">Course</span>
-                        <span class="font-black text-sm text-[#1B1B1E]">{{ $enrollment->course->title }}</span>
+                        <span class="text-xs font-black uppercase tracking-wide" style="color:#0F201E70">Course</span>
+                        <span class="font-black text-sm text-[#0F201E]">{{ $enrollment->course->title }}</span>
                     </div>
                     <div class="flex justify-between items-center py-2.5">
-                        <span class="text-xs font-black uppercase tracking-wide" style="color:#1B1B1E88">Student</span>
-                        <span class="font-black text-sm text-[#1B1B1E]">{{ $enrollment->child->name }}</span>
+                        <span class="text-xs font-black uppercase tracking-wide" style="color:#0F201E70">Student</span>
+                        <span class="font-black text-sm text-[#0F201E]">{{ $enrollment->child->name }}</span>
                     </div>
                     <div class="flex justify-between items-center py-2.5">
-                        <span class="text-xs font-black uppercase tracking-wide" style="color:#1B1B1E88">Fee Paid</span>
-                        <span class="font-black text-sm text-[#1B1B1E]">
+                        <span class="text-xs font-black uppercase tracking-wide" style="color:#0F201E70">Fee Paid</span>
+                        <span class="font-black text-sm text-[#0F201E]">
                             @if($payment && $payment->status === 'paid')
                                 ₦{{ number_format($payment->amount) }}
                             @else
@@ -43,13 +43,13 @@
                     </div>
                     @if($payment && $payment->transaction_id)
                         <div class="flex justify-between items-center py-2.5">
-                            <span class="text-xs font-black uppercase tracking-wide" style="color:#1B1B1E88">Reference</span>
-                            <span class="font-mono text-xs font-bold text-[#1B1B1E99]">{{ $payment->reference }}</span>
+                            <span class="text-xs font-black uppercase tracking-wide" style="color:#0F201E70">Reference</span>
+                            <span class="font-mono text-xs font-bold text-[#0F201E80]">{{ $payment->reference }}</span>
                         </div>
                     @endif
                     <div class="flex justify-between items-center py-2.5">
-                        <span class="text-xs font-black uppercase tracking-wide" style="color:#1B1B1E88">Status</span>
-                        <span class="paper-chip bg-[#16A34A] text-white">
+                        <span class="text-xs font-black uppercase tracking-wide" style="color:#0F201E70">Status</span>
+                        <span class="paper-chip bg-[#0DAA9C] text-white">
                             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                             Paid &amp; Active
                         </span>
