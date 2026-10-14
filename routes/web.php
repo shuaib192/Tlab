@@ -258,6 +258,9 @@ Route::middleware(['auth', '2fa', 'admin'])->prefix('admin')->name('admin.')->gr
     Route::post('payments/{payment}/reject', [\App\Http\Controllers\Admin\PaymentController::class, 'reject'])->name('payments.reject');
 
     // Programme Registrations
+    Route::get('contact-messages', [\App\Http\Controllers\Admin\ContactMessageController::class, 'index'])->name('contact-messages.index');
+    Route::get('contact-messages/{contactMessage}', [\App\Http\Controllers\Admin\ContactMessageController::class, 'show'])->name('contact-messages.show');
+
     Route::get('programme-registrations', [\App\Http\Controllers\Admin\ProgrammeRegistrationController::class, 'index'])->name('programme-registrations.index');
     Route::get('programme-registrations/{programmeRegistration}', [\App\Http\Controllers\Admin\ProgrammeRegistrationController::class, 'show'])->name('programme-registrations.show');
     Route::post('programme-registrations/{programmeRegistration}/verify', [\App\Http\Controllers\Admin\ProgrammeRegistrationController::class, 'verify'])->name('programme-registrations.verify');
