@@ -1,0 +1,42 @@
+name: Dade Deploy (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "discover | deploy"
+        required: true
+        default: "discover"
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  dade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT || '22' }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          cat >> ~/.ssh/config <<EOF
+          Host target
+            HostName $DEPLOY_HOST
+            User $DEPLOY_USER
+            Port $DEPLOY_PORT
+            IdentityFile ~/.ssh/deploy_key
+            StrictHostKeyChecking no
+            UserKnownHostsFile /dev/null
+          EOF
+
+      - name: Discover
+        run: |
+          ssh target 'echo "WHOAMI=$(whoami)"; echo "HOME=$HOME"; echo "PWD=$(pwd)"; echo "--- home ---"; ls -la "$HOME"; echo "--- find event-register.php ---"; find "$HOME" -maxdepth 6 -name event-register.php 2>/dev/null; echo "--- find cleanup ---"; find "$HOME" -maxdepth 6 -name cleanup-registrations.php 2>/dev/null'
