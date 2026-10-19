@@ -1,0 +1,48 @@
+name: Dade Deploy (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "audit | remove"
+        required: true
+        default: "audit"
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  dade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT || '22' }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          cat >> ~/.ssh/config <<EOF
+          Host target
+            HostName $DEPLOY_HOST
+            User $DEPLOY_USER
+            Port $DEPLOY_PORT
+            IdentityFile ~/.ssh/deploy_key
+            StrictHostKeyChecking no
+            UserKnownHostsFile /dev/null
+          EOF
+
+      - name: Audit
+        if: ${{ inputs.mode == 'audit' }}
+        run: |
+          ssh target 'echo "=== suspicious files in public_html ==="; ls -la ~/public_html/ | grep -Ei "deploy|diag|fix_config|\.sql|backup" || echo none; echo "=== dump ==="; base64 ~/public_html/deploy_dade.php'
+
+      - name: Remove from public
+        if: ${{ inputs.mode == 'remove' }}
+        run: |
+          ssh target 'mkdir -p ~/dade_removed_from_public; for f in deploy_dade.php deploy_db.php diag.php fix_config.php; do if [ -f ~/public_html/$f ]; then mv ~/public_html/$f ~/dade_removed_from_public/; echo "moved $f"; fi; done; echo "--- remaining ---"; ls -la ~/public_html/ | grep -Ei "deploy|diag|fix_config" || echo "no deploy/diag/fix_config scripts left in public"; echo "--- backup folder ---"; ls -l ~/dade_removed_from_public/'
