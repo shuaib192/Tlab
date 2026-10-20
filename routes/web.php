@@ -26,7 +26,7 @@ Route::get('/programs', [PageController::class, 'programs'])->name('programs');
 Route::get('/programs/{slug}', [PageController::class, 'programDetail'])->name('programs.show');
 Route::get('/membership', [PageController::class, 'membership'])->name('membership');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
-Route::post('/contact', [PageController::class, 'contactSubmit'])->name('contact.submit');
+Route::post('/contact', [PageController::class, 'contactSubmit'])->name('contact.submit')->middleware('throttle:contact');
 
 // --- Privacy & Compliance ---
 Route::get('/privacy', [\App\Http\Controllers\ComplianceController::class, 'privacy'])->name('privacy');

@@ -6,14 +6,14 @@
 @push('styles')
 <style>
     .landing-nav { background: rgba(255,255,255,.92); backdrop-filter: blur(10px); }
-    .landing-cta { background:#16A34A; color:#fff; }
-    .landing-cta:hover { background:#15803D; }
+    .landing-cta { background:#0DAA9C; color:#fff; }
+    .landing-cta:hover { background:#0A7A6E; }
     .form-input { width:100%; border:1.5px solid #E7E5E4; border-radius:.85rem; padding:.75rem 1rem; font-size:.95rem; font-weight:600; color:#1C1917; background:#fff; }
-    .form-input:focus { outline:none; border-color:#16A34A; box-shadow:0 0 0 3px rgba(22,163,74,.12); }
+    .form-input:focus { outline:none; border-color:#0DAA9C; box-shadow:0 0 0 3px rgba(13,170,156,.12); }
     .form-label { display:block; font-size:.8rem; font-weight:800; color:#57534E; text-transform:uppercase; letter-spacing:.05em; margin-bottom:.4rem; }
     .option-card { border:1.5px solid #E7E5E4; border-radius:.85rem; padding:.9rem 1rem; cursor:pointer; transition:border-color .15s ease, background .15s ease; }
     .option-card:hover { border-color:#A7F3D0; }
-    input:checked + .option-card { border-color:#16A34A; background:#F0FDF4; }
+    input:checked + .option-card { border-color:#0DAA9C; background:#F0FBFA; }
     .option-card input { position:absolute; opacity:0; pointer-events:none; }
     .error-text { font-size:.8rem; font-weight:700; color:#DC2626; margin-top:.35rem; }
 </style>

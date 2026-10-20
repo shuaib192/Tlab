@@ -31,7 +31,7 @@
     <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
         <h2 class="font-black text-base text-ink mb-4">Grade Distribution</h2>
         <div class="space-y-3">
-            @foreach(['A' => '#16A34A', 'B' => '#2563EB', 'C' => '#D97706', 'D' => '#EF4444'] as $grade => $color)
+            @foreach(['A' => '#0DAA9C', 'B' => '#2563EB', 'C' => '#D97706', 'D' => '#EF4444'] as $grade => $color)
             @php $pct = $gradeDistribution[$grade] ?? 0; @endphp
             <div>
                 <div class="flex justify-between text-sm mb-1">

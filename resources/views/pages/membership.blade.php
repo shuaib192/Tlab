@@ -55,7 +55,7 @@
             </div>
 
             {{-- Innovator / Premium - FEATURED --}}
-            <div class="tcard p-8 sm:p-10 flex flex-col border-2 border-primary relative overflow-hidden reveal shadow-2xl" data-delay="80" style="box-shadow:0 24px 80px rgba(22,163,74,0.18)">
+            <div class="tcard p-8 sm:p-10 flex flex-col border-2 border-primary relative overflow-hidden reveal shadow-2xl" data-delay="80" style="box-shadow:0 24px 80px rgba(13,170,156,0.18)">
                 <div class="absolute top-0 right-0 bg-primary text-white text-[0.58rem] font-black uppercase tracking-wider px-6 py-2 rounded-bl-2xl">
                     Best Value
                 </div>
@@ -113,7 +113,7 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
             @foreach([
-                ['M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z','#16A34A','COPPA & GDPR-K Compliant','No data selling. No ads. Ever.'],
+                ['M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z','#0DAA9C','COPPA & GDPR-K Compliant','No data selling. No ads. Ever.'],
                 ['M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z','#2563EB','Secure Paystack Payments','Local bank cards fully supported.'],
                 ['M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15','#7C3AED','Cancel Anytime','No lock-in. Switch or cancel freely.'],
             ] as [$icon,$color,$title,$sub])

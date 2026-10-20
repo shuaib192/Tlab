@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="/css/tlab.css">
     <style>
         html {
-            --c-primary: 22 163 74;
+            --c-primary: 13 170 156;
             --c-accent: 37 99 235;
             --c-violet: 124 58 237;
             --c-amber: 217 119 6;
@@ -33,7 +33,7 @@
             --c-ink: 15 23 42;
             --c-muted: 100 116 139;
             --c-surface: 248 250 252;
-            --c-mint: 0 230 118;
+            --c-mint: 13 170 156;
             --c-gold: 255 184 0;
             --c-sky: 77 195 255;
             --c-cream: 250 245 232;
@@ -89,7 +89,7 @@
             height: 56px;
             border-radius: 50%;
             border: 3px solid rgba(255, 255, 255, 0.15);
-            border-top-color: #16A34A;
+            border-top-color: #0DAA9C;
             animation: spin 0.6s linear infinite;
         }
 
@@ -129,7 +129,7 @@
         }
 
         .nav-item:hover {
-            color: #16A34A;
+            color: #0DAA9C;
         }
 
         .nav-item::after {
@@ -139,7 +139,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: #16A34A;
+            background: #0DAA9C;
             border-radius: 99px;
             transition: width .25s;
         }
@@ -188,8 +188,8 @@
         }
 
         .dropdown-link:hover {
-            background: #F0FDF4;
-            color: #16A34A;
+            background: #F0FBFA;
+            color: #0DAA9C;
         }
 
         /* ─── Buttons ─────────────────────────────────────── */
@@ -202,16 +202,16 @@
             border-radius: 12px;
             font-weight: 800;
             font-size: 0.875rem;
-            background: #16A34A;
+            background: #0DAA9C;
             color: #fff;
-            box-shadow: 0 4px 20px rgba(22, 163, 74, 0.3);
+            box-shadow: 0 4px 20px rgba(13,170,156, 0.3);
             transition: all .2s;
         }
 
         .btn-cta:hover {
-            background: #15803D;
+            background: #0A7A6E;
             transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(22, 163, 74, 0.4);
+            box-shadow: 0 8px 28px rgba(13,170,156, 0.4);
         }
 
         .btn-outline {
@@ -230,8 +230,8 @@
         }
 
         .btn-outline:hover {
-            border-color: #16A34A;
-            color: #16A34A;
+            border-color: #0DAA9C;
+            color: #0DAA9C;
             transform: translateY(-2px);
         }
 
@@ -244,16 +244,16 @@
             border-radius: 14px;
             font-weight: 800;
             font-size: 1rem;
-            background: #16A34A;
+            background: #0DAA9C;
             color: #fff;
-            box-shadow: 0 8px 32px rgba(22, 163, 74, 0.35);
+            box-shadow: 0 8px 32px rgba(13,170,156, 0.35);
             transition: all .25s;
         }
 
         .btn-hero:hover {
-            background: #15803D;
+            background: #0A7A6E;
             transform: translateY(-3px);
-            box-shadow: 0 14px 40px rgba(22, 163, 74, 0.45);
+            box-shadow: 0 14px 40px rgba(13,170,156, 0.45);
         }
 
         /* ─── Auth Buttons ───────────────────────────────── */
@@ -289,16 +289,16 @@
             border-radius: 14px;
             font-weight: 800;
             font-size: 0.95rem;
-            background: #16A34A;
+            background: #0DAA9C;
             color: #fff;
-            box-shadow: 0 6px 24px rgba(22, 163, 74, 0.35);
+            box-shadow: 0 6px 24px rgba(13,170,156, 0.35);
             transition: all .2s;
         }
 
         .btn-submit:hover {
-            background: #15803D;
+            background: #0A7A6E;
             transform: translateY(-2px);
-            box-shadow: 0 10px 32px rgba(22, 163, 74, 0.45);
+            box-shadow: 0 10px 32px rgba(13,170,156, 0.45);
         }
 
         /* ─── Form Inputs ────────────────────────────────── */
@@ -317,9 +317,9 @@
         }
 
         .form-input:focus {
-            border-color: #16A34A;
+            border-color: #0DAA9C;
             background: #fff;
-            box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.1);
+            box-shadow: 0 0 0 4px rgba(13,170,156, 0.1);
         }
 
         .form-input::placeholder {
@@ -375,7 +375,7 @@
         .xp-fill {
             height: 100%;
             border-radius: 99px;
-            background: linear-gradient(90deg, #16A34A, #2563EB);
+            background: linear-gradient(90deg, #0DAA9C, #2563EB);
             transition: width 1.2s cubic-bezier(.34, 1.56, .64, 1);
         }
 
@@ -389,9 +389,9 @@
         }
 
         .flash-success {
-            background: #F0FDF4;
-            border: 2px solid #86EFAC;
-            color: #15803D;
+            background: #F0FBFA;
+            border: 2px solid #7FDED2;
+            color: #0A7A6E;
         }
 
         .flash-error {

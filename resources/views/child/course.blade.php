@@ -152,7 +152,7 @@
                             <span class="hidden sm:inline-block w-2 h-2 rounded-full {{ $ls->status === 'live' ? 'bg-cyan-300 animate-pulse' : 'bg-cream/20' }}"></span>
                             <a href="{{ route('live.room', $ls) }}?enrollment={{ $enrollment->id }}"
                                class="px-4 py-2 rounded-xl text-xs sm:text-sm font-black tracking-wide transition-transform hover:scale-105 no-underline"
-                               style="background:{{ $ls->status === 'live' ? '#00E5FF' : 'rgba(0,229,255,0.15)' }};color:{{ $ls->status === 'live' ? '#0B0D10' : '#67e8f9' }};border:1px solid rgba(0,229,255,0.5)">
+                               style="background:{{ $ls->status === 'live' ? '#0DAA9C' : 'rgba(0,229,255,0.15)' }};color:{{ $ls->status === 'live' ? '#0B0D10' : '#67e8f9' }};border:1px solid rgba(0,229,255,0.5)">
                                 {{ $ls->status === 'live' ? 'Join Now' : 'Join Class' }}
                             </a>
                         @endif

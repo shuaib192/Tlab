@@ -17,9 +17,9 @@
 
     {{-- ── Left Panel (hidden on small screens) ── --}}
     <div class="hidden lg:flex flex-col justify-between w-[48%] relative overflow-hidden p-14"
-         style="background:linear-gradient(145deg,#052e16 0%,#14532d 55%,#16A34A 100%)">
+         style="background:linear-gradient(145deg,#052e16 0%,#062F2A 55%,#0DAA9C 100%)">
 
-        <div class="absolute w-[500px] h-[500px] rounded-full blur-[80px] opacity-20 -top-32 -left-32" style="background:#4ade80"></div>
+        <div class="absolute w-[500px] h-[500px] rounded-full blur-[80px] opacity-20 -top-32 -left-32" style="background:#5BEBDB"></div>
         <div class="absolute w-96 h-96 rounded-full blur-[60px] opacity-15 bottom-10 right-0" style="background:#a855f7"></div>
 
         {{-- Logo --}}
@@ -32,13 +32,13 @@
         <div class="relative z-10">
             <h2 class="font-black text-5xl text-white leading-[1.1] mb-8">
                 Africa's #1<br>
-                <span style="color:#4ade80">STEM Platform</span><br>
+                <span style="color:#5BEBDB">STEM Platform</span><br>
                 for Kids.
             </h2>
 
             {{-- Stat Grid --}}
             <div class="grid grid-cols-2 gap-4 mb-8">
-                @foreach([['500+','Active Learners','#4ade80'],['4','STEM Clubs','#60a5fa'],['16+','Courses','#c084fc'],['5','Rank Levels','#fb923c']] as [$n,$l,$c])
+                @foreach([['500+','Active Learners','#5BEBDB'],['4','STEM Clubs','#60a5fa'],['16+','Courses','#c084fc'],['5','Rank Levels','#fb923c']] as [$n,$l,$c])
                 <div class="rounded-2xl p-5" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12)">
                     <div class="font-black text-3xl mb-0.5" style="color:{{ $c }}">{{ $n }}</div>
                     <div class="text-white/50 text-xs font-semibold">{{ $l }}</div>

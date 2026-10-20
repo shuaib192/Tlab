@@ -6,7 +6,7 @@
 
     {{-- Flash --}}
     @if(session('success'))
-        <div class="flex items-center gap-3 px-5 py-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold text-sm mb-8 animate-slideDown">
+        <div class="flex items-center gap-3 px-5 py-4 rounded-2xl bg-teal-50 border border-teal-200 text-teal-700 font-bold text-sm mb-8 animate-slideDown">
             <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
             {{ session('success') }}
         </div>
@@ -44,7 +44,7 @@
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
         @php
             $statCards = [
-                ['count' => $children->count(), 'label' => 'Children', 'icon' => 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z', 'from' => '#16A34A', 'to' => '#15803D', 'sublabel' => 'Total'],
+                ['count' => $children->count(), 'label' => 'Children', 'icon' => 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z', 'from' => '#0DAA9C', 'to' => '#0A7A6E', 'sublabel' => 'Total'],
                 ['count' => number_format($totalXp), 'label' => 'Total XP Earned', 'icon' => 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', 'from' => '#2563EB', 'to' => '#1D4ED8', 'sublabel' => 'Lifetime'],
                 ['count' => $totalCourses, 'label' => 'Course Enrollments', 'icon' => 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253', 'from' => '#7C3AED', 'to' => '#6D28D9', 'sublabel' => 'Active'],
                 ['count' => $attendanceRate !== null ? $attendanceRate . '%' : '--', 'label' => 'Attendance Rate', 'icon' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z', 'from' => '#D97706', 'to' => '#B45309', 'sublabel' => '30 Days'],
@@ -86,7 +86,7 @@
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.922-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.196-1.539-1.118l1.07-3.292a1 1 0 00-.363-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                 </span>
             @else
-                <span class="w-11 h-11 rounded-xl grid place-items-center flex-shrink-0" style="background:#F0FDF4;color:#16A34A">
+                <span class="w-11 h-11 rounded-xl grid place-items-center flex-shrink-0" style="background:#F0FBFA;color:#0DAA9C">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.492 8.51 10 3.75l2.508 4.76 5.493.332-4.13 3.635 1.195 5.378L10 15.396l-5.066 2.46 1.195-5.378L1.99 8.842l5.5-.333z" clip-rule="evenodd" opacity="0"/><path d="M15 8.5a5 5 0 01-7.78 4.196 6.13 6.13 0 01-.62-1.06c-.381-.85-.57-1.77-.57-2.704v-.05c.034-1.902 1.267-3.596 3.075-4.212-.1 1.344.114 2.69.603 3.929.11.279.146.44.146.44s1.054-.754 1.148-1.95l.009-.016c.086.043.173.087.26.118a5.002 5.002 0 013.108 1.305z"/></svg>
                 </span>
             @endif
@@ -239,7 +239,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             @php
                 $rankData = [
-                    'Explorer'       => ['color'=>'#16A34A','bg'=>'#F0FDF4','light'=>'#DCFCE7','border'=>'#86EFAC','svg'=>'M3 3v1.5A5.5 5.5 0 008.5 10H13m1-6v7m-2-7v7m-5 5h10','gradient'=>'from-emerald-500 to-emerald-600'],
+                    'Explorer'       => ['color'=>'#0DAA9C','bg'=>'#F0FBFA','light'=>'#DCF7F4','border'=>'#7FDED2','svg'=>'M3 3v1.5A5.5 5.5 0 008.5 10H13m1-6v7m-2-7v7m-5 5h10','gradient'=>'from-teal-500 to-teal-600'],
                     'Innovator'      => ['color'=>'#2563EB','bg'=>'#EFF6FF','light'=>'#DBEAFE','border'=>'#93C5FD','svg'=>'M13 2L3 14h7l-1 8 10-12h-7l1-8z','gradient'=>'from-blue-500 to-blue-600'],
                     'Builder'        => ['color'=>'#EA580C','bg'=>'#FFF7ED','light'=>'#FFEDD5','border'=>'#FDBA74','svg'=>'M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z','gradient'=>'from-orange-500 to-orange-600'],
                     'Creator'        => ['color'=>'#7C3AED','bg'=>'#F5F3FF','light'=>'#EDE9FE','border'=>'#C4B5FD','svg'=>'M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245 4.5 4.5 0 00-.22-1.128zm0 0L15.75 9.75m-6.465 13.872A2.25 2.25 0 005.3 14.417a5.9 5.9 0 015.622-6.622A2.25 2.25 0 0013.25 2.25H11.25a2.25 2.25 0 00-.965 4.3','gradient'=>'from-violet-500 to-violet-600'],
@@ -362,13 +362,13 @@
             <div class="flex items-center justify-between py-3 px-4 rounded-xl hover:bg-gray-50 transition-colors">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold flex-shrink-0 shadow-sm"
-                         style="background:{{ $rankData[$log->child->rank ?? 'Explorer']['bg'] ?? '#F0FDF4' }};color:{{ $rankData[$log->child->rank ?? 'Explorer']['color'] ?? '#16A34A' }}">
+                         style="background:{{ $rankData[$log->child->rank ?? 'Explorer']['bg'] ?? '#F0FBFA' }};color:{{ $rankData[$log->child->rank ?? 'Explorer']['color'] ?? '#0DAA9C' }}">
                         {{ strtoupper(substr($log->child->name ?? '?', 0, 1)) }}
                     </div>
                     <div>
                         <div class="font-bold text-sm text-ink">{{ $log->activity }}</div>
                         <div class="text-xs text-muted flex items-center gap-1.5 mt-0.5">
-                            <span class="font-semibold" style="color:{{ $rankData[$log->child->rank ?? 'Explorer']['color'] ?? '#16A34A' }}">{{ $log->child->name ?? 'Unknown' }}</span>
+                            <span class="font-semibold" style="color:{{ $rankData[$log->child->rank ?? 'Explorer']['color'] ?? '#0DAA9C' }}">{{ $log->child->name ?? 'Unknown' }}</span>
                             <span class="w-1 h-1 rounded-full bg-gray-300"></span>
                             {{ $log->created_at->diffForHumans() }}
                         </div>
@@ -416,8 +416,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 datasets: [{
                     label: 'XP Earned',
                     data: values,
-                    backgroundColor: 'rgba(22,163,74,0.2)',
-                    borderColor: '#16A34A',
+                    backgroundColor: 'rgba(13,170,156,0.2)',
+                    borderColor: '#0DAA9C',
                     borderWidth: 2,
                     borderRadius: 4,
                 }]

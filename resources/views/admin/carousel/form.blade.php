@@ -60,9 +60,9 @@
                 <div>
                     <label class="block text-cream/60 text-xs font-bold uppercase tracking-wider mb-2">Background Colour</label>
                     <div class="flex items-center gap-3">
-                        <input type="color" name="bg_color" value="{{ old('bg_color', $slide?->bg_color ?? '#F0FDF4') }}"
+                        <input type="color" name="bg_color" value="{{ old('bg_color', $slide?->bg_color ?? '#F0FBFA') }}"
                                class="w-12 h-10 rounded-lg border border-gray-200 bg-transparent cursor-pointer">
-                        <input type="text" id="hex_display" value="{{ old('bg_color', $slide?->bg_color ?? '#F0FDF4') }}"
+                        <input type="text" id="hex_display" value="{{ old('bg_color', $slide?->bg_color ?? '#F0FBFA') }}"
                                class="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-cream text-sm font-semibold focus:outline-none" readonly>
                     </div>
                 </div>

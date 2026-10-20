@@ -136,7 +136,7 @@ $heroImg = $heroImages[$club['slug']] ?? $heroImages['stem-club'];
                 <div class="tcard p-6 reveal" data-delay="220">
                     <h4 class="font-black text-sm text-ink mb-4 uppercase tracking-wider">Other Programmes</h4>
                     <div class="space-y-2">
-                        @foreach(['stem-club'=>['STEM Club','#16A34A'],'brain-club'=>['Brain Club','#2563EB'],'art-craft'=>['Art & Craft','#EA580C'],'leadership'=>['Leadership Club','#7C3AED']] as $s=>[$n,$c])
+                        @foreach(['stem-club'=>['STEM Club','#0DAA9C'],'brain-club'=>['Brain Club','#2563EB'],'art-craft'=>['Art & Craft','#EA580C'],'leadership'=>['Leadership Club','#7C3AED']] as $s=>[$n,$c])
                         @if($s !== $club['slug'])
                         <a href="{{ route('club.detail', $s) }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-surface transition-colors group">
                             <div class="w-2 h-2 rounded-full flex-shrink-0" style="background:{{ $c }}"></div>

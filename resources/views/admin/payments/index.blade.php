@@ -73,7 +73,7 @@
                             </span>
                         </td>
                         <td class="px-6 py-4 text-center">
-                            <span class="text-xs font-bold px-3 py-1.5 rounded-lg" style="background:{{ $payment->status === 'paid' ? '#F0FDF4' : ($payment->status === 'pending' ? '#FFFBEB' : '#FEF2F2') }};color:{{ $payment->status === 'paid' ? '#16A34A' : ($payment->status === 'pending' ? '#D97706' : '#DC2626') }}">
+                            <span class="text-xs font-bold px-3 py-1.5 rounded-lg" style="background:{{ $payment->status === 'paid' ? '#F0FBFA' : ($payment->status === 'pending' ? '#FFFBEB' : '#FEF2F2') }};color:{{ $payment->status === 'paid' ? '#0DAA9C' : ($payment->status === 'pending' ? '#D97706' : '#DC2626') }}">
                                 {{ ucfirst($payment->status) }}
                             </span>
                         </td>

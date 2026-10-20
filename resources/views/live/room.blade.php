@@ -24,27 +24,27 @@
         *{margin:0;padding:0;box-sizing:border-box}
         html,body{height:100%}
         body{background:#0B0D10;color:#FAF5E8;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;display:flex;flex-direction:column;overflow:hidden}
-        header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;background:#11141A;border-bottom:2px solid #00FF88;flex-wrap:wrap}
+        header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;background:#11141A;border-bottom:2px solid #0DAA9C;flex-wrap:wrap}
         .brand{display:flex;align-items:center;gap:10px;min-width:0}
-        .badge-live{background:#00FF8820;color:#00FF88;border:1px solid #00FF8833;font-weight:800;font-size:10px;letter-spacing:2px;padding:4px 8px;border-radius:6px;white-space:nowrap}
+        .badge-live{background:#0DAA9C20;color:#0DAA9C;border:1px solid #0DAA9C33;font-weight:800;font-size:10px;letter-spacing:2px;padding:4px 8px;border-radius:6px;white-space:nowrap}
         .title{font-weight:800;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-        .sub{color:#00E5FF;font-size:10px;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+        .sub{color:#0DAA9C;font-size:10px;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
         .chip{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;padding:5px 10px;border-radius:999px;white-space:nowrap}
         .chip svg,.btn svg.icon{width:11px;height:11px;flex-shrink:0}
         .chip-lobby-on{background:#FFB80020;color:#FFB800;border:1px solid #FFB80044}
         .chip-lobby-off{background:#FAF5E820;color:#FAF5E880;border:1px solid #FAF5E833}
-        .chip-moderator{background:#00E5FF15;color:#00E5FF;border:1px solid #00E5FF44}
+        .chip-moderator{background:#0DAA9C15;color:#0DAA9C;border:1px solid #0DAA9C44}
         .chip-observer{background:#FF007F15;color:#FF007F;border:1px solid #FF007F44}
         nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
         .btn{font:inherit;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 12px;border-radius:8px;cursor:pointer;border:1px solid transparent;transition:all .15s}
-        .btn-mint{background:#00FF88;color:#0B0D10;border-color:#00FF88}
+        .btn-mint{background:#0DAA9C;color:#0B0D10;border-color:#0DAA9C}
         .btn-mint:hover{filter:brightness(1.1)}
         .btn-outline{background:transparent;color:#FAF5E8cc;border-color:#FAF5E833}
         .btn-outline:hover{border-color:#FAF5E866}
         .btn-danger{background:transparent;color:#FF6B6B;border-color:#FF6B6B55}
         .btn-danger:hover{background:#FF6B6B22}
         #meet{flex:1;min-height:0}
-        .notice{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:10;background:#11141A;border:2px solid #00E5FF;color:#00E5FF;font-size:10px;font-weight:700;letter-spacing:1px;padding:8px 14px;border-radius:8px;display:none}
+        .notice{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:10;background:#11141A;border:2px solid #0DAA9C;color:#0DAA9C;font-size:10px;font-weight:700;letter-spacing:1px;padding:8px 14px;border-radius:8px;display:none}
         @media(max-width:640px){
             .title{font-size:12px;max-width:38vw}
             .sub{display:none}
@@ -154,8 +154,8 @@
         function renderLobbyChip() {
             if (!lobbyBtn) return;
             lobbyBtn.textContent = lobbyOn ? 'Lobby ON' : 'Enable Lobby';
-            lobbyBtn.style.background = lobbyOn ? '#FFB800' : '#00FF88';
-            lobbyBtn.style.borderColor = lobbyOn ? '#FFB800' : '#00FF88';
+            lobbyBtn.style.background = lobbyOn ? '#FFB800' : '#0DAA9C';
+            lobbyBtn.style.borderColor = lobbyOn ? '#FFB800' : '#0DAA9C';
         }
         renderLobbyChip();
 

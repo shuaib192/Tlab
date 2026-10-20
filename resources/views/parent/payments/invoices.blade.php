@@ -28,7 +28,7 @@
                     <div class="font-black text-xl text-ink">&#8358;{{ number_format($invoice->amount) }}</div>
                     <div class="text-xs text-muted mt-1">Due {{ $invoice->due_date?->format('M j, Y') }}</div>
                 </div>
-                <span class="text-xs font-bold px-3 py-1.5 rounded-lg" style="background:{{ $invoice->status === 'paid' ? '#F0FDF4' : '#FFFBEB' }};color:{{ $invoice->status === 'paid' ? '#16A34A' : '#D97706' }}">
+                <span class="text-xs font-bold px-3 py-1.5 rounded-lg" style="background:{{ $invoice->status === 'paid' ? '#F0FBFA' : '#FFFBEB' }};color:{{ $invoice->status === 'paid' ? '#0DAA9C' : '#D97706' }}">
                     {{ ucfirst($invoice->status) }}
                 </span>
                 @if($invoice->status !== 'paid')

@@ -2,7 +2,7 @@
 @section('title', 'Reset Your Password')
 
 @section('content')
-<div class="min-h-screen flex items-center justify-center px-4" style="background:linear-gradient(135deg,#F0FDF4 0%,#EFF6FF 50%,#F5F3FF 100%)">
+<div class="min-h-screen flex items-center justify-center px-4" style="background:linear-gradient(135deg,#F0FBFA 0%,#EFF6FF 50%,#F5F3FF 100%)">
 
     {{-- Back link --}}
     <a href="{{ route('login') }}" class="fixed top-6 left-6 flex items-center gap-2 text-sm font-bold text-muted hover:text-ink transition-colors">

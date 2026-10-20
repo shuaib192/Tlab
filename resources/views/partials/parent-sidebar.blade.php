@@ -25,7 +25,7 @@
             <img src="/images/tlab-logo-white.png" alt="TLab" class="h-8 w-auto">
             <div>
                 <div class="font-black text-sm text-white">TLab</div>
-                <div class="text-[10px] font-bold uppercase tracking-widest" style="color:#16A34A">Parent Portal</div>
+                <div class="text-[10px] font-bold uppercase tracking-widest" style="color:#0DAA9C">Parent Portal</div>
             </div>
         </a>
         <button @@click="sidebarOpen = false" class="lg:hidden p-1.5 rounded-lg hover:bg-white/5 text-white/50 hover:text-white">
@@ -39,9 +39,9 @@
         @php $active = request()->routeIs($route) || request()->routeIs($route . '.*'); @endphp
         <a href="{{ route($route) }}"
            class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold transition-all"
-           style="background:{{ $active ? 'rgba(22,163,74,0.12)' : 'transparent' }}; color:{{ $active ? '#16A34A' : 'rgba(255,255,255,0.5)' }}"
-           onmouseover="this.style.background='{{ $active ? 'rgba(22,163,74,0.12)' : 'rgba(255,255,255,0.05)' }}'; this.style.color='{{ $active ? '#16A34A' : 'rgba(255,255,255,0.8)' }}'"
-           onmouseout="this.style.background='{{ $active ? 'rgba(22,163,74,0.12)' : 'transparent' }}'; this.style.color='{{ $active ? '#16A34A' : 'rgba(255,255,255,0.5)' }}'">
+           style="background:{{ $active ? 'rgba(13,170,156,0.12)' : 'transparent' }}; color:{{ $active ? '#0DAA9C' : 'rgba(255,255,255,0.5)' }}"
+           onmouseover="this.style.background='{{ $active ? 'rgba(13,170,156,0.12)' : 'rgba(255,255,255,0.05)' }}'; this.style.color='{{ $active ? '#0DAA9C' : 'rgba(255,255,255,0.8)' }}'"
+           onmouseout="this.style.background='{{ $active ? 'rgba(13,170,156,0.12)' : 'transparent' }}'; this.style.color='{{ $active ? '#0DAA9C' : 'rgba(255,255,255,0.5)' }}'">
             <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $icon }}"/></svg>
             {{ $label }}
             @if($route === 'notifications.index' && $unreadCount > 0)
@@ -54,7 +54,7 @@
     {{-- User section --}}
     <div class="absolute bottom-0 left-0 right-0 p-4 border-t" style="border-color:rgba(255,255,255,0.06); background:#0F172A">
         <div class="flex items-center gap-3 px-3 py-3 rounded-2xl" style="background:rgba(255,255,255,0.03)">
-            <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-sm flex-shrink-0" style="background:rgba(22,163,74,0.15); color:#16A34A">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-sm flex-shrink-0" style="background:rgba(13,170,156,0.15); color:#0DAA9C">
                 {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
             </div>
             <div class="flex-1 min-w-0">

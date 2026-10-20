@@ -92,7 +92,7 @@
                         <label class="form-label">Skill Level</label>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             @foreach([
-                                'beginner' => ['text' => 'Beginner', 'svg' => 'M3 3v1.5A5.5 5.5 0 008.5 10H13m1-6v7m-2-7v7m-5 5h10', 'color' => '#16A34A', 'bg' => '#F0FDF4'],
+                                'beginner' => ['text' => 'Beginner', 'svg' => 'M3 3v1.5A5.5 5.5 0 008.5 10H13m1-6v7m-2-7v7m-5 5h10', 'color' => '#0DAA9C', 'bg' => '#F0FBFA'],
                                 'intermediate' => ['text' => 'Intermediate', 'svg' => 'M13 2L3 14h7l-1 8 10-12h-7l1-8z', 'color' => '#2563EB', 'bg' => '#EFF6FF'],
                                 'advanced' => ['text' => 'Advanced', 'svg' => 'M15.36 2.64c1.96 1.76 4.57 3.1 7.14 3.43-.33 2.57-1.67 5.18-3.43 7.14-3.83 3.83-8 5.29-8 5.29l-6-6s1.46-4.17 5.29-8c1.96-1.96 4.57-3.11 7.14-3.43zM5.5 16.5c-1.5 1.5-2.5 5-2.5 5s3.5-1 5-2.5', 'color' => '#D97706', 'bg' => '#FFFBEB'],
                             ] as $value => $level)
@@ -191,7 +191,7 @@
             <div class="flex flex-col sm:flex-row gap-3 pt-2">
                 <button type="submit"
                         class="flex-1 py-4 rounded-2xl font-bold text-white text-base transition-all hover:-translate-y-0.5 active:translate-y-0 shadow-lg hover:shadow-xl"
-                        style="background:linear-gradient(135deg,#16A34A,#15803D)">
+                        style="background:linear-gradient(135deg,#0DAA9C,#0A7A6E)">
                     <span class="flex items-center justify-center gap-3">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                         Save Changes

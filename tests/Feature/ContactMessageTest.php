@@ -127,6 +127,25 @@ class ContactMessageTest extends TestCase
         $this->get('/admin/contact-messages')->assertRedirect('/login');
     }
 
+    public function test_contact_form_is_rate_limited(): void
+    {
+        Mail::fake();
+
+        $payload = [
+            'name' => 'Ade Bodija',
+            'email' => 'ade@example.com',
+            'subject' => 'Question',
+            'message' => 'Is the STEM club available in Port Harcourt?',
+        ];
+
+        // Limit is 3 per minute per IP.
+        for ($i = 0; $i < 3; $i++) {
+            $this->post('/contact', $payload)->assertRedirect();
+        }
+
+        $this->post('/contact', $payload)->assertStatus(429);
+    }
+
     public function test_opening_an_enquiry_marks_it_read(): void
     {
         $admin = User::factory()->create(['role' => 'super_admin']);

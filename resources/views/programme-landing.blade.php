@@ -10,10 +10,10 @@
     .landing-card { transition: transform .2s ease, box-shadow .2s ease; }
     .landing-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -18px rgba(5,46,22,.25); }
     .landing-chip { border:1px solid #E7E5E4; background:#FAFAF9; color:#57534E; }
-    .landing-cta { background:#16A34A; color:#fff; }
-    .landing-cta:hover { background:#15803D; }
-    .landing-outline { border:1.5px solid #16A34A; color:#15803D; }
-    .landing-outline:hover { background:#F0FDF4; }
+    .landing-cta { background:#0DAA9C; color:#fff; }
+    .landing-cta:hover { background:#0A7A6E; }
+    .landing-outline { border:1.5px solid #0DAA9C; color:#0A7A6E; }
+    .landing-outline:hover { background:#F0FBFA; }
 </style>
 @endpush
 
@@ -200,7 +200,7 @@
     <footer class="border-t border-gray-100 py-10">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-2 font-black">
-                <svg class="w-5 h-5" fill="none" stroke="#16A34A" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <svg class="w-5 h-5" fill="none" stroke="#0DAA9C" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 TLab by Edfrica
             </div>
             <p class="text-xs text-muted">Founded 2026 · Foundational Skills Programme · <a href="mailto:tlabadmin@edfrica.org" class="hover:text-ink">tlabadmin@edfrica.org</a></p>

@@ -66,7 +66,7 @@
                         </a>
                     @else
                         <a href="{{ route('login') }}" class="text-xs font-black uppercase tracking-wider text-white/70 hover:text-white transition-colors duration-300">Login</a>
-                        <a href="{{ route('register') }}" class="relative px-6 py-3 overflow-hidden text-xs font-black uppercase tracking-wider text-white bg-primary rounded-xl transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_20px_rgba(22,163,74,0.4)]">
+                        <a href="{{ route('register') }}" class="relative px-6 py-3 overflow-hidden text-xs font-black uppercase tracking-wider text-white bg-primary rounded-xl transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_20px_rgba(13,170,156,0.4)]">
                             Enrol Now
                         </a>
                     @endauth

@@ -20,7 +20,7 @@
             @if(isset($slides) && $slides->count() > 0)
                 {{-- Floating Interactive Announcement Carousel --}}
                 <div class="mb-8 relative z-20 reveal max-w-md">
-                    <div class="relative overflow-hidden rounded-xl border-2 border-mint/30 bg-[#0B1220]/90 backdrop-blur-md shadow-[0_0_0_1px_rgba(0,230,118,0.12),0_16px_40px_rgba(0,0,0,0.55)]">
+                    <div class="relative overflow-hidden rounded-xl border-2 border-mint/30 bg-[#0B1220]/90 backdrop-blur-md shadow-[0_0_0_1px_rgba(13,170,156,0.12),0_16px_40px_rgba(0,0,0,0.55)]">
                         <div class="flex items-center gap-2 px-4 py-2 border-b border-mint/20 bg-mint/10">
                             <span class="inline-block w-1.5 h-1.5 rounded-full bg-mint"></span>
                             <span class="text-[9px] font-black uppercase tracking-[0.25em] text-mint font-mono">// Announcements //</span>
@@ -78,7 +78,7 @@
             <div class="section-tag text-mint mb-5 reveal">&gt; AFRICA'S LEADING STEM PLATFORM FOR KIDS</div>
             <h1 class="font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-[1.08] mb-6 reveal">
                 Where Kids<br>
-                <span style="color:#00E676;text-shadow:0 0 22px rgba(0,230,118,0.55)">Learn</span>,<br>
+                <span style="color:#0DAA9C;text-shadow:0 0 22px rgba(13,170,156,0.55)">Learn</span>,<br>
                 <span style="color:#FFB800;text-shadow:0 0 22px rgba(255,184,0,0.55)">Build</span> &amp;<br>
                 <span style="color:#FF5C4D;text-shadow:0 0 22px rgba(255,92,77,0.55)">Lead</span>.
             </h1>
@@ -115,7 +115,7 @@
 <section class="py-14" style="background:#111827">
     <div class="max-w-5xl mx-auto px-6">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            @foreach([['500+','Active Learners','#00E676'],['4','STEM Clubs','#FFB800'],['16+','Courses','#FF5C4D'],['5','Rank Levels','#4DC3FF']] as [$n,$l,$c])
+            @foreach([['500+','Active Learners','#0DAA9C'],['4','STEM Clubs','#FFB800'],['16+','Courses','#FF5C4D'],['5','Rank Levels','#4DC3FF']] as [$n,$l,$c])
             <div class="reveal">
                 <div class="font-black text-4xl sm:text-5xl mb-1" style="color:{{ $c }}">{{ $n }}</div>
                 <div class="text-white/50 font-semibold text-sm">{{ $l }}</div>
@@ -135,7 +135,7 @@
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
             @foreach([
-                ['STEM Club',    'linear-gradient(135deg,rgba(5,46,22,0.95),rgba(20,83,45,0.95),rgba(22,163,74,0.9))', '#4ade80', 'Ages 7–15', 'Most Popular', 'Python, Robotics, Scratch & Science. Kids build real things.', ['Python','Robotics','Scratch','Science Lab'], 'stem-club', '/images/club-stem.jpg'],
+                ['STEM Club',    'linear-gradient(135deg,rgba(5,46,22,0.95),rgba(20,83,45,0.95),rgba(13,170,156,0.9))', '#5BEBDB', 'Ages 7–15', 'Most Popular', 'Python, Robotics, Scratch & Science. Kids build real things.', ['Python','Robotics','Scratch','Science Lab'], 'stem-club', '/images/club-stem.jpg'],
                 ['Brain Club',   'linear-gradient(135deg,rgba(30,27,75,0.95),rgba(29,78,216,0.95),rgba(59,130,246,0.9))', '#93c5fd', 'Ages 5–15', '', 'Math Olympiad, logic puzzles & strategy that sharpens young minds.', ['Math Olympiad','Logic','Chess','IQ Training'], 'brain-club', '/images/club-brain.jpg'],
                 ['Art & Craft',  'linear-gradient(135deg,rgba(67,20,7,0.95),rgba(194,75,28,0.95),rgba(249,115,22,0.9))', '#fdba74', 'Ages 3–12', 'Great for Beginners', 'Digital design, Lego storytelling, animation & creative expression.', ['Canva','Animation','Illustration','Storytelling'], 'art-craft', '/images/club-art.jpg'],
                 ['Leadership',   'linear-gradient(135deg,rgba(46,16,101,0.95),rgba(109,40,217,0.95),rgba(168,85,247,0.9))', '#d8b4fe', 'Ages 8–15', '', 'Debate, entrepreneurship & public speaking for tomorrow\'s leaders.', ['Debate','Public Speaking','Entrepreneurship','Confidence'], 'leadership', '/images/club-leadership.jpg'],
@@ -181,7 +181,7 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach([
-                ['01','#16A34A','#F0FDF4','Create Parent Account','Sign up free. Your account manages all your children from one secure dashboard.'],
+                ['01','#0DAA9C','#F0FBFA','Create Parent Account','Sign up free. Your account manages all your children from one secure dashboard.'],
                 ['02','#2563EB','#EFF6FF','Add Child Profiles','Create individual profiles with interests, age and a security PIN for each child.'],
                 ['03','#7C3AED','#F5F3FF','Kids Earn XP &amp; Rank Up','Children complete sessions, earn XP, climb 5 ranks and unlock achievements.'],
             ] as [$step,$color,$bg,$title,$desc])

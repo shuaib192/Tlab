@@ -5,7 +5,7 @@
     <h1 class="font-black text-3xl text-ink mb-8">Parental Consent</h1>
 
     @if(session('success'))
-    <div class="px-5 py-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold text-sm mb-8">{{ session('success') }}</div>
+    <div class="px-5 py-4 rounded-2xl bg-teal-50 border border-teal-200 text-teal-700 font-bold text-sm mb-8">{{ session('success') }}</div>
     @endif
 
     <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 mb-8">

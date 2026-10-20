@@ -25,7 +25,7 @@
         {{-- Left Panel --}}
         <div class="hidden lg:flex flex-col justify-between w-[45%] relative overflow-hidden p-14 left-panel">
             <div class="absolute w-[400px] h-[400px] rounded-full blur-3xl opacity-20 -top-20 -left-20"
-                style="background:#4ade80"></div>
+                style="background:#5BEBDB"></div>
             <div class="absolute w-80 h-80 rounded-full blur-3xl opacity-15 bottom-20 right-10" style="background:#a855f7">
             </div>
             <div class="relative z-10">
@@ -34,7 +34,7 @@
             <div class="relative z-10">
                 <h2 class="font-black text-5xl text-white leading-[1.1] mb-8">
                     Your child's<br>
-                    <span style="color:#4ade80">STEM journey</span><br>
+                    <span style="color:#5BEBDB">STEM journey</span><br>
                     starts here.
                 </h2>
                 <div class="space-y-5">

@@ -7,7 +7,7 @@
 <dt>Session</dt><dd>{{ $session->title }}</dd>
 <dt>Date</dt><dd>{{ $session->date->format('l, F j, Y') }}</dd>
 <dt>Time</dt><dd>{{ \Carbon\Carbon::parse($session->start_time)->format('g:i A') }} - {{ \Carbon\Carbon::parse($session->end_time)->format('g:i A') }}</dd>
-@if($session->meeting_url)<dt>Meeting Link</dt><dd><a href="{{ $session->meeting_url }}" style="color:#16A34A">{{ $session->meeting_url }}</a></dd>@endif
+@if($session->meeting_url)<dt>Meeting Link</dt><dd><a href="{{ $session->meeting_url }}" style="color:#0DAA9C">{{ $session->meeting_url }}</a></dd>@endif
 </dl>
 </div>
 <p>Please make sure {{ $childName }} is ready and logged in on time!</p>

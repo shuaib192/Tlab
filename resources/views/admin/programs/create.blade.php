@@ -51,12 +51,12 @@
                 <div>
                     <label class="label font-mono">Primary Spectrum (HEX Color)</label>
                     <div class="flex items-center gap-3">
-                        <input type="color" id="colorPicker" value="{{ old('color', '#00E5FF') }}"
+                        <input type="color" id="colorPicker" value="{{ old('color', '#0DAA9C') }}"
                                oninput="document.getElementById('colorInput').value = this.value"
                                class="w-10 h-10 rounded border-0 bg-transparent cursor-pointer">
-                        <input type="text" name="color" id="colorInput" value="{{ old('color', '#00E5FF') }}" required
+                        <input type="text" name="color" id="colorInput" value="{{ old('color', '#0DAA9C') }}" required
                                oninput="document.getElementById('colorPicker').value = this.value"
-                               class="input font-mono uppercase text-xs" placeholder="#00E5FF">
+                               class="input font-mono uppercase text-xs" placeholder="#0DAA9C">
                     </div>
                 </div>
 

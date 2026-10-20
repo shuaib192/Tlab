@@ -14,7 +14,7 @@
 
         @php
             $rankColors = [
-                'Explorer'       => ['color'=>'#16A34A','bg'=>'#F0FDF4','light'=>'#DCFCE7','border'=>'#86EFAC','svg'=>'M3 3v1.5A5.5 5.5 0 008.5 10H13m1-6v7m-2-7v7m-5 5h10','desc'=>'Just starting the journey'],
+                'Explorer'       => ['color'=>'#0DAA9C','bg'=>'#F0FBFA','light'=>'#DCF7F4','border'=>'#7FDED2','svg'=>'M3 3v1.5A5.5 5.5 0 008.5 10H13m1-6v7m-2-7v7m-5 5h10','desc'=>'Just starting the journey'],
                 'Innovator'      => ['color'=>'#2563EB','bg'=>'#EFF6FF','light'=>'#DBEAFE','border'=>'#93C5FD','svg'=>'M13 2L3 14h7l-1 8 10-12h-7l1-8z','desc'=>'Discovering new ideas'],
                 'Builder'        => ['color'=>'#EA580C','bg'=>'#FFF7ED','light'=>'#FFEDD5','border'=>'#FDBA74','svg'=>'M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z','desc'=>'Building real skills'],
                 'Creator'        => ['color'=>'#7C3AED','bg'=>'#F5F3FF','light'=>'#EDE9FE','border'=>'#C4B5FD','svg'=>'M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245 4.5 4.5 0 00-.22-1.128zm0 0L15.75 9.75m-6.465 13.872A2.25 2.25 0 005.3 14.417a5.9 5.9 0 015.622-6.622A2.25 2.25 0 0013.25 2.25H11.25a2.25 2.25 0 00-.965 4.3','desc'=>'Creating and innovating'],
@@ -36,7 +36,7 @@
         @endphp
 
         @if(session('success'))
-            <div class="flex items-center gap-3 px-5 py-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold text-sm mb-8">
+            <div class="flex items-center gap-3 px-5 py-4 rounded-2xl bg-teal-50 border border-teal-200 text-teal-700 font-bold text-sm mb-8">
                 <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                 {{ session('success') }}
             </div>
@@ -112,7 +112,7 @@
                 <div class="font-black text-2xl sm:text-3xl" style="color:{{ $rc['color'] }}">{{ $courseCount }}</div>
                 <div class="text-muted font-semibold text-xs mt-1">Total Courses</div>
                 @if($activeCount > 0)
-                <div class="text-xs text-emerald-600 font-bold mt-1">{{ $activeCount }} active</div>
+                <div class="text-xs text-teal-600 font-bold mt-1">{{ $activeCount }} active</div>
                 @endif
             </div>
             <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 text-center">
@@ -144,7 +144,7 @@
                         <span class="text-xs font-bold text-muted bg-gray-100 px-3 py-1.5 rounded-full">{{ $enrollments->count() }}</span>
                     </div>
                     @forelse($enrollments as $e)
-                    @php $clubColor = $e->course?->club?->color_theme ?? '#16A34A'; @endphp
+                    @php $clubColor = $e->course?->club?->color_theme ?? '#0DAA9C'; @endphp
                     <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors {{ !$loop->last ? 'mb-2' : '' }}">
                         <div class="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold flex-shrink-0"
                              style="background:{{ $clubColor }}15; color:{{ $clubColor }}">
@@ -159,8 +159,8 @@
                             <span class="text-xs text-muted hidden sm:block">{{ $e->cohort->name }}</span>
                             @endif
                             <span class="text-xs px-3 py-1 rounded-full font-bold"
-                                  style="background:{{ $e->status === 'active' ? '#F0FDF4' : ($e->status === 'completed' ? '#EFF6FF' : '#FEF2F2') }}; 
-                                         color:{{ $e->status === 'active' ? '#16A34A' : ($e->status === 'completed' ? '#2563EB' : '#DC2626') }}">
+                                  style="background:{{ $e->status === 'active' ? '#F0FBFA' : ($e->status === 'completed' ? '#EFF6FF' : '#FEF2F2') }}; 
+                                         color:{{ $e->status === 'active' ? '#0DAA9C' : ($e->status === 'completed' ? '#2563EB' : '#DC2626') }}">
                                 {{ ucfirst($e->status) }}
                             </span>
                         </div>
@@ -212,7 +212,7 @@
                     <h2 class="font-black text-lg text-ink mb-5">Rank Journey</h2>
                     <div class="space-y-2">
                         @foreach([
-                            ['Explorer', 0, '#16A34A', 'M3 3v1.5A5.5 5.5 0 008.5 10H13m1-6v7m-2-7v7m-5 5h10'],
+                            ['Explorer', 0, '#0DAA9C', 'M3 3v1.5A5.5 5.5 0 008.5 10H13m1-6v7m-2-7v7m-5 5h10'],
                             ['Innovator', 200, '#2563EB', 'M13 2L3 14h7l-1 8 10-12h-7l1-8z'],
                             ['Builder', 500, '#EA580C', 'M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z'],
                             ['Creator', 1000, '#7C3AED', 'M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245 4.5 4.5 0 00-.22-1.128zm0 0L15.75 9.75m-6.465 13.872A2.25 2.25 0 005.3 14.417a5.9 5.9 0 015.622-6.622A2.25 2.25 0 0013.25 2.25H11.25a2.25 2.25 0 00-.965 4.3'],
@@ -231,7 +231,7 @@
                             @if($child->rank === $name)
                                 <span class="text-xs font-bold px-2.5 py-1 rounded-full" style="background:{{ $color }}15; color:{{ $color }}">Current</span>
                             @elseif($achieved)
-                                <svg class="w-5 h-5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                                <svg class="w-5 h-5 text-teal-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
                             @endif
                         </div>
                         @endforeach

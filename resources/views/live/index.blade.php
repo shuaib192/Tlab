@@ -36,7 +36,7 @@
 
 {{-- Status strip --}}
 <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-    <div class="card p-4 border-l-4" style="border-left-color:#00FF88">
+    <div class="card p-4 border-l-4" style="border-left-color:#0DAA9C">
         <div class="font-display text-2xl font-black text-mint">{{ $counts['live'] }}</div>
         <div class="text-xs font-mono text-cream/50 uppercase tracking-wider">ON AIR</div>
     </div>

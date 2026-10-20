@@ -9,7 +9,7 @@
 <section class="relative pt-36 pb-20 bg-ink overflow-hidden">
     <div class="absolute inset-0 z-0">
         <div class="absolute inset-0 bg-gradient-to-br from-green-950/40 via-ink to-indigo-950/40"></div>
-        <div class="absolute top-1/4 right-0 w-80 h-80 rounded-full blur-[100px] opacity-25" style="background:#16A34A"></div>
+        <div class="absolute top-1/4 right-0 w-80 h-80 rounded-full blur-[100px] opacity-25" style="background:#0DAA9C"></div>
         <div class="absolute bottom-1/4 left-0 w-80 h-80 rounded-full blur-[100px] opacity-20" style="background:#7C3AED"></div>
     </div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">

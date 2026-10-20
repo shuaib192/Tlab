@@ -9,7 +9,7 @@
     {{-- Hero --}}
     <section class="relative pt-36 pb-24 bg-ink overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-green-950/30 via-ink to-indigo-950/30"></div>
-        <div class="absolute top-1/3 left-1/4 w-96 h-96 rounded-full blur-[120px] opacity-20" style="background:#16A34A">
+        <div class="absolute top-1/3 left-1/4 w-96 h-96 rounded-full blur-[120px] opacity-20" style="background:#0DAA9C">
         </div>
         <div class="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-[100px] opacity-15"
             style="background:#7C3AED"></div>

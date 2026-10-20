@@ -17,9 +17,9 @@
 
     {{-- ── Left Panel ── --}}
     <div class="hidden lg:flex flex-col justify-between w-[48%] relative overflow-hidden p-14"
-         style="background:linear-gradient(145deg,#052e16 0%,#14532d 55%,#16A34A 100%)">
+         style="background:linear-gradient(145deg,#052e16 0%,#062F2A 55%,#0DAA9C 100%)">
 
-        <div class="absolute w-[500px] h-[500px] rounded-full blur-[80px] opacity-20 -top-32 -left-32" style="background:#4ade80"></div>
+        <div class="absolute w-[500px] h-[500px] rounded-full blur-[80px] opacity-20 -top-32 -left-32" style="background:#5BEBDB"></div>
 
         <div class="relative z-10">
             <img src="/images/tlab-logo-white.png" alt="TLab" class="h-11 w-auto">

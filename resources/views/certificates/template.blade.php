@@ -22,7 +22,7 @@
         .certificate {
             width: 900px;
             background: white;
-            border: 12px solid #16A34A;
+            border: 12px solid #0DAA9C;
             border-radius: 24px;
             padding: 50px 60px;
             position: relative;
@@ -32,7 +32,7 @@
             content: '';
             position: absolute;
             top: 20px; left: 20px; right: 20px; bottom: 20px;
-            border: 2px solid #16A34A20;
+            border: 2px solid #0DAA9C20;
             border-radius: 16px;
             pointer-events: none;
         }
@@ -44,7 +44,7 @@
             font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 4px;
-            color: #16A34A;
+            color: #0DAA9C;
             margin: 0 0 5px;
         }
         .header h2 {
@@ -83,7 +83,7 @@
         .body .course-name {
             font-size: 28px;
             font-weight: 700;
-            color: #16A34A;
+            color: #0DAA9C;
             margin: 0 0 20px;
         }
         .body .details {
@@ -137,7 +137,7 @@
         .seal {
             width: 60px;
             height: 60px;
-            background: #16A34A;
+            background: #0DAA9C;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -184,7 +184,7 @@
             <div class="footer">
                 <div>
                     <div class="seal">T</div>
-                    <div style="font-size:10px;color:#16A34A;font-weight:700;margin-top:4px;text-align:center">TLab</div>
+                    <div style="font-size:10px;color:#0DAA9C;font-weight:700;margin-top:4px;text-align:center">TLab</div>
                 </div>
                 <div class="qr">
                     <img src="data:image/svg+xml;base64,{{ $qrCode }}" alt="QR Code">

@@ -13,7 +13,7 @@
     <div class="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8">
         <div class="flex items-center justify-between mb-6">
             <h1 class="font-black text-2xl text-ink">Payment Details</h1>
-            <span class="text-xs font-bold px-4 py-2 rounded-lg" style="background:{{ $payment->status === 'paid' ? '#F0FDF4' : ($payment->status === 'pending' ? '#FFFBEB' : '#FEF2F2') }};color:{{ $payment->status === 'paid' ? '#16A34A' : ($payment->status === 'pending' ? '#D97706' : '#DC2626') }}">
+            <span class="text-xs font-bold px-4 py-2 rounded-lg" style="background:{{ $payment->status === 'paid' ? '#F0FBFA' : ($payment->status === 'pending' ? '#FFFBEB' : '#FEF2F2') }};color:{{ $payment->status === 'paid' ? '#0DAA9C' : ($payment->status === 'pending' ? '#D97706' : '#DC2626') }}">
                 {{ strtoupper($payment->status) }}
             </span>
         </div>
