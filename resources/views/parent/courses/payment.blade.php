@@ -55,7 +55,7 @@
                     @if($enrollment->course->fee)
                         ₦{{ number_format($enrollment->course->fee) }}
                     @else
-                        Free
+                        No fee
                     @endif
                 </p>
                 @if($enrollment->course->fee)
@@ -74,7 +74,7 @@
             @else
                 <button type="submit" class="btn-flat w-full py-4 text-base" style="background:{{ $accent }};border-color:{{ $accent }}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                    Confirm Free Enrolment
+                    Confirm Enrolment
                 </button>
             @endif
         </form>

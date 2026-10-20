@@ -27,6 +27,7 @@ class CurriculumController extends Controller
             'sort_order' => 'nullable|integer|min:0',
         ]);
 
+        $data['slug'] = $this->uniqueSlug(Module::class, str($data['title'])->slug());
         $data['sort_order'] = $data['sort_order'] ?? Module::where('course_id', $course->id)->count();
 
         Module::create(array_merge($data, ['course_id' => $course->id]));
@@ -76,7 +77,7 @@ class CurriculumController extends Controller
             'sort_order' => 'nullable|integer|min:0',
         ]);
 
-        $data['slug'] = str($data['title'])->slug();
+        $data['slug'] = $this->uniqueSlug(Lesson::class, str($data['title'])->slug());
         $data['sort_order'] = $data['sort_order'] ?? Lesson::where('module_id', $module->id)->count();
 
         Lesson::create(array_merge($data, ['module_id' => $module->id]));
@@ -161,5 +162,23 @@ class CurriculumController extends Controller
 
         return redirect()->route('admin.curriculum.assessments', $lessonId)
             ->with('success', 'Question deleted.');
+    }
+
+    /**
+     * Build a slug that is unique for the given model, appending a counter
+     * if the base slug is already taken. Both modules and lessons have a
+     * NOT NULL UNIQUE slug column, so a raw title slug can collide.
+     */
+    private function uniqueSlug(string $modelClass, string $base): string
+    {
+        $base = $base !== '' ? $base : 'item';
+        $slug = $base;
+        $suffix = 1;
+
+        while ($modelClass::where('slug', $slug)->exists()) {
+            $slug = $base.'-'.(++$suffix);
+        }
+
+        return $slug;
     }
 }

@@ -31,12 +31,24 @@
         </div>
 
         <div>
+            <label class="label">Assigned Teacher <span class="opacity-60 font-normal">— optional</span></label>
+            <select name="teacher_id" class="input appearance-none">
+                <option value="">Unassigned</option>
+                @foreach($teachers as $teacher)
+                <option value="{{ $teacher->id }}" {{ old('teacher_id') == $teacher->id ? 'selected' : '' }}>
+                    {{ $teacher->name }}
+                </option>
+                @endforeach
+            </select>
+        </div>
+
+        <div>
             <label class="label">Course Title</label>
             <input type="text" name="title" value="{{ old('title') }}" required class="input" placeholder="e.g. Python for Kids">
         </div>
 
         <div>
-            <label class="label">Enrolment Fee (₦) <span class="opacity-60 font-normal">— leave blank for free</span></label>
+            <label class="label">Enrolment Fee (₦) <span class="opacity-60 font-normal">— leave blank for no fee</span></label>
             <input type="number" name="fee" value="{{ old('fee') }}" min="0" class="input" placeholder="e.g. 5000">
             @error('fee')
                 <p class="text-terra text-xs font-bold mt-1">{{ $message }}</p>

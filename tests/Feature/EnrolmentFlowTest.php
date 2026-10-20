@@ -42,7 +42,7 @@ class EnrolmentFlowTest extends TestCase
 
         $this->actingAs($user)->get(route('parent.courses.payment', $enrollment))
             ->assertStatus(200)
-            ->assertSee('Free');
+            ->assertSee('No fee');
 
         $this->actingAs($user)->post(route('parent.courses.pay', $enrollment))
             ->assertRedirect(route('parent.enrollments.confirmation', $enrollment));

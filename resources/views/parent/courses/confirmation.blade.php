@@ -37,7 +37,7 @@
                             @if($payment && $payment->status === 'paid')
                                 ₦{{ number_format($payment->amount) }}
                             @else
-                                Free
+                                No fee
                             @endif
                         </span>
                     </div>

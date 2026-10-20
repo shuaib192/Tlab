@@ -88,7 +88,7 @@
             </p>
             <div class="flex flex-wrap gap-4 reveal">
                 <a href="{{ route('register') }}" class="btn-hero">
-                    Enrol Your Child Free
+                    Enrol Your Child
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                 </a>
                 <a href="{{ route('clubs') }}" class="btn-outline !border-white/30 !text-white hover:!border-white hover:!text-white">Explore Clubs</a>
@@ -181,7 +181,7 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach([
-                ['01','#0DAA9C','#F0FBFA','Create Parent Account','Sign up free. Your account manages all your children from one secure dashboard.'],
+                ['01','#0DAA9C','#F0FBFA','Create Parent Account','Sign up. Your account manages all your children from one secure dashboard.'],
                 ['02','#2563EB','#EFF6FF','Add Child Profiles','Create individual profiles with interests, age and a security PIN for each child.'],
                 ['03','#7C3AED','#F5F3FF','Kids Earn XP &amp; Rank Up','Children complete sessions, earn XP, climb 5 ranks and unlock achievements.'],
             ] as [$step,$color,$bg,$title,$desc])
@@ -208,7 +208,7 @@
         <div class="space-y-4" id="faq-list">
             @php
             $faqs = [
-                ['How do I enrol my child?', 'Create a free parent account, add your child\'s profile, select a club and complete enrolment. It takes less than 5 minutes.'],
+                ['How do I enrol my child?', 'Create a parent account, add your child\'s profile, select a club and complete enrolment. It takes less than 5 minutes.'],
                 ['What age groups does TLab cater to?', 'TLab is designed for children aged 3 to 15. Each club has its own age-appropriate curriculum and pace.'],
                 ['Is TLab safe for my child?', 'Absolutely. TLab is fully COPPA and GDPR-K compliant. There are no ads, no data selling, and parents control all access.'],
                 ['What is the XP and ranking system?', 'Children earn XP points for attending sessions, completing challenges and helping peers. They progress through 5 ranks: Explorer, Innovator, Builder, Creator, and Master Inventor.'],
@@ -239,7 +239,7 @@
         <h2 class="font-black text-4xl sm:text-5xl text-white mb-5 reveal">Give Your Child a Head Start</h2>
         <p class="text-white/60 font-semibold text-lg mb-10 reveal">Join hundreds of African families already using TLab to build the next generation of innovators.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center reveal">
-            <a href="{{ route('register') }}" class="btn-hero !px-10">Enrol Free Today</a>
+            <a href="{{ route('register') }}" class="btn-hero !px-10">Enrol Today</a>
             <a href="#faq" class="btn-outline !border-white/30 !text-white hover:!border-white">Read the FAQ</a>
         </div>
     </div>

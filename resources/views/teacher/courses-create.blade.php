@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="mb-5">
-                <label class="label">Enrolment Fee (₦) <span class="opacity-60 font-normal">— leave blank for free</span></label>
+                <label class="label">Enrolment Fee (₦) <span class="opacity-60 font-normal">— leave blank for no fee</span></label>
                 <input type="number" name="fee" class="input" min="0" placeholder="e.g. 5000">
                 @error('fee') <p class="text-terra text-xs font-bold mt-1">{{ $message }}</p> @enderror
             </div>

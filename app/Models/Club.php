@@ -9,7 +9,11 @@ class Club extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'description', 'color_theme', 'icon'];
+    protected $fillable = ['name', 'slug', 'description', 'color_theme', 'icon', 'min_age', 'max_age', 'is_active'];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 
     /**
      * Brand-consistent accent for the club, derived from its stored colour.

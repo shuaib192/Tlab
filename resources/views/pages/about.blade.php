@@ -127,7 +127,7 @@
     <div class="max-w-3xl mx-auto px-6">
         <h2 class="font-black text-4xl text-ink mb-5 reveal">Ready to start their journey?</h2>
         <p class="text-muted font-semibold text-base mb-8 max-w-xl mx-auto reveal">Enrol your child now and watch them scale from Explorer to Master Inventor with TLab.</p>
-        <a href="{{ route('register') }}" class="btn-hero inline-flex !px-10 reveal">Get Started Free</a>
+        <a href="{{ route('register') }}" class="btn-hero inline-flex !px-10 reveal">Get Started</a>
     </div>
 </section>
 

@@ -129,7 +129,7 @@
                                 Policy</a>.
                         </label>
                     </div>
-                    <button type="submit" class="btn-submit mt-2">Create Free Account</button>
+                    <button type="submit" class="btn-submit mt-2">Create Account</button>
                 </form>
 
                 <p class="text-center text-muted font-semibold mt-6 text-sm">

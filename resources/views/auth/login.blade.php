@@ -133,7 +133,7 @@
 
             <p class="text-center text-muted font-semibold text-sm mt-8">
                 Don't have an account?
-                <a href="{{ route('register') }}" class="text-primary font-black hover:underline">Sign up free</a>
+                <a href="{{ route('register') }}" class="text-primary font-black hover:underline">Sign up</a>
             </p>
         </div>
     </div>
