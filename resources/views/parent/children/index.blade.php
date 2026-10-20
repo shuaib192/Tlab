@@ -61,9 +61,13 @@
                 <div class="p-6">
                     <div class="flex items-center gap-4 mb-5">
                         <div class="relative">
-                            <div class="w-16 h-16 rounded-2xl font-black text-2xl flex items-center justify-center shadow-sm transition-transform group-hover:scale-105"
+                            <div class="w-16 h-16 rounded-2xl font-black text-2xl flex items-center justify-center shadow-sm transition-transform group-hover:scale-105 overflow-hidden"
                                  style="background:{{ $rd['bg'] }};color:{{ $rd['color'] }};border:2px solid {{ $rd['color'] }}30">
-                                {{ strtoupper(substr($child->name, 0, 1)) }}
+                                @if($child->avatar)
+                                    <img src="{{ Storage::url($child->avatar) }}" alt="{{ $child->name }}" class="w-full h-full object-cover">
+                                @else
+                                    {{ strtoupper(substr($child->name, 0, 1)) }}
+                                @endif
                             </div>
                             <div class="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-white shadow-sm grid place-items-center text-xs border border-gray-100" style="color:{{ $rd['color'] }}">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $rd['svg'] }}"/></svg>

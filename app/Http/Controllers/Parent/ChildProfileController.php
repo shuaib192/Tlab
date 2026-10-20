@@ -9,6 +9,19 @@ use Illuminate\Support\Facades\Hash;
 
 class ChildProfileController extends Controller
 {
+    /**
+     * Store an uploaded child photo on the public disk and return its path.
+     * Returns null when no file was uploaded.
+     */
+    private function storeAvatar(Request $request): ?string
+    {
+        if (! $request->hasFile('avatar')) {
+            return null;
+        }
+
+        return $request->file('avatar')->store('child-avatars', 'public');
+    }
+
     public function index()
     {
         $children = auth()->user()->children()->latest()->get();
@@ -32,6 +45,7 @@ class ChildProfileController extends Controller
             'skill_level' => 'nullable|in:beginner,intermediate,advanced',
             'pin' => 'nullable|digits:4',
             'pin_enabled' => 'nullable|boolean',
+            'avatar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $child = auth()->user()->children()->create([
@@ -43,6 +57,7 @@ class ChildProfileController extends Controller
             'skill_level' => $request->skill_level ?? 'beginner',
             'pin' => $request->pin ? Hash::make($request->pin) : null,
             'pin_enabled' => $request->boolean('pin_enabled'),
+            'avatar' => $this->storeAvatar($request),
         ]);
 
         return redirect()->route('parent.dashboard')
@@ -77,11 +92,15 @@ class ChildProfileController extends Controller
             'skill_level' => 'nullable|in:beginner,intermediate,advanced',
             'pin' => 'nullable|digits:4',
             'pin_enabled' => 'nullable|boolean',
+            'avatar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $data = $request->only('name', 'username', 'dob', 'gender', 'interests', 'skill_level');
         if ($request->filled('pin')) {
             $data['pin'] = Hash::make($request->pin);
+        }
+        if ($request->hasFile('avatar')) {
+            $data['avatar'] = $this->storeAvatar($request);
         }
         $child->update($data);
         $child->update(['pin_enabled' => $request->boolean('pin_enabled')]);

@@ -41,7 +41,7 @@
         @endif
 
         {{-- Form --}}
-        <form method="POST" action="{{ route('parent.children.store') }}" class="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8 space-y-7">
+        <form method="POST" action="{{ route('parent.children.store') }}" enctype="multipart/form-data" class="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8 space-y-7">
             @csrf
 
             {{-- Section: Basic Info --}}
@@ -54,6 +54,13 @@
                 </div>
 
                 <div class="space-y-5">
+                    <div>
+                        <label class="form-label">Profile Picture <span class="text-muted font-semibold normal-case">(optional)</span></label>
+                        <input type="file" name="avatar" accept="image/jpeg,image/png,image/webp"
+                               class="form-input py-2.5 text-sm file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-primary/10 file:text-primary file:font-bold file:text-xs">
+                        <p class="text-xs text-muted font-semibold mt-1.5">JPG, PNG or WebP · max 2MB</p>
+                    </div>
+
                     <div>
                         <label class="form-label">Child's Full Name</label>
                         <input type="text" name="name" value="{{ old('name') }}" required placeholder="e.g. Adaeze Okonkwo"

@@ -37,7 +37,7 @@
         </div>
         @endif
 
-        <form method="POST" action="{{ route('parent.children.update', $child) }}" class="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8 space-y-7">
+        <form method="POST" action="{{ route('parent.children.update', $child) }}" enctype="multipart/form-data" class="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8 space-y-7">
             @csrf
             @method('PUT')
 
@@ -51,6 +51,22 @@
                 </div>
 
                 <div class="space-y-5">
+                    <div class="flex items-center gap-5">
+                        <div class="w-20 h-20 rounded-2xl overflow-hidden bg-primary/10 flex items-center justify-center flex-shrink-0 border border-gray-100">
+                            @if($child->avatar)
+                                <img src="{{ Storage::url($child->avatar) }}" alt="{{ $child->name }}" class="w-full h-full object-cover">
+                            @else
+                                <span class="font-black text-2xl text-primary">{{ strtoupper(substr($child->name, 0, 1)) }}</span>
+                            @endif
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <label class="form-label">Profile Picture</label>
+                            <input type="file" name="avatar" accept="image/jpeg,image/png,image/webp"
+                                   class="form-input py-2.5 text-sm file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-primary/10 file:text-primary file:font-bold file:text-xs">
+                            <p class="text-xs text-muted font-semibold mt-1.5">JPG, PNG or WebP · max 2MB</p>
+                        </div>
+                    </div>
+
                     <div>
                         <label class="form-label">Child's Full Name</label>
                         <input type="text" name="name" value="{{ old('name', $child->name) }}" required placeholder="e.g. Adaeze Okonkwo"

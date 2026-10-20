@@ -46,9 +46,13 @@
         <div class="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8 mb-8">
             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                 {{-- Avatar --}}
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl flex items-center justify-center font-black text-4xl sm:text-5xl flex-shrink-0 shadow-sm"
+                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl flex items-center justify-center font-black text-4xl sm:text-5xl flex-shrink-0 shadow-sm overflow-hidden"
                      style="background:{{ $rc['bg'] }};color:{{ $rc['color'] }};border:3px solid {{ $rc['border'] }}">
-                    {{ strtoupper(substr($child->name, 0, 1)) }}
+                    @if($child->avatar)
+                        <img src="{{ Storage::url($child->avatar) }}" alt="{{ $child->name }}" class="w-full h-full object-cover">
+                    @else
+                        {{ strtoupper(substr($child->name, 0, 1)) }}
+                    @endif
                 </div>
 
                 {{-- Info --}}
