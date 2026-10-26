@@ -83,7 +83,7 @@
                 <span style="color:#FF5C4D;text-shadow:0 0 22px rgba(255,92,77,0.55)">Lead</span>.
             </h1>
             <p class="text-white/70 font-semibold text-lg leading-relaxed mb-10 max-w-xl reveal">
-                A safe, parent-controlled, gamified STEM ecosystem for children aged 3–15.
+                A safe, parent-controlled, gamified STEM ecosystem for children aged 3–18.
                 Robotics, coding, creative arts and leadership — all through play.
             </p>
             <div class="flex flex-wrap gap-4 reveal">
@@ -94,13 +94,13 @@
                 <a href="{{ route('clubs') }}" class="btn-outline !border-white/30 !text-white hover:!border-white hover:!text-white">Explore Clubs</a>
             </div>
             <div class="flex flex-wrap gap-3 mt-10 reveal">
-                @foreach(['4 Clubs','Ages 3–15','Parent Dashboard','COPPA Safe','Gamified Learning'] as $t)
+                @foreach(['4 Clubs','Ages 3–18','Parent Dashboard','COPPA Safe','Gamified Learning'] as $t)
                 <span class="text-xs font-bold text-white/60 border border-white/20 px-4 py-2 rounded-full">{{ $t }}</span>
                 @endforeach
             </div>
         </div>
     </div>
-    <a href="https://wa.me/2348084852235" target="_blank"
+    <a href="https://wa.me/2349034735793" target="_blank"
        class="fixed bottom-8 right-6 z-50 flex items-center gap-3 text-white px-5 py-3 rounded-full shadow-2xl"
        style="background:#25D366">
         <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.386 0 12.034c0 2.128.555 4.195 1.61 6.01L.027 24l6.096-1.597A11.967 11.967 0 0 0 12.031 24c6.645 0 12.03-5.385 12.03-12.034C24.062 5.386 18.677 0 12.031 0zm5.503 16.479c-.302-.151-1.787-.883-2.062-.983-.276-.101-.477-.151-.678.15-.201.302-.779.983-.954 1.185-.176.201-.352.226-.653.075-2.228-1.116-3.557-2.315-4.9-4.603-.176-.302-.019-.465.132-.615.136-.136.302-.352.453-.528.151-.176.201-.302.302-.503.1-.201.05-.377-.025-.528-.076-.151-.678-1.633-.929-2.235-.245-.588-.494-.508-.678-.518-.175-.008-.376-.008-.577-.008-.2 0-.528.075-.804.377-1.055 1.029-1.055 2.512 0 3.114 0 3.115 1.08 2.914 1.231 3.115.151.201 2.125 3.24 5.143 4.544.718.31 1.278.495 1.716.634.721.228 1.378.196 1.895.118.577-.086 1.787-.73 2.038-1.436.251-.706.251-1.308.176-1.437-.075-.125-.276-.2-.577-.351z"/></svg>
@@ -135,10 +135,10 @@
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
             @foreach([
-                ['STEM Club',    'linear-gradient(135deg,rgba(5,46,22,0.95),rgba(20,83,45,0.95),rgba(13,170,156,0.9))', '#5BEBDB', 'Ages 7–15', 'Most Popular', 'Python, Robotics, Scratch & Science. Kids build real things.', ['Python','Robotics','Scratch','Science Lab'], 'stem-club', '/images/club-stem.jpg'],
-                ['Brain Club',   'linear-gradient(135deg,rgba(30,27,75,0.95),rgba(29,78,216,0.95),rgba(59,130,246,0.9))', '#93c5fd', 'Ages 5–15', '', 'Math Olympiad, logic puzzles & strategy that sharpens young minds.', ['Math Olympiad','Logic','Chess','IQ Training'], 'brain-club', '/images/club-brain.jpg'],
-                ['Art & Craft',  'linear-gradient(135deg,rgba(67,20,7,0.95),rgba(194,75,28,0.95),rgba(249,115,22,0.9))', '#fdba74', 'Ages 3–12', 'Great for Beginners', 'Digital design, Lego storytelling, animation & creative expression.', ['Canva','Animation','Illustration','Storytelling'], 'art-craft', '/images/club-art.jpg'],
-                ['Leadership',   'linear-gradient(135deg,rgba(46,16,101,0.95),rgba(109,40,217,0.95),rgba(168,85,247,0.9))', '#d8b4fe', 'Ages 8–15', '', 'Debate, entrepreneurship & public speaking for tomorrow\'s leaders.', ['Debate','Public Speaking','Entrepreneurship','Confidence'], 'leadership', '/images/club-leadership.jpg'],
+                ['STEM Club',    'linear-gradient(135deg,rgba(5,46,22,0.95),rgba(20,83,45,0.95),rgba(13,170,156,0.9))', '#5BEBDB', 'Ages 7–18',    'Most Popular', 'Python, Robotics, Scratch & Science. Kids build real things.', ['Python','Robotics','Scratch','Science Lab'], 'stem-club', '/images/club-stem.jpg'],
+                ['Brain Club',   'linear-gradient(135deg,rgba(30,27,75,0.95),rgba(29,78,216,0.95),rgba(59,130,246,0.9))', '#93c5fd', 'Ages 5–18',   '', 'Math Olympiad, logic puzzles, strategy & games that sharpen young minds.', ['Math Olympiad','Logic','Chess','IQ Training','Memory Games','Pattern Match','Number Puzzles'], 'brain-club', '/images/club-brain.jpg'],
+                ['Art & Craft',  'linear-gradient(135deg,rgba(67,20,7,0.95),rgba(194,75,28,0.95),rgba(249,115,22,0.9))', '#fdba74', 'Ages 3–18', 'Great for Beginners', 'Digital design, Lego storytelling, animation & creative expression.', ['Canva','Animation','Illustration','Storytelling'], 'art-craft', '/images/club-art.jpg'],
+                ['Leadership',   'linear-gradient(135deg,rgba(46,16,101,0.95),rgba(109,40,217,0.95),rgba(168,85,247,0.9))', '#d8b4fe', 'Ages 8–18',   '', 'Debate, entrepreneurship & public speaking for tomorrow\'s leaders.', ['Debate','Public Speaking','Entrepreneurship','Confidence'], 'leadership', '/images/club-leadership.jpg'],
             ] as [$name,$grad,$glow,$ages,$badge,$desc,$tags,$slug,$img])
             <div class="relative overflow-hidden group cursor-pointer reveal min-h-[380px] shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)]" 
                  style="border-top-left-radius: 4rem; border-bottom-right-radius: 4rem; border-top-right-radius: 0.5rem; border-bottom-left-radius: 0.5rem;">

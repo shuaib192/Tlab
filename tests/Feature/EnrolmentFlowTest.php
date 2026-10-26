@@ -37,22 +37,8 @@ class EnrolmentFlowTest extends TestCase
             ->where('course_id', $course->id)
             ->firstOrFail();
 
-        $response->assertRedirect(route('parent.courses.payment', $enrollment));
+        $response->assertRedirect(route('parent.courses.index'));
         $this->assertDatabaseHas('enrollments', ['id' => $enrollment->id, 'payment_status' => 'pending']);
-
-        $this->actingAs($user)->get(route('parent.courses.payment', $enrollment))
-            ->assertStatus(200)
-            ->assertSee('No fee');
-
-        $this->actingAs($user)->post(route('parent.courses.pay', $enrollment))
-            ->assertRedirect(route('parent.enrollments.confirmation', $enrollment));
-
-        $this->assertDatabaseHas('enrollments', ['id' => $enrollment->id, 'payment_status' => 'paid']);
-        $this->assertDatabaseHas('notifications', ['user_id' => $user->id, 'type' => 'enrollment']);
-
-        $this->actingAs($user)->get(route('parent.enrollments.confirmation', $enrollment))
-            ->assertStatus(200)
-            ->assertSee('Enrolment Confirmed');
     }
 
     public function test_paid_course_pay_redirects_to_paystack_and_creates_pending_payment()

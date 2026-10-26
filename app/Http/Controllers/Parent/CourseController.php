@@ -80,7 +80,7 @@ class CourseController extends Controller
             ->latest()
             ->first();
 
-        return redirect()->route('parent.courses.payment', $enrollment);
+        return redirect()->route('parent.courses.index');
     }
 
     public function payment(Enrollment $enrollment)

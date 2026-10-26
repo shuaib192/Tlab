@@ -79,7 +79,7 @@
                             </div>
                             <div>
                                 <div class="text-muted text-[0.62rem] font-black uppercase tracking-wider">WhatsApp</div>
-                                <a href="https://wa.me/2348084852235" target="_blank" class="font-semibold text-xs text-primary hover:underline mt-0.5 leading-relaxed block">Chat with Admissions</a>
+                                <a href="https://wa.me/2349034735793" target="_blank" class="font-semibold text-xs text-primary hover:underline mt-0.5 leading-relaxed block">Chat with Admissions</a>
                             </div>
                         </div>
 

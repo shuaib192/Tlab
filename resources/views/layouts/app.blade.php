@@ -8,7 +8,7 @@
     @include('partials.analytics')
     <title>@yield('title', 'TLab') — Africa's Gamified STEM Platform for Kids</title>
     <meta name="description"
-        content="@yield('description', 'TLab by Edfrica — a safe, gamified STEM learning ecosystem for African children aged 3–15.')">
+        content="@yield('description', 'TLab by Edfrica — a safe, gamified STEM learning ecosystem for African children aged 3–18.')">
     <link rel="icon" href="/images/tlab-favicon.png">
 
     <!-- Fonts (self-hosted — eliminates Google CDN latency) -->
