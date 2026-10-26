@@ -27,13 +27,15 @@ class ClubSeeder extends Seeder
             [
                 'name' => 'Brain Club',
                 'slug' => 'brain-club',
-                'description' => 'Logic, Math Olympiad, Puzzles and Lateral Thinking for ages 5–15.',
+                'description' => 'Logic, Math Olympiad, Puzzles, Games and Lateral Thinking for ages 5–18.',
                 'color_theme' => '#D4A224',
                 'icon' => 'lightbulb',
                 'courses' => [
                     ['title' => 'Math Foundations',       'level' => 'beginner'],
                     ['title' => 'Math Olympiad Prep',     'level' => 'advanced'],
                     ['title' => 'Logic and Puzzles',      'level' => 'beginner'],
+                    ['title' => 'Brain Games and Quizzes', 'level' => 'beginner'],
+                    ['title' => 'Memory and Pattern Games', 'level' => 'beginner'],
                     ['title' => 'Lateral Thinking Mastery', 'level' => 'intermediate'],
                 ],
             ],

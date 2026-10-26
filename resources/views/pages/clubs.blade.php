@@ -20,7 +20,7 @@
             Discover Our <span class="text-primary">STEM Clubs</span>
         </h1>
         <p class="text-white/70 font-semibold text-lg max-w-2xl reveal leading-relaxed">
-            Four world-class learning tracks — tailored by age, interest and skill level — for children aged 3 to 15.
+            Four world-class learning tracks — tailored by age, interest and skill level — for children aged 3 to 18.
         </p>
     </div>
 </section>
